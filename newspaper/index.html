@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Enchanted Gazette — Fairycore & Cottagecore News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English:ital@0;1&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Dancing+Script:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══ CUSTOM CURSOR ══ -->
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+<div id="sparkle-container" aria-hidden="true"></div>
+
+<!-- ══ LOADING SCREEN ══ -->
+<div id="loading-screen" aria-hidden="true">
+  <div class="loading-forest">
+    <div class="loading-tree lt1">🌲</div>
+    <div class="loading-tree lt2">🌳</div>
+    <div class="loading-tree lt3">🌲</div>
+    <div class="loading-tree lt4">🌳</div>
+    <div class="loading-tree lt5">🌲</div>
+  </div>
+  <div class="loading-center">
+    <div class="loading-mushroom">🍄</div>
+    <div class="loading-fairies">
+      <span class="lf1">🧚‍♀️</span>
+      <span class="lf2">✨</span>
+      <span class="lf3">🧚</span>
+      <span class="lf4">✨</span>
+      <span class="lf5">🧚‍♀️</span>
+    </div>
+    <div class="loading-title">The Enchanted Gazette</div>
+    <div class="loading-sub">Gathering the morning magic…</div>
+    <div class="loading-bar-wrap"><div class="loading-bar-fill" id="loading-bar-fill"></div></div>
+  </div>
+  <div class="loading-ground"></div>
+</div>
+
+<!-- ══ AMBIENT PARTICLES ══ -->
+<div id="particles-container" aria-hidden="true"></div>
+<div id="fireflies-container" aria-hidden="true"></div>
+
+<!-- ══ FLOATING CONTROLS ══ -->
+<div class="floating-controls" id="floating-controls">
+  <button class="float-btn" id="sound-btn" title="Toggle ambient forest sounds" aria-label="Toggle sound">
+    <span class="float-icon">🎵</span>
+    <span class="float-label">Sound</span>
+  </button>
+  <button class="float-btn" id="theme-btn" title="Toggle night / day mode" aria-label="Toggle night mode">
+    <span class="float-icon">🌙</span>
+    <span class="float-label">Night</span>
+  </button>
+  <button class="float-btn" id="top-btn" title="Back to top" aria-label="Back to top">
+    <span class="float-icon">↑</span>
+    <span class="float-label">Top</span>
+  </button>
+</div>
+
+<!-- ══ HEADER ══ -->
+<header class="newspaper-header">
+  <div class="header-top-bar">
+    <span class="header-date" id="current-date"></span>
+    <span class="header-tagline">~ Where Magic Meets the Morning News ~</span>
+    <span class="header-edition">Vol. XLVII · No. 12</span>
+  </div>
+
+  <div class="masthead">
+    <!-- Left botanical arch -->
+    <div class="masthead-arch left" aria-hidden="true">
+      <svg viewBox="0 0 140 260" xmlns="http://www.w3.org/2000/svg">
+        <!-- Stems -->
+        <path d="M70,260 Q50,200 30,150 Q10,100 20,60" stroke="#5a7a5a" stroke-width="2.5" fill="none" opacity="0.8"/>
+        <path d="M70,260 Q80,210 90,170 Q100,130 85,80" stroke="#6b8f6b" stroke-width="2" fill="none" opacity="0.6"/>
+        <path d="M70,260 Q40,230 20,200 Q5,175 10,150" stroke="#7a9e7a" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <!-- Leaves -->
+        <ellipse cx="28" cy="145" rx="18" ry="9" fill="#7a9e7a" opacity="0.75" transform="rotate(-40,28,145)"/>
+        <ellipse cx="18" cy="100" rx="16" ry="8" fill="#8fbc8f" opacity="0.7" transform="rotate(-55,18,100)"/>
+        <ellipse cx="88" cy="165" rx="15" ry="7" fill="#6b9b6b" opacity="0.65" transform="rotate(20,88,165)"/>
+        <ellipse cx="83" cy="110" rx="14" ry="7" fill="#7a9e7a" opacity="0.6" transform="rotate(30,83,110)"/>
+        <ellipse cx="12" cy="155" rx="12" ry="6" fill="#8fbc8f" opacity="0.5" transform="rotate(-30,12,155)"/>
+        <!-- Flowers -->
+        <circle cx="22" cy="62" r="9" fill="#dda0dd" opacity="0.85"/>
+        <circle cx="22" cy="62" r="4" fill="#c8a2c8" opacity="0.9"/>
+        <circle cx="87" cy="78" r="7" fill="#e8b4e8" opacity="0.8"/>
+        <circle cx="87" cy="78" r="3" fill="#dda0dd" opacity="0.9"/>
+        <circle cx="10" cy="148" r="6" fill="#c8738a" opacity="0.75"/>
+        <circle cx="10" cy="148" r="2.5" fill="#b05070" opacity="0.8"/>
+        <circle cx="95" cy="125" r="5" fill="#dda0dd" opacity="0.7"/>
+        <!-- Berries -->
+        <circle cx="40" cy="178" r="4" fill="#c87050" opacity="0.8"/>
+        <circle cx="50" cy="182" r="3.5" fill="#d4805a" opacity="0.75"/>
+        <circle cx="32" cy="185" r="3" fill="#c87050" opacity="0.7"/>
+        <!-- Mushroom bottom -->
+        <ellipse cx="60" cy="248" rx="28" ry="10" fill="#d2691e" opacity="0.6"/>
+        <rect x="54" y="233" width="12" height="18" fill="#f5deb3" rx="3" opacity="0.9"/>
+        <ellipse cx="60" cy="233" rx="26" ry="12" fill="#cd5c5c" opacity="0.85"/>
+        <circle cx="50" cy="229" r="3" fill="white" opacity="0.8"/>
+        <circle cx="63" cy="226" r="3.5" fill="white" opacity="0.8"/>
+        <circle cx="73" cy="231" r="2.5" fill="white" opacity="0.8"/>
+        <!-- Stars/sparkles -->
+        <text x="105" y="50" font-size="14" opacity="0.6" fill="#c8a830">✦</text>
+        <text x="5" y="75" font-size="10" opacity="0.5" fill="#dda0dd">✦</text>
+        <text x="100" y="200" font-size="12" opacity="0.4" fill="#c8a830">✦</text>
+      </svg>
+    </div>
+
+    <div class="masthead-center">
+      <div class="masthead-rule top-rule"></div>
+      <div class="masthead-ornament">✦ &nbsp; Est. in the Enchanted Wood, 1847 &nbsp; ✦</div>
+      <h1 class="newspaper-title">
+        <span class="title-the">The</span>
+        <span class="title-main" id="masthead-title">Enchanted Gazette</span>
+      </h1>
+      <div class="masthead-rule bottom-rule"></div>
+      <div class="masthead-subhead">Cottagecore Chronicles &nbsp;·&nbsp; Fairy Tales &nbsp;·&nbsp; Garden Wisdom &nbsp;·&nbsp; Woodland Wonders</div>
+    </div>
+
+    <!-- Right botanical arch (mirrored) -->
+    <div class="masthead-arch right" aria-hidden="true">
+      <svg viewBox="0 0 140 260" xmlns="http://www.w3.org/2000/svg" style="transform:scaleX(-1)">
+        <path d="M70,260 Q50,200 30,150 Q10,100 20,60" stroke="#5a7a5a" stroke-width="2.5" fill="none" opacity="0.8"/>
+        <path d="M70,260 Q80,210 90,170 Q100,130 85,80" stroke="#6b8f6b" stroke-width="2" fill="none" opacity="0.6"/>
+        <path d="M70,260 Q40,230 20,200 Q5,175 10,150" stroke="#7a9e7a" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <ellipse cx="28" cy="145" rx="18" ry="9" fill="#7a9e7a" opacity="0.75" transform="rotate(-40,28,145)"/>
+        <ellipse cx="18" cy="100" rx="16" ry="8" fill="#8fbc8f" opacity="0.7" transform="rotate(-55,18,100)"/>
+        <ellipse cx="88" cy="165" rx="15" ry="7" fill="#6b9b6b" opacity="0.65" transform="rotate(20,88,165)"/>
+        <ellipse cx="83" cy="110" rx="14" ry="7" fill="#7a9e7a" opacity="0.6" transform="rotate(30,83,110)"/>
+        <ellipse cx="12" cy="155" rx="12" ry="6" fill="#8fbc8f" opacity="0.5" transform="rotate(-30,12,155)"/>
+        <circle cx="22" cy="62" r="9" fill="#dda0dd" opacity="0.85"/>
+        <circle cx="22" cy="62" r="4" fill="#c8a2c8" opacity="0.9"/>
+        <circle cx="87" cy="78" r="7" fill="#e8b4e8" opacity="0.8"/>
+        <circle cx="87" cy="78" r="3" fill="#dda0dd" opacity="0.9"/>
+        <circle cx="10" cy="148" r="6" fill="#c8738a" opacity="0.75"/>
+        <circle cx="10" cy="148" r="2.5" fill="#b05070" opacity="0.8"/>
+        <circle cx="95" cy="125" r="5" fill="#dda0dd" opacity="0.7"/>
+        <circle cx="40" cy="178" r="4" fill="#c87050" opacity="0.8"/>
+        <circle cx="50" cy="182" r="3.5" fill="#d4805a" opacity="0.75"/>
+        <circle cx="32" cy="185" r="3" fill="#c87050" opacity="0.7"/>
+        <ellipse cx="60" cy="248" rx="28" ry="10" fill="#d2691e" opacity="0.6"/>
+        <rect x="54" y="233" width="12" height="18" fill="#f5deb3" rx="3" opacity="0.9"/>
+        <ellipse cx="60" cy="233" rx="26" ry="12" fill="#cd5c5c" opacity="0.85"/>
+        <circle cx="50" cy="229" r="3" fill="white" opacity="0.8"/>
+        <circle cx="63" cy="226" r="3.5" fill="white" opacity="0.8"/>
+        <circle cx="73" cy="231" r="2.5" fill="white" opacity="0.8"/>
+        <text x="105" y="50" font-size="14" opacity="0.6" fill="#c8a830">✦</text>
+        <text x="5" y="75" font-size="10" opacity="0.5" fill="#dda0dd">✦</text>
+        <text x="100" y="200" font-size="12" opacity="0.4" fill="#c8a830">✦</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="newspaper-nav" id="main-nav">
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="nav-list">
+      <li><a href="#front-page"  class="nav-link active" data-section="front-page">Front Page</a></li>
+      <li><a href="#garden-news" class="nav-link" data-section="garden-news">Garden News</a></li>
+      <li><a href="#fairy-tales" class="nav-link" data-section="fairy-tales">Fairy Tales</a></li>
+      <li><a href="#recipes"     class="nav-link" data-section="recipes">Recipes</a></li>
+      <li><a href="#games"       class="nav-link" data-section="games">Games</a></li>
+      <li><a href="#horoscope"   class="nav-link" data-section="horoscope">Horoscope</a></li>
+      <li><a href="#crafts"      class="nav-link" data-section="crafts">Crafts</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- News Ticker -->
+<div class="news-ticker-wrapper">
+  <div class="ticker-label">✦ ENCHANTED ALERTS ✦</div>
+  <div class="ticker-track">
+    <div class="ticker-content">
+      <span>🍄 Grand Mushroom Circle convenes in Fern Hollow — all woodland creatures welcome ·</span>
+      <span>🌸 Cherry blossom bloom reaches peak; fairy wings spotted among petals ·</span>
+      <span>🦋 Migration of Azure Dreamwing butterflies passes through Whispering Meadow ·</span>
+      <span>🌙 Full Strawberry Moon rises tonight — ideal for gathering dewdrops ·</span>
+      <span>🐛 Silkworm Countess announces new line of gossamer thread at Twilight Market ·</span>
+      <span>🌿 Ancient Herb Society releases updated almanac with moonphase planting guide ·</span>
+      <span>🦊 Fox Council elects Vixen Rosehip as new Meadow Steward ·</span>
+      <span>🌺 Rare Moonflower blooms for first time in 17 years at Crystal Pond ·</span>
+      <span>🍵 Lavender harvest festival returns to Bramblewood Village this weekend ·</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<main class="newspaper-main">
+
+  <!-- ══ FRONT PAGE ══ -->
+  <section id="front-page" class="paper-section active-section">
+    <div class="section-columns three-col">
+
+      <article class="col col-wide lead-story reveal-left">
+        <div class="article-category-tag">Enchanted World</div>
+        <h2 class="article-headline large">The Great Fairy Migration Has Begun: Thousands of Luminous Wings Fill the Twilight Sky</h2>
+        <div class="article-byline">By <em>Rosalind Mossweave</em>, Senior Correspondent · <span>May 12, 2026</span></div>
+        <div class="article-lead-image">
+          <div class="illustrated-scene scene-migration">
+            <div class="scene-bg"></div>
+            <div class="scene-stars"></div>
+            <div class="aurora"></div>
+            <div class="flying-fairy f1">🧚</div>
+            <div class="flying-fairy f2">🧚‍♀️</div>
+            <div class="flying-fairy f3">🧚</div>
+            <div class="flying-fairy f4">🧚‍♂️</div>
+            <div class="flying-fairy f5">🧚‍♀️</div>
+            <div class="scene-ground">🌲🌳🌲🌿🌳🌲</div>
+            <div class="scene-caption">Illustration: Twilight fairy migration over Moonveil Forest</div>
+          </div>
+        </div>
+        <div class="article-body">
+          <p class="drop-cap">As the evening primroses began their nightly unfurling and the last rays of the amber sun dipped below the Heatherwick Hills, a sight of breathtaking wonder unfolded across the skies of the Enchanted Realm. The Great Fairy Migration — that most celebrated of annual spectacles — has officially commenced, with observers counting no fewer than twelve thousand luminous wings dancing against the deepening violet dusk.</p>
+          <p>"It is perhaps the most extraordinary display in living memory," said Elder Thornwick Dew, keeper of the Sacred Migration Records since the moonlit spring of 1973. "The colours this year — a cascade of silver-rose and soft gold — speak of fair weather and abundant bloom ahead."</p>
+          <div class="article-pull-quote">
+            <blockquote>"When the wings number in the thousands and the sky shimmers like crushed moonstone, it means the land is well and the magic is strong."</blockquote>
+            <cite>— Elder Thornwick Dew, Migration Keeper</cite>
+          </div>
+          <p>Locals are advised to leave offerings of fresh honeydew and pressed violet petals along the traditional migration pathways, and to extinguish unnecessary lights after twilight so the fairies may navigate safely by starlight alone.</p>
+        </div>
+      </article>
+
+      <div class="col col-medium reveal-up">
+        <article class="sidebar-article glass-card">
+          <div class="article-category-tag green">Garden & Grove</div>
+          <h3 class="article-headline medium">The Forgotten Art of Moon Gardening Returns to Cottages Across the Realm</h3>
+          <div class="illustrated-scene scene-garden small-scene">
+            <div class="moon-glow"></div>
+            <div class="garden-plants">🌱🌿🌱🌾🌿</div>
+            <div class="garden-moon">🌙</div>
+          </div>
+          <p>Ancient lunar planting calendars, once dismissed as quaint superstition, are experiencing a remarkable renaissance. The practice aligns seed-sowing and harvest with the moon's phases, credited with improving yields and deepening the flavors of heritage herbs.</p>
+          <div class="mini-rule">✦ ✦ ✦</div>
+        </article>
+        <article class="sidebar-article glass-card">
+          <div class="article-category-tag purple">Woodland Society</div>
+          <h3 class="article-headline medium">Mushroom Cooperative Announces Record Chanterelle Harvest</h3>
+          <p>The Hollow Log Mushroom Cooperative has announced what is being called "a golden season" for chanterelles, with the harvest exceeding previous records by nearly forty percent.</p>
+          <div class="mini-rule">✦ ✦ ✦</div>
+        </article>
+        <article class="sidebar-article glass-card">
+          <div class="article-category-tag rose">Fairy Folk</div>
+          <h3 class="article-headline medium">Hedgehog Inn Expands with New Moss-Thatched Cottages</h3>
+          <p>The beloved Hedgehog Inn at Bramblepatch Corner has unveiled plans for six new guest cottages, each hand-crafted from reclaimed woodland timber and thatched with the finest water-resistant moss.</p>
+        </article>
+      </div>
+
+      <div class="col col-narrow reveal-right">
+        <div class="weather-widget glass-card">
+          <div class="weather-header">✦ Enchanted Realm Weather</div>
+          <div class="weather-main">
+            <div class="weather-icon" id="weather-icon">🌸</div>
+            <div class="weather-info">
+              <div class="weather-temp" id="weather-temp">72°F</div>
+              <div class="weather-desc" id="weather-desc">Magical &amp; Mild</div>
+            </div>
+          </div>
+          <div class="weather-details">
+            <div class="weather-detail"><span>Fairy Dust</span><span>High ✨</span></div>
+            <div class="weather-detail"><span>Dew Point</span><span>Lovely</span></div>
+            <div class="weather-detail"><span>Moon Phase</span><span id="moon-phase">🌕 Full</span></div>
+            <div class="weather-detail"><span>Petal Fall</span><span>Light 🌸</span></div>
+          </div>
+          <div class="weather-forecast">
+            <div class="forecast-day"><span>Thu</span><span>🌦️</span><span>68°</span></div>
+            <div class="forecast-day"><span>Fri</span><span>☀️</span><span>74°</span></div>
+            <div class="forecast-day"><span>Sat</span><span>🌤️</span><span>71°</span></div>
+            <div class="forecast-day"><span>Sun</span><span>🌸</span><span>75°</span></div>
+          </div>
+        </div>
+
+        <div class="wisdom-box glass-card">
+          <div class="wisdom-label">~ Today's Fairy Wisdom ~</div>
+          <div class="wisdom-text" id="daily-wisdom">"Even the smallest acorn holds the soul of a great oak."</div>
+          <div class="wisdom-attribution">— The Elderberry Oracle</div>
+        </div>
+
+        <div class="market-box glass-card">
+          <div class="market-header">Twilight Market Rates</div>
+          <table class="market-table">
+            <tr><td>Fairy Dust (oz)</td><td class="price-up">↑ 12 🌟</td></tr>
+            <tr><td>Moonwater (vial)</td><td class="price-stable">= 8 🌟</td></tr>
+            <tr><td>Elderflower (bunch)</td><td class="price-up">↑ 5 🌟</td></tr>
+            <tr><td>Acorn Caps (dozen)</td><td class="price-down">↓ 3 🌟</td></tr>
+            <tr><td>Gossamer Thread</td><td class="price-up">↑ 22 🌟</td></tr>
+            <tr><td>Rose Hip Jam (jar)</td><td class="price-stable">= 15 🌟</td></tr>
+          </table>
+        </div>
+
+        <div class="notices-box glass-card">
+          <div class="notices-header">Village Notices</div>
+          <div class="notice-item">🍄 Mushroom Circle — Full Moon at the Ancient Oak</div>
+          <div class="notice-item">🌿 Herb Walk with Elder Miriam — Sunday at dawn</div>
+          <div class="notice-item">🎭 Midsummer Theatre Tryouts — Mossy Stage, Fri</div>
+          <div class="notice-item">📖 Library adds new fairy tale manuscripts</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"><span>⸻ ✦ ✦ ✦ ⸻</span></div>
+
+    <div class="section-columns four-col">
+      <article class="col brief-article glass-card reveal-up">
+        <div class="article-category-tag">Creature Comforts</div>
+        <h4>Hedgehogs Form Knitting Circle at Briar Cottage</h4>
+        <p>A surprisingly coordinated group of hedgehogs have been observed gathering nightly beneath the window of retired weaver Poppy Fieldstone, learning to knit tiny acorn-cap mittens.</p>
+      </article>
+      <article class="col brief-article glass-card reveal-up" style="animation-delay:.1s">
+        <div class="article-category-tag green">Botany</div>
+        <h4>Rare Moonbloom Spotted at Crystal Pond</h4>
+        <p>The elusive Selenicereus moonbloom — which flowers only during a full moon — has been documented blooming for the third consecutive month at Crystal Pond.</p>
+      </article>
+      <article class="col brief-article glass-card reveal-up" style="animation-delay:.2s">
+        <div class="article-category-tag purple">Arts</div>
+        <h4>Moss Calligrapher Wins Realm-Wide Honours</h4>
+        <p>Wren Duskhollow of Fernbridge has been awarded the Golden Quill for her extraordinary moss calligraphy work, cultivating living letters on stone over months of patient tending.</p>
+      </article>
+      <article class="col brief-article glass-card reveal-up" style="animation-delay:.3s">
+        <div class="article-category-tag rose">Cuisine</div>
+        <h4>Violet Sugar is This Season's Must-Have Ingredient</h4>
+        <p>Crystallised violet petals steeped in elderflower honey have become the obsession of cottagecore bakers. The purple sweetener pairs beautifully with lavender cream.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══ GARDEN ══ -->
+  <section id="garden-news" class="paper-section">
+    <div class="section-header reveal-up">
+      <h2 class="section-title">Garden &amp; Grove</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="section-columns three-col">
+      <article class="col col-wide reveal-left">
+        <h3 class="article-headline medium">Planting by the Moon: A Complete Guide for the Enchanted Garden</h3>
+        <div class="moon-calendar glass-card">
+          <div class="moon-cal-header">Lunar Planting Calendar — May 2026</div>
+          <div class="moon-phases-grid" id="moon-calendar-grid"></div>
+        </div>
+        <p class="drop-cap">The practice of planting by the moon is as old as the stars themselves. Our ancestors understood that the gravitational pull of the moon affects moisture in soil, just as it moves the great ocean tides. During the waxing moon, sap rises; during the waning moon, it retreats to the roots.</p>
+        <p>Plant above-ground crops during the waxing moon, root vegetables during the waning moon. Harvest during the full moon when plants are fullest of their vital essences. Leave the dark moon for rest, planning, and soil preparation.</p>
+        <div class="plant-guide glass-card">
+          <div class="plant-phase"><div class="phase-icon">🌑</div><div class="phase-name">New Moon</div><div class="phase-desc">Rest &amp; prepare soil. Plant leafy greens.</div></div>
+          <div class="plant-phase"><div class="phase-icon">🌓</div><div class="phase-name">First Quarter</div><div class="phase-desc">Plant fruiting crops: tomatoes, squash, beans.</div></div>
+          <div class="plant-phase"><div class="phase-icon">🌕</div><div class="phase-name">Full Moon</div><div class="phase-desc">Harvest &amp; plant root vegetables.</div></div>
+          <div class="plant-phase"><div class="phase-icon">🌗</div><div class="phase-name">Last Quarter</div><div class="phase-desc">Prune, weed &amp; tend compost.</div></div>
+        </div>
+      </article>
+      <div class="col col-medium reveal-up">
+        <article>
+          <h3 class="article-headline medium">Herbs of Healing: The Cottage Apothecary Garden</h3>
+          <div class="herb-grid">
+            <div class="herb-card glass-card"><div class="herb-icon">🌿</div><div class="herb-name">Lavender</div><div class="herb-uses">Calming · Sleep · Headaches</div><div class="herb-note">Full sun. Harvest just before bloom.</div></div>
+            <div class="herb-card glass-card"><div class="herb-icon">🌱</div><div class="herb-name">Chamomile</div><div class="herb-uses">Digestion · Anxiety · Skin</div><div class="herb-note">Self-seeding. The apple of the meadow.</div></div>
+            <div class="herb-card glass-card"><div class="herb-icon">🌼</div><div class="herb-name">St. John's Wort</div><div class="herb-uses">Mood · Nerve pain · Wounds</div><div class="herb-note">Harvest on Midsummer's Day.</div></div>
+            <div class="herb-card glass-card"><div class="herb-icon">🍃</div><div class="herb-name">Lemon Balm</div><div class="herb-uses">Stress · Digestion · Memory</div><div class="herb-note">Grows vigorously. Bees adore it.</div></div>
+            <div class="herb-card glass-card"><div class="herb-icon">🌸</div><div class="herb-name">Elderflower</div><div class="herb-uses">Colds · Skin · Cordials</div><div class="herb-note">The elder tree: queen of herbs.</div></div>
+            <div class="herb-card glass-card"><div class="herb-icon">🌾</div><div class="herb-name">Yarrow</div><div class="herb-uses">Wounds · Fever · Circulation</div><div class="herb-note">Achillea — named for the hero.</div></div>
+          </div>
+        </article>
+      </div>
+      <div class="col col-narrow reveal-right">
+        <div class="garden-tip-box glass-card"><div class="tip-header">~ Gardener's Tip ~</div><div class="tip-content">Bury crushed eggshells beneath your rose bushes to slowly release calcium and ward off slugs. The fairies appreciate the calcium too — it strengthens the wings of young sprites learning to fly.</div></div>
+        <div class="seed-saver-box glass-card"><div class="seed-header">Seeds to Save This Month</div><ul class="seed-list"><li>🌺 Hollyhock — when pods turn brown</li><li>🌿 Basil — after flowering</li><li>🌸 Sweet pea — dry on the vine</li><li>🌼 Calendula — fully dried heads</li><li>🍅 Tomato — ferment &amp; dry seeds</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FAIRY TALES ══ -->
+  <section id="fairy-tales" class="paper-section">
+    <div class="section-header reveal-up">
+      <h2 class="section-title">Fairy Tales &amp; Folklore</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="story-generator reveal-up">
+      <div class="story-gen-header">
+        <div class="story-gen-title">✨ The Enchanted Story Loom ✨</div>
+        <div class="story-gen-subtitle">Weave your own fairy tale — choose your elements below</div>
+      </div>
+      <div class="story-controls">
+        <div class="story-control-group"><label>Your Hero</label>
+          <select id="story-hero" class="story-select">
+            <option value="a young cottage witch">A Young Cottage Witch</option>
+            <option value="a wandering mushroom farmer">A Wandering Mushroom Farmer</option>
+            <option value="a silver-winged fairy">A Silver-Winged Fairy</option>
+            <option value="an old wise hedgehog">An Old Wise Hedgehog</option>
+            <option value="a river sprite">A River Sprite</option>
+            <option value="a fox with star-filled eyes">A Fox with Star-Filled Eyes</option>
+          </select></div>
+        <div class="story-control-group"><label>The Quest</label>
+          <select id="story-quest" class="story-select">
+            <option value="find the lost moonstone">Find the Lost Moonstone</option>
+            <option value="break an ancient forest curse">Break an Ancient Forest Curse</option>
+            <option value="bake a magical birthday cake">Bake a Magical Birthday Cake</option>
+            <option value="restore a dying fairy ring">Restore a Dying Fairy Ring</option>
+            <option value="befriend the lonely storm spirit">Befriend the Lonely Storm Spirit</option>
+          </select></div>
+        <div class="story-control-group"><label>The Setting</label>
+          <select id="story-setting" class="story-select">
+            <option value="a misty mountain village">A Misty Mountain Village</option>
+            <option value="the depths of an enchanted forest">An Enchanted Forest</option>
+            <option value="a floating island of clouds">A Floating Island of Clouds</option>
+            <option value="a cottage by the silver sea">A Cottage by the Silver Sea</option>
+            <option value="the underground mushroom kingdom">The Mushroom Kingdom</option>
+          </select></div>
+        <div class="story-control-group"><label>A Magical Item</label>
+          <select id="story-item" class="story-select">
+            <option value="a talking teapot">A Talking Teapot</option>
+            <option value="a cloak woven from moonbeams">A Cloak of Moonbeams</option>
+            <option value="seeds that grow into staircases">Seeds that Grow Staircases</option>
+            <option value="a mirror that shows true hearts">A Mirror of True Hearts</option>
+            <option value="a lantern holding trapped starlight">A Lantern of Starlight</option>
+          </select></div>
+        <button class="story-gen-btn" onclick="generateStory()">
+          <span class="btn-sparkle">✨</span> Spin the Tale <span class="btn-sparkle">✨</span>
+        </button>
+      </div>
+      <div class="story-output" id="story-output">
+        <div class="story-placeholder"><div class="story-placeholder-icon">📖</div><div>Choose your elements above and spin a tale to begin your adventure…</div></div>
+      </div>
+    </div>
+    <div class="section-columns two-col mt-4">
+      <article class="col glass-card reveal-left" style="padding:20px">
+        <h3 class="article-headline medium">The Mushroom Oracle of Pinewick Glen</h3>
+        <p class="drop-cap">Deep in Pinewick Glen, where the pines stand so tall they seem to hold up the sky itself, there grows a ring of ancient mushrooms. Not just any mushrooms — these are the Speaking Mushrooms, the ones the old folk called the Mycelium Council, each one a pale luminous ivory with caps so wide a dormouse might use one as a parasol.</p>
+        <p>They say that once in a generation, a child pure of heart may enter the ring at midnight under a waning crescent moon, and the mushrooms will speak. They will answer three questions — no more, no less — and the answers, while always true, are never what you expect.</p>
+        <p>Young Clover Ashwick was eleven years old when she learned of the mushrooms from her grandmother. The family had never worked up the courage to try. But Clover was different — she had her grandmother's green thumb and her grandfather's stubborn heart…</p>
+        <div class="story-continues">⸻ Continued on Page 7 ⸻</div>
+      </article>
+      <article class="col glass-card reveal-right" style="padding:20px">
+        <h3 class="article-headline medium">Folklore: The Twelve Signs of a Fairy-Visited Cottage</h3>
+        <div class="folklore-list">
+          <div class="folklore-item"><span class="folklore-num">I.</span><span>Milk left out overnight is still sweet in the morning.</span></div>
+          <div class="folklore-item"><span class="folklore-num">II.</span><span>Your lost thimble appears on the windowsill, polished.</span></div>
+          <div class="folklore-item"><span class="folklore-num">III.</span><span>Knots in your yarn untie themselves between dusk and dawn.</span></div>
+          <div class="folklore-item"><span class="folklore-num">IV.</span><span>The bees are unusually gentle and productive.</span></div>
+          <div class="folklore-item"><span class="folklore-num">V.</span><span>Mushrooms form perfect rings in your garden.</span></div>
+          <div class="folklore-item"><span class="folklore-num">VI.</span><span>Children and cats stare at empty corners of rooms.</span></div>
+          <div class="folklore-item"><span class="folklore-num">VII.</span><span>Flowers bloomed in a vase that held no water.</span></div>
+          <div class="folklore-item"><span class="folklore-num">VIII.</span><span>Tiny muddy footprints appear on the kitchen windowsill.</span></div>
+          <div class="folklore-item"><span class="folklore-num">IX.</span><span>Your bread always rises perfectly and tastes of something you can't name.</span></div>
+          <div class="folklore-item"><span class="folklore-num">X.</span><span>Dreams come true in small, sweet ways.</span></div>
+          <div class="folklore-item"><span class="folklore-num">XI.</span><span>The sound of distant bells at three in the morning.</span></div>
+          <div class="folklore-item"><span class="folklore-num">XII.</span><span>You feel an inexplicable joy upon returning home.</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ══ RECIPES ══ -->
+  <section id="recipes" class="paper-section">
+    <div class="section-header reveal-up"><h2 class="section-title">The Cottage Kitchen</h2><div class="section-rule"></div></div>
+    <div class="recipes-intro">Today's featured recipes from the enchanted hearth — gathered by our roving food writer, <em>Marigold Thistledown</em></div>
+    <div class="recipe-cards-grid">
+      <div class="recipe-card glass-card reveal-up">
+        <div class="recipe-card-header"><div class="recipe-icon">🫖</div><div class="recipe-category">Beverages</div></div>
+        <h3 class="recipe-title">Moonflower Elderflower Cordial</h3>
+        <div class="recipe-meta"><span>⏱ 45 min</span><span>🍽 Makes 2L</span><span>✦ Easy</span></div>
+        <div class="recipe-ingredients"><strong>Ingredients</strong><ul><li>25 elderflower heads, freshly gathered at dawn</li><li>1.5 kg unrefined cane sugar</li><li>1.5L spring water</li><li>2 unwaxed lemons, sliced</li><li>1 tsp citric acid · a handful of fresh mint</li></ul></div>
+        <div class="recipe-method"><strong>Method</strong><p>Bring water and sugar to a gentle simmer until dissolved. Add elderflower heads, lemon, mint, and citric acid. Cover and steep overnight in a cool, moonlit space. Strain through muslin into sterilised bottles. Dilute 1:5 with sparkling water.</p></div>
+        <div class="recipe-note">✦ <em>Most potent when stirred sunrise-clockwise and bottled under a waxing moon.</em></div>
+      </div>
+      <div class="recipe-card glass-card featured-recipe reveal-up" style="animation-delay:.1s">
+        <div class="recipe-card-header"><div class="recipe-icon">🍰</div><div class="recipe-category">Baking</div><div class="recipe-featured-badge">Featured</div></div>
+        <h3 class="recipe-title">Lavender Honey &amp; Rose Petal Cake</h3>
+        <div class="recipe-meta"><span>⏱ 1hr 20min</span><span>🍽 Serves 8</span><span>✦✦ Intermediate</span></div>
+        <div class="recipe-ingredients"><strong>Ingredients</strong><ul><li>225g salted butter, room temperature</li><li>200g golden caster sugar · 3 tbsp lavender honey</li><li>4 free-range eggs · 225g self-raising flour</li><li>2 tsp dried culinary lavender · zest of 1 lemon</li><li><em>Frosting:</em> cream cheese, icing sugar, rose water, crystallised rose petals</li></ul></div>
+        <div class="recipe-method"><strong>Method</strong><p>Beat butter, sugar and honey until pale and fluffy. Add eggs one at a time. Fold in sifted flour, lavender and lemon zest. Bake at 180°C for 25 minutes. Beat cream cheese with icing sugar and rose water until silky. Sandwich layers and decorate with crystallised petals.</p></div>
+        <div class="recipe-note">✦ <em>Best enjoyed in the garden with chamomile tea while the afternoon light turns to gold.</em></div>
+      </div>
+      <div class="recipe-card glass-card reveal-up" style="animation-delay:.2s">
+        <div class="recipe-card-header"><div class="recipe-icon">🍲</div><div class="recipe-category">Hearty Supper</div></div>
+        <h3 class="recipe-title">Wild Mushroom &amp; Thyme Cottage Pie</h3>
+        <div class="recipe-meta"><span>⏱ 1hr 30min</span><span>🍽 Serves 4</span><span>✦✦ Intermediate</span></div>
+        <div class="recipe-ingredients"><strong>Ingredients</strong><ul><li>500g mixed wild mushrooms (chanterelle, porcini, oyster)</li><li>2 shallots · 4 garlic cloves · 200ml dark ale</li><li>1 tbsp thyme leaves · 2 tbsp soy sauce</li><li>800g floury potatoes for mash · truffle oil</li></ul></div>
+        <div class="recipe-method"><strong>Method</strong><p>Sauté shallots, add garlic and mushrooms until golden. Pour in ale and soy sauce; simmer to a thick gravy. Season with thyme. Crown with creamy mash and bake at 200°C until golden and bubbling at the edges.</p></div>
+        <div class="recipe-note">✦ <em>The mushrooms whisper of the forest floor. Listen while you cook.</em></div>
+      </div>
+      <div class="recipe-card glass-card reveal-up" style="animation-delay:.3s">
+        <div class="recipe-card-header"><div class="recipe-icon">🫙</div><div class="recipe-category">Preserves</div></div>
+        <h3 class="recipe-title">Rose Hip &amp; Hawthorn Jelly</h3>
+        <div class="recipe-meta"><span>⏱ 2hr</span><span>🍽 Makes 4 jars</span><span>✦ Easy</span></div>
+        <div class="recipe-ingredients"><strong>Ingredients</strong><ul><li>500g ripe rose hips (gathered after first frost)</li><li>300g hawthorn berries · 600ml water</li><li>Juice of 1 lemon · preserving sugar</li></ul></div>
+        <div class="recipe-method"><strong>Method</strong><p>Simmer hips and haws for 40 minutes until soft. Strain through a muslin jelly bag overnight. Add equal weight of sugar to the juice. Bring to a rolling boil, test for set, then jar while hot.</p></div>
+        <div class="recipe-note">✦ <em>A jewel-red jelly, rich in wild Vitamin C. A spoonful wards off winter and sadness both.</em></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GAMES ══ -->
+  <section id="games" class="paper-section">
+    <div class="section-header reveal-up"><h2 class="section-title">Games &amp; Enchanted Puzzles</h2><div class="section-rule"></div></div>
+    <div class="games-intro">Take a moment to rest your wings and play. All games crafted by the Puzzle Gnomes of Tinkersham.</div>
+    <div class="games-tabs">
+      <button class="game-tab active" onclick="showGame('memory')">🍄 Mushroom Memory</button>
+      <button class="game-tab" onclick="showGame('garden')">🌱 Fairy Garden</button>
+      <button class="game-tab" onclick="showGame('wordsearch')">📜 Word Scroll</button>
+    </div>
+
+    <!-- Memory game -->
+    <div class="game-container glass-card" id="game-memory">
+      <div class="game-header"><h3 class="game-title">🍄 The Mushroom Memory Circle</h3><p class="game-desc">Match the enchanted pairs before the forest spirits grow impatient.</p></div>
+      <div class="game-stats">
+        <div class="stat-box"><span class="stat-label">Pairs Found</span><span class="stat-value" id="mem-pairs">0/8</span></div>
+        <div class="stat-box"><span class="stat-label">Moves</span><span class="stat-value" id="mem-moves">0</span></div>
+        <div class="stat-box"><span class="stat-label">Time</span><span class="stat-value" id="mem-timer">0:00</span></div>
+        <div class="stat-box"><span class="stat-label">Score</span><span class="stat-value" id="mem-score">0</span></div>
+      </div>
+      <div class="memory-grid" id="memory-grid"></div>
+      <div class="game-controls">
+        <button class="game-btn" onclick="initMemoryGame()">✨ New Game</button>
+      </div>
+      <div class="game-message" id="mem-message"></div>
+    </div>
+
+    <!-- Garden game -->
+    <div class="game-container glass-card hidden" id="game-garden">
+      <div class="game-header"><h3 class="game-title">🌱 The Fairy Garden Sanctuary</h3><p class="game-desc">Tend your enchanted garden. Collect fairy dust, unlock magical upgrades!</p></div>
+      <div class="garden-game-layout">
+        <div class="garden-game-left">
+          <div class="fairy-dust-display">
+            <div class="fd-icon">✨</div>
+            <div class="fd-amount" id="fd-amount">0</div>
+            <div class="fd-label">Fairy Dust</div>
+          </div>
+          <div class="fd-per-sec">+ <span id="fd-per-sec">0</span> per second</div>
+          <div class="garden-plot" id="garden-plot"></div>
+          <button class="garden-water-btn" onclick="waterGarden()">💧 Water Garden (+<span id="water-power">1</span> dust)</button>
+        </div>
+        <div class="garden-game-right">
+          <div class="upgrades-panel"><div class="upgrades-title">✨ Enchantments</div><div class="upgrade-list" id="upgrade-list"></div></div>
+          <div class="garden-log-panel"><div class="log-title">Garden Journal</div><div class="garden-log" id="garden-log"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Word search -->
+    <div class="game-container glass-card hidden" id="game-wordsearch">
+      <div class="game-header"><h3 class="game-title">📜 The Enchanted Word Scroll</h3><p class="game-desc">Seek the hidden words woven into the ancient scroll. Drag to select.</p></div>
+      <div class="wordsearch-layout">
+        <div class="wordsearch-left"><div class="ws-grid" id="ws-grid"></div><div class="ws-message" id="ws-message"></div></div>
+        <div class="wordsearch-right">
+          <div class="ws-words-title">Words to Find</div>
+          <div class="ws-word-list" id="ws-word-list"></div>
+          <div class="ws-progress">
+            <div class="ws-progress-label">Progress</div>
+            <div class="ws-progress-bar"><div class="ws-progress-fill" id="ws-progress-fill" style="width:0%"></div></div>
+            <div class="ws-progress-text" id="ws-progress-text">0 / 10 words</div>
+          </div>
+          <button class="game-btn mt-2" onclick="initWordSearch()">✨ New Scroll</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HOROSCOPE ══ -->
+  <section id="horoscope" class="paper-section">
+    <div class="section-header reveal-up"><h2 class="section-title">The Woodland Horoscope</h2><div class="section-rule"></div></div>
+    <div class="horoscope-intro">Divined from fairy stars and the whispering of ancient trees, by <em>Seraphina Moonveil</em>, Celestial Observer.</div>
+    <div class="zodiac-selector reveal-up">
+      <div class="zodiac-label">Choose your woodland sign to reveal your reading:</div>
+      <div class="zodiac-grid" id="zodiac-grid"></div>
+    </div>
+    <div class="horoscope-reading glass-card" id="horoscope-reading">
+      <div class="reading-placeholder"><div class="reading-moon">🌙</div><div>Select your sign above to receive your enchanted reading…</div></div>
+    </div>
+  </section>
+
+  <!-- ══ CRAFTS ══ -->
+  <section id="crafts" class="paper-section">
+    <div class="section-header reveal-up"><h2 class="section-title">Cottage Crafts &amp; Making</h2><div class="section-rule"></div></div>
+    <div class="crafts-grid">
+      <div class="craft-card glass-card reveal-left">
+        <div class="craft-header"><div class="craft-icon">🕯️</div><div class="craft-category">Candle Making</div></div>
+        <h3 class="craft-title">Beeswax Moon Candles with Pressed Wildflowers</h3>
+        <div class="craft-difficulty">✦ Beginner Friendly</div>
+        <div class="craft-materials"><strong>You will need:</strong><ul><li>Raw beeswax pellets (500g)</li><li>Cotton wicks · Moon-shaped silicone moulds</li><li>Pressed wildflowers (violets, ferns, chamomile)</li><li>Lavender or rose essential oil</li></ul></div>
+        <div class="craft-steps">
+          <div class="craft-step"><span>1.</span>Melt beeswax in a double boiler. Add essential oil.</div>
+          <div class="craft-step"><span>2.</span>Pour a thin layer into moulds. Allow to semi-set.</div>
+          <div class="craft-step"><span>3.</span>Press wildflowers gently onto the surface. Pour remaining wax over.</div>
+          <div class="craft-step"><span>4.</span>Insert wick and cool completely — at least 4 hours — before unmoulding.</div>
+        </div>
+      </div>
+      <div class="craft-card glass-card reveal-up">
+        <div class="craft-header"><div class="craft-icon">🧵</div><div class="craft-category">Embroidery</div></div>
+        <h3 class="craft-title">Botanical Embroidery: Stitching Living Patterns</h3>
+        <div class="craft-difficulty">✦✦ Intermediate</div>
+        <div class="craft-materials"><strong>You will need:</strong><ul><li>Natural linen fabric, hooped tightly</li><li>Stranded cotton in sage, dusty rose, cream, forest green</li><li>Embroidery needle (sizes 7-9)</li><li>Botanical template or freehand sketch</li></ul></div>
+        <div class="craft-steps">
+          <div class="craft-step"><span>1.</span>Transfer your design with an air-erasable pen.</div>
+          <div class="craft-step"><span>2.</span>Begin with stem stitch for all branches and tendrils.</div>
+          <div class="craft-step"><span>3.</span>Fill leaves with satin stitch, following the natural direction.</div>
+          <div class="craft-step"><span>4.</span>Use French knots for berry clusters and flower centres.</div>
+        </div>
+      </div>
+      <div class="craft-card glass-card reveal-up">
+        <div class="craft-header"><div class="craft-icon">🌿</div><div class="craft-category">Wreath Making</div></div>
+        <h3 class="craft-title">Dried Flower &amp; Herb Cottage Wreaths</h3>
+        <div class="craft-difficulty">✦ Beginner Friendly</div>
+        <div class="craft-materials"><strong>You will need:</strong><ul><li>Willow or grapevine base wreath</li><li>Dried lavender, rosemary, thyme</li><li>Dried roses, strawflowers, nigella pods</li><li>Paddle wire · Ribbon in dusty rose or sage green</li></ul></div>
+        <div class="craft-steps">
+          <div class="craft-step"><span>1.</span>Bundle herbs into small posies and wire the stems.</div>
+          <div class="craft-step"><span>2.</span>Attach to the base, working in one direction.</div>
+          <div class="craft-step"><span>3.</span>Tuck dried flowers throughout for colour.</div>
+          <div class="craft-step"><span>4.</span>Finish with a generous bow and hanging wire.</div>
+        </div>
+      </div>
+      <div class="craft-card glass-card reveal-right">
+        <div class="craft-header"><div class="craft-icon">🪴</div><div class="craft-category">Terrariums</div></div>
+        <h3 class="craft-title">Fairy World Terrarium in Glass</h3>
+        <div class="craft-difficulty">✦ Beginner Friendly</div>
+        <div class="craft-materials"><strong>You will need:</strong><ul><li>Large glass vessel (jar, cloche, or bowl)</li><li>Pebbles · Activated charcoal · Potting mix</li><li>Moss, small ferns, miniature plants</li><li>Fairy figurines, pebble paths, a miniature door</li></ul></div>
+        <div class="craft-steps">
+          <div class="craft-step"><span>1.</span>Layer pebbles, charcoal, then soil in the vessel.</div>
+          <div class="craft-step"><span>2.</span>Plant moss sheets first to create the floor.</div>
+          <div class="craft-step"><span>3.</span>Add ferns and tiny plants as trees and bushes.</div>
+          <div class="craft-step"><span>4.</span>Arrange pebble paths, place fairy folk, and mist gently.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer class="newspaper-footer">
+  <div class="footer-botanical" aria-hidden="true">🌿🌸🍄🌿🌼🌿🍄🌸🌿</div>
+  <div class="footer-content">
+    <div class="footer-col">
+      <h4 class="footer-heading">The Enchanted Gazette</h4>
+      <p>Published at the turn of each moon from our offices in the Ancient Oak Forest. All tales are true, in the ways that matter most.</p>
+      <div class="footer-social">
+        <span class="social-link">🌿 Wildflower Post</span>
+        <span class="social-link">🍄 Mushroom Wire</span>
+        <span class="social-link">🌙 Moonbeam Feed</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Sections</h4>
+      <ul class="footer-links">
+        <li><a href="#front-page" class="footer-nav-link" data-section="front-page">Front Page</a></li>
+        <li><a href="#garden-news" class="footer-nav-link" data-section="garden-news">Garden &amp; Grove</a></li>
+        <li><a href="#fairy-tales" class="footer-nav-link" data-section="fairy-tales">Fairy Tales</a></li>
+        <li><a href="#recipes" class="footer-nav-link" data-section="recipes">Cottage Kitchen</a></li>
+        <li><a href="#games" class="footer-nav-link" data-section="games">Games &amp; Puzzles</a></li>
+        <li><a href="#horoscope" class="footer-nav-link" data-section="horoscope">Woodland Horoscope</a></li>
+        <li><a href="#crafts" class="footer-nav-link" data-section="crafts">Cottage Crafts</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Editorial Staff</h4>
+      <ul class="footer-staff">
+        <li>Editor-in-Chief: <em>Wisteria Bloom</em></li>
+        <li>Garden: <em>Fern Mossgatherer</em></li>
+        <li>Fairy Affairs: <em>Rosalind Mossweave</em></li>
+        <li>Cuisine: <em>Marigold Thistledown</em></li>
+        <li>Celestial: <em>Seraphina Moonveil</em></li>
+        <li>Puzzles: <em>Cobblwick Tinkersham</em></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Enchanted Notices</h4>
+      <p>Letters may be left in the hollow of the Great Birch on Moonday evenings.</p>
+      <p>Subscriptions: one jar of wildflower honey per moon.</p>
+      <div class="footer-moon" id="footer-moon">🌕</div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-rule">⸻ ✦ ✦ ✦ ⸻</div>
+    <div class="footer-copy">© 2026 The Enchanted Gazette · All Magic Reserved · No fairies were harmed in the making of this publication</div>
+  </div>
+</footer>
+
+<script src="scripts.js"></script>
+</body>
+</html>
