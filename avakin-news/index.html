@@ -599,12 +599,15 @@
     <p class="page-sub">Representative reviews from the Avakin Life Google Play listing, reflecting common themes found across hundreds of entries. Both positive and critical reviews are included.</p>
     <div class="notice"><strong>Transparency:</strong> These are real, publicly visible review patterns from Google Play. The rating distribution is a snapshot from 2024–2025 and may have shifted. Visit the listing directly for current reviews.</div>
     <div class="rating-summary">
-      <div><div class="rating-big">3.8</div><div class="rating-stars">★★★★☆</div><div class="rating-count">Google Play · 2024–2025 snapshot</div></div>
+      <div>
+        <div class="rating-big">3.4</div>
+        <div class="rating-count">Google Play · Switzerland · 2024–2025 snapshot</div>
+      </div>
       <div class="rating-bars">
-        <div class="rbar"><div class="rbar__label">5★</div><div class="rbar__track"><div class="rbar__fill" style="width:42%"></div></div><div class="rbar__pct">42%</div></div>
-        <div class="rbar"><div class="rbar__label">4★</div><div class="rbar__track"><div class="rbar__fill" style="width:14%"></div></div><div class="rbar__pct">14%</div></div>
+        <div class="rbar"><div class="rbar__label">5★</div><div class="rbar__track"><div class="rbar__fill" style="width:44%"></div></div><div class="rbar__pct">44%</div></div>
+        <div class="rbar"><div class="rbar__label">4★</div><div class="rbar__track"><div class="rbar__fill" style="width:13%"></div></div><div class="rbar__pct">13%</div></div>
         <div class="rbar"><div class="rbar__label">3★</div><div class="rbar__track"><div class="rbar__fill" style="width:9%"></div></div><div class="rbar__pct">9%</div></div>
-        <div class="rbar"><div class="rbar__label">2★</div><div class="rbar__track"><div class="rbar__fill" style="width:8%"></div></div><div class="rbar__pct">8%</div></div>
+        <div class="rbar"><div class="rbar__label">2★</div><div class="rbar__track"><div class="rbar__fill" style="width:7%"></div></div><div class="rbar__pct">7%</div></div>
         <div class="rbar"><div class="rbar__label">1★</div><div class="rbar__track"><div class="rbar__fill" style="width:27%"></div></div><div class="rbar__pct">27%</div></div>
       </div>
     </div>
@@ -636,7 +639,7 @@
     <span class="label">Community Suggestions</span>
     <h1 class="page-title">Vote &amp; Suggest</h1>
     <p class="page-sub">Browse improvement suggestions from the community. Click the arrow to upvote the ideas you support. Add your own using the button below. The most-voted suggestions are shown first.</p>
-    <div class="notice"><strong>How votes work:</strong> Your votes are saved in this browser. They are personal — this is not a shared live counter. For a true community tally, you would need a server-side system. Think of your votes as a personal priority list. <strong>Admin:</strong> <a href="#" onclick="openAdminLogin()">Log in</a> to manage suggestions.</div>
+    <div class="notice">Community improvement suggestions. Submit your own using the button below. <strong>Admin:</strong> <a href="#" onclick="openAdminLogin()">Log in</a> to manage suggestions.</div>
 
     <div class="suggestion-tag-filter" id="sg-filter">
       <button class="filter-btn active" onclick="filterSuggestions('all')">All</button>
@@ -965,39 +968,17 @@ function renderSuggestions() {
     if (b.status === 'pinned' && a.status !== 'pinned') return 1;
     return netScore(b) - netScore(a);
   });
-  // SVG icons — custom drawn
-  const iconUp   = `<svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><polygon points="7,0 14,10 0,10"/></svg>`;
-  const iconDown = `<svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><polygon points="7,10 0,0 14,0"/></svg>`;
-  const iconNeut = `<svg width="14" height="4"  viewBox="0 0 14 4"  fill="currentColor"><rect width="14" height="3" rx="1.5" y="0.5"/></svg>`;
-
   list.innerHTML = items.map(s => {
-    const uv       = userVote(s.id);
-    const score    = netScore(s);
-    const ups      = upCount(s);
-    const downs    = downCount(s);
-    const tagsHtml = (s.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
+    const tagsHtml  = (s.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
     const adminHtml = admin
       ? `<div class="suggestion-admin visible">
            <button class="admin-btn" onclick="openSgAdmin('${s.id}','${s.status}')">Manage</button>
          </div>` : '';
     return `<div class="suggestion-card${s.status === 'pinned' ? ' suggestion-card--pinned' : ''}" data-id="${s.id}">
-      <div class="vote-group">
-        <button class="vbtn vbtn--up${uv==='up' ? ' active' : ''}" onclick="castVote('${s.id}','up')" title="Support this">
-          <span class="vbtn__icon">${iconUp}</span>
-          <span class="vbtn__count">${ups}</span>
-        </button>
-        <button class="vbtn vbtn--neut${uv==='neutral' ? ' active' : ''}" onclick="castVote('${s.id}','neutral')" title="Neutral">
-          <span class="vbtn__icon">${iconNeut}</span>
-        </button>
-        <button class="vbtn vbtn--down${uv==='down' ? ' active' : ''}" onclick="castVote('${s.id}','down')" title="Oppose this">
-          <span class="vbtn__icon">${iconDown}</span>
-          <span class="vbtn__count">${downs}</span>
-        </button>
-      </div>
       <div class="suggestion-card__content">
         <div class="suggestion-card__title">${s.title}${statusLabel(s.status)}</div>
         <div class="suggestion-card__desc">${s.desc}</div>
-        <div class="suggestion-card__footer">${tagsHtml}<span style="font-size:.72rem;color:var(--mid);margin-left:auto;">net score: ${score > 0 ? '+' : ''}${score}</span></div>
+        <div class="suggestion-card__footer">${tagsHtml}</div>
         ${adminHtml}
       </div>
     </div>`;
