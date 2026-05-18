@@ -178,16 +178,23 @@
     }
     .suggestion-card[data-hidden="true"] { display: none; }
     .suggestion-card--pinned { border-color: var(--accent); }
-    .vote-btn {
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
-      padding: 8px 12px; cursor: pointer; min-width: 52px; flex-shrink: 0;
-      transition: all .15s; font-family: var(--sans);
+    /* ── VOTE GROUP ───────────────────────────── */
+    .vote-group {
+      display: flex; flex-direction: column; align-items: center; gap: 4px;
+      flex-shrink: 0; min-width: 52px;
     }
-    .vote-btn:hover { border-color: var(--accent); }
-    .vote-btn.voted { background: var(--accent); border-color: var(--accent); color: #fff; }
-    .vote-btn__arrow { font-size: 1rem; line-height: 1; }
-    .vote-btn__count { font-size: .82rem; font-weight: 700; }
+    .vbtn {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 7px;
+      padding: 7px 10px; cursor: pointer; width: 52px;
+      transition: all .15s; font-family: var(--sans); color: var(--mid);
+    }
+    .vbtn:hover { border-color: var(--ink); color: var(--ink); }
+    .vbtn--up.active   { background: #eaf4ec; border-color: #3a8c4a; color: #276c34; }
+    .vbtn--neut.active { background: #f0ece8; border-color: var(--mid); color: var(--ink); }
+    .vbtn--down.active { background: #fde8e8; border-color: #c04040; color: var(--red); }
+    .vbtn__icon { display: flex; align-items: center; justify-content: center; width: 16px; height: 12px; }
+    .vbtn__count { font-size: .75rem; font-weight: 700; line-height: 1; }
     .suggestion-card__content { flex: 1; min-width: 0; }
     .suggestion-card__title { font-weight: 600; font-size: .93rem; margin-bottom: 5px; line-height: 1.35; }
     .suggestion-card__desc { font-size: .84rem; color: var(--mid); line-height: 1.6; margin-bottom: 8px; }
@@ -865,18 +872,18 @@ function filterIssues(cat) {
 
 /* ── SUGGESTIONS DATA ─────────────────────────────── */
 const SEEDS = [
-  { id:'sg-01', title:'Remove or pause badges from inactive official creators', desc:'A-Creator, Trendsetter, and Content Creator badges should require ongoing activity. Accounts inactive for 6+ months should have badges paused until activity resumes.', tags:['Creator Programme'], baseVotes:847, status:'open' },
-  { id:'sg-02', title:'Publish a transparent activity log for all official creator tiers', desc:'LKWD should maintain a visible record of each badge holder\'s last active date and content output, so the community can see which relationships are genuinely active.', tags:['Creator Programme','Community'], baseVotes:634, status:'open' },
-  { id:'sg-03', title:'Add meaningful free Crown earning paths', desc:'Introduce daily missions, weekly streaks, or achievement milestones that produce Crowns consistently — not as a rare drop from the mystery box, but as a reliable, achievable reward for regular play.', tags:['Economy'], baseVotes:1243, status:'open' },
-  { id:'sg-04', title:'Veteran loyalty programme — reward long-term players', desc:'Players with 2, 3, or 5+ years in the game should receive meaningful recognition: exclusive items, Crown milestones, or anniversary gifts. Loyalty should be rewarded, not ignored.', tags:['Economy','Community'], baseVotes:1089, status:'open' },
-  { id:'sg-05', title:'Stop using veteran-era Crown items as new player welcome gifts', desc:'New player packs should use Coins, not Crowns. Giving new players Crown items that veterans paid for devalues those items and sends the wrong message about who matters to LKWD.', tags:['Economy'], baseVotes:922, status:'open' },
-  { id:'sg-06', title:'Restore the Coin store with regularly rotated content', desc:'The free Coin store should have meaningful content that is regularly updated — not premium recolours, but genuinely designed free items that give non-spending players something to work toward.', tags:['Economy'], baseVotes:1156, status:'open' },
-  { id:'sg-07', title:'Monthly LKWD open Q&A accessible to all players', desc:'A monthly session — Discord, Instagram Live, or similar — where LKWD staff answer questions from regular players, not screened through creators. Open access, not curated PR.', tags:['Community'], baseVotes:788, status:'open' },
-  { id:'sg-08', title:'Commission original designs from Avakin Life Instagram artists', desc:'Independent artists on Instagram already create content in the Avakin visual language and are willing to collaborate legally for fair compensation. This is a straightforward path to credited, original content.', tags:['Design','Community'], baseVotes:703, status:'open' },
-  { id:'sg-09', title:'Events should be built around fun and creativity, not just task checklists', desc:'Design events around discovery, creative challenges, and player expression — not around grinding a checklist until a reward unlocks. Variety in format, not just in theme.', tags:['Events'], baseVotes:867, status:'open' },
-  { id:'sg-10', title:'Establish a rotating player advisory group from regular accounts', desc:'A small group of non-badge, non-creator players who participate in feedback sessions before major updates or store changes. Not a promise to act on everything — just structured, honest input.', tags:['Community'], baseVotes:674, status:'open' },
-  { id:'sg-11', title:'Publish contest judging criteria before each contest opens', desc:'State clearly what is being assessed, whether social reach is a factor, and who is judging. Even if the process does not change, transparency would allow the community to engage with it accurately.', tags:['Contests'], baseVotes:591, status:'open' },
-  { id:'sg-12', title:'Credit original designers when in-game items are inspired by real-world work', desc:'When an item is demonstrably inspired by or based on a real designer\'s work, that designer should be credited in the item description. This is standard practice and costs nothing to implement.', tags:['Design'], baseVotes:512, status:'open' },
+  { id:'sg-01', title:'Remove or pause badges from inactive official creators', desc:'A-Creator, Trendsetter, and Content Creator badges should require ongoing activity. Accounts inactive for 6+ months should have badges paused until activity resumes.', tags:['Creator Programme'], baseUp:847, baseDown:21, status:'open' },
+  { id:'sg-02', title:'Publish a transparent activity log for all official creator tiers', desc:'LKWD should maintain a visible record of each badge holder\'s last active date and content output, so the community can see which relationships are genuinely active.', tags:['Creator Programme','Community'], baseUp:634, baseDown:18, status:'open' },
+  { id:'sg-03', title:'Add meaningful free Crown earning paths', desc:'Introduce daily missions, weekly streaks, or achievement milestones that produce Crowns consistently — not as a rare drop from the mystery box, but as a reliable, achievable reward for regular play.', tags:['Economy'], baseUp:1243, baseDown:45, status:'open' },
+  { id:'sg-04', title:'Veteran loyalty programme — reward long-term players', desc:'Players with 2, 3, or 5+ years in the game should receive meaningful recognition: exclusive items, Crown milestones, or anniversary gifts. Loyalty should be rewarded, not ignored.', tags:['Economy','Community'], baseUp:1089, baseDown:31, status:'open' },
+  { id:'sg-05', title:'Stop using veteran-era Crown items as new player welcome gifts', desc:'New player packs should use Coins, not Crowns. Giving new players Crown items that veterans paid for devalues those items and sends the wrong message about who matters to LKWD.', tags:['Economy'], baseUp:922, baseDown:27, status:'open' },
+  { id:'sg-06', title:'The in-game free store has effectively disappeared — this needs to change', desc:'There is barely anything left purchasable with Coins. The few remaining items are either low-quality or require days to weeks of consistent daily play to afford — not hours. If you do not spend real money, there is nothing meaningful available to you. Free play in Avakin Life as it currently stands is not a real option.', tags:['Economy'], baseUp:1156, baseDown:38, status:'open' },
+  { id:'sg-07', title:'Monthly LKWD open Q&A accessible to all players', desc:'A monthly session — Discord, Instagram Live, or similar — where LKWD staff answer questions from regular players, not screened through creators. Open access, not curated PR.', tags:['Community'], baseUp:788, baseDown:22, status:'open' },
+  { id:'sg-08', title:'Commission original designs from Avakin Life Instagram artists', desc:'Independent artists on Instagram already create content in the Avakin visual language and are willing to collaborate legally for fair compensation. This is a straightforward path to credited, original content.', tags:['Design','Community'], baseUp:703, baseDown:19, status:'open' },
+  { id:'sg-09', title:'Events should be built around fun and creativity, not just task checklists', desc:'Design events around discovery, creative challenges, and player expression — not around grinding a checklist until a reward unlocks. Variety in format, not just in theme.', tags:['Events'], baseUp:867, baseDown:33, status:'open' },
+  { id:'sg-10', title:'Establish a rotating player advisory group from regular accounts', desc:'A small group of non-badge, non-creator players who participate in feedback sessions before major updates or store changes. Not a promise to act on everything — just structured, honest input.', tags:['Community'], baseUp:674, baseDown:29, status:'open' },
+  { id:'sg-11', title:'Publish contest judging criteria before each contest opens', desc:'State clearly what is being assessed, whether social reach is a factor, and who is judging. Even if the process does not change, transparency would allow the community to engage with it accurately.', tags:['Contests'], baseUp:591, baseDown:24, status:'open' },
+  { id:'sg-12', title:'Credit original designers when in-game items are inspired by real-world work', desc:'When an item is demonstrably inspired by or based on a real designer\'s work, that designer should be credited in the item description. This is standard practice and costs nothing to implement.', tags:['Design'], baseUp:512, baseDown:11, status:'open' },
 ];
 
 const VOTES_KEY    = 'avr_votes_v1';
@@ -886,6 +893,7 @@ const ADMIN_KEY    = 'avr_admin_pass_v1';
 const ADMIN_NAME   = 'avr_admin_name_v1';
 const SESSION_KEY  = 'avr_admin_session';
 
+// votes[id] = 'up' | 'down' | 'neutral' | undefined
 function getVotes()    { try { return JSON.parse(localStorage.getItem(VOTES_KEY)  || '{}'); } catch(e){ return {}; } }
 function getCustom()   { try { return JSON.parse(localStorage.getItem(CUSTOM_KEY) || '[]'); } catch(e){ return []; } }
 function getStatuses() { try { return JSON.parse(localStorage.getItem(STATUS_KEY) || '{}'); } catch(e){ return {}; } }
@@ -903,16 +911,26 @@ function allSuggestions() {
   return all.filter(s => s.status !== 'removed');
 }
 
-function voteCount(s) {
-  const v = getVotes();
-  return s.baseVotes + (v[s.id] ? 1 : 0);
+function netScore(s) {
+  const v    = getVotes();
+  const vote = v[s.id];
+  const base = (s.baseUp || s.baseVotes || 0) - (s.baseDown || 0);
+  return base + (vote === 'up' ? 1 : vote === 'down' ? -1 : 0);
 }
-
-function hasVoted(id) { return !!getVotes()[id]; }
-
-function toggleVote(id) {
+function upCount(s) {
   const v = getVotes();
-  if (v[id]) delete v[id]; else v[id] = true;
+  return (s.baseUp || s.baseVotes || 0) + (v[s.id] === 'up' ? 1 : 0);
+}
+function downCount(s) {
+  const v = getVotes();
+  return (s.baseDown || 0) + (v[s.id] === 'down' ? 1 : 0);
+}
+function userVote(id) { return getVotes()[id]; }
+
+function castVote(id, dir) {
+  const v = getVotes();
+  if (v[id] === dir) delete v[id]; // clicking same = remove vote
+  else v[id] = dir;
   saveVotes(v);
   renderSuggestions();
 }
@@ -941,29 +959,45 @@ function renderSuggestions() {
   if (sgCurrentFilter !== 'all') {
     items = items.filter(s => (s.tags || []).includes(sgCurrentFilter));
   }
-  // sort: pinned first, then by votes
+  // sort: pinned first, then by net score
   items.sort((a, b) => {
     if (a.status === 'pinned' && b.status !== 'pinned') return -1;
     if (b.status === 'pinned' && a.status !== 'pinned') return 1;
-    return voteCount(b) - voteCount(a);
+    return netScore(b) - netScore(a);
   });
+  // SVG icons — custom drawn
+  const iconUp   = `<svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><polygon points="7,0 14,10 0,10"/></svg>`;
+  const iconDown = `<svg width="14" height="10" viewBox="0 0 14 10" fill="currentColor"><polygon points="7,10 0,0 14,0"/></svg>`;
+  const iconNeut = `<svg width="14" height="4"  viewBox="0 0 14 4"  fill="currentColor"><rect width="14" height="3" rx="1.5" y="0.5"/></svg>`;
+
   list.innerHTML = items.map(s => {
-    const voted = hasVoted(s.id);
-    const count = voteCount(s);
+    const uv       = userVote(s.id);
+    const score    = netScore(s);
+    const ups      = upCount(s);
+    const downs    = downCount(s);
     const tagsHtml = (s.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
     const adminHtml = admin
       ? `<div class="suggestion-admin visible">
            <button class="admin-btn" onclick="openSgAdmin('${s.id}','${s.status}')">Manage</button>
          </div>` : '';
     return `<div class="suggestion-card${s.status === 'pinned' ? ' suggestion-card--pinned' : ''}" data-id="${s.id}">
-      <button class="vote-btn${voted ? ' voted' : ''}" onclick="toggleVote('${s.id}')" title="${voted ? 'Remove vote' : 'Upvote'}">
-        <span class="vote-btn__arrow">${voted ? '▲' : '△'}</span>
-        <span class="vote-btn__count">${count}</span>
-      </button>
+      <div class="vote-group">
+        <button class="vbtn vbtn--up${uv==='up' ? ' active' : ''}" onclick="castVote('${s.id}','up')" title="Support this">
+          <span class="vbtn__icon">${iconUp}</span>
+          <span class="vbtn__count">${ups}</span>
+        </button>
+        <button class="vbtn vbtn--neut${uv==='neutral' ? ' active' : ''}" onclick="castVote('${s.id}','neutral')" title="Neutral">
+          <span class="vbtn__icon">${iconNeut}</span>
+        </button>
+        <button class="vbtn vbtn--down${uv==='down' ? ' active' : ''}" onclick="castVote('${s.id}','down')" title="Oppose this">
+          <span class="vbtn__icon">${iconDown}</span>
+          <span class="vbtn__count">${downs}</span>
+        </button>
+      </div>
       <div class="suggestion-card__content">
         <div class="suggestion-card__title">${s.title}${statusLabel(s.status)}</div>
         <div class="suggestion-card__desc">${s.desc}</div>
-        <div class="suggestion-card__footer">${tagsHtml}</div>
+        <div class="suggestion-card__footer">${tagsHtml}<span style="font-size:.72rem;color:var(--mid);margin-left:auto;">net score: ${score > 0 ? '+' : ''}${score}</span></div>
         ${adminHtml}
       </div>
     </div>`;
@@ -983,7 +1017,7 @@ function submitSuggestion() {
   const tag   = document.getElementById('sg-tag-input').value;
   if (!title || !desc) { document.getElementById('sg-error').classList.add('show'); return; }
   const custom = getCustom();
-  custom.push({ id: 'custom-' + Date.now(), title, desc, tags: [tag], baseVotes: 0, status: 'open' });
+  custom.push({ id: 'custom-' + Date.now(), title, desc, tags: [tag], baseUp: 0, baseDown: 0, status: 'open' });
   saveCustom(custom);
   closeModal('modal-suggest');
   renderSuggestions();
