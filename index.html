@@ -3,1481 +3,1610 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>THE CROWLEY GAZETTE — Where Dark Truths Unravel</title>
+  <title>The Crowley Gazette — Where Dark Truths Unravel</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
   <style>
-    /* ── ROOT & RESET ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* ── TOKENS ───────────────────────────────────────────────── */
     :root {
-      --ink:        #0c0810;
-      --deep:       #120820;
-      --purple-dk:  #1e0d35;
-      --purple-md:  #4a1f7a;
-      --purple-lt:  #7c3fbf;
-      --purple-acc: #9b59d0;
-      --gold:       #c9a84c;
-      --gold-lt:    #e8c96c;
-      --cream:      #f0e8d8;
-      --parchment:  #e8dcc0;
-      --paper:      #f5efe0;
-      --rule:       #3a1a5c;
-      --fade:       rgba(12,8,16,0.85);
-      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --bg:         #0c0a0f;
+      --bg-1:       #110d18;
+      --bg-2:       #17121f;
+      --text:       #ede9e3;
+      --text-2:     #9d98a4;
+      --text-3:     #5a5560;
+      --accent:     #8c6db5;       /* muted violet, sat < 80% */
+      --warm:       #c4a86a;       /* muted amber */
+      --border:     rgba(255,255,255,0.07);
+      --border-2:   rgba(255,255,255,0.04);
+      --inner:      rgba(255,255,255,0.06);/* liquid glass inner border */
+      --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out:cubic-bezier(0.4, 0, 0.2, 1);
     }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--ink);
-      color: var(--cream);
-      font-family: 'EB Garamond', Georgia, serif;
-      font-size: 17px;
-      line-height: 1.7;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* ── PROGRESS BAR ─────────────────────────────────────────── */
-    #progress-bar {
+    img { display: block; width: 100%; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── UTILITIES ────────────────────────────────────────────── */
+    .mono {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+    }
+
+    .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+    .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .accent-text { color: var(--accent); }
+    .warm-text   { color: var(--warm); }
+
+    /* ── READING PROGRESS ─────────────────────────────────────── */
+    #read-progress {
       position: fixed;
       top: 0; left: 0;
-      height: 3px;
+      height: 1px;
       width: 0%;
-      background: linear-gradient(90deg, var(--purple-md), var(--gold));
+      background: var(--accent);
       z-index: 9999;
       transition: width 0.1s linear;
     }
 
-    /* ── HEADER / MASTHEAD ────────────────────────────────────── */
-    .site-header {
+    /* ── SCROLL REVEAL ────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.32s; }
+    .reveal-delay-4 { transition-delay: 0.44s; }
+
+    /* ── NAVIGATION ───────────────────────────────────────────── */
+    .site-nav {
       position: sticky;
       top: 0;
-      z-index: 1000;
-      background: var(--ink);
-      border-bottom: 1px solid var(--rule);
+      z-index: 100;
+      background: rgba(12, 10, 15, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
 
-    .top-bar {
+    .nav-inner {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-      padding: 6px 40px;
-      background: var(--purple-dk);
-      font-family: 'Cinzel', serif;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: var(--gold);
-      border-bottom: 1px solid var(--rule);
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+      height: 56px;
     }
 
-    .top-bar .edition-tag {
-      background: var(--purple-md);
-      padding: 2px 10px;
-      border: 1px solid var(--gold);
-      letter-spacing: 0.2em;
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      white-space: nowrap;
     }
 
-    .masthead {
-      text-align: center;
-      padding: 28px 40px 14px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .masthead::before,
-    .masthead::after {
-      content: '';
-      position: absolute;
-      left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), var(--purple-lt), var(--gold), transparent);
-    }
-    .masthead::before { top: 0; }
-    .masthead::after  { bottom: 0; }
-
-    .masthead-ornament {
-      font-family: 'Cinzel', serif;
-      font-size: 10px;
-      letter-spacing: 0.5em;
-      color: var(--gold);
-      opacity: 0.7;
-      margin-bottom: 6px;
-    }
-
-    .masthead-title {
-      font-family: 'UnifrakturMaguntia', cursive;
-      font-size: clamp(48px, 7vw, 96px);
-      color: var(--cream);
-      line-height: 1;
-      text-shadow:
-        0 0 40px rgba(155,89,208,0.5),
-        0 0 80px rgba(155,89,208,0.2),
-        2px 2px 0 var(--purple-dk);
-      letter-spacing: 0.02em;
-    }
-
-    .masthead-sub {
-      font-family: 'Cinzel', serif;
-      font-size: 11px;
-      letter-spacing: 0.4em;
-      color: var(--gold);
-      margin-top: 8px;
-      text-transform: uppercase;
-    }
-
-    .masthead-rule {
+    .nav-links {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin: 14px 0 0;
-      padding: 0 10px;
+      gap: 32px;
+      list-style: none;
     }
-    .masthead-rule hr {
+
+    .nav-links a {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--text-2);
+      transition: color 0.25s var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-issue {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      white-space: nowrap;
+    }
+
+    /* ── MARQUEE TICKER ───────────────────────────────────────── */
+    .ticker {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      height: 32px;
+    }
+
+    .ticker-tag {
+      background: var(--accent);
+      flex-shrink: 0;
+      padding: 0 14px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .ticker-track {
       flex: 1;
-      border: none;
-      border-top: 1px solid var(--gold);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-items {
+      display: flex;
+      gap: 64px;
+      animation: marquee 48s linear infinite;
+      white-space: nowrap;
+      will-change: transform;
+    }
+
+    .ticker-items span {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--text-2);
+    }
+
+    .ticker-items .dot {
+      color: var(--accent);
       opacity: 0.5;
     }
-    .masthead-rule .diamond {
-      width: 8px; height: 8px;
-      background: var(--gold);
-      transform: rotate(45deg);
-      flex-shrink: 0;
-    }
-    .masthead-rule .diamond.sm {
-      width: 5px; height: 5px;
-      background: var(--purple-lt);
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
     }
 
-    /* ── NAV ──────────────────────────────────────────────────── */
-    .main-nav {
-      display: flex;
-      justify-content: center;
-      gap: 0;
-      padding: 10px 40px;
-      border-top: 1px solid rgba(74,31,122,0.4);
-      flex-wrap: wrap;
-    }
-
-    .main-nav a {
-      font-family: 'Cinzel', serif;
-      font-size: 10.5px;
-      letter-spacing: 0.22em;
-      color: var(--cream);
-      text-decoration: none;
-      padding: 6px 18px;
-      text-transform: uppercase;
-      position: relative;
-      transition: color var(--transition);
-    }
-
-    .main-nav a::after {
-      content: '✦';
-      position: absolute;
-      right: -1px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--rule);
-      font-size: 8px;
-    }
-    .main-nav a:last-child::after { display: none; }
-
-    .main-nav a:hover { color: var(--gold); }
-
-    /* ── BREAKING TICKER ──────────────────────────────────────── */
-    .ticker-wrap {
-      background: var(--purple-md);
-      border-top: 1px solid var(--rule);
-      border-bottom: 2px solid var(--gold);
-      padding: 0;
-      overflow: hidden;
-      display: flex;
-      align-items: stretch;
-    }
-
-    .ticker-label {
-      background: var(--gold);
-      color: var(--ink);
-      font-family: 'Cinzel', serif;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      padding: 8px 16px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-    }
-
-    .ticker-content {
-      overflow: hidden;
-      flex: 1;
-      display: flex;
-      align-items: center;
-    }
-
-    .ticker-inner {
-      display: inline-flex;
-      gap: 80px;
-      animation: ticker 38s linear infinite;
-      white-space: nowrap;
-    }
-
-    .ticker-inner span {
-      font-family: 'Cinzel', serif;
-      font-size: 10.5px;
-      letter-spacing: 0.12em;
-      color: var(--cream);
-    }
-
-    .ticker-inner .sep {
-      color: var(--gold);
-      opacity: 0.6;
-    }
-
-    @keyframes ticker {
-      from { transform: translateX(100vw); }
-      to   { transform: translateX(-100%); }
-    }
-
-    /* ── PAGE WRAPPER ─────────────────────────────────────────── */
-    .page {
-      max-width: 1440px;
+    /* ── LAYOUT WRAPPER ───────────────────────────────────────── */
+    .wrap {
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 40px 60px;
+      padding: 0 48px;
     }
 
-    /* ── SECTION HEADINGS ─────────────────────────────────────── */
-    .section-heading {
+    /* ── SECTION LABEL ROW ────────────────────────────────────── */
+    .section-label-row {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin: 40px 0 24px;
+      justify-content: space-between;
+      padding: 40px 0 28px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
     }
 
-    .section-heading h2 {
-      font-family: 'Cinzel', serif;
-      font-size: 11px;
-      letter-spacing: 0.5em;
-      color: var(--gold);
-      text-transform: uppercase;
-      white-space: nowrap;
+    .section-label-row .see-all {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      transition: color 0.25s;
     }
+    .section-label-row .see-all:hover { color: var(--text-2); }
 
-    .section-heading .rule-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, var(--gold), transparent);
-      opacity: 0.4;
-    }
-
-    /* ── HERO ROW ─────────────────────────────────────────────── */
-    .hero-grid {
+    /* ── ════════════════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════════════════ */
+    .hero {
+      min-height: 100dvh;
       display: grid;
-      grid-template-columns: 1fr 2.2fr 1fr;
-      gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-      margin-top: 30px;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      border-bottom: 1px solid var(--border);
     }
 
-    .hero-grid > * {
-      background: var(--deep);
-    }
-
-    /* ── ARTICLE CARD BASE ────────────────────────────────────── */
-    .article-card {
-      padding: 24px;
-      position: relative;
-      transition: background var(--transition);
-    }
-
-    .article-card:hover {
-      background: rgba(30,13,53,0.95);
-    }
-
-    .article-label {
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.4em;
-      color: var(--purple-acc);
-      text-transform: uppercase;
-      margin-bottom: 10px;
+    .hero-left {
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 64px 80px 48px;
+      gap: 28px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 5.5vw, 80px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-dek {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 46ch;
+    }
+
+    .hero-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding-top: 8px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
       align-items: center;
       gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 12px 24px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: background 0.25s var(--ease-out), transform 0.15s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+    .btn-primary:hover  { background: #7a5da0; }
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      padding: 12px 20px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      transition: border-color 0.25s, color 0.25s, transform 0.15s;
+      box-shadow: inset 0 1px 0 var(--inner);
+    }
+    .btn-ghost:hover  { border-color: rgba(255,255,255,0.18); color: var(--text); }
+    .btn-ghost:active { transform: scale(0.98); }
+
+    .hero-meta {
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 32px;
     }
 
-    .article-label::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 1px;
-      background: var(--purple-acc);
-    }
-
-    .article-hed {
+    .hero-stat strong {
+      display: block;
       font-family: 'Playfair Display', serif;
-      line-height: 1.15;
-      margin-bottom: 12px;
-      color: var(--cream);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
     }
 
-    .article-hed.xl { font-size: clamp(26px, 3vw, 42px); font-weight: 900; }
-    .article-hed.lg { font-size: clamp(20px, 2.2vw, 32px); font-weight: 700; }
-    .article-hed.md { font-size: clamp(16px, 1.6vw, 22px); font-weight: 700; }
-    .article-hed.sm { font-size: 15px; font-weight: 700; }
-
-    .article-dek {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 14px;
-      font-style: italic;
-      color: var(--gold-lt);
-      margin-bottom: 14px;
-      line-height: 1.5;
-    }
-
-    .article-body {
-      font-family: 'EB Garamond', serif;
-      font-size: 14.5px;
-      line-height: 1.75;
-      color: rgba(240,232,216,0.82);
-      columns: 1;
-    }
-
-    .article-body.two-col {
-      columns: 2;
-      column-gap: 24px;
-      column-rule: 1px solid var(--rule);
-    }
-
-    /* Drop cap */
-    .article-body.dropcap::first-letter {
-      font-family: 'UnifrakturMaguntia', cursive;
-      font-size: 5.2em;
-      float: left;
-      line-height: 0.72;
-      margin-right: 8px;
-      margin-top: 6px;
-      color: var(--purple-acc);
-      text-shadow: 0 0 20px rgba(155,89,208,0.4);
-    }
-
-    .article-meta {
-      font-family: 'Cinzel', serif;
-      font-size: 9.5px;
-      letter-spacing: 0.2em;
-      color: rgba(201,168,76,0.55);
-      margin-top: 16px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(58,26,92,0.6);
-    }
-
-    /* ── IMAGE CONTAINERS ─────────────────────────────────────── */
-    .img-wrap {
+    .hero-right {
       position: relative;
       overflow: hidden;
     }
 
-    .img-wrap img {
+    .hero-right img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
-      filter: saturate(0.88) contrast(1.06);
-      transition: transform 0.7s ease, filter 0.5s ease;
+      filter: brightness(0.85) saturate(0.9);
+      transition: transform 1.2s var(--ease-out), filter 0.6s;
     }
 
-    .img-wrap:hover img {
-      transform: scale(1.04);
-      filter: saturate(1.0) contrast(1.1);
+    .hero-right:hover img {
+      transform: scale(1.03);
+      filter: brightness(0.9) saturate(1.0);
     }
 
-    .img-caption {
+    .hero-img-meta {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(transparent, rgba(12,8,16,0.92));
-      padding: 32px 16px 12px;
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 12px;
-      color: rgba(240,232,216,0.75);
-      letter-spacing: 0.05em;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
     }
 
-    .img-overlay-label {
-      position: absolute;
-      top: 12px; left: 12px;
-      background: var(--purple-md);
-      border: 1px solid var(--purple-acc);
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.25em;
-      color: var(--cream);
-      padding: 4px 10px;
-      text-transform: uppercase;
+    .hero-img-caption {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: rgba(237,233,227,0.45);
+      letter-spacing: 0.06em;
+      max-width: 40ch;
+      line-height: 1.5;
     }
 
-    /* ── HERO CENTER ARTICLE ──────────────────────────────────── */
-    .hero-center {
-      padding: 0;
+    .hero-img-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.07);
+      line-height: 1;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       CHRONICLES — ASYMMETRIC GRID
+    ═══════════════════════════════════════════════════════════ */
+    .chronicles-grid {
+      display: grid;
+      grid-template-columns: 2fr 1.2fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .chronicle-main {
+      background: var(--bg);
+    }
+
+    .chronicle-main .img-block {
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .chronicle-main .img-block img {
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.85) brightness(0.88);
+      transition: transform 0.8s var(--ease-out);
+    }
+    .chronicle-main:hover .img-block img { transform: scale(1.04); }
+
+    .chronicle-body {
+      padding: 32px 36px;
+    }
+
+    .chronicle-sidebar {
+      background: var(--bg);
       display: flex;
       flex-direction: column;
     }
 
-    .hero-center .img-wrap {
-      height: 420px;
-      flex-shrink: 0;
-    }
-
-    .hero-center .hero-text {
-      padding: 28px 32px;
+    .sidebar-story {
+      padding: 28px 28px;
+      border-bottom: 1px solid var(--border);
       flex: 1;
+      transition: background 0.3s;
+    }
+    .sidebar-story:last-child { border-bottom: none; }
+    .sidebar-story:hover { background: var(--bg-1); }
+
+    /* ── ════════════════════════════════════════════════════════
+       ARTICLE TYPOGRAPHY ATOMS
+    ═══════════════════════════════════════════════════════════ */
+    .hed-xl {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 48px);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--text);
     }
 
-    .hero-center .article-hed.xl {
-      font-size: clamp(28px, 3.5vw, 52px);
+    .hed-lg {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 2.4vw, 36px);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .hed-md {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(17px, 1.8vw, 24px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .hed-sm {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text);
+    }
+
+    .dek {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    .body-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--text-2);
+    }
+
+    .body-text p + p { margin-top: 14px; }
+
+    .art-meta {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ── IMAGE LABEL (below image, taste-skill style) ─────────── */
+    .img-label-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 10px 0 0;
+    }
+
+    .img-label-row .img-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-2);
+    }
+
+    .img-label-row .img-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text-3);
     }
 
     /* ── PULL QUOTE ───────────────────────────────────────────── */
     .pull-quote {
-      border-left: 3px solid var(--purple-acc);
-      border-right: 3px solid var(--purple-acc);
-      margin: 20px 0;
-      padding: 16px 20px;
-      text-align: center;
-      background: linear-gradient(135deg, rgba(74,31,122,0.15), rgba(12,8,16,0.3));
+      margin: 24px 0;
+      padding: 20px 24px;
+      border-left: 2px solid var(--accent);
+      background: var(--bg-1);
+      box-shadow: inset 0 1px 0 var(--inner);
     }
 
     .pull-quote p {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 18px;
-      color: var(--gold-lt);
-      line-height: 1.45;
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--text);
     }
 
     .pull-quote cite {
       display: block;
       margin-top: 10px;
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.3em;
-      color: var(--purple-acc);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
       font-style: normal;
     }
 
-    /* ── MID GRID ─────────────────────────────────────────────── */
-    .mid-grid {
+    /* ── ════════════════════════════════════════════════════════
+       MANUSCRIPT SECTION — SPLIT SCREEN
+    ═══════════════════════════════════════════════════════════ */
+    .manuscript-split {
       display: grid;
-      grid-template-columns: 1.1fr 1.8fr 1.1fr;
+      grid-template-columns: 1.1fr 1fr;
       gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
+      background: var(--border);
+      border: 1px solid var(--border);
       border-top: none;
     }
 
-    /* ── WIDE FEATURE ROW ─────────────────────────────────────── */
-    .feature-row {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr;
-      gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-      border-top: none;
+    .manuscript-text {
+      background: var(--bg);
+      padding: 56px 52px;
     }
 
-    /* ── FULL BANNER ──────────────────────────────────────────── */
-    .full-banner {
-      border: 1px solid var(--rule);
-      border-top: none;
-      background: var(--deep);
+    .manuscript-image {
+      background: var(--bg-1);
       position: relative;
       overflow: hidden;
     }
 
-    .full-banner .img-wrap {
-      height: 500px;
+    .manuscript-image img {
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.7) brightness(0.75);
+      transition: transform 0.9s var(--ease-out);
+    }
+    .manuscript-image:hover img { transform: scale(1.03); }
+
+    .dropcap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.2em;
+      font-weight: 900;
+      float: left;
+      line-height: 0.78;
+      margin-right: 8px;
+      margin-top: 4px;
+      color: var(--accent);
     }
 
-    .full-banner .banner-overlay {
+    /* ── ════════════════════════════════════════════════════════
+       TYPOGRAPHIC CLARITY MOMENT
+    ═══════════════════════════════════════════════════════════ */
+    .clarity-section {
+      padding: 120px 48px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .clarity-section .clarity-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(72px, 10vw, 148px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .clarity-section .clarity-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-2);
+      margin-top: 28px;
+      max-width: 56ch;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       ARCHIVE GRID — 2×2 ASYMMETRIC
+    ═══════════════════════════════════════════════════════════ */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+
+    .archive-cell {
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .archive-cell .img-block {
+      overflow: hidden;
+    }
+
+    .archive-cell .img-block img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      filter: saturate(0.8) brightness(0.85);
+      transition: transform 0.8s var(--ease-out), filter 0.5s;
+    }
+    .archive-cell:hover .img-block img {
+      transform: scale(1.04);
+      filter: saturate(0.9) brightness(0.9);
+    }
+
+    .archive-cell.tall .img-block img { height: 100%; min-height: 400px; }
+
+    .archive-cell-body {
+      padding: 18px 20px 20px;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       FEATURE — FULL BLEED WITH OVERLAY
+    ═══════════════════════════════════════════════════════════ */
+    .feature-full {
+      position: relative;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      min-height: 560px;
+    }
+
+    .feature-full img {
+      width: 100%;
+      height: 100%;
+      min-height: 560px;
+      object-fit: cover;
+      filter: brightness(0.45) saturate(0.7);
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        90deg,
-        rgba(12,8,16,0.95) 0%,
-        rgba(12,8,16,0.75) 45%,
-        rgba(12,8,16,0.2) 100%
-      );
-      display: flex;
-      align-items: center;
-      padding: 40px 60px;
+      transition: transform 1.2s var(--ease-out);
     }
+    .feature-full:hover img { transform: scale(1.03); }
 
-    .full-banner .banner-content {
-      max-width: 520px;
-    }
-
-    .full-banner .banner-content .article-hed.xl {
-      font-size: clamp(32px, 4vw, 58px);
-      text-shadow: 0 2px 20px rgba(12,8,16,0.8);
-    }
-
-    /* ── THREE COLUMN ROW ─────────────────────────────────────── */
-    .three-col {
+    .feature-overlay {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 80px 48px;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-      border-top: none;
-    }
-
-    /* ── COLUMN IMAGE ARTICLE ─────────────────────────────────── */
-    .col-article {
-      background: var(--deep);
-    }
-
-    .col-article .img-wrap {
-      height: 220px;
-    }
-
-    /* ── ORNATE DIVIDER ───────────────────────────────────────── */
-    .ornate-divider {
-      display: flex;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 80px;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      margin: 32px 0;
-      padding: 0 20px;
     }
 
-    .ornate-divider .line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--rule), transparent);
+    /* ── ════════════════════════════════════════════════════════
+       DISPATCH STATEMENT SECTION
+    ═══════════════════════════════════════════════════════════ */
+    .dispatch-statement {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
     }
 
-    .ornate-divider .glyph {
-      color: var(--gold);
-      font-size: 14px;
-      opacity: 0.7;
-      letter-spacing: 6px;
-    }
-
-    /* ── SIDEBAR SNIPPETS ─────────────────────────────────────── */
-    .sidebar-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 1px;
-    }
-
-    .snippet {
-      background: var(--deep);
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--rule);
-      transition: background var(--transition);
-    }
-    .snippet:hover { background: rgba(30,13,53,0.9); }
-
-    .snippet-num {
-      font-family: 'Cinzel', serif;
-      font-size: 28px;
-      font-weight: 900;
-      color: var(--purple-md);
-      line-height: 1;
-      margin-bottom: 6px;
-      opacity: 0.6;
-    }
-
-    .snippet-hed {
+    .dispatch-statement .big-text {
       font-family: 'Playfair Display', serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--cream);
-      margin-bottom: 6px;
-      line-height: 1.3;
-    }
-
-    .snippet-body {
-      font-size: 12.5px;
-      color: rgba(240,232,216,0.65);
-      line-height: 1.6;
-    }
-
-    /* ── STAT BOX ─────────────────────────────────────────────── */
-    .stat-box {
-      background: linear-gradient(135deg, var(--purple-dk), var(--deep));
-      border: 1px solid var(--rule);
-      padding: 22px;
-      text-align: center;
-      margin-top: auto;
-    }
-
-    .stat-number {
-      font-family: 'Cinzel', serif;
-      font-size: 48px;
+      font-size: clamp(40px, 5.5vw, 82px);
       font-weight: 900;
-      color: var(--gold);
-      line-height: 1;
-      display: block;
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      max-width: 18ch;
+      margin: 0 auto;
     }
 
-    .stat-label {
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.3em;
-      color: var(--purple-acc);
-      margin-top: 6px;
-      display: block;
+    .dispatch-statement .sub {
+      margin-top: 24px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-2);
+      max-width: 52ch;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* ── REVIEWS BAND ─────────────────────────────────────────── */
-    .review-band {
-      background: var(--purple-dk);
-      border: 1px solid var(--rule);
-      border-top: none;
-      padding: 28px 40px;
+    /* ── ════════════════════════════════════════════════════════
+       DISPATCHES LIST — DIVIDER STYLE (NO CARDS)
+    ═══════════════════════════════════════════════════════════ */
+    .dispatch-list {
+      border-top: 1px solid var(--border);
     }
 
-    .review-band h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 10px;
-      letter-spacing: 0.5em;
-      color: var(--gold);
-      text-transform: uppercase;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .reviews-grid {
+    .dispatch-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
+      grid-template-columns: 280px 1fr 200px;
+      gap: 32px;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.25s;
+    }
+    .dispatch-row:hover { background: var(--bg-1); padding-left: 16px; margin-left: -16px; padding-right: 16px; }
+
+    .dispatch-row .d-img {
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .dispatch-row .d-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.75) brightness(0.85);
+      transition: transform 0.6s var(--ease-out);
+    }
+    .dispatch-row:hover .d-img img { transform: scale(1.06); }
+
+    .dispatch-row .d-section {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       REVIEWS — SCATTERED ASYMMETRIC
+    ═══════════════════════════════════════════════════════════ */
+    .reviews-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .reviews-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4vw, 60px);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.02em;
+      margin-bottom: 64px;
+    }
+
+    .reviews-scatter {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr 1fr;
+      gap: 48px;
+      align-items: start;
     }
 
     .review-item {
-      border-left: 2px solid var(--purple-md);
-      padding-left: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
+
+    .review-item:nth-child(2) { margin-top: 40px; }
+    .review-item:nth-child(3) { margin-top: 20px; }
 
     .review-stars {
-      color: var(--gold);
-      font-size: 11px;
-      letter-spacing: 2px;
-      margin-bottom: 6px;
+      display: flex;
+      gap: 3px;
     }
 
+    .review-stars span {
+      width: 12px; height: 12px;
+      background: var(--warm);
+      clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+      opacity: 0.8;
+    }
+    .review-stars span.empty { opacity: 0.15; }
+
     .review-text {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 13px;
-      color: rgba(240,232,216,0.8);
-      line-height: 1.55;
-      margin-bottom: 8px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
     }
 
     .review-author {
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      color: var(--purple-acc);
-    }
-
-    /* ── MAP / INDEX SIDEBAR ──────────────────────────────────── */
-    .page-index {
-      background: var(--purple-dk);
-      border: 1px solid var(--rule);
-      padding: 20px;
-    }
-
-    .page-index h4 {
-      font-family: 'Cinzel', serif;
-      font-size: 9.5px;
-      letter-spacing: 0.4em;
-      color: var(--gold);
-      margin-bottom: 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(74,31,122,0.5);
-    }
-
-    .index-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8px;
-      padding: 5px 0;
-      border-bottom: 1px dotted rgba(58,26,92,0.5);
-    }
-
-    .index-row span:first-child {
-      font-family: 'EB Garamond', serif;
-      font-size: 13px;
-      color: rgba(240,232,216,0.8);
-    }
-
-    .index-row span:last-child {
-      font-family: 'Cinzel', serif;
+      font-family: 'DM Mono', monospace;
       font-size: 10px;
-      color: var(--purple-acc);
-      flex-shrink: 0;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
     }
 
-    /* ── BOTTOM FULL-WIDTH STORY ──────────────────────────────── */
-    .bottom-two {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--rule);
-      border: 1px solid var(--rule);
-      border-top: none;
+    /* ── ════════════════════════════════════════════════════════
+       BANNER CTA — JOIN
+    ═══════════════════════════════════════════════════════════ */
+    .join-banner {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
     }
 
-    /* ── FOOTER ───────────────────────────────────────────────── */
-    .site-footer {
-      margin-top: 0;
-      border: 1px solid var(--rule);
-      border-top: 2px solid var(--gold);
-      background: var(--purple-dk);
-      padding: 40px;
+    .join-banner-bg {
+      position: absolute;
+      inset: 0;
     }
 
-    .footer-masthead {
+    .join-banner-bg img {
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.2) saturate(0.5);
+    }
+
+    .join-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 96px 48px;
       text-align: center;
-      margin-bottom: 30px;
     }
 
-    .footer-masthead .masthead-title {
-      font-size: clamp(32px, 5vw, 64px);
-      opacity: 0.4;
+    .join-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 16px;
     }
 
-    .footer-cols {
+    .join-inner p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-2);
+      max-width: 50ch;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .join-form {
+      display: flex;
+      align-items: center;
+      max-width: 440px;
+      margin: 0 auto;
+      gap: 0;
+    }
+
+    .join-form input {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-right: none;
+      padding: 13px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      box-shadow: inset 0 1px 0 var(--inner);
+      transition: border-color 0.25s;
+    }
+    .join-form input::placeholder { color: var(--text-3); }
+    .join-form input:focus { border-color: rgba(255,255,255,0.22); }
+
+    .join-form button {
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 13px 22px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.25s;
+      white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .join-form button:hover { background: #7a5da0; }
+
+    /* ── ════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-1);
+    }
+
+    .footer-top {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 56px 48px 48px;
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 32px;
-      margin-bottom: 28px;
+      grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .footer-about {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-3);
+      line-height: 1.7;
+      max-width: 32ch;
     }
 
     .footer-col h5 {
-      font-family: 'Cinzel', serif;
-      font-size: 9px;
-      letter-spacing: 0.4em;
-      color: var(--gold);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(74,31,122,0.5);
+      color: var(--text-3);
+      margin-bottom: 16px;
     }
 
-    .footer-col p,
-    .footer-col a {
-      font-size: 12.5px;
-      color: rgba(240,232,216,0.55);
-      line-height: 1.8;
-      display: block;
-      text-decoration: none;
-      font-family: 'EB Garamond', serif;
-      transition: color 0.25s;
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    .footer-col a:hover { color: var(--gold); }
+    .footer-col ul li a {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-2);
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--text); }
 
     .footer-bottom {
-      text-align: center;
-      padding-top: 20px;
-      border-top: 1px solid rgba(74,31,122,0.4);
-      font-family: 'Cinzel', serif;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+    }
+
+    /* ── NOTICES BAND ─────────────────────────────────────────── */
+    .notices-band {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-1);
+    }
+
+    .notices-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .notice-cell {
+      padding: 28px 0;
+      border-right: 1px solid var(--border);
+      padding-right: 28px;
+      padding-left: 28px;
+    }
+    .notice-cell:first-child { padding-left: 0; }
+    .notice-cell:last-child  { border-right: none; }
+
+    .notice-cell .notice-tag {
+      font-family: 'DM Mono', monospace;
       font-size: 9px;
-      letter-spacing: 0.3em;
-      color: rgba(201,168,76,0.35);
-    }
-
-    /* ── SCROLL ANIMATIONS ────────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── TAG / BADGE ──────────────────────────────────────────── */
-    .tag {
-      display: inline-block;
-      font-family: 'Cinzel', serif;
-      font-size: 8.5px;
-      letter-spacing: 0.25em;
-      padding: 3px 9px;
-      border: 1px solid currentColor;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-right: 6px;
-      margin-bottom: 8px;
+      color: var(--accent);
+      margin-bottom: 6px;
     }
 
-    .tag.exclusive { color: var(--gold); border-color: var(--gold); }
-    .tag.breaking  { color: #e05555; border-color: #e05555; }
-    .tag.opinion   { color: var(--purple-acc); border-color: var(--purple-acc); }
-    .tag.feature   { color: var(--cream); border-color: var(--cream); opacity: 0.6; }
+    .notice-cell p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
 
     /* ── RESPONSIVE ───────────────────────────────────────────── */
-    @media (max-width: 1100px) {
-      .hero-grid     { grid-template-columns: 1fr 1.8fr; }
-      .hero-grid > *:last-child { display: none; }
-      .mid-grid      { grid-template-columns: 1fr 1.6fr; }
-      .mid-grid > *:last-child  { display: none; }
-      .reviews-grid  { grid-template-columns: repeat(2, 1fr); }
-      .footer-cols   { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 1024px) {
+      .hero                { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right          { min-height: 50vw; }
+      .hero-left           { padding: 56px 48px; }
+      .chronicles-grid     { grid-template-columns: 1fr; }
+      .manuscript-split    { grid-template-columns: 1fr; }
+      .manuscript-image    { min-height: 320px; }
+      .manuscript-image img{ height: 320px; }
+      .archive-grid        { grid-template-columns: 1fr; }
+      .feature-overlay     { grid-template-columns: 1fr; gap: 32px; padding: 48px; }
+      .dispatch-row        { grid-template-columns: 160px 1fr; }
+      .dispatch-row > *:last-child { display: none; }
+      .reviews-scatter     { grid-template-columns: 1fr 1fr; }
+      .reviews-scatter > *:nth-child(3) { display: none; }
+      .footer-top          { grid-template-columns: 1fr 1fr; }
+      .notices-inner       { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 768px) {
-      .page { padding: 0 16px 40px; }
-      .top-bar, .main-nav { padding: 6px 16px; }
-      .masthead { padding: 20px 16px 12px; }
-      .hero-grid, .mid-grid, .feature-row,
-      .three-col, .bottom-two { grid-template-columns: 1fr; }
-      .full-banner .banner-overlay { padding: 20px; }
-      .article-body.two-col { columns: 1; }
-      .reviews-grid { grid-template-columns: 1fr; }
-      .footer-cols  { grid-template-columns: 1fr; }
-      .hero-grid > *:last-child { display: block; }
-      .mid-grid > *:last-child  { display: block; }
+      .wrap { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero-left { padding: 48px 20px; }
+      .chronicle-body, .manuscript-text, .archive-cell-body { padding: 24px 20px; }
+      .clarity-section { padding: 72px 20px; }
+      .feature-overlay { padding: 40px 20px; }
+      .dispatch-row { grid-template-columns: 1fr; }
+      .dispatch-row .d-img { display: none; }
+      .reviews-scatter { grid-template-columns: 1fr; }
+      .reviews-scatter > *:nth-child(2),
+      .reviews-scatter > *:nth-child(3) { margin-top: 0; }
+      .join-inner { padding: 64px 20px; }
+      .join-form { flex-direction: column; }
+      .join-form input, .join-form button { width: 100%; border-right: 1px solid rgba(255,255,255,0.12); }
+      .footer-top { grid-template-columns: 1fr; padding: 40px 20px; }
+      .footer-bottom { padding: 16px 20px; flex-direction: column; gap: 8px; text-align: center; }
+      .notices-inner { grid-template-columns: 1fr; }
+      .notice-cell { border-right: none; border-bottom: 1px solid var(--border); padding-left: 0; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── READING PROGRESS ───────────────────────────────────────── -->
-<div id="progress-bar"></div>
+<div id="read-progress"></div>
 
 <!-- ════════════════════════════════════════════════════════════
-     HEADER / MASTHEAD
+     NAV
 ═════════════════════════════════════════════════════════════ -->
-<header class="site-header">
-
-  <div class="top-bar">
-    <span>Vol. I &nbsp;·&nbsp; No. 13 &nbsp;·&nbsp; The Dark Season</span>
-    <span class="edition-tag">MIDNIGHT EDITION</span>
-    <span>18 May 2026 &nbsp;·&nbsp; Raven's Gate, The Hollow Provinces</span>
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">The Crowley Gazette</a>
+    <ul class="nav-links">
+      <li><a href="#">Chronicles</a></li>
+      <li><a href="#">The Arcane</a></li>
+      <li><a href="#">Arts</a></li>
+      <li><a href="#">Dispatches</a></li>
+      <li><a href="#">Séances</a></li>
+      <li><a href="#">Archive</a></li>
+    </ul>
+    <span class="nav-issue">Vol. I · No. 13 · 18 May 2026</span>
   </div>
-
-  <div class="masthead">
-    <div class="masthead-ornament">✦ &nbsp; Est. in the Year of the Black Raven &nbsp; ✦</div>
-    <h1 class="masthead-title">The Crowley Gazette</h1>
-    <p class="masthead-sub">Where Dark Truths Unravel &nbsp;·&nbsp; Independent Chronicle of the Hollow Provinces</p>
-    <div class="masthead-rule">
-      <hr />
-      <span class="diamond sm"></span>
-      <span class="diamond"></span>
-      <span class="diamond sm"></span>
-      <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.3em;color:var(--gold);padding:0 8px;white-space:nowrap">OMNIA VERITAS</span>
-      <span class="diamond sm"></span>
-      <span class="diamond"></span>
-      <span class="diamond sm"></span>
-      <hr />
-    </div>
-  </div>
-
-  <nav class="main-nav">
-    <a href="#">Frontpage</a>
-    <a href="#">Chronicles</a>
-    <a href="#">The Arcane</a>
-    <a href="#">Arts &amp; Letters</a>
-    <a href="#">The Hollow</a>
-    <a href="#">Dispatches</a>
-    <a href="#">Séances</a>
-    <a href="#">Obituaries</a>
-  </nav>
-
-  <!-- Breaking news ticker -->
-  <div class="ticker-wrap">
-    <div class="ticker-label">⚡ BREAKING</div>
-    <div class="ticker-content">
-      <div class="ticker-inner">
-        <span>CROWLEY MANUSCRIPT SURFACES AT LAKESIDE MANOR — Rare copy of forbidden text confirmed authentic by three independent scholars</span>
-        <span class="sep">✦</span>
-        <span>ENCHANTED GARDEN DISTRICT REPORTS THIRD UNEXPLAINED LANTERN EVENT THIS FORTNIGHT</span>
-        <span class="sep">✦</span>
-        <span>COUNCIL OF RAVENS CONVENES EMERGENCY SESSION — Black Carriage sighted crossing province boundary after dark</span>
-        <span class="sep">✦</span>
-        <span>ART ACADEMY UNVEILS NEW WING: "The Crowley Collection" — Open to the public at the turn of the next moon</span>
-        <span class="sep">✦</span>
-        <span>FOUNTAIN OF THE FORGOTTEN FLOWS AGAIN — First activation in 40 years baffles scholars of the old water-magic</span>
+  <!-- ticker -->
+  <div class="ticker">
+    <div class="ticker-tag">Breaking</div>
+    <div class="ticker-track">
+      <div class="ticker-items" id="ticker-items">
+        <span>Crowley manuscript confirmed authentic by three independent scholars</span>
+        <span class="dot">·</span>
+        <span>Enchanted Garden: third lantern event this fortnight — no source found</span>
+        <span class="dot">·</span>
+        <span>Black Carriage crosses North Gate at midnight — driver's seat empty</span>
+        <span class="dot">·</span>
+        <span>Glass-House fountain flows again after 40 years of silence</span>
+        <span class="dot">·</span>
+        <span>Art Academy studio: seventh canvas completed by an unseen hand</span>
+        <span class="dot">·</span>
+        <span>Red Maple at the Waterfront has not shed a single leaf in forty days</span>
+        <span class="dot">·</span>
+        <span>Crowley manuscript confirmed authentic by three independent scholars</span>
+        <span class="dot">·</span>
+        <span>Enchanted Garden: third lantern event this fortnight — no source found</span>
+        <span class="dot">·</span>
+        <span>Black Carriage crosses North Gate at midnight — driver's seat empty</span>
+        <span class="dot">·</span>
+        <span>Glass-House fountain flows again after 40 years of silence</span>
+        <span class="dot">·</span>
+        <span>Art Academy studio: seventh canvas completed by an unseen hand</span>
+        <span class="dot">·</span>
+        <span>Red Maple at the Waterfront has not shed a single leaf in forty days</span>
       </div>
     </div>
   </div>
-
 </header>
 
 <!-- ════════════════════════════════════════════════════════════
-     PAGE
+     HERO
 ═════════════════════════════════════════════════════════════ -->
-<main class="page">
+<section class="hero">
 
-  <!-- Section label -->
-  <div class="section-heading reveal">
-    <h2>Today's Frontpage</h2>
-    <div class="rule-line"></div>
+  <div class="hero-left reveal">
+    <div class="hero-eyebrow">
+      <div class="dot"></div>
+      <span class="label">Frontpage Feature · Séance Report</span>
+    </div>
+
+    <h1 class="hero-headline">
+      The séance at<br/>
+      <em>Lakeside</em><br/>
+      Manor.
+    </h1>
+
+    <p class="hero-dek">
+      Seven gathered on the dock at the dying of the moon. The water went still as glass. Something moved beneath it — and it knew their names.
+    </p>
+
+    <div class="hero-links">
+      <a href="#" class="btn-primary">Read the report</a>
+      <a href="#" class="btn-ghost">Browse the archive</a>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <strong>7</strong>
+        <span class="label">Séance participants</span>
+      </div>
+      <div class="hero-stat">
+        <strong>XIII</strong>
+        <span class="label">Unexplained events</span>
+      </div>
+      <div class="hero-stat">
+        <strong>40</strong>
+        <span class="label">Years since the fountain last flowed</span>
+      </div>
+    </div>
   </div>
 
-  <!-- ── HERO ROW ─────────────────────────────────────────────── -->
-  <div class="hero-grid reveal">
-
-    <!-- Left column: snippets + stat -->
-    <div style="display:flex;flex-direction:column;">
-      <div class="article-card" style="flex:1;border-bottom:1px solid var(--rule);">
-        <div class="article-label">Dispatch</div>
-        <h3 class="article-hed md">The Enchanted Cliffside Garden: Mushrooms, Magic &amp; Unexplained Light Events</h3>
-        <p class="article-dek">Witnesses describe warm golden lanterns igniting without flame at dusk.</p>
-        <div class="img-wrap" style="height:180px;margin-bottom:14px;">
-          <img src="assets/images/enchanted-garden.jpg" alt="Enchanted Garden at dusk" loading="lazy" />
-          <div class="img-caption">The Cliffside Garden, dusk — Correspondent's photograph</div>
-          <div class="img-overlay-label">Exclusive</div>
-        </div>
-        <p class="article-body" style="font-size:13px;">
-          Residents of Mosshollow Bluff awoke to find the cliffside garden ablaze with amber light — yet no torch, no tallow, no gas lamp had been lit by any human hand. The mushrooms, they insist, were pulsing.
-        </p>
-        <div class="article-meta">By Correspondent E. Ashveil &nbsp;·&nbsp; Garden District Bureau</div>
-      </div>
-
-      <div class="stat-box">
-        <span class="stat-number">XIII</span>
-        <span class="stat-label">Unexplained events logged this fortnight</span>
-      </div>
-
-      <div class="page-index">
-        <h4>Inside This Edition</h4>
-        <div class="index-row"><span>The Black Raven's Last Flight</span><span>A2</span></div>
-        <div class="index-row"><span>Fountain of Forgotten Wishes</span><span>B1</span></div>
-        <div class="index-row"><span>Academy Exhibition Review</span><span>C3</span></div>
-        <div class="index-row"><span>Autumn Rites at the Old Tree</span><span>D4</span></div>
-        <div class="index-row"><span>The Black Carriage Returns</span><span>E1</span></div>
-        <div class="index-row"><span>Séance at Lakeside Manor</span><span>F6</span></div>
-      </div>
+  <div class="hero-right">
+    <img src="assets/images/lakeside-cottage.jpg" alt="The Lakeside Manor at dusk, seen from the dock" />
+    <div class="hero-img-meta">
+      <span class="hero-img-caption">Lakeside Manor — photographed from the old dock at the hour of the mist</span>
+      <span class="hero-img-num">01</span>
     </div>
-
-    <!-- CENTER: hero feature -->
-    <div class="hero-center article-card" style="padding:0;">
-      <div class="img-wrap" style="height:440px;">
-        <img src="assets/images/lakeside-cottage.jpg" alt="The Lakeside Manor at dusk" loading="lazy" />
-        <div class="img-overlay-label">Feature</div>
-        <div class="img-caption">The Lakeside Manor — photographed from the old dock, at the hour of the mist</div>
-      </div>
-      <div class="hero-text">
-        <div class="article-label">Frontpage Feature</div>
-        <span class="tag exclusive">Exclusive</span>
-        <h2 class="article-hed xl">Séance at Lakeside Manor: The Night They Called Back Crowley</h2>
-        <p class="article-dek">A fog-draped stone cottage, a crumbling dock, and seven souls who claimed they heard something answer.</p>
-        <div class="article-body two-col dropcap">
-          The cottage had stood at the water's edge for longer than anyone in the village could remember — its thatched roof silvered by seasons, its stone walls thick with the memory of old fires. It was here, on the fourteenth night of the dying moon, that a gathering of seven convened beneath the iron lanterns to conduct what survivors would only call "the Séance of the Dock."
-          <br /><br />
-          Madam Vellora, who has conducted such ceremonies for three decades, arrived first. She walked the dock alone, trailing her hand in the black water, reciting the old words in a language none of the assembled could name. The water, she reported, answered before the ceremony had properly begun.
-          <br /><br />
-          What followed — the cold, the sudden stillness of the lake, the sound like a great book being shut — has been recorded in full in the official transcript, available exclusively to Gazette subscribers at the Archives of the Hollow.
-        </div>
-        <div class="pull-quote" style="margin-top:18px;">
-          <p>"The water went still as glass. Then something moved beneath it — and it knew our names."</p>
-          <cite>— Madam Vellora, Séance Account, XIV Night</cite>
-        </div>
-        <div class="article-meta">By Senior Correspondent H. Blackmere &nbsp;·&nbsp; Lakeside Bureau &nbsp;·&nbsp; Full report: Section F, Page 6</div>
-      </div>
-    </div>
-
-    <!-- Right column: side stories -->
-    <div class="sidebar-stack">
-      <div class="snippet">
-        <div class="snippet-num">01</div>
-        <div class="snippet-hed">Autumn's Red Tree: The Oracle Speaks Its Last Season</div>
-        <div class="snippet-body">The great crimson maple at the rocky waterfront has not shed a single leaf in forty days. Ecologists are baffled. The village elders are not.</div>
-        <div class="article-meta" style="font-size:9px;margin-top:8px;">Section D · Page 4</div>
-      </div>
-      <div class="snippet">
-        <div class="snippet-num">02</div>
-        <div class="snippet-hed">The Fountain Lives Again: Ancient Water-Magic Returns to the Glass-House</div>
-        <div class="snippet-body">For the first time since the reign of the Second Council, the great tiered fountain at the old conservatory has resumed its flow. Water lilies appeared overnight.</div>
-        <div class="article-meta" style="font-size:9px;margin-top:8px;">Section B · Page 1</div>
-      </div>
-      <div class="snippet">
-        <div class="snippet-num">03</div>
-        <div class="snippet-hed">The Black Carriage Crosses the North Gate — Driver Unseen</div>
-        <div class="snippet-body">Three customs officers report a black vehicle, engine silent, crossing the North Gate at midnight. No driver was visible in any window or mirror.</div>
-        <div class="article-meta" style="font-size:9px;margin-top:8px;">Section E · Page 1</div>
-      </div>
-      <div class="snippet">
-        <div class="snippet-num">04</div>
-        <div class="snippet-hed">Academy Bust Completes Itself — Student Swears She Did Not Finish It</div>
-        <div class="snippet-body">A first-year student at the Crowley Academy of Fine Arts returned to find her half-finished portrait bust complete — rendered in a hand she does not recognise.</div>
-        <div class="article-meta" style="font-size:9px;margin-top:8px;">Section C · Page 3</div>
-      </div>
-    </div>
-
-  </div><!-- /hero-grid -->
-
-  <!-- ── ORNATE DIVIDER ──────────────────────────────────────── -->
-  <div class="ornate-divider reveal">
-    <div class="line"></div>
-    <span class="glyph">✦ ✦ ✦</span>
-    <div class="line"></div>
   </div>
 
-  <!-- Section label -->
-  <div class="section-heading reveal">
-    <h2>Featured Reports</h2>
-    <div class="rule-line"></div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     TODAY'S CHRONICLES
+═════════════════════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="section-label-row reveal">
+    <span class="label">Today's Chronicles</span>
+    <a href="#" class="see-all mono">View all dispatches →</a>
   </div>
+</div>
 
-  <!-- ── MID GRID ────────────────────────────────────────────── -->
-  <div class="mid-grid reveal">
+<div style="max-width:1400px;margin:0 auto;padding:0 48px;">
+  <div class="chronicles-grid reveal">
 
-    <!-- Left: Art Studio -->
-    <div class="col-article article-card" style="padding:0;">
-      <div class="img-wrap" style="height:260px;">
-        <img src="assets/images/art-studio.jpg" alt="The Crowley Academy Art Studio" loading="lazy" />
-        <div class="img-overlay-label">Arts &amp; Letters</div>
-        <div class="img-caption">The Studio of the Second Floor, Crowley Academy — midday session</div>
+    <!-- MAIN: Enchanted Garden -->
+    <div class="chronicle-main">
+      <div class="img-block">
+        <img src="assets/images/enchanted-garden.jpg" alt="The Enchanted Cliffside Garden at dusk" />
       </div>
-      <div style="padding:20px;">
-        <div class="article-label">Arts &amp; Letters</div>
-        <span class="tag opinion">Review</span>
-        <h3 class="article-hed md">When the Canvas Refuses to Stay Empty: The Academy's Haunted Studio</h3>
-        <p class="article-dek">Three easels, six unfinished portraits, and one very unsettled instructor.</p>
-        <p class="article-body">
-          The art academy's second-floor studio has long been regarded as the finest teaching space in the province — its herringbone floors warm with old wood, its ceilings ribbed with soft fluorescent light that flatters both students and their subjects. But this term, the studio has acquired a reputation that no curriculum can account for.
-          <br /><br />
-          Seven students have now reported returning to find their works advanced beyond the point at which they were abandoned. The brushwork, reviewers note, is technically superior to anything the students have produced under observation. One unfinished bust of a female figure was found complete, rendered in earth tones — the identity of the subject still unidentified.
-        </p>
-        <div class="article-meta">By Arts Correspondent I. Morrow &nbsp;·&nbsp; Academy Bureau</div>
+      <div class="img-label-row" style="padding:12px 36px 0;">
+        <span class="img-title">The Cliffside Garden, Mosshollow Bluff — dusk</span>
+        <span class="img-num">02</span>
+      </div>
+      <div class="chronicle-body">
+        <div class="label" style="color:var(--accent);margin-bottom:10px;">Garden District · Dispatch</div>
+        <h2 class="hed-lg" style="margin-bottom:12px;">The Enchanted Cliffside Garden: Thirteen Lanterns With No Flame.</h2>
+        <p class="dek" style="margin-bottom:18px;">Witnesses describe amber light igniting without source at dusk. The mushrooms, they insist, were pulsing.</p>
+        <div class="body-text">
+          <p>Residents of Mosshollow Bluff awoke to find the cliffside garden ablaze with amber light — yet no torch, no tallow, no gas lamp had been lit by any human hand. The wildflowers, improbably in bloom three weeks past their season, had turned their faces toward the light as though it were the sun.</p>
+          <p>Correspondent E. Ashveil, who reached the bluff before dawn on the third morning of the event, filed a single photograph before her camera ceased to function. That photograph is reproduced above. She noted in her dispatch: "The jar at the base of the post appeared to contain preserved light. Not a candle flame. Light itself."</p>
+        </div>
+        <div class="art-meta">
+          <span class="label">By E. Ashveil · Garden District Bureau</span>
+          <span class="label" style="color:var(--accent);">Section B · Page 3</span>
+        </div>
       </div>
     </div>
 
-    <!-- Center: Long opinion piece -->
-    <div class="article-card">
-      <div class="article-label">Opinion &amp; Analysis</div>
-      <span class="tag opinion">Opinion</span>
-      <h3 class="article-hed lg">Crowley and the Death of the Black Raven: What the Manuscript Really Says</h3>
-      <p class="article-dek">Our senior archivist has spent three weeks with the text. Her conclusions are not reassuring.</p>
-
-      <div class="img-wrap" style="height:220px;margin:16px 0;">
-        <img src="assets/images/crowley-cover.jpg" alt="Crowley manuscript cover" loading="lazy" />
-        <div class="img-caption">"Crowley — Cái Chết Của Quạ Đen" — The recovered manuscript, photographed in the Gazette archive</div>
-        <div class="img-overlay-label">Archive</div>
+    <!-- SIDEBAR: 3 stories, divider style -->
+    <div class="chronicle-sidebar">
+      <div class="sidebar-story reveal reveal-delay-1">
+        <div class="label" style="color:var(--accent);margin-bottom:8px;">Night Bureau</div>
+        <h3 class="hed-sm" style="margin-bottom:8px;">The Black Carriage Crosses the North Gate. Driver Unseen.</h3>
+        <p class="body-text" style="font-size:13px;">Three customs officers. Zero sightings of a driver. An engine that made no sound crossing the cobblestones at the stroke of midnight. The vehicle continued south. No one followed.</p>
+        <div class="art-meta"><span class="label">Night Bureau · Section E</span></div>
       </div>
 
-      <p class="article-body dropcap">
-        The manuscript arrived wrapped in black silk, sealed with purple wax bearing an insignia our most senior archivist could not immediately place — a sword crossed through a compass rose, ringed by thorned vines. It weighed more than a book of its apparent size should. It smelled of iron.
-        <br /><br />
-        "Crowley: Cái Chết Của Quạ Đen" — which translates, roughly, as "Crowley: The Death of the Black Raven" — is attributed to an author who signs themselves only as Ryu Vang. No such person appears in any provincial registry. The handwriting in the marginal annotations, however, is consistent across three separate exemplars held in our archive — meaning the same hand has been correcting this text for at least sixty years.
-      </p>
+      <div class="sidebar-story reveal reveal-delay-2">
+        <div class="label" style="color:var(--accent);margin-bottom:8px;">City Report</div>
+        <h3 class="hed-sm" style="margin-bottom:8px;">The Glass-House Fountain Flows Again After Forty Years.</h3>
+        <p class="body-text" style="font-size:13px;">Bone-dry at eleven in the evening. By five in the morning — two feet of clear water, white water lilies, and ironwork warm to the touch. No maintenance order filed. The Council of Waters advises: do not drink from the basin.</p>
+        <div class="art-meta"><span class="label">City Correspondent · Section C</span></div>
+      </div>
+
+      <div class="sidebar-story reveal reveal-delay-3">
+        <div class="label" style="color:var(--accent);margin-bottom:8px;">Arts &amp; Mysteries</div>
+        <h3 class="hed-sm" style="margin-bottom:8px;">Academy Bust Completes Itself. Student Did Not Finish It.</h3>
+        <p class="body-text" style="font-size:13px;">A first-year student at Crowley Academy returned to find her half-finished portrait bust complete — rendered in a hand she cannot recognise. The academy has checked the security footage. There is none.</p>
+        <div class="art-meta"><span class="label">I. Morrow · Arts Bureau · Section D</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     MANUSCRIPT SPLIT — CROWLEY BOOK FEATURE
+═════════════════════════════════════════════════════════════ -->
+<div style="max-width:1400px;margin:0 auto;padding:0 48px;">
+  <div class="manuscript-split reveal">
+
+    <div class="manuscript-text">
+      <div class="label" style="color:var(--accent);margin-bottom:14px;">Opinion &amp; Analysis · Archive Division</div>
+      <h2 class="hed-xl" style="margin-bottom:18px;">Crowley and the Death of the Black Raven: What the Manuscript Really Says.</h2>
+      <p class="dek" style="margin-bottom:24px;">Our senior archivist has spent three weeks with the text. Her conclusions are not reassuring.</p>
+      <div class="body-text dropcap">
+        <p>The manuscript arrived wrapped in black silk, sealed with purple wax bearing an insignia our most senior archivist could not immediately place. It weighed more than a book of its apparent size should. It smelled of iron.</p>
+        <p style="margin-top:16px;">"Crowley — Cái Chết Của Quạ Đen" — which translates as "The Death of the Black Raven" — is attributed to an author who signs themselves only as Ryu Vang. No such person appears in any provincial registry. The handwriting in the marginal annotations, however, is consistent across three separate exemplars held in our archive — meaning the same hand has been correcting this text for at least sixty years.</p>
+        <p style="margin-top:16px;">What makes the text remarkable is not its prose style. It is the specificity. Dates are given. Locations described in enough detail to be mapped against the current province. A chapter entitled "The Night of the Thirteen Lanterns" describes an event our garden correspondent independently reported this fortnight — six years before her dispatch was filed.</p>
+      </div>
 
       <div class="pull-quote">
         <p>"The manuscript does not merely describe events. It anticipates them. Three of the passages we verified had not yet occurred at the time of this printing."</p>
         <cite>— Senior Archivist D. Crowne, Gazette Archive Division</cite>
       </div>
 
-      <p class="article-body">
-        What makes the text remarkable is not its prose style, though the ornamented gothic lettering of the title chapter is genuinely beautiful. It is the specificity. Dates are given. Locations described in enough detail to be mapped against the current province. A chapter entitled "The Night of the Thirteen Lanterns" describes an event our garden correspondent independently reported this fortnight — six years before her dispatch was filed.
-      </p>
-      <div class="article-meta">By Senior Archivist D. Crowne &nbsp;·&nbsp; Gazette Archive Division &nbsp;·&nbsp; Continued: Section A, Page 2</div>
+      <div class="art-meta">
+        <span class="label">By D. Crowne · Archive Division</span>
+        <span class="label" style="color:var(--accent);">Continued: Section A, Page 2</span>
+      </div>
     </div>
 
-    <!-- Right: sidebar snippets + reviews preview -->
-    <div style="display:flex;flex-direction:column;background:var(--deep);">
-      <div class="article-card" style="border-bottom:1px solid var(--rule);">
-        <div class="article-label">Letters to the Gazette</div>
-        <h4 style="font-family:'Playfair Display',serif;font-size:13px;margin-bottom:10px;color:var(--cream);">"I Saw the Raven"</h4>
-        <p style="font-size:12.5px;color:rgba(240,232,216,0.7);font-style:italic;line-height:1.65;">
-          "I have lived along the province waterfront for thirty-one years. The raven that has nested above the north gate has not moved in seven days. It does not sleep, it does not feed. It watches the road south. I believe it is waiting."
-        </p>
-        <div class="article-meta">— Name withheld, North Gate District</div>
-      </div>
-      <div class="article-card" style="border-bottom:1px solid var(--rule);">
-        <div class="article-label">Letters to the Gazette</div>
-        <h4 style="font-family:'Playfair Display',serif;font-size:13px;margin-bottom:10px;color:var(--cream);">On the Subject of the Fountain</h4>
-        <p style="font-size:12.5px;color:rgba(240,232,216,0.7);font-style:italic;line-height:1.65;">
-          "My grandmother said the fountain last flowed the night a great secret was buried in the province. If it flows again, something has been unearthed."
-        </p>
-        <div class="article-meta">— B. Wainscott, Glass-House Quarter</div>
-      </div>
-      <div class="article-card">
-        <div class="article-label">This Week's Numbers</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
-          <div style="text-align:center;padding:12px;background:rgba(74,31,122,0.2);border:1px solid var(--rule);">
-            <span style="font-family:'Cinzel',serif;font-size:26px;color:var(--gold);display:block;font-weight:900;">7</span>
-            <span style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.2em;color:var(--purple-acc);display:block;margin-top:4px;">Séance Participants</span>
-          </div>
-          <div style="text-align:center;padding:12px;background:rgba(74,31,122,0.2);border:1px solid var(--rule);">
-            <span style="font-family:'Cinzel',serif;font-size:26px;color:var(--gold);display:block;font-weight:900;">40</span>
-            <span style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.2em;color:var(--purple-acc);display:block;margin-top:4px;">Years the Fountain Was Silent</span>
-          </div>
-          <div style="text-align:center;padding:12px;background:rgba(74,31,122,0.2);border:1px solid var(--rule);">
-            <span style="font-family:'Cinzel',serif;font-size:26px;color:var(--gold);display:block;font-weight:900;">13</span>
-            <span style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.2em;color:var(--purple-acc);display:block;margin-top:4px;">Unexplained Events</span>
-          </div>
-          <div style="text-align:center;padding:12px;background:rgba(74,31,122,0.2);border:1px solid var(--rule);">
-            <span style="font-family:'Cinzel',serif;font-size:26px;color:var(--gold);display:block;font-weight:900;">3</span>
-            <span style="font-family:'Cinzel',serif;font-size:8px;letter-spacing:0.2em;color:var(--purple-acc);display:block;margin-top:4px;">Unclaimed Portraits</span>
-          </div>
+    <div class="manuscript-image reveal reveal-delay-2">
+      <img src="assets/images/crowley-cover.jpg" alt="The Crowley manuscript — recovered edition" />
+      <div style="padding:14px 20px 20px;background:var(--bg-1);">
+        <div class="img-label-row" style="padding:0;">
+          <span class="img-title">"Crowley — Cái Chết Của Quạ Đen" — recovered edition, Gazette archive</span>
+          <span class="img-num">03</span>
         </div>
       </div>
     </div>
 
-  </div><!-- /mid-grid -->
+  </div>
+</div>
 
-  <!-- ── ORNATE DIVIDER ──────────────────────────────────────── -->
-  <div class="ornate-divider reveal">
-    <div class="line"></div>
-    <span class="glyph">⚜ ⚜ ⚜</span>
-    <div class="line"></div>
+<!-- ════════════════════════════════════════════════════════════
+     CLARITY MOMENT
+═════════════════════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="clarity-section reveal">
+    <div class="clarity-word">The dispatches.</div>
+    <p class="clarity-sub">A pattern, not coincidence. Something is paying attention to this province in a way it has not been paid attention to before. We are not pretending. We are reporting.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     ARCHIVE GRID
+═════════════════════════════════════════════════════════════ -->
+<div style="max-width:1400px;margin:0 auto;padding:0 48px;">
+  <div class="section-label-row reveal">
+    <span class="label">The Archives</span>
+    <a href="#" class="see-all mono">View full archive →</a>
   </div>
 
-  <!-- Section label -->
-  <div class="section-heading reveal">
-    <h2>Special Correspondences</h2>
-    <div class="rule-line"></div>
-  </div>
+  <div class="archive-grid reveal">
 
-  <!-- ── FEATURE ROW: Autumn + Fountain ─────────────────────── -->
-  <div class="feature-row reveal">
-
-    <!-- Left wide: Autumn tree -->
-    <div class="article-card" style="padding:0;">
-      <div class="img-wrap" style="height:360px;">
-        <img src="assets/images/autumn-tree.jpg" alt="The Great Red Maple at the rocky waterfront" loading="lazy" />
-        <div class="img-overlay-label">Nature &amp; Omens</div>
-        <div class="img-caption">The Great Red Maple — Waterfront Outcrop, Autumn. Street lamp burning at midday.</div>
+    <!-- Tall left: Autumn Tree -->
+    <div class="archive-cell tall" style="grid-row: span 2;">
+      <div class="img-block" style="height:100%;">
+        <img src="assets/images/autumn-tree.jpg" alt="The Red Maple Oracle at the rocky waterfront" style="height:100%;min-height:560px;" />
       </div>
-      <div style="padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-        <div>
-          <div class="article-label">Nature &amp; Omens</div>
-          <span class="tag feature">Field Report</span>
-          <h3 class="article-hed lg">The Autumn Oracle: Why the Red Maple Has Not Shed a Leaf in Forty Days</h3>
-          <p class="article-dek">Botanists call it anomalous retention. The village calls it something older.</p>
-          <p class="article-body dropcap">
-            The tree stands alone at the edge of the rocky outcrop, overlooking the pale grey water that has no name in the current maps. Its leaves are the colour of dried blood — a deep arterial crimson that catches the autumn light and holds it, refusing to yield to the season's slow demand.
-            <br /><br />
-            In forty days, not one leaf has fallen. The street lamp at the base of the path burned through two consecutive nights of full moon without being refilled. No maintenance crew reported attending to it.
-          </p>
-        </div>
-        <div>
-          <p class="article-body">
-            Provincial botanist Dr. Seara Holst examined the tree on the twelfth day. Her preliminary report noted "no observable signs of disease, drought stress, or unusual hormonal activity" — and then, on page seven, a single handwritten addition: <em>"The tree appears aware of being observed."</em>
-            <br /><br />
-            The village elders hold a different understanding. According to the Autumn Rites tradition — last formally observed forty years ago — the great red maple is considered an oracle tree, one of only three remaining in the province. It sheds its leaves, the tradition holds, only when it has finished speaking.
-            <br /><br />
-            When we asked the eldest resident, Madam Orvaine, what it might be saying, she was quiet for a long time. Then: "It's not speaking to us. It's speaking to whatever is coming."
-          </p>
-          <div class="pull-quote">
-            <p>"It does not shed. It does not sleep. It watches the road south."</p>
-            <cite>— Dr. Seara Holst, Provincial Botanical Registry</cite>
-          </div>
-          <div class="article-meta">By Field Correspondent T. Halvane &nbsp;·&nbsp; Waterfront District</div>
+      <div class="archive-cell-body">
+        <div class="label" style="color:var(--accent);margin-bottom:6px;">Nature &amp; Omens</div>
+        <h3 class="hed-md" style="margin-bottom:8px;">The Autumn Oracle: Why the Red Maple Has Not Shed a Leaf in Forty Days.</h3>
+        <p class="body-text" style="font-size:13px;">The street lamp burns without oil. The tree does not sleep. It watches the road south.</p>
+        <div class="img-label-row">
+          <span class="img-title">The Red Maple, Waterfront Outcrop — forty-first day of retention</span>
+          <span class="img-num">04</span>
         </div>
       </div>
     </div>
 
-    <!-- Right: Fountain -->
-    <div class="article-card" style="padding:0;">
-      <div class="img-wrap" style="height:360px;">
-        <img src="assets/images/fountain.jpg" alt="The Glass-House Fountain" loading="lazy" />
-        <div class="img-overlay-label">City Report</div>
-        <div class="img-caption">The Great Fountain, Glass-House Conservatory — photographed the morning after first flow</div>
+    <!-- Top right: Fountain -->
+    <div class="archive-cell">
+      <div class="img-block">
+        <img src="assets/images/fountain.jpg" alt="The Glass-House Fountain flowing again" />
       </div>
-      <div style="padding:24px;">
-        <div class="article-label">City Report</div>
-        <span class="tag breaking">Developing</span>
-        <h3 class="article-hed lg">The Fountain of the Forgotten Flows Again After Forty Years of Silence</h3>
-        <p class="article-dek">Water lilies appeared in the basin before dawn. The surrounding ironwork was warm to the touch.</p>
-        <p class="article-body dropcap">
-          The great tiered fountain at the Glass-House Conservatory — silent for exactly four decades — resumed its flow at some point between the midnight bell and the first grey of dawn. No maintenance order had been filed. No workmen were assigned. The basin was bone-dry at eleven in the evening; by five in the morning it held two feet of clear water and a scatter of white water lilies that have not been cultivated there in living memory.
-          <br /><br />
-          The conservatory's ironwork canopy — ornate arches of Victorian-style scrollwork and rose-wound columns — was found warm to the touch, as though heated from within. The roses, out of season, had opened overnight.
-          <br /><br />
-          The Council of Waters has dispatched an inquiry. Their first communiqué, received this morning, reads in its entirety: <em>"We are aware. We are investigating. We advise no one to drink from the basin."</em>
-        </p>
-        <div class="article-meta">By City Correspondent M. Halvane &nbsp;·&nbsp; Glass-House Quarter</div>
-      </div>
-    </div>
-
-  </div><!-- /feature-row -->
-
-  <!-- ── ORNATE DIVIDER ──────────────────────────────────────── -->
-  <div class="ornate-divider reveal">
-    <div class="line"></div>
-    <span class="glyph">✦ ⚜ ✦</span>
-    <div class="line"></div>
-  </div>
-
-  <!-- Section label -->
-  <div class="section-heading reveal">
-    <h2>Night Dispatch</h2>
-    <div class="rule-line"></div>
-  </div>
-
-  <!-- ── FULL BANNER: Black Wagon ─────────────────────────────── -->
-  <div class="full-banner reveal">
-    <div class="img-wrap">
-      <img src="assets/images/black-wagon.jpg" alt="The Black Carriage at the North Gate" loading="lazy" />
-    </div>
-    <div class="banner-overlay">
-      <div class="banner-content">
-        <div class="article-label">Night Dispatch</div>
-        <span class="tag breaking">Breaking</span>
-        <h2 class="article-hed xl">The Black Carriage Has Returned. No One Saw It Arrive.</h2>
-        <p class="article-dek" style="font-size:17px;margin:14px 0;">Three customs officers. Zero sightings of a driver. An engine that made no sound crossing the cobblestones of the North Gate at the stroke of midnight.</p>
-        <p class="article-body" style="font-size:14px;color:rgba(240,232,216,0.8);">
-          The vehicle — a large, black, box-sided carriage of unmistakeable form — was recorded by all three customs officers on duty at the northern border checkpoint. Each filed an independent report. In each report, the vehicle is described identically. In each report, the driver's seat is empty. In each report, the officer notes that the vehicle passed through the checkpoint, acknowledged the beam of the inspection lantern, and continued south — but that when they attempted to follow or signal it, it had already rounded the bend.
-        </p>
-        <div style="margin-top:20px;">
-          <div class="article-meta" style="display:inline-block;border:1px solid rgba(201,168,76,0.3);padding:8px 14px;margin-top:0;">
-            Night Bureau &nbsp;·&nbsp; Officers V. Phar, K. Rosen, W. Daleth &nbsp;·&nbsp; Full incident log: Section E, Page 1
-          </div>
+      <div class="archive-cell-body">
+        <div class="label" style="color:var(--accent);margin-bottom:6px;">City Report</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Fountain of the Forgotten.</h3>
+        <p class="body-text" style="font-size:12.5px;">Bone-dry at eleven. Water lilies by five.</p>
+        <div class="img-label-row">
+          <span class="img-title">Glass-House Conservatory Fountain — morning after first flow</span>
+          <span class="img-num">05</span>
         </div>
       </div>
     </div>
-  </div><!-- /full-banner -->
 
-  <!-- ── ORNATE DIVIDER ──────────────────────────────────────── -->
-  <div class="ornate-divider reveal">
-    <div class="line"></div>
-    <span class="glyph">✦ ✦ ✦</span>
-    <div class="line"></div>
-  </div>
-
-  <!-- Section label -->
-  <div class="section-heading reveal">
-    <h2>Reviews &amp; Commentary</h2>
-    <div class="rule-line"></div>
-  </div>
-
-  <!-- ── REVIEWS BAND ────────────────────────────────────────── -->
-  <div class="review-band reveal">
-    <h3>Critical Notices &nbsp;·&nbsp; The Crowley Manuscript</h3>
-    <div class="reviews-grid">
-      <div class="review-item">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"An extraordinary piece of unsettling literature. One is never quite certain whether one is reading fiction or prophecy. Ryu Vang — whoever they are — writes with the authority of someone who has already seen what they describe."</p>
-        <div class="review-author">— The Hollow Provinces Literary Review</div>
+    <!-- Bottom right: Art Studio -->
+    <div class="archive-cell">
+      <div class="img-block">
+        <img src="assets/images/art-studio.jpg" alt="The Haunted Studio, Crowley Academy of Fine Arts" />
       </div>
-      <div class="review-item">
-        <div class="review-stars">★★★★☆</div>
-        <p class="review-text">"The gothic ornamentation of the cover art is matched only by the density of the text itself. Some chapters resist being read at night. One chapter, in particular, resists being read at all — and yet one finds it has been read."</p>
-        <div class="review-author">— Archive Quarterly, Vol. XXIII</div>
-      </div>
-      <div class="review-item">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"I placed the book on my desk before sleeping. By morning it had opened itself to page 147. The page was about this. Do not ask me to explain further."</p>
-        <div class="review-author">— Madam D. Crowne, Gazette Archive</div>
-      </div>
-      <div class="review-item">
-        <div class="review-stars">★★★☆☆</div>
-        <p class="review-text">"I am a man of science. I have read the manuscript twice. I have begun a third reading and I am no longer certain it is the same book. I am giving it three stars because I refuse to give it five. I suspect it knows this."</p>
-        <div class="review-author">— Prof. E. Halvane, Provincial Academy of Sciences</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── ORNATE DIVIDER ──────────────────────────────────────── -->
-  <div class="ornate-divider reveal">
-    <div class="line"></div>
-    <span class="glyph">⚜ ⚜ ⚜</span>
-    <div class="line"></div>
-  </div>
-
-  <!-- Section label -->
-  <div class="section-heading reveal">
-    <h2>Further Reports</h2>
-    <div class="rule-line"></div>
-  </div>
-
-  <!-- ── THREE COLUMN ROW ────────────────────────────────────── -->
-  <div class="three-col reveal">
-
-    <div class="col-article">
-      <div class="img-wrap">
-        <img src="assets/images/enchanted-garden.jpg" alt="Enchanted Garden" loading="lazy" style="height:200px;" />
-        <div class="img-caption">Cliffside Garden, Mosshollow Bluff</div>
-      </div>
-      <div class="article-card">
-        <div class="article-label">Garden District</div>
-        <h3 class="article-hed sm">The Night the Garden Lit Itself: A Second Look at Mosshollow Bluff</h3>
-        <p class="article-body" style="font-size:13px;">
-          A follow-up investigation into the lantern events confirms three separate episodes of spontaneous illumination. The mushrooms, which proliferate along the northern cliff face, have been collected for analysis. The lantern above the arbour gate has not required oil since the events began. A jar of what appears to be preserved sunlight was found at the base of the post — its origin, unknown.
-        </p>
-        <div class="article-meta">Garden Bureau &nbsp;·&nbsp; Second Edition</div>
-      </div>
-    </div>
-
-    <div class="col-article">
-      <div class="img-wrap">
-        <img src="assets/images/autumn-tree.jpg" alt="Autumn Tree" loading="lazy" style="height:200px;" />
-        <div class="img-caption">The Red Maple Oracle, waterfront outcrop</div>
-      </div>
-      <div class="article-card">
-        <div class="article-label">Village Chronicle</div>
-        <h3 class="article-hed sm">Forty Days Without a Falling Leaf: Village Records and the Oracle Tradition</h3>
-        <p class="article-body" style="font-size:13px;">
-          Historical records at the Province House confirm two prior episodes of "retention" by the Red Maple — once in the year before the First Council's dissolution, and once on the eve of the great flood that reshaped the province's southern border. Both times, the tree shed everything at once, on a single windless night, into the water below. The water turned red for a week. The elders, when asked to comment, declined. Separately, they began building on higher ground.
-        </p>
-        <div class="article-meta">Chronicle Division &nbsp;·&nbsp; Province Archives</div>
-      </div>
-    </div>
-
-    <div class="col-article">
-      <div class="img-wrap">
-        <img src="assets/images/art-studio.jpg" alt="Art Studio" loading="lazy" style="height:200px;" />
-        <div class="img-caption">Second-floor studio, Crowley Academy of Fine Arts</div>
-      </div>
-      <div class="article-card">
-        <div class="article-label">Arts &amp; Mysteries</div>
-        <h3 class="article-hed sm">Seven Canvases, Seven Visitors: The Academy's Unseen Artist Continues</h3>
-        <p class="article-body" style="font-size:13px;">
-          The phenomenon at the academy's studio has now extended to seven separate canvases across the academic term. In each case, the work was abandoned mid-session; in each case, it was found complete — with a quality and confidence of execution beyond the students' current abilities. The academy's head of department, in a statement released this morning, confirmed the works have been photographed, catalogued, and submitted to the Provincial Art Authentication Board. She added, without elaboration: "We have checked the security footage. There is none."
-        </p>
-        <div class="article-meta">Arts Correspondent I. Morrow &nbsp;·&nbsp; Academy Bureau</div>
-      </div>
-    </div>
-
-  </div><!-- /three-col -->
-
-  <!-- ── ORNATE DIVIDER ──────────────────────────────────────── -->
-  <div class="ornate-divider reveal">
-    <div class="line"></div>
-    <span class="glyph">✦ ⚜ ✦</span>
-    <div class="line"></div>
-  </div>
-
-  <!-- ── BOTTOM TWO ──────────────────────────────────────────── -->
-  <div class="bottom-two reveal">
-
-    <div class="article-card">
-      <div class="article-label">Final Edition</div>
-      <span class="tag exclusive">Exclusive</span>
-      <h3 class="article-hed lg">Editorial: What All These Events Have in Common — And What It Means for the Province</h3>
-      <p class="article-dek">Our editor considers the pattern no one in authority is willing to name.</p>
-      <p class="article-body dropcap two-col">
-        It would be convenient to report these events in isolation. A garden that lights itself. A fountain that flows without agency. A tree that will not shed. A carriage with no driver. A studio where an unseen hand completes unfinished work. A manuscript that anticipates the future. A séance at which something answered.
-        <br /><br />
-        Taken separately, each event admits of a local explanation. Taken together, they form something that the Province's authorities have thus far declined to address publicly — and which this publication now names directly: a pattern. Not of coincidence. Not of imagination. Of something that is paying attention to this province in a way it has not been paid attention to before.
-        <br /><br />
-        The Crowley manuscript describes exactly this: a period it calls "the Waking," in which dormant forces reconstitute themselves through objects, locations, and acts of creation. It gives no calendar date. It gives no reassurance. It does, however, give one instruction, repeated in three separate chapters, in three separate languages: <em>Do not pretend you did not notice.</em>
-        <br /><br />
-        We are not pretending. We are reporting. We will continue to do so until we are told we must stop — or until whatever is happening here makes reporting unnecessary.
-      </p>
-      <div class="pull-quote">
-        <p>"A pattern. Not of coincidence. Of something that is paying attention to this province in a way it has not been paid attention to before."</p>
-        <cite>— Editor-in-Chief, The Crowley Gazette, Vol. I No. 13</cite>
-      </div>
-      <div class="article-meta">Editor-in-Chief &nbsp;·&nbsp; The Crowley Gazette &nbsp;·&nbsp; 18 May, Year of the Black Raven</div>
-    </div>
-
-    <div style="display:flex;flex-direction:column;background:var(--deep);">
-      <div class="article-card" style="border-bottom:1px solid var(--rule);flex:1;">
-        <div class="article-label">Notices &amp; Announcements</div>
-        <h4 style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--cream);margin-bottom:14px;">Provincial Notices</h4>
-        <div class="index-row" style="padding:10px 0;align-items:flex-start;flex-direction:column;gap:4px;">
-          <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;color:var(--gold);">ARCHIVE ACCESS</span>
-          <span style="font-size:13px;color:rgba(240,232,216,0.75);font-family:'EB Garamond',serif;">The Crowley Manuscript archive will be open to qualified researchers by appointment only. Apply in writing to the Gazette Archive Division, Section F.</span>
-        </div>
-        <div class="index-row" style="padding:10px 0;align-items:flex-start;flex-direction:column;gap:4px;border-top:1px solid rgba(58,26,92,0.4);">
-          <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;color:var(--gold);">FOUNTAIN ADVISORY</span>
-          <span style="font-size:13px;color:rgba(240,232,216,0.75);font-family:'EB Garamond',serif;">The Council of Waters advises the public not to drink from, bathe in, or make wishes at the Glass-House fountain until further notice.</span>
-        </div>
-        <div class="index-row" style="padding:10px 0;align-items:flex-start;flex-direction:column;gap:4px;border-top:1px solid rgba(58,26,92,0.4);">
-          <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;color:var(--gold);">ACADEMY NOTICE</span>
-          <span style="font-size:13px;color:rgba(240,232,216,0.75);font-family:'EB Garamond',serif;">All second-floor studio sessions at the Crowley Academy are suspended pending the results of the Provincial Art Authentication Board's review.</span>
-        </div>
-        <div class="index-row" style="padding:10px 0;align-items:flex-start;flex-direction:column;gap:4px;border-top:1px solid rgba(58,26,92,0.4);">
-          <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.3em;color:var(--gold);">DOCK ADVISORY</span>
-          <span style="font-size:13px;color:rgba(240,232,216,0.75);font-family:'EB Garamond',serif;">Access to the Lakeside Manor dock is restricted between the hours of dusk and dawn, by order of the Provincial Bureau of Unusual Phenomena.</span>
+      <div class="archive-cell-body">
+        <div class="label" style="color:var(--accent);margin-bottom:6px;">Arts &amp; Mysteries</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Haunted Studio.</h3>
+        <p class="body-text" style="font-size:12.5px;">Seven canvases. Seven visitors. Zero footage.</p>
+        <div class="img-label-row">
+          <span class="img-title">Second-floor studio, Crowley Academy of Fine Arts</span>
+          <span class="img-num">06</span>
         </div>
       </div>
+    </div>
 
-      <div class="article-card">
-        <div class="article-label">Weather &amp; Conditions</div>
-        <h4 style="font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--cream);margin-bottom:14px;">Provincial Conditions, 18 May</h4>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-          <div style="background:rgba(74,31,122,0.2);border:1px solid var(--rule);padding:10px;text-align:center;">
-            <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:var(--gold);display:block;margin-bottom:4px;">NORTH GATE</span>
-            <span style="font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);">Fog</span>
-            <span style="font-family:'Cinzel',serif;font-size:9px;color:var(--purple-acc);display:block;margin-top:2px;">Cold — Visibility: Low</span>
-          </div>
-          <div style="background:rgba(74,31,122,0.2);border:1px solid var(--rule);padding:10px;text-align:center;">
-            <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:var(--gold);display:block;margin-bottom:4px;">WATERFRONT</span>
-            <span style="font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);">Still</span>
-            <span style="font-family:'Cinzel',serif;font-size:9px;color:var(--purple-acc);display:block;margin-top:2px;">Wind: None — Lake: Glass</span>
-          </div>
-          <div style="background:rgba(74,31,122,0.2);border:1px solid var(--rule);padding:10px;text-align:center;">
-            <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:var(--gold);display:block;margin-bottom:4px;">GLASS-HOUSE</span>
-            <span style="font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);">Humid</span>
-            <span style="font-family:'Cinzel',serif;font-size:9px;color:var(--purple-acc);display:block;margin-top:2px;">Warmth: Unexplained</span>
-          </div>
-          <div style="background:rgba(74,31,122,0.2);border:1px solid var(--rule);padding:10px;text-align:center;">
-            <span style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.2em;color:var(--gold);display:block;margin-bottom:4px;">THE BLUFF</span>
-            <span style="font-family:'Playfair Display',serif;font-size:18px;color:var(--cream);">Lit</span>
-            <span style="font-family:'Cinzel',serif;font-size:9px;color:var(--purple-acc);display:block;margin-top:2px;">Source: Unknown</span>
-          </div>
-        </div>
-        <div class="article-meta" style="margin-top:12px;">Conditions Bureau &nbsp;·&nbsp; Issued at the first morning bell</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     FEATURE FULL-BLEED: AUTUMN ORACLE
+═════════════════════════════════════════════════════════════ -->
+<div class="feature-full reveal" style="margin-top:1px;">
+  <img src="assets/images/autumn-tree.jpg" alt="The Red Maple at dusk" />
+  <div class="feature-overlay">
+    <div>
+      <div class="label" style="color:rgba(196,168,106,0.7);margin-bottom:14px;">Field Report · Nature &amp; Omens</div>
+      <h2 class="hed-xl" style="margin-bottom:20px;">The Autumn Oracle speaks its last season.</h2>
+      <p class="dek" style="max-width:48ch;margin-bottom:24px;">Botanical records confirm two prior episodes of retention — both times, the tree shed everything at once, on a single windless night, into the water below. The water turned red for a week.</p>
+      <div class="body-text" style="max-width:50ch;">
+        <p>Provincial botanist Dr. Seara Holst examined the tree on the twelfth day. Her preliminary report noted "no observable signs of disease, drought stress, or unusual hormonal activity" — and then, on page seven, a single handwritten addition: <em style="color:var(--text);">"The tree appears aware of being observed."</em></p>
+        <p style="margin-top:14px;">The village elders, when asked to comment, declined. Separately, they began building on higher ground.</p>
+      </div>
+      <div class="art-meta" style="max-width:500px;margin-top:28px;">
+        <span class="label">By T. Halvane · Waterfront District</span>
+        <span class="label" style="color:var(--warm);">Section D · Page 4</span>
       </div>
     </div>
 
-  </div><!-- /bottom-two -->
+    <div class="pull-quote" style="align-self:center;">
+      <p>"It does not shed. It does not sleep. It watches the road south."</p>
+      <cite>— Dr. Seara Holst, Provincial Botanical Registry</cite>
+    </div>
+  </div>
+</div>
 
-</main><!-- /page -->
+<!-- ════════════════════════════════════════════════════════════
+     DISPATCH STATEMENT
+═════════════════════════════════════════════════════════════ -->
+<div class="dispatch-statement reveal">
+  <div class="wrap">
+    <p class="big-text">Never ignore what you cannot explain.</p>
+    <p class="sub">The Crowley Gazette publishes every dispatch, every account, every anomaly — without redaction, without apology, without pretending we did not notice.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     DISPATCHES LIST
+═════════════════════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="section-label-row reveal">
+    <span class="label">Further Dispatches</span>
+    <a href="#" class="see-all mono">All sections →</a>
+  </div>
+
+  <div class="dispatch-list">
+    <div class="dispatch-row reveal">
+      <div class="d-img">
+        <img src="assets/images/enchanted-garden.jpg" alt="Enchanted Garden" />
+      </div>
+      <div>
+        <div class="d-section">Garden District · Second Edition</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Night the Garden Lit Itself: A Second Look at Mosshollow Bluff.</h3>
+        <p class="body-text" style="font-size:13px;">A follow-up confirms three separate episodes of spontaneous illumination. A jar of what appears to be preserved sunlight was found at the base of the post. Origin unknown.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="label" style="margin-bottom:4px;">Section B · Page 3</div>
+        <div class="label" style="color:var(--accent);">E. Ashveil</div>
+      </div>
+    </div>
+
+    <div class="dispatch-row reveal reveal-delay-1">
+      <div class="d-img">
+        <img src="assets/images/fountain.jpg" alt="The Fountain" />
+      </div>
+      <div>
+        <div class="d-section">City Report · Developing</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">Council of Waters Issues Second Advisory: "Do Not Make Wishes at the Basin."</h3>
+        <p class="body-text" style="font-size:13px;">The first advisory was practical. This one is harder to categorise. The Council's third communiqué, received this morning, contained only a date — six weeks from now — and the word: "prepared."</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="label" style="margin-bottom:4px;">Section C · Page 1</div>
+        <div class="label" style="color:var(--accent);">M. Halvane</div>
+      </div>
+    </div>
+
+    <div class="dispatch-row reveal reveal-delay-2">
+      <div class="d-img">
+        <img src="assets/images/art-studio.jpg" alt="Art Studio" />
+      </div>
+      <div>
+        <div class="d-section">Arts &amp; Mysteries · Follow-up</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Academy's Unseen Artist: Seven Canvases, Seven Identities Still Unknown.</h3>
+        <p class="body-text" style="font-size:13px;">The Provincial Art Authentication Board has received all seven works. Their preliminary statement notes "execution consistent with a single practitioner of exceptional ability." They decline to speculate further in public.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="label" style="margin-bottom:4px;">Section D · Page 3</div>
+        <div class="label" style="color:var(--accent);">I. Morrow</div>
+      </div>
+    </div>
+
+    <div class="dispatch-row reveal reveal-delay-3">
+      <div class="d-img">
+        <img src="assets/images/black-wagon.jpg" alt="The Black Carriage" />
+      </div>
+      <div>
+        <div class="d-section">Night Bureau · Breaking</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Black Carriage: A Second Sighting — This Time, Heading North.</h3>
+        <p class="body-text" style="font-size:13px;">If the first sighting crossed south at midnight, what crossed north at four? A sixth officer — off duty, cycling home — reports the same vehicle, engine silent, moving in the opposite direction. No cargo visible through the windows. The windows appeared to be sealed shut from the inside.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="label" style="margin-bottom:4px;">Section E · Page 1</div>
+        <div class="label" style="color:var(--accent);">Night Bureau</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     BLACK WAGON FULL-BLEED
+═════════════════════════════════════════════════════════════ -->
+<div class="feature-full reveal" style="margin-top:40px;border-top:1px solid var(--border);">
+  <img src="assets/images/black-wagon.jpg" alt="The Black Carriage at the North Gate" />
+  <div class="feature-overlay">
+    <div>
+      <div class="label" style="color:rgba(196,168,106,0.7);margin-bottom:14px;">Night Dispatch · Breaking Report</div>
+      <h2 class="hed-xl" style="margin-bottom:20px;">The Black Carriage has returned.<br/>No one saw it arrive.</h2>
+      <p class="dek" style="max-width:52ch;margin-bottom:24px;">Three customs officers. Zero sightings of a driver. An engine that made no sound crossing cobblestones at the stroke of midnight. The vehicle passed through the checkpoint, acknowledged the inspection lantern, and continued south.</p>
+      <div class="art-meta" style="max-width:480px;">
+        <span class="label">Officers V. Phar, K. Rosen, W. Daleth · Night Bureau</span>
+        <span class="label" style="color:var(--warm);">Section E · Page 1</span>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     NOTICES BAND
+═════════════════════════════════════════════════════════════ -->
+<div class="notices-band reveal">
+  <div class="notices-inner">
+    <div class="notice-cell">
+      <div class="notice-tag">Archive Access</div>
+      <p>The Crowley Manuscript archive is open to qualified researchers by appointment. Apply in writing to Archive Division, Section F.</p>
+    </div>
+    <div class="notice-cell">
+      <div class="notice-tag">Fountain Advisory</div>
+      <p>The Council of Waters advises the public not to drink from, bathe in, or make wishes at the Glass-House fountain until further notice.</p>
+    </div>
+    <div class="notice-cell">
+      <div class="notice-tag">Academy Notice</div>
+      <p>All second-floor studio sessions at the Crowley Academy are suspended pending the results of the Authentication Board review.</p>
+    </div>
+    <div class="notice-cell">
+      <div class="notice-tag">Dock Advisory</div>
+      <p>Access to the Lakeside Manor dock is restricted between dusk and dawn by order of the Bureau of Unusual Phenomena.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     REVIEWS — CRITICAL NOTICES
+═════════════════════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="reviews-section reveal">
+    <h2 class="reviews-heading">Critical Notices.</h2>
+    <div class="reviews-scatter">
+
+      <div class="review-item reveal reveal-delay-1">
+        <div class="review-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="review-text">"An extraordinary piece of unsettling literature. One is never quite certain whether one is reading fiction or prophecy. Ryu Vang writes with the authority of someone who has already seen what they describe."</p>
+        <span class="review-author">— The Hollow Provinces Literary Review</span>
+      </div>
+
+      <div class="review-item reveal reveal-delay-2">
+        <div class="review-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="review-text">"I placed the book on my desk before sleeping. By morning it had opened itself to page 147. The page was about this. Do not ask me to explain further. I am giving it five stars because I am afraid not to."</p>
+        <span class="review-author">— Senior Archivist D. Crowne, Gazette Archive</span>
+      </div>
+
+      <div class="review-item reveal reveal-delay-3">
+        <div class="review-stars">
+          <span></span><span></span><span></span><span class="empty"></span><span class="empty"></span>
+        </div>
+        <p class="review-text">"I am a man of science. I have read the manuscript twice. I am no longer certain it is the same book. I am giving it three stars because I refuse to give it five. I suspect it knows this."</p>
+        <span class="review-author">— Prof. E. Halvane, Provincial Academy of Sciences</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     JOIN BANNER
+═════════════════════════════════════════════════════════════ -->
+<div class="join-banner reveal">
+  <div class="join-banner-bg">
+    <img src="assets/images/fountain.jpg" alt="" aria-hidden="true" />
+  </div>
+  <div class="join-inner">
+    <h2>Join the Gazette Archive.</h2>
+    <p>Receive every dispatch, every account, every anomaly — before the provincial authorities decide you shouldn't.</p>
+    <form class="join-form" onsubmit="return false;">
+      <input type="email" placeholder="your.address@province.net" autocomplete="email" />
+      <button type="submit">Subscribe</button>
+    </form>
+    <p style="margin-top:16px;font-size:11px;color:var(--text-3);">One letter per fortnight. No pretending. No redaction.</p>
+  </div>
+</div>
 
 <!-- ════════════════════════════════════════════════════════════
      FOOTER
 ═════════════════════════════════════════════════════════════ -->
 <footer class="site-footer">
-  <div class="footer-masthead">
-    <div class="masthead-title">The Crowley Gazette</div>
-    <p style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:0.4em;color:rgba(201,168,76,0.4);margin-top:8px;">WHERE DARK TRUTHS UNRAVEL</p>
-  </div>
-
-  <div class="ornate-divider" style="margin:0 0 28px;">
-    <div class="line"></div>
-    <span class="glyph">✦ ⚜ ✦</span>
-    <div class="line"></div>
-  </div>
-
-  <div class="footer-cols">
-    <div class="footer-col">
-      <h5>Publication</h5>
-      <p>Independent Chronicle of the Hollow Provinces. Published each fortnight at the dark of the moon.</p>
-      <p style="margin-top:10px;font-style:italic;font-size:12px;">All reports verified by at least one correspondent of sound mind at time of filing. The Gazette cannot be held responsible for what occurs thereafter.</p>
-    </div>
-    <div class="footer-col">
-      <h5>Bureaus</h5>
-      <a href="#">Lakeside Bureau</a>
-      <a href="#">Garden District Correspondent</a>
-      <a href="#">Glass-House Quarter</a>
-      <a href="#">Waterfront &amp; Bluff</a>
-      <a href="#">Night Bureau</a>
-      <a href="#">Academy &amp; Arts</a>
-      <a href="#">Archive Division</a>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">The Crowley Gazette.</div>
+      <p class="footer-about">An independent chronicle of the Hollow Provinces. Published every fortnight at the dark of the moon. All reports verified by at least one correspondent of sound mind at time of filing.</p>
     </div>
     <div class="footer-col">
       <h5>Sections</h5>
-      <a href="#">A — Chronicles &amp; Feature</a>
-      <a href="#">B — City &amp; Province</a>
-      <a href="#">C — Arts &amp; Letters</a>
-      <a href="#">D — Nature &amp; Omens</a>
-      <a href="#">E — Night Dispatches</a>
-      <a href="#">F — Séances &amp; Ritual</a>
+      <ul>
+        <li><a href="#">A — Chronicles</a></li>
+        <li><a href="#">B — Garden District</a></li>
+        <li><a href="#">C — City Report</a></li>
+        <li><a href="#">D — Arts &amp; Mysteries</a></li>
+        <li><a href="#">E — Night Dispatches</a></li>
+        <li><a href="#">F — Séances &amp; Ritual</a></li>
+      </ul>
     </div>
     <div class="footer-col">
-      <h5>Subscription</h5>
-      <p>Annual subscription: one coin of silver, or a secret of equivalent weight.</p>
-      <p style="margin-top:10px;">Back issues available at the Archive, Section F. Enquire in writing. Do not knock more than twice.</p>
-      <p style="margin-top:10px;font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:0.2em;color:var(--purple-acc);">OMNIA VERITAS</p>
+      <h5>Bureaus</h5>
+      <ul>
+        <li><a href="#">Lakeside Bureau</a></li>
+        <li><a href="#">Garden District</a></li>
+        <li><a href="#">Glass-House Quarter</a></li>
+        <li><a href="#">Waterfront &amp; Bluff</a></li>
+        <li><a href="#">Night Bureau</a></li>
+        <li><a href="#">Archive Division</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Publication</h5>
+      <ul>
+        <li><a href="#">About the Gazette</a></li>
+        <li><a href="#">Subscribe</a></li>
+        <li><a href="#">Back Issues</a></li>
+        <li><a href="#">Submission Guidelines</a></li>
+        <li><a href="#">Contact the Archive</a></li>
+      </ul>
     </div>
   </div>
-
   <div class="footer-bottom">
-    Vol. I &nbsp;·&nbsp; No. 13 &nbsp;·&nbsp; The Crowley Gazette &nbsp;·&nbsp; Midnight Edition &nbsp;·&nbsp; 18 May 2026 &nbsp;·&nbsp; All rights reserved under the Charter of the Black Raven &nbsp;·&nbsp; Raven's Gate, The Hollow Provinces
+    <p>© 2026 The Crowley Gazette. All rights reserved under the Charter of the Black Raven.</p>
+    <p>Vol. I · No. 13 · Raven's Gate, The Hollow Provinces · OMNIA VERITAS</p>
   </div>
 </footer>
 
@@ -1485,32 +1614,29 @@
      SCRIPTS
 ═════════════════════════════════════════════════════════════ -->
 <script>
-  // Reading progress bar
+  // Reading progress
   window.addEventListener('scroll', () => {
-    const doc = document.documentElement;
-    const scrolled = doc.scrollTop || document.body.scrollTop;
-    const total = doc.scrollHeight - doc.clientHeight;
-    document.getElementById('progress-bar').style.width = (scrolled / total * 100) + '%';
-  });
+    const el  = document.documentElement;
+    const pct = el.scrollTop / (el.scrollHeight - el.clientHeight);
+    document.getElementById('read-progress').style.width = (pct * 100) + '%';
+  }, { passive: true });
 
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
+  // Scroll reveal — Intersection Observer, no layout thrash
+  const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('visible');
-        observer.unobserve(e.target);
+        io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Duplicate ticker for seamless loop
-  const inner = document.querySelector('.ticker-inner');
-  if (inner) {
-    const clone = inner.cloneNode(true);
-    inner.parentElement.appendChild(clone);
-  }
+  // Make hero reveal immediately
+  document.querySelectorAll('.hero .reveal').forEach(el => {
+    el.classList.add('visible');
+  });
 </script>
 
 </body>
