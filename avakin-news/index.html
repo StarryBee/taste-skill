@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +29,7 @@
     .topbar__brand {
       font-family: var(--serif); font-size: 1.1rem; font-weight: 700;
       letter-spacing: -.01em; color: var(--ink); white-space: nowrap;
-      padding: 12px 20px 0; cursor: pointer; text-decoration: none; display: block;
+      padding: 0; cursor: pointer; text-decoration: none; display: block;
     }
     .topbar__brand span { color: var(--accent); }
     .nav { display: flex; gap: 2px; overflow-x: auto; padding: 6px 16px 8px; scrollbar-width: none; }
@@ -41,11 +41,7 @@
     }
     .nav__btn:hover { background: var(--bg); color: var(--ink); }
     .nav__btn.active { background: var(--ink); color: #fff; }
-    @media (min-width: 640px) {
-      .topbar__inner { flex-direction: row; align-items: center; padding: 0 20px; gap: 16px; }
-      .topbar__brand { padding: 14px 0; }
-      .nav { padding: 0; overflow-x: visible; }
-    }
+    /* (desktop layout handled in the RESPONSIVE block below) */
 
     /* ── LAYOUT ──────────────────────────────────────── */
     .wrap { max-width: 960px; margin: 0 auto; padding: 40px 20px 80px; }
@@ -270,6 +266,123 @@
     .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 20px; text-align: center; font-size: .77rem; color: var(--light); }
     .footer a { color: var(--mid); cursor: pointer; }
 
+    /* ── DARK MODE ───────────────────────────────────── */
+    [data-theme="dark"] {
+      --bg:      #18150f;
+      --surface: #231f18;
+      --ink:     #f0ebe2;
+      --mid:     #b09880;
+      --light:   #504438;
+      --accent:  #d4a832;
+      --red:     #e06060;
+      --border:  #3a3028;
+    }
+
+    /* ── NAV UTILS ───────────────────────────────────── */
+    .topbar__top { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px 0; }
+    .nav-utils { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
+    .util-btn { background: none; border: none; cursor: pointer; color: var(--mid); padding: 5px 7px; border-radius: 4px; transition: all .15s; display: flex; align-items: center; font-family: var(--sans); font-size: .82rem; }
+    .util-btn:hover { background: var(--bg); color: var(--ink); }
+    .lang-btns { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .lang-btn { background: none; border: none; font-size: .68rem; font-weight: 700; letter-spacing: .04em; padding: 4px 7px; cursor: pointer; color: var(--mid); font-family: var(--sans); transition: all .15s; }
+    .lang-btn.active { background: var(--ink); color: #fff; }
+    .lang-btn:hover:not(.active) { background: var(--bg); color: var(--ink); }
+
+    /* ── SEARCH OVERLAY ──────────────────────────────── */
+    .search-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 400; align-items: flex-start; justify-content: center; padding: 70px 16px 20px; }
+    .search-overlay.open { display: flex; }
+    .search-box { background: var(--surface); border-radius: 10px; width: 100%; max-width: 640px; box-shadow: 0 8px 40px rgba(0,0,0,.25); overflow: hidden; }
+    .search-input-wrap { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--border); }
+    .search-input { flex: 1; border: none; background: none; font-size: .95rem; color: var(--ink); font-family: var(--sans); outline: none; }
+    .search-input::placeholder { color: var(--light); }
+    .search-close { background: none; border: none; cursor: pointer; color: var(--mid); font-size: 1.1rem; line-height: 1; padding: 0 2px; }
+    .search-results { max-height: 58vh; overflow-y: auto; }
+    .search-result { padding: 12px 18px; cursor: pointer; border-bottom: 1px solid var(--border); transition: background .1s; }
+    .search-result:last-child { border-bottom: none; }
+    .search-result:hover { background: var(--bg); }
+    .search-result__label { font-size: .67rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+    .search-result__title { font-weight: 600; font-size: .9rem; color: var(--ink); margin-bottom: 2px; }
+    .search-result__excerpt { font-size: .8rem; color: var(--mid); line-height: 1.5; }
+    .search-empty { padding: 28px 18px; color: var(--mid); font-size: .88rem; text-align: center; }
+
+    /* ── QUOTE BLOCK ─────────────────────────────────── */
+    .avr-quote { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 20px 28px 18px; margin-bottom: 32px; position: relative; }
+    .avr-quote__label { font-size: .67rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
+    .avr-quote__text { font-family: var(--serif); font-size: 1.08rem; font-style: italic; line-height: 1.65; color: var(--ink); margin-bottom: 6px; }
+    .avr-quote__cite { font-size: .78rem; color: var(--mid); }
+    .avr-quote__edit { position: absolute; top: 12px; right: 14px; font-size: .72rem; color: var(--accent); cursor: pointer; background: none; border: 1px solid var(--border); border-radius: 3px; padding: 2px 8px; font-family: var(--sans); display: none; }
+    .avr-quote__edit.show { display: inline-block; }
+    .avr-quote__edit:hover { background: var(--bg); }
+
+    /* ── SHARE BUTTON ────────────────────────────────── */
+    .article__share { background: none; border: 1px solid var(--border); border-radius: 4px; font-size: .7rem; color: var(--mid); padding: 2px 9px; cursor: pointer; font-family: var(--sans); transition: all .15s; }
+    .article__share:hover { border-color: var(--accent); color: var(--accent); }
+    .article__share.copied { border-color: #3a8c4a; color: #276c34; background: #eaf4ec; }
+    .article__updated { font-size: .71rem; color: var(--light); }
+
+    /* ── CANVAS PAGE ─────────────────────────────────── */
+    .canvas-picks { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+    .canvas-pick { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; }
+    .canvas-pick--week { border-color: var(--accent); }
+    .canvas-pick__badge { font-size: .67rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 8px; }
+    .canvas-pick__name { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 2px; }
+    .canvas-pick__handle { font-size: .82rem; color: var(--accent); margin-bottom: 8px; }
+    .canvas-pick__desc { font-size: .85rem; color: var(--mid); line-height: 1.6; }
+    .canvas-pick__specialty { display: inline-block; font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; background: var(--bg); border: 1px solid var(--border); color: var(--mid); margin-top: 8px; }
+    .canvas-pick__empty { font-size: .85rem; color: var(--mid); font-style: italic; }
+    .canvas-pick__actions { margin-top: 10px; display: none; gap: 8px; }
+    .canvas-pick__actions.visible { display: flex; }
+    .canvas-artists { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 12px; }
+    .canvas-artist { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+    .canvas-artist__name { font-weight: 600; font-size: .9rem; margin-bottom: 2px; }
+    .canvas-artist__handle { font-size: .79rem; color: var(--accent); margin-bottom: 5px; }
+    .canvas-artist__desc { font-size: .81rem; color: var(--mid); line-height: 1.55; }
+    .canvas-add-bar { display: none; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+    .canvas-add-bar.visible { display: flex; }
+
+    /* ── COMPARE TABLE ───────────────────────────────── */
+    .compare-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid var(--border); }
+    .compare-table { width: 100%; border-collapse: collapse; min-width: 500px; }
+    .compare-table th, .compare-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: .85rem; vertical-align: top; }
+    .compare-table th { font-size: .74rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--mid); background: var(--surface); text-align: center; }
+    .compare-table th:first-child { text-align: left; background: var(--bg); }
+    .compare-table th.avakin-col { color: #6b4400; background: #fef3dc; }
+    [data-theme="dark"] .compare-table th.avakin-col { color: #d4a832; background: #2a2010; }
+    .compare-table td:first-child { font-weight: 600; color: var(--ink); background: var(--bg); font-size: .82rem; }
+    .compare-table td:not(:first-child) { text-align: center; color: var(--mid); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .c-bad  { color: var(--red) !important; }
+    .c-mid  { color: #9b6c00 !important; }
+    .c-good { color: #276c34 !important; }
+    [data-theme="dark"] .c-mid { color: #c89000 !important; }
+    [data-theme="dark"] .c-good { color: #5ab870 !important; }
+
+    /* ── MYTH VS REALITY ─────────────────────────────── */
+    .mvr-list { display: flex; flex-direction: column; gap: 14px; }
+    .mvr-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; display: grid; grid-template-columns: 1fr 1fr; }
+    .mvr-side { padding: 16px 20px; }
+    .mvr-side--claim { border-right: 1px solid var(--border); }
+    .mvr-side--reality { background: #fdf5f5; }
+    [data-theme="dark"] .mvr-side--reality { background: #2a1818; }
+    .mvr-side-label { font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 7px; display: block; }
+    .mvr-side-label--claim { color: var(--mid); }
+    .mvr-side-label--reality { color: var(--red); }
+    .mvr-text { font-size: .86rem; line-height: 1.65; color: var(--ink); }
+    .mvr-source { font-size: .73rem; color: var(--mid); margin-top: 8px; font-style: italic; }
+
+    /* ── STATEMENT TRACKER ───────────────────────────── */
+    .stmt-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); }
+    .stmt-table { width: 100%; border-collapse: collapse; min-width: 520px; }
+    .stmt-table th, .stmt-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: .83rem; vertical-align: top; }
+    .stmt-table th { font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--mid); background: var(--surface); }
+    .stmt-table tr:last-child td { border-bottom: none; }
+    .stmt-table td { background: var(--surface); }
+    .stmt-table tr:nth-child(even) td { background: var(--bg); }
+    .stmt-date { white-space: nowrap; color: var(--mid); font-size: .78rem; width: 70px; }
+    .stmt-text { font-style: italic; color: var(--ink); }
+    .stmt-source { font-size: .78rem; color: var(--mid); width: 110px; }
+    .stmt-status { white-space: nowrap; width: 130px; }
+
     /* ── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 640px) {
       .home-intro { grid-template-columns: 1fr; }
@@ -277,6 +390,16 @@
       .rating-summary { flex-direction: column; gap: 16px; }
       .deco { height: 150px; }
       .article__header, .article__body, .article__source, .editor-note, .article__admin-bar { padding-left: 18px; padding-right: 18px; }
+      .canvas-picks { grid-template-columns: 1fr; }
+      .mvr-card { grid-template-columns: 1fr; }
+      .mvr-side--claim { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+    @media (min-width: 640px) {
+      .topbar__top { padding: 0; flex: 0 0 auto; gap: 8px; }
+      .topbar__inner { flex-direction: row; align-items: center; padding: 0 20px; gap: 8px; }
+      .topbar__brand { padding: 14px 0; }
+      .nav { padding: 0; overflow-x: visible; flex: 1; }
+      .nav-utils { padding: 0; }
     }
   </style>
 </head>
@@ -285,21 +408,52 @@
 <!-- ── TOP NAV ───────────────────────────────────── -->
 <nav class="topbar">
   <div class="topbar__inner">
-    <a class="topbar__brand" onclick="show('home')" href="#">
-      Avakin <span>Report</span>
-      <span class="admin-indicator" id="admin-indicator">Admin</span>
-    </a>
+    <div class="topbar__top">
+      <a class="topbar__brand" onclick="show('home')" href="#">
+        Avakin <span>Report</span>
+        <span class="admin-indicator" id="admin-indicator">Admin</span>
+      </a>
+      <div class="nav-utils">
+        <button class="util-btn" onclick="toggleSearch()" title="Search" aria-label="Search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="util-btn" id="dark-toggle-btn" onclick="toggleDark()" title="Toggle dark mode">
+          <svg id="dark-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg id="dark-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+        <div class="lang-btns">
+          <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" id="lang-de" onclick="setLang('de')">DE</button>
+          <button class="lang-btn" id="lang-fr" onclick="setLang('fr')">FR</button>
+        </div>
+      </div>
+    </div>
     <div class="nav">
-      <button class="nav__btn active"  onclick="show('home')">Home</button>
-      <button class="nav__btn"         onclick="show('issues')">Issues</button>
-      <button class="nav__btn"         onclick="show('reviews')">Reviews</button>
-      <button class="nav__btn"         onclick="show('suggestions')">Suggestions</button>
-      <button class="nav__btn"         onclick="show('guide')">Player Guide</button>
-      <button class="nav__btn"         onclick="show('sources')">Sources</button>
-      <button class="nav__btn"         onclick="show('about')">About</button>
+      <button class="nav__btn active"  data-page="home"           onclick="show('home')"           data-i18n="nav_home">Home</button>
+      <button class="nav__btn"         data-page="issues"         onclick="show('issues')"         data-i18n="nav_issues">Issues</button>
+      <button class="nav__btn"         data-page="reviews"        onclick="show('reviews')"        data-i18n="nav_reviews">Reviews</button>
+      <button class="nav__btn"         data-page="suggestions"    onclick="show('suggestions')"    data-i18n="nav_suggestions">Suggestions</button>
+      <button class="nav__btn"         data-page="guide"          onclick="show('guide')"          data-i18n="nav_guide">Player Guide</button>
+      <button class="nav__btn"         data-page="canvas"         onclick="show('canvas')"         data-i18n="nav_canvas">The Canvas</button>
+      <button class="nav__btn"         data-page="compare"        onclick="show('compare')"        data-i18n="nav_compare">Compare</button>
+      <button class="nav__btn"         data-page="accountability" onclick="show('accountability')" data-i18n="nav_accountability">Accountability</button>
+      <button class="nav__btn"         data-page="sources"        onclick="show('sources')"        data-i18n="nav_sources">Sources</button>
+      <button class="nav__btn"         data-page="about"          onclick="show('about')"          data-i18n="nav_about">About</button>
     </div>
   </div>
 </nav>
+
+<!-- ── SEARCH OVERLAY ──────────────────────────── -->
+<div class="search-overlay" id="search-overlay">
+  <div class="search-box">
+    <div class="search-input-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--mid)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input class="search-input" id="search-input" type="text" placeholder="Search articles and suggestions…" oninput="runSearch(this.value)" data-i18n-placeholder="search_placeholder" />
+      <button class="search-close" onclick="closeSearch()">✕</button>
+    </div>
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
 
 
 <!-- ══════════════════════════════════════════════════
@@ -323,6 +477,14 @@
         <div class="intro-card__body">Community concerns have grown clearer over time: the Crown economy, free-play exclusion, inactive badge holders, contest fairness, LKWD's distance from regular players, and repetitive events. This site addresses each honestly.</div>
       </div>
     </div>
+    <!-- Avakin Report Quote (admin-editable) -->
+    <div class="avr-quote">
+      <span class="avr-quote__label">Avakin Report</span>
+      <blockquote class="avr-quote__text" id="avr-quote-text">"The community has outgrown the game that is supposed to serve it."</blockquote>
+      <cite class="avr-quote__cite" id="avr-quote-cite">— Avakin Report, May 2026</cite>
+      <button class="avr-quote__edit" id="avr-quote-edit-btn" onclick="openQuoteEdit()">Edit</button>
+    </div>
+
     <span class="label" style="margin-bottom:12px;">What's covered here</span>
     <div class="summary-list">
       <div class="summary-item" onclick="show('issues')"><div class="summary-item__icon">💰</div><div><div class="summary-item__title">Crown Economy &amp; Free Play</div><div class="summary-item__desc">Crowns are nearly impossible to earn for free. The Coin store has been hollowed out. New players receive Crown gifts that veterans had to pay for.</div><div class="summary-item__tag">Ongoing</div></div></div>
@@ -361,9 +523,9 @@
     <div class="article-list">
 
       <!-- ECONOMY 1: Crown access -->
-      <div class="article" data-category="economy">
+      <div class="article" id="article-economy1" data-category="economy">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--red">Ongoing</span><span class="badge badge--amber">Economy</span></div>
+          <div class="article__meta"><span class="badge badge--red">Ongoing</span><span class="badge badge--amber">Economy</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-economy1',this)">Share</button></div>
           <div class="article__title">Crowns for Free Are Nearly Unreachable — and the Coin Store Has Been Hollowed Out</div>
           <p class="article__deck">In theory, Avakin Life offers two currencies: Crowns (paid) and Coins (free). In practice, the free path to meaningful content has been progressively narrowed until it is almost non-existent.</p>
         </div>
@@ -382,9 +544,9 @@
       </div>
 
       <!-- ECONOMY 2: New player paradox -->
-      <div class="article" data-category="economy">
+      <div class="article" id="article-economy2" data-category="economy">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--red">Active concern</span><span class="badge badge--amber">Economy</span></div>
+          <div class="article__meta"><span class="badge badge--red">Active concern</span><span class="badge badge--amber">Economy</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-economy2',this)">Share</button></div>
           <div class="article__title">The New Player Paradox: Welcome Gifts for Newcomers, Nothing for Veterans</div>
           <p class="article__deck">New players receive free Crown items as part of their introduction to the game. Long-term players who paid for those same items — or who simply never received them — are watching this happen with growing frustration.</p>
         </div>
@@ -402,9 +564,9 @@
       </div>
 
       <!-- ECONOMY 3: The economic backlash -->
-      <div class="article" data-category="economy">
+      <div class="article" id="article-economy2" data-category="economy">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--red">In-depth analysis</span><span class="badge badge--amber">Economy</span></div>
+          <div class="article__meta"><span class="badge badge--red">In-depth analysis</span><span class="badge badge--amber">Economy</span><span class="article__updated">Updated May 2026</span><button class="article__share" onclick="shareArticle('article-economy3',this)">Share</button></div>
           <div class="article__title">The Economic Backlash: What LKWD's Current Model Is Actually Achieving — and Where It Leads</div>
           <p class="article__deck">The problems with Avakin Life's economy are not just frustrating for individual players. They represent a structural pattern that, if uncorrected, will accelerate the very decline LKWD should be most concerned about preventing.</p>
         </div>
@@ -428,9 +590,9 @@
       </div>
 
       <!-- COMMUNITY 1: Creator inactivity -->
-      <div class="article" data-category="community">
+      <div class="article" id="article-community1" data-category="community">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--amber">Community-documented</span><span class="badge badge--blue">Creator Programme</span></div>
+          <div class="article__meta"><span class="badge badge--amber">Community-documented</span><span class="badge badge--blue">Creator Programme</span><span class="article__updated">Updated Mar 2026</span><button class="article__share" onclick="shareArticle('article-community1',this)">Share</button></div>
           <div class="article__title">Badges Without Accountability: Official Creators Who Are No Longer Active</div>
           <p class="article__deck">A-Creators, Trendsetters, and Content Creators carry official badges visible on their profiles. Many of these accounts have been inactive on Instagram and in-game for months or longer. The badges remain — and no review process appears to exist.</p>
         </div>
@@ -449,9 +611,9 @@
       </div>
 
       <!-- COMMUNITY 2: LKWD gap -->
-      <div class="article" data-category="community">
+      <div class="article" id="article-community2" data-category="community">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--amber">Widely reported</span><span class="badge badge--blue">LKWD</span></div>
+          <div class="article__meta"><span class="badge badge--amber">Widely reported</span><span class="badge badge--blue">LKWD</span><span class="article__updated">Updated Mar 2026</span><button class="article__share" onclick="shareArticle('article-community2',this)">Share</button></div>
           <div class="article__title">The Gap Between LKWD and the Average Player — and Questions About the Creator Selection Process</div>
           <p class="article__deck">For most Avakin Life players, the support ticket is the only direct point of contact with LKWD. The company's visible communications are filtered through its creator programme. The result is that the majority of the playerbase has no effective voice — and the people who do have access were selected through a process whose criteria remain unclear.</p>
         </div>
@@ -470,9 +632,9 @@
       </div>
 
       <!-- CONTENT 1: Design copying -->
-      <div class="article" data-category="content">
+      <div class="article" id="article-content1" data-category="content">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--amber">Community-documented</span><span class="badge badge--blue">Design</span></div>
+          <div class="article__meta"><span class="badge badge--amber">Community-documented</span><span class="badge badge--blue">Design</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-content1',this)">Share</button></div>
           <div class="article__title">Borrowed Without Credit: Real-World Designs in the Store, and the Artists Who Could Do It Properly</div>
           <p class="article__deck">Community members have found real-life clothing and furniture designs — identifiable on Pinterest and in retail catalogues — replicated as in-game Avakin items, with no credit or licensing acknowledgement. Meanwhile, a community of independent Avakin-focused artists is ready and willing to collaborate legally.</p>
         </div>
@@ -489,9 +651,9 @@
       </div>
 
       <!-- CONTENT 2: Contests -->
-      <div class="article" data-category="content">
+      <div class="article" id="article-content2" data-category="content">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--red">Pattern observed</span><span class="badge badge--blue">Contests</span></div>
+          <div class="article__meta"><span class="badge badge--red">Pattern observed</span><span class="badge badge--blue">Contests</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-content2',this)">Share</button></div>
           <div class="article__title">Are LKWD's Official Contests Fair? Winners Consistently Share the Same Profile</div>
           <p class="article__deck">LKWD's Instagram creativity contests present themselves as open competitions judged on creative merit. Community analysis of winner profiles tells a more consistent story: social following, existing LKWD connections, and promotional capacity appear to matter as much as — or more than — the quality of the entry itself.</p>
         </div>
@@ -510,9 +672,9 @@
       </div>
 
       <!-- CONTENT 3: Event fatigue -->
-      <div class="article" data-category="content">
+      <div class="article" id="article-content3" data-category="content">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--amber">Recurring feedback</span><span class="badge badge--blue">Events</span></div>
+          <div class="article__meta"><span class="badge badge--amber">Recurring feedback</span><span class="badge badge--blue">Events</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-content3',this)">Share</button></div>
           <div class="article__title">Event Fatigue: The Same Formula, Over and Over, Without the Fun</div>
           <p class="article__deck">Avakin Life's event calendar is busy. But the events themselves follow a formula so consistent that veteran players can describe the next one before it launches: complete tasks, collect items, unlock rewards. The element that is consistently missing is genuine fun.</p>
         </div>
@@ -530,9 +692,9 @@
       </div>
 
       <!-- TECHNICAL 1: Servers -->
-      <div class="article" data-category="technical">
+      <div class="article" id="article-technical1" data-category="technical">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--red">Ongoing</span><span class="badge badge--grey">Technical</span></div>
+          <div class="article__meta"><span class="badge badge--red">Ongoing</span><span class="badge badge--grey">Technical</span><span class="article__updated">Updated Feb 2026</span><button class="article__share" onclick="shareArticle('article-technical1',this)">Share</button></div>
           <div class="article__title">Server Instability: Disconnections and Lost Progress Remain Unresolved</div>
           <p class="article__deck">Server outages and disconnections have appeared in community feedback for years. They are most damaging during events — precisely when the most players are online and the most is at stake.</p>
         </div>
@@ -548,9 +710,9 @@
       </div>
 
       <!-- TECHNICAL 2: Bans -->
-      <div class="article" data-category="technical">
+      <div class="article" id="article-technical2" data-category="technical">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--red">Active concern</span><span class="badge badge--grey">Accounts</span></div>
+          <div class="article__meta"><span class="badge badge--red">Active concern</span><span class="badge badge--grey">Accounts</span><span class="article__updated">Updated Feb 2026</span><button class="article__share" onclick="shareArticle('article-technical2',this)">Share</button></div>
           <div class="article__title">Account Bans: When Automated Systems Penalise Normal Behaviour</div>
           <p class="article__deck">Permanent bans issued to players who believe they did nothing wrong are a recurring community concern. Normal activities — family members on the same network, logging in from a new device, purchasing multiple times quickly — appear to trigger automated fraud flags with limited appeal options.</p>
         </div>
@@ -566,9 +728,9 @@
       </div>
 
       <!-- TECHNICAL 3: Support -->
-      <div class="article" data-category="technical">
+      <div class="article" id="article-technical3" data-category="technical">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--amber">Frequently cited</span><span class="badge badge--grey">Support</span></div>
+          <div class="article__meta"><span class="badge badge--amber">Frequently cited</span><span class="badge badge--grey">Support</span><span class="article__updated">Updated Feb 2026</span><button class="article__share" onclick="shareArticle('article-technical3',this)">Share</button></div>
           <div class="article__title">Customer Support: Slow, Templated, and Overwhelmed</div>
           <p class="article__deck">Long response times, automated first replies, and unresolved closures are the most consistent support complaints. For time-sensitive issues, a slow support process turns a fixable problem into a permanent loss.</p>
         </div>
@@ -742,12 +904,280 @@
 </div>
 
 
+<!-- ══════════════════════════════════════════════════
+  THE CANVAS
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-canvas">
+  <div class="wrap">
+    <img src="images/art-class.jpg" class="deco" alt="Avakin Life — decorative" />
+    <span class="label" data-i18n="canvas_label">Creator Spotlight</span>
+    <h1 class="page-title" data-i18n="canvas_title">The Canvas</h1>
+    <p class="page-sub" data-i18n="canvas_sub">Celebrating the creative people who make Avakin Life worth playing. This page is updated regularly with new spotlights. <em>Log in as admin to feature a creator.</em></p>
+
+    <div class="notice"><strong>About The Canvas:</strong> This space is dedicated to independent community artists and creators — not to official badge holders. We spotlight people whose work stands on its own.</div>
+
+    <span class="label" style="margin-bottom:12px;" data-i18n="canvas_pick_week">Canvas Pick — This Week</span>
+    <div class="canvas-picks" style="margin-bottom:28px;">
+      <div class="canvas-pick canvas-pick--week" id="canvas-week-card">
+        <span class="canvas-pick__badge" data-i18n="canvas_pick_week">Canvas Pick · This Week</span>
+        <div id="canvas-week-content"><p class="canvas-pick__empty">No creator featured yet.</p></div>
+        <div class="canvas-pick__actions" id="canvas-week-actions">
+          <button class="admin-btn" onclick="openCanvasEdit('week')">Edit pick</button>
+          <button class="admin-btn" onclick="clearCanvasPick('week')">Clear</button>
+        </div>
+      </div>
+      <div class="canvas-pick" id="canvas-month-card">
+        <span class="canvas-pick__badge" data-i18n="canvas_pick_month">Canvas Pick · This Month</span>
+        <div id="canvas-month-content"><p class="canvas-pick__empty">No creator featured yet.</p></div>
+        <div class="canvas-pick__actions" id="canvas-month-actions">
+          <button class="admin-btn" onclick="openCanvasEdit('month')">Edit pick</button>
+          <button class="admin-btn" onclick="clearCanvasPick('month')">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+    <span class="label" style="margin-bottom:12px;" data-i18n="canvas_community">Community Artists</span>
+    <p class="page-sub" style="margin-bottom:16px;">Independent artists and creators from the Avakin Life community. These creators are not affiliated with LKWD and are not part of any official programme.</p>
+    <div class="canvas-artists" id="canvas-artists-grid"></div>
+    <div class="canvas-add-bar" id="canvas-add-bar">
+      <button class="admin-btn" onclick="openCanvasAddArtist()">+ Add artist</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+  COMPARE
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-compare">
+  <div class="wrap">
+    <img src="images/gclass-sunset.jpg" class="deco" alt="Avakin Life — decorative" />
+    <span class="label" data-i18n="compare_label">Game Comparison</span>
+    <h1 class="page-title" data-i18n="compare_title">Avakin Life vs. Competitors</h1>
+    <p class="page-sub" data-i18n="compare_sub">A factual side-by-side comparison of Avakin Life, IMVU, and Zepeto across key player experience factors. Ratings are from Google Play 2024–2025 snapshots. Other data points are drawn from each game's in-app store and community documentation.</p>
+
+    <div class="notice"><strong>Note on methodology:</strong> This comparison uses publicly available data and community-observed patterns. It is not a commercial endorsement of any game. IMVU and Zepeto data reflects broad community consensus at time of writing.</div>
+
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th class="avakin-col">Avakin Life</th>
+            <th>IMVU</th>
+            <th>Zepeto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Google Play rating (2024–25)</td>
+            <td class="c-mid">3.4 ★</td>
+            <td class="c-mid">3.7 ★</td>
+            <td class="c-good">4.1 ★</td>
+          </tr>
+          <tr>
+            <td>Free currency earning</td>
+            <td class="c-bad">Very limited — Coin store hollowed out, no reliable Crown earning</td>
+            <td class="c-mid">Moderate — credits earnable via daily tasks</td>
+            <td class="c-mid">Moderate — ZEM earnable through social interactions</td>
+          </tr>
+          <tr>
+            <td>Veteran / loyalty rewards</td>
+            <td class="c-bad">None visible — no milestone rewards, no anniversary recognition</td>
+            <td class="c-mid">Loyalty badges for tenure — limited item rewards</td>
+            <td class="c-mid">Anniversary event items — modest recognition</td>
+          </tr>
+          <tr>
+            <td>Creator programme transparency</td>
+            <td class="c-bad">Low — selection criteria not published, inactive badges retained</td>
+            <td class="c-mid">Medium — creator programme documented with visible tiers</td>
+            <td class="c-mid">Medium — creator tools publicly accessible</td>
+          </tr>
+          <tr>
+            <td>Support quality</td>
+            <td class="c-bad">Slow, often templated, inconsistent resolution</td>
+            <td class="c-mid">Mixed — faster for billing issues, slower for account disputes</td>
+            <td class="c-mid">Generally faster response times reported</td>
+          </tr>
+          <tr>
+            <td>Free-to-play viability</td>
+            <td class="c-bad">Low — social experience increasingly gated behind Crown spending</td>
+            <td class="c-mid">Low-medium — some content free but premium-heavy</td>
+            <td class="c-good">Medium — more content accessible without purchase</td>
+          </tr>
+          <tr>
+            <td>Content originality</td>
+            <td class="c-mid">Mixed — some original scenes, recurring recolour complaints</td>
+            <td class="c-mid">Mixed — large catalogue, quality varies</td>
+            <td class="c-good">Growing UGC (user-generated content) system</td>
+          </tr>
+          <tr>
+            <td>Community contest fairness</td>
+            <td class="c-bad">Questioned — winner profiles suggest reach over merit</td>
+            <td class="c-mid">Moderate — some community-run events with clearer criteria</td>
+            <td class="c-mid">Some creator challenges with transparent judging</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notice" style="margin-top:24px;"><strong>Disclaimer:</strong> IMVU and Zepeto data is based on publicly available information and community feedback at time of writing and may not reflect recent updates. This table is not exhaustive.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+  ACCOUNTABILITY
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-accountability">
+  <div class="wrap">
+    <img src="images/fantasy-garden.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
+    <span class="label" data-i18n="acc_label">Transparency &amp; Accountability</span>
+    <h1 class="page-title" data-i18n="acc_title">Accountability</h1>
+    <p class="page-sub" data-i18n="acc_sub">Tracking what LKWD has said publicly — and how that compares to what players actually experience. Sources are always shown.</p>
+
+    <!-- MYTH VS REALITY -->
+    <span class="label" style="margin-bottom:16px;" data-i18n="acc_myth_title">Myth vs. Reality</span>
+    <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px;line-height:1.65;">Each entry below pairs a public statement or implied claim from LKWD with the community's documented experience. Left: the official line. Right: what players report.</p>
+    <div class="mvr-list">
+
+      <div class="mvr-card">
+        <div class="mvr-side mvr-side--claim">
+          <span class="mvr-side-label mvr-side-label--claim">LKWD implication</span>
+          <p class="mvr-text">"Anyone can win our creativity contests — they're open to all players."</p>
+          <p class="mvr-source">Implied by contest announcement captions, LKWD official Instagram</p>
+        </div>
+        <div class="mvr-side mvr-side--reality">
+          <span class="mvr-side-label mvr-side-label--reality">Community experience</span>
+          <p class="mvr-text">Winners consistently share a profile: 500–1,000+ Instagram followers, accounts already followed by LKWD, history of promotional content, and existing programme badges. Regular players with strong entries rarely win.</p>
+        </div>
+      </div>
+
+      <div class="mvr-card">
+        <div class="mvr-side mvr-side--claim">
+          <span class="mvr-side-label mvr-side-label--claim">LKWD implication</span>
+          <p class="mvr-text">"Free players can enjoy a full Avakin Life experience."</p>
+          <p class="mvr-source">App Store description — "free-to-play" positioning</p>
+        </div>
+        <div class="mvr-side mvr-side--reality">
+          <span class="mvr-side-label mvr-side-label--reality">Community experience</span>
+          <p class="mvr-text">The in-game Coin store has been progressively emptied. Nearly all desirable items require Crowns. Free earning of Crowns is negligible. A player who does not spend real money is excluded from the majority of the game's content economy.</p>
+        </div>
+      </div>
+
+      <div class="mvr-card">
+        <div class="mvr-side mvr-side--claim">
+          <span class="mvr-side-label mvr-side-label--claim">LKWD implication</span>
+          <p class="mvr-text">"We value and listen to our whole community."</p>
+          <p class="mvr-source">LKWD social media, creator programme framing</p>
+        </div>
+        <div class="mvr-side mvr-side--reality">
+          <span class="mvr-side-label mvr-side-label--reality">Community experience</span>
+          <p class="mvr-text">All meaningful LKWD communication is routed through the creator tier. Regular players have no direct feedback channel beyond the support queue — which is widely reported as slow and unresponsive. No open Q&amp;A, no community surveys before major changes, no player advisory group.</p>
+        </div>
+      </div>
+
+      <div class="mvr-card">
+        <div class="mvr-side mvr-side--claim">
+          <span class="mvr-side-label mvr-side-label--claim">LKWD implication</span>
+          <p class="mvr-text">"Our A-Creator and Trendsetter programme represents the community."</p>
+          <p class="mvr-source">LKWD creator programme — in-game badge system</p>
+        </div>
+        <div class="mvr-side mvr-side--reality">
+          <span class="mvr-side-label mvr-side-label--reality">Community experience</span>
+          <p class="mvr-text">Multiple badge holders are inactive — months without posting or in-game presence. No visible review process. Content across the badge tier follows similar aesthetic patterns, suggesting narrow selection criteria rather than community-wide representation.</p>
+        </div>
+      </div>
+
+      <div class="mvr-card">
+        <div class="mvr-side mvr-side--claim">
+          <span class="mvr-side-label mvr-side-label--claim">LKWD implication</span>
+          <p class="mvr-text">"New content is added regularly for all players."</p>
+          <p class="mvr-source">App Store description, update announcements</p>
+        </div>
+        <div class="mvr-side mvr-side--reality">
+          <span class="mvr-side-label mvr-side-label--reality">Community experience</span>
+          <p class="mvr-text">New store items are predominantly Crown-priced. Many are documented recolours of existing assets at full price. Event formats repeat without significant variation. Players who played two or more years ago can identify recycled elements in current events.</p>
+        </div>
+      </div>
+
+    </div><!-- /mvr-list -->
+
+    <hr class="divider" />
+
+    <!-- STATEMENT TRACKER -->
+    <span class="label" style="margin-bottom:14px;" data-i18n="acc_tracker_title">LKWD Statement Tracker</span>
+    <p style="font-size:.88rem;color:var(--mid);margin-bottom:20px;line-height:1.65;">A chronological log of public statements and commitments from LKWD. Status reflects community assessment based on observable outcomes.</p>
+    <div class="stmt-wrap">
+      <table class="stmt-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Statement</th>
+            <th>Source</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="stmt-date">2023</td>
+            <td class="stmt-text">"We are committed to improving the experience for all players, including those who play for free."</td>
+            <td class="stmt-source">LKWD community post</td>
+            <td class="stmt-status"><span class="badge badge--red">Not kept</span></td>
+          </tr>
+          <tr>
+            <td class="stmt-date">2023</td>
+            <td class="stmt-text">"Server stability is a top priority and we are actively working on improvements."</td>
+            <td class="stmt-source">LKWD Discord</td>
+            <td class="stmt-status"><span class="badge badge--amber">Partially kept</span></td>
+          </tr>
+          <tr>
+            <td class="stmt-date">2024</td>
+            <td class="stmt-text">"Our creativity contests are judged purely on creative merit."</td>
+            <td class="stmt-source">LKWD Instagram</td>
+            <td class="stmt-status"><span class="badge badge--red">Disputed</span></td>
+          </tr>
+          <tr>
+            <td class="stmt-date">2024</td>
+            <td class="stmt-text">"We value all players regardless of their spending level."</td>
+            <td class="stmt-source">LKWD social media</td>
+            <td class="stmt-status"><span class="badge badge--red">Not kept</span></td>
+          </tr>
+          <tr>
+            <td class="stmt-date">2024</td>
+            <td class="stmt-text">"Support response times will be reduced and ticket quality improved."</td>
+            <td class="stmt-source">LKWD Help Centre update</td>
+            <td class="stmt-status"><span class="badge badge--grey">No update</span></td>
+          </tr>
+          <tr>
+            <td class="stmt-date">2025</td>
+            <td class="stmt-text">"We are reviewing our creator programme to ensure it remains active and representative."</td>
+            <td class="stmt-source">LKWD Discord</td>
+            <td class="stmt-status"><span class="badge badge--grey">No update</span></td>
+          </tr>
+          <tr>
+            <td class="stmt-date">2025</td>
+            <td class="stmt-text">"New events will bring more variety and creativity-focused content."</td>
+            <td class="stmt-source">LKWD event announcement</td>
+            <td class="stmt-status"><span class="badge badge--amber">Partially kept</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notice" style="margin-top:20px;"><strong>Methodology:</strong> Statements are drawn from publicly accessible LKWD posts, Discord messages, and in-game announcements. Status labels — kept, partially kept, not kept, disputed, no update — reflect community-observed outcomes, not legal assessments. Where a statement was partially acted on or remains ambiguous, "partially kept" is used.</div>
+  </div>
+</div>
+
+
 <!-- ── FOOTER ────────────────────────────────────── -->
 <footer class="footer">
   Avakin Report — independent community resource — not affiliated with Lockwood Publishing ·
   <a onclick="show('sources')">Sources</a> ·
   <a onclick="show('about')">About</a> ·
-  <a onclick="openAdminLogin()">Admin</a>
+  <a id="footer-admin-link" onclick="openAdminLogin()">Admin</a> ·
+  <a id="footer-logout-link" style="display:none;" onclick="adminLogout()">Log out</a>
 </footer>
 
 
@@ -844,6 +1274,61 @@
 </div>
 
 
+<!-- Quote edit modal -->
+<div class="modal-bg" id="modal-quote">
+  <div class="modal">
+    <div class="modal__title">Edit Avakin Report Quote</div>
+    <div class="modal__sub">This quote appears prominently on the home page.</div>
+    <label>Quote text</label>
+    <textarea id="quote-text-input" placeholder="Enter the quote…" style="min-height:70px;"></textarea>
+    <label>Attribution</label>
+    <input type="text" id="quote-cite-input" placeholder="e.g. — Avakin Report, May 2026" />
+    <div class="modal__actions">
+      <button class="submit-btn submit-btn--outline" onclick="closeModal('modal-quote')">Cancel</button>
+      <button class="submit-btn" onclick="saveQuote()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Canvas pick edit modal -->
+<div class="modal-bg" id="modal-canvas-pick">
+  <div class="modal">
+    <div class="modal__title" id="canvas-pick-modal-title">Edit Canvas Pick</div>
+    <input type="hidden" id="canvas-pick-slot" />
+    <label>Creator name</label>
+    <input type="text" id="canvas-pick-name" placeholder="Display name" />
+    <label>Instagram handle</label>
+    <input type="text" id="canvas-pick-handle" placeholder="@handle" />
+    <label>Specialty</label>
+    <input type="text" id="canvas-pick-specialty" placeholder="e.g. Fashion / Interior Design / Art" />
+    <label>Description</label>
+    <textarea id="canvas-pick-desc" placeholder="A sentence or two about their work…"></textarea>
+    <div class="modal__actions">
+      <button class="submit-btn submit-btn--outline" onclick="closeModal('modal-canvas-pick')">Cancel</button>
+      <button class="submit-btn" onclick="saveCanvasPick()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Canvas add artist modal -->
+<div class="modal-bg" id="modal-canvas-artist">
+  <div class="modal">
+    <div class="modal__title">Add Community Artist</div>
+    <label>Name</label>
+    <input type="text" id="artist-name" placeholder="Display name" />
+    <label>Instagram handle</label>
+    <input type="text" id="artist-handle" placeholder="@handle" />
+    <label>Description</label>
+    <textarea id="artist-desc" placeholder="What they create…" style="min-height:60px;"></textarea>
+    <div class="modal__error" id="artist-error">Please fill in name and handle.</div>
+    <div class="modal__actions">
+      <button class="submit-btn submit-btn--outline" onclick="closeModal('modal-canvas-artist')">Cancel</button>
+      <button class="submit-btn" onclick="saveCanvasArtist()">Add</button>
+    </div>
+  </div>
+</div>
+
+
 <!-- ══════════════════════════════════════════════════
   JAVASCRIPT
 ══════════════════════════════════════════════════ -->
@@ -855,11 +1340,12 @@ function show(id) {
   const page = document.getElementById('page-' + id);
   if (page) page.classList.add('active');
   document.querySelectorAll('.nav__btn').forEach(b => {
-    if ((b.getAttribute('onclick') || '').includes("'" + id + "'")) b.classList.add('active');
+    b.classList.toggle('active', b.dataset.page === id);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
   if (id === 'suggestions') renderSuggestions();
   if (id === 'issues') refreshAdminBars();
+  if (id === 'canvas') renderCanvas();
 }
 
 /* ── ISSUE FILTER ─────────────────────────────────── */
@@ -1052,15 +1538,29 @@ function doAdminLogin() {
 
 function onAdminLogin() {
   document.getElementById('admin-indicator').classList.add('show');
+  const qBtn = document.getElementById('avr-quote-edit-btn');
+  if (qBtn) qBtn.classList.add('show');
+  const logoutLink = document.getElementById('footer-logout-link');
+  if (logoutLink) logoutLink.style.display = '';
+  const loginLink = document.getElementById('footer-admin-link');
+  if (loginLink) loginLink.style.display = 'none';
   refreshAdminBars();
   renderSuggestions();
+  renderCanvas();
 }
 
 function adminLogout() {
   sessionStorage.removeItem(SESSION_KEY);
   document.getElementById('admin-indicator').classList.remove('show');
+  const qBtn = document.getElementById('avr-quote-edit-btn');
+  if (qBtn) qBtn.classList.remove('show');
+  const logoutLink = document.getElementById('footer-logout-link');
+  if (logoutLink) logoutLink.style.display = 'none';
+  const loginLink = document.getElementById('footer-admin-link');
+  if (loginLink) loginLink.style.display = '';
   refreshAdminBars();
   renderSuggestions();
+  renderCanvas();
 }
 
 function refreshAdminBars() {
@@ -1146,8 +1646,315 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') document.querySelectorAll('.modal-bg.open').forEach(m => m.classList.remove('open'));
 });
 
+/* ── DARK MODE ────────────────────────────────────── */
+const DARK_KEY = 'avr_dark_v1';
+function toggleDark() {
+  const dark = document.documentElement.dataset.theme === 'dark';
+  setDark(!dark);
+}
+function setDark(on) {
+  document.documentElement.dataset.theme = on ? 'dark' : 'light';
+  localStorage.setItem(DARK_KEY, on ? '1' : '0');
+  document.getElementById('dark-icon-moon').style.display = on ? 'none' : '';
+  document.getElementById('dark-icon-sun').style.display  = on ? '' : 'none';
+}
+
+/* ── LANGUAGE ─────────────────────────────────────── */
+const LANG_KEY = 'avr_lang_v1';
+let currentLang = 'en';
+const STRINGS = {
+  en: {
+    nav_home:'Home', nav_issues:'Issues', nav_reviews:'Reviews', nav_suggestions:'Suggestions',
+    nav_guide:'Player Guide', nav_canvas:'The Canvas', nav_compare:'Compare',
+    nav_accountability:'Accountability', nav_sources:'Sources', nav_about:'About',
+    search_placeholder:'Search articles and suggestions…',
+    canvas_label:'Creator Spotlight', canvas_title:'The Canvas',
+    canvas_sub:'Celebrating the creative people who make Avakin Life worth playing.',
+    canvas_pick_week:'Canvas Pick — This Week', canvas_pick_month:'Canvas Pick — This Month',
+    canvas_community:'Community Artists',
+    compare_label:'Game Comparison', compare_title:'Avakin Life vs. Competitors',
+    compare_sub:'A factual side-by-side comparison of Avakin Life, IMVU, and Zepeto.',
+    acc_label:'Transparency & Accountability', acc_title:'Accountability',
+    acc_sub:'Tracking what LKWD has said publicly — and how that compares to what players experience.',
+    acc_myth_title:'Myth vs. Reality', acc_tracker_title:'LKWD Statement Tracker',
+  },
+  de: {
+    nav_home:'Start', nav_issues:'Probleme', nav_reviews:'Bewertungen', nav_suggestions:'Vorschläge',
+    nav_guide:'Spielerguide', nav_canvas:'The Canvas', nav_compare:'Vergleich',
+    nav_accountability:'Rechenschaft', nav_sources:'Quellen', nav_about:'Über uns',
+    search_placeholder:'Artikel und Vorschläge durchsuchen…',
+    canvas_label:'Creator-Spotlight', canvas_title:'The Canvas',
+    canvas_sub:'Wir feiern die kreativen Menschen, die Avakin Life spielenswert machen.',
+    canvas_pick_week:'Canvas Pick — Diese Woche', canvas_pick_month:'Canvas Pick — Diesen Monat',
+    canvas_community:'Community-Künstler',
+    compare_label:'Spielvergleich', compare_title:'Avakin Life vs. Konkurrenten',
+    compare_sub:'Ein sachlicher Vergleich von Avakin Life, IMVU und Zepeto.',
+    acc_label:'Transparenz & Rechenschaft', acc_title:'Rechenschaft',
+    acc_sub:'Wir verfolgen, was LKWD öffentlich gesagt hat — und wie das mit den Erfahrungen der Spieler übereinstimmt.',
+    acc_myth_title:'Mythos vs. Realität', acc_tracker_title:'LKWD Aussagen-Tracker',
+  },
+  fr: {
+    nav_home:'Accueil', nav_issues:'Problèmes', nav_reviews:'Avis', nav_suggestions:'Suggestions',
+    nav_guide:'Guide joueur', nav_canvas:'The Canvas', nav_compare:'Comparatif',
+    nav_accountability:'Responsabilité', nav_sources:'Sources', nav_about:'À propos',
+    search_placeholder:'Rechercher des articles et suggestions…',
+    canvas_label:'Coup de projecteur', canvas_title:'The Canvas',
+    canvas_sub:'Célébrons les personnes créatives qui rendent Avakin Life valant la peine.',
+    canvas_pick_week:'Canvas Pick — Cette semaine', canvas_pick_month:'Canvas Pick — Ce mois',
+    canvas_community:'Artistes de la communauté',
+    compare_label:'Comparaison de jeux', compare_title:'Avakin Life vs. Concurrents',
+    compare_sub:'Une comparaison factuelle d\'Avakin Life, IMVU et Zepeto.',
+    acc_label:'Transparence & Responsabilité', acc_title:'Responsabilité',
+    acc_sub:'Nous suivons ce que LKWD a déclaré publiquement.',
+    acc_myth_title:'Mythe vs. Réalité', acc_tracker_title:'Suivi des déclarations LKWD',
+  }
+};
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem(LANG_KEY, lang);
+  document.documentElement.lang = lang;
+  ['en','de','fr'].forEach(l => document.getElementById('lang-'+l).classList.toggle('active', l === lang));
+  const s = STRINGS[lang] || STRINGS.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (s[key]) el.textContent = s[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (s[key]) el.placeholder = s[key];
+  });
+  // nav buttons — match by data-page
+  document.querySelectorAll('[data-page]').forEach(btn => {
+    const page = btn.dataset.page;
+    const key = 'nav_' + page;
+    if (s[key]) btn.textContent = s[key];
+  });
+}
+
+/* ── SEARCH ───────────────────────────────────────── */
+function toggleSearch() {
+  const ov = document.getElementById('search-overlay');
+  if (ov.classList.contains('open')) { closeSearch(); }
+  else { ov.classList.add('open'); document.getElementById('search-input').focus(); document.getElementById('search-results').innerHTML = ''; }
+}
+function closeSearch() {
+  document.getElementById('search-overlay').classList.remove('open');
+  document.getElementById('search-input').value = '';
+}
+document.getElementById('search-overlay').addEventListener('click', e => { if (e.target === document.getElementById('search-overlay')) closeSearch(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
+
+function runSearch(q) {
+  const res = document.getElementById('search-results');
+  q = q.trim().toLowerCase();
+  if (!q) { res.innerHTML = ''; return; }
+
+  const hits = [];
+  // Articles
+  document.querySelectorAll('.article').forEach(art => {
+    const titleEl = art.querySelector('.article__title');
+    const deckEl  = art.querySelector('.article__deck');
+    const bodyEl  = art.querySelector('.article__body');
+    const title   = titleEl ? titleEl.textContent : '';
+    const deck    = deckEl  ? deckEl.textContent  : '';
+    const body    = bodyEl  ? bodyEl.textContent  : '';
+    const combined = (title + ' ' + deck + ' ' + body).toLowerCase();
+    if (combined.includes(q)) {
+      const id = art.id || '';
+      const page = (art.closest('.page') || {}).id || '';
+      hits.push({ label: 'Article', title, excerpt: deck || body.slice(0,100), page: page.replace('page-',''), anchor: id });
+    }
+  });
+  // Suggestions
+  allSuggestions().forEach(s => {
+    const combined = (s.title + ' ' + s.desc).toLowerCase();
+    if (combined.includes(q)) hits.push({ label: 'Suggestion', title: s.title, excerpt: s.desc.slice(0,100), page: 'suggestions', anchor: '' });
+  });
+
+  if (!hits.length) { res.innerHTML = '<div class="search-empty">No results found.</div>'; return; }
+  res.innerHTML = hits.map(h => `
+    <div class="search-result" onclick="closeSearch();show('${h.page}');${h.anchor ? "setTimeout(()=>{const el=document.getElementById('"+h.anchor+"');if(el)el.scrollIntoView({behavior:'smooth',block:'start'})},200);" : ''}">
+      <div class="search-result__label">${h.label}</div>
+      <div class="search-result__title">${h.title}</div>
+      <div class="search-result__excerpt">${h.excerpt}${h.excerpt.length >= 100 ? '…' : ''}</div>
+    </div>`).join('');
+}
+
+/* ── SHARE BUTTON ─────────────────────────────────── */
+function shareArticle(articleId, btn) {
+  const url = window.location.href.split('#')[0] + '#' + articleId;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => flashShare(btn));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = url; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+    flashShare(btn);
+  }
+}
+function flashShare(btn) {
+  btn.textContent = 'Copied!'; btn.classList.add('copied');
+  setTimeout(() => { btn.textContent = 'Share'; btn.classList.remove('copied'); }, 2000);
+}
+
+/* ── QUOTE ────────────────────────────────────────── */
+const QUOTE_KEY = 'avr_quote_v1';
+function loadQuote() {
+  try {
+    const q = JSON.parse(localStorage.getItem(QUOTE_KEY) || 'null');
+    if (q) {
+      document.getElementById('avr-quote-text').textContent = q.text;
+      document.getElementById('avr-quote-cite').textContent = q.cite;
+    }
+  } catch(e) {}
+}
+function openQuoteEdit() {
+  document.getElementById('quote-text-input').value = document.getElementById('avr-quote-text').textContent;
+  document.getElementById('quote-cite-input').value = document.getElementById('avr-quote-cite').textContent;
+  openModal('modal-quote');
+}
+function saveQuote() {
+  const text = document.getElementById('quote-text-input').value.trim();
+  const cite = document.getElementById('quote-cite-input').value.trim();
+  if (!text) return;
+  localStorage.setItem(QUOTE_KEY, JSON.stringify({text, cite}));
+  document.getElementById('avr-quote-text').textContent = text;
+  document.getElementById('avr-quote-cite').textContent = cite;
+  closeModal('modal-quote');
+}
+
+/* ── CANVAS ───────────────────────────────────────── */
+const CANVAS_WEEK_KEY    = 'avr_canvas_week_v1';
+const CANVAS_MONTH_KEY   = 'avr_canvas_month_v1';
+const CANVAS_ARTISTS_KEY = 'avr_canvas_artists_v1';
+
+function getCanvasPick(slot) { try { return JSON.parse(localStorage.getItem(slot === 'week' ? CANVAS_WEEK_KEY : CANVAS_MONTH_KEY) || 'null'); } catch(e) { return null; } }
+function getCanvasArtists() { try { return JSON.parse(localStorage.getItem(CANVAS_ARTISTS_KEY) || '[]'); } catch(e) { return []; } }
+
+function renderCanvas() {
+  ['week','month'].forEach(slot => {
+    const pick = getCanvasPick(slot);
+    const el = document.getElementById('canvas-' + slot + '-content');
+    if (!el) return;
+    if (pick && pick.name) {
+      el.innerHTML = `
+        <div class="canvas-pick__name">${pick.name}</div>
+        <div class="canvas-pick__handle">${pick.handle || ''}</div>
+        <div class="canvas-pick__desc">${pick.desc || ''}</div>
+        ${pick.specialty ? `<span class="canvas-pick__specialty">${pick.specialty}</span>` : ''}`;
+    } else {
+      el.innerHTML = '<p class="canvas-pick__empty">No creator featured yet.</p>';
+    }
+  });
+
+  const grid = document.getElementById('canvas-artists-grid');
+  if (!grid) return;
+  const artists = getCanvasArtists();
+  if (!artists.length) {
+    grid.innerHTML = '<p style="font-size:.87rem;color:var(--mid);font-style:italic;">No community artists added yet.</p>';
+  } else {
+    grid.innerHTML = artists.map((a, i) => `
+      <div class="canvas-artist">
+        <div class="canvas-artist__name">${a.name}</div>
+        <div class="canvas-artist__handle">${a.handle || ''}</div>
+        <div class="canvas-artist__desc">${a.desc || ''}</div>
+        ${isAdmin() ? `<button class="admin-btn" style="margin-top:8px;" onclick="removeCanvasArtist(${i})">Remove</button>` : ''}
+      </div>`).join('');
+  }
+  const addBar = document.getElementById('canvas-add-bar');
+  if (addBar) addBar.classList.toggle('visible', isAdmin());
+  ['week','month'].forEach(slot => {
+    const el = document.getElementById('canvas-' + slot + '-actions');
+    if (el) el.classList.toggle('visible', isAdmin());
+  });
+}
+
+function openCanvasEdit(slot) {
+  const pick = getCanvasPick(slot) || {};
+  document.getElementById('canvas-pick-slot').value = slot;
+  document.getElementById('canvas-pick-modal-title').textContent = 'Canvas Pick — ' + (slot === 'week' ? 'This Week' : 'This Month');
+  document.getElementById('canvas-pick-name').value      = pick.name      || '';
+  document.getElementById('canvas-pick-handle').value    = pick.handle    || '';
+  document.getElementById('canvas-pick-specialty').value = pick.specialty || '';
+  document.getElementById('canvas-pick-desc').value      = pick.desc      || '';
+  openModal('modal-canvas-pick');
+}
+function saveCanvasPick() {
+  const slot = document.getElementById('canvas-pick-slot').value;
+  const pick = {
+    name:      document.getElementById('canvas-pick-name').value.trim(),
+    handle:    document.getElementById('canvas-pick-handle').value.trim(),
+    specialty: document.getElementById('canvas-pick-specialty').value.trim(),
+    desc:      document.getElementById('canvas-pick-desc').value.trim(),
+  };
+  localStorage.setItem(slot === 'week' ? CANVAS_WEEK_KEY : CANVAS_MONTH_KEY, JSON.stringify(pick));
+  closeModal('modal-canvas-pick');
+  renderCanvas();
+}
+function clearCanvasPick(slot) {
+  localStorage.removeItem(slot === 'week' ? CANVAS_WEEK_KEY : CANVAS_MONTH_KEY);
+  renderCanvas();
+}
+function openCanvasAddArtist() {
+  ['artist-name','artist-handle','artist-desc'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('artist-error').classList.remove('show');
+  openModal('modal-canvas-artist');
+}
+function saveCanvasArtist() {
+  const name   = document.getElementById('artist-name').value.trim();
+  const handle = document.getElementById('artist-handle').value.trim();
+  const desc   = document.getElementById('artist-desc').value.trim();
+  if (!name || !handle) { document.getElementById('artist-error').classList.add('show'); return; }
+  const artists = getCanvasArtists();
+  artists.push({name, handle, desc});
+  localStorage.setItem(CANVAS_ARTISTS_KEY, JSON.stringify(artists));
+  closeModal('modal-canvas-artist');
+  renderCanvas();
+}
+function removeCanvasArtist(idx) {
+  const artists = getCanvasArtists();
+  artists.splice(idx, 1);
+  localStorage.setItem(CANVAS_ARTISTS_KEY, JSON.stringify(artists));
+  renderCanvas();
+}
+
+/* ── HASH ROUTING ─────────────────────────────────── */
+function handleHash() {
+  const hash = window.location.hash.slice(1);
+  if (!hash) return;
+  const el = document.getElementById(hash);
+  if (!el) return;
+  const page = el.closest('.page');
+  if (page) {
+    const pid = page.id.replace('page-', '');
+    show(pid);
+    setTimeout(() => el.scrollIntoView({behavior: 'smooth', block: 'start'}), 150);
+  }
+}
+
 /* ── INIT ─────────────────────────────────────────── */
-if (isAdmin()) onAdminLogin();
+// Dark mode
+const savedDark = localStorage.getItem(DARK_KEY);
+if (savedDark === '1') setDark(true);
+
+// Language
+const savedLang = localStorage.getItem(LANG_KEY);
+if (savedLang && STRINGS[savedLang]) setLang(savedLang);
+
+// Quote
+loadQuote();
+
+// Canvas
+renderCanvas();
+
+// Admin
+if (isAdmin()) {
+  onAdminLogin();
+}
+
+// Hash routing
+handleHash();
 </script>
 </body>
 </html>
