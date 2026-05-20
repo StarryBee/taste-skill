@@ -283,10 +283,9 @@
     .nav-utils { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
     .util-btn { background: none; border: none; cursor: pointer; color: var(--mid); padding: 5px 7px; border-radius: 4px; transition: all .15s; display: flex; align-items: center; font-family: var(--sans); font-size: .82rem; }
     .util-btn:hover { background: var(--bg); color: var(--ink); }
-    .lang-btns { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-    .lang-btn { background: none; border: none; font-size: .68rem; font-weight: 700; letter-spacing: .04em; padding: 4px 7px; cursor: pointer; color: var(--mid); font-family: var(--sans); transition: all .15s; }
-    .lang-btn.active { background: var(--ink); color: #fff; }
-    .lang-btn:hover:not(.active) { background: var(--bg); color: var(--ink); }
+    .lang-select { border: 1px solid var(--border); border-radius: 4px; font-size: .72rem; font-weight: 700; padding: 4px 6px; background: var(--surface); color: var(--mid); cursor: pointer; font-family: var(--sans); outline: none; transition: border-color .15s; }
+    .lang-select:hover { border-color: var(--ink); color: var(--ink); }
+    [data-theme="dark"] .lang-select { background: var(--surface); color: var(--mid); }
 
     /* ── SEARCH OVERLAY ──────────────────────────────── */
     .search-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 400; align-items: flex-start; justify-content: center; padding: 70px 16px 20px; }
@@ -319,6 +318,8 @@
     .article__share:hover { border-color: var(--accent); color: var(--accent); }
     .article__share.copied { border-color: #3a8c4a; color: #276c34; background: #eaf4ec; }
     .article__updated { font-size: .71rem; color: var(--light); }
+    .article__lang-notice { display: none; margin: 0 26px 12px; padding: 8px 14px; background: #fffbea; border-left: 3px solid #d4a832; font-size: .78rem; color: #6b5800; border-radius: 0 4px 4px 0; }
+    [data-theme="dark"] .article__lang-notice { background: #2a2010; color: #c89000; border-color: #c89000; }
 
     /* ── CANVAS PAGE ─────────────────────────────────── */
     .canvas-picks { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
@@ -421,11 +422,14 @@
           <svg id="dark-icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg id="dark-icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
         </button>
-        <div class="lang-btns">
-          <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
-          <button class="lang-btn" id="lang-de" onclick="setLang('de')">DE</button>
-          <button class="lang-btn" id="lang-fr" onclick="setLang('fr')">FR</button>
-        </div>
+        <select class="lang-select" id="lang-select" onchange="setLang(this.value)" title="Language / Sprache / Langue">
+          <option value="en">EN</option>
+          <option value="de">DE</option>
+          <option value="fr">FR</option>
+          <option value="ar">AR</option>
+          <option value="af">AF</option>
+          <option value="zh">中文</option>
+        </select>
       </div>
     </div>
     <div class="nav">
@@ -437,6 +441,7 @@
       <button class="nav__btn"         data-page="canvas"         onclick="show('canvas')"         data-i18n="nav_canvas">The Canvas</button>
       <button class="nav__btn"         data-page="compare"        onclick="show('compare')"        data-i18n="nav_compare">Compare</button>
       <button class="nav__btn"         data-page="accountability" onclick="show('accountability')" data-i18n="nav_accountability">Accountability</button>
+      <button class="nav__btn"         data-page="promote"        onclick="show('promote')"        data-i18n="nav_promote">Promote</button>
       <button class="nav__btn"         data-page="sources"        onclick="show('sources')"        data-i18n="nav_sources">Sources</button>
       <button class="nav__btn"         data-page="about"          onclick="show('about')"          data-i18n="nav_about">About</button>
     </div>
@@ -523,13 +528,13 @@
     <div class="article-list">
 
       <!-- ECONOMY 1: Crown access -->
-      <div class="article" id="article-economy1" data-category="economy">
+      <div class="article" id="article-economy1" data-article="economy1" data-category="economy">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--red">Ongoing</span><span class="badge badge--amber">Economy</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-economy1',this)">Share</button></div>
-          <div class="article__title">Crowns for Free Are Nearly Unreachable — and the Coin Store Has Been Hollowed Out</div>
-          <p class="article__deck">In theory, Avakin Life offers two currencies: Crowns (paid) and Coins (free). In practice, the free path to meaningful content has been progressively narrowed until it is almost non-existent.</p>
+          <div class="article__title" data-i18n="art_economy1_t">Crowns for Free Are Nearly Unreachable — and the Coin Store Has Been Hollowed Out</div>
+          <p class="article__deck" data-i18n="art_economy1_d">In theory, Avakin Life offers two currencies: Crowns (paid) and Coins (free). In practice, the free path to meaningful content has been progressively narrowed until it is almost non-existent.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>Avakin Life's economy is built on two currencies. Coins are earned through daily play, login rewards, and event participation. Crowns are the premium currency, purchased in packages with real money. For the game's economy to feel fair, both currencies should give players a meaningful path to content they want. That balance no longer exists.</p>
           <p>The Coin-side of the in-game store has been emptied out over time. Items that were once purchasable with free currency have been removed, replaced with Crown-only alternatives, or simply not restocked as the catalogue ages. New furniture collections, clothing lines, and apartment upgrades are almost exclusively Crown purchases. Players who earn Coins consistently find fewer and fewer places to spend them on things they actually want.</p>
           <p>The Crown side is no more generous. Free Crown earning is almost non-existent in practice. The mystery box — a recurring game mechanic — rarely yields Crowns. The spin wheel, similarly, rewards Coins or low-value items far more often than Crowns. Daily and weekly rewards are Coin-based. No meaningful recurring mechanic reliably produces Crowns for a player who does not spend money.</p>
@@ -544,13 +549,13 @@
       </div>
 
       <!-- ECONOMY 2: New player paradox -->
-      <div class="article" id="article-economy2" data-category="economy">
+      <div class="article" id="article-economy2" data-article="economy2" data-category="economy">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--red">Active concern</span><span class="badge badge--amber">Economy</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-economy2',this)">Share</button></div>
-          <div class="article__title">The New Player Paradox: Welcome Gifts for Newcomers, Nothing for Veterans</div>
-          <p class="article__deck">New players receive free Crown items as part of their introduction to the game. Long-term players who paid for those same items — or who simply never received them — are watching this happen with growing frustration.</p>
+          <div class="article__title" data-i18n="art_economy2_t">The New Player Paradox: Welcome Gifts for Newcomers, Nothing for Veterans</div>
+          <p class="article__deck" data-i18n="art_economy2_d">New players receive free Crown items as part of their introduction to the game. Long-term players who paid for those same items — or who simply never received them — are watching this happen with growing frustration.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>Community members have documented new player welcome packages that include Crown items — items that existing players either purchased at full price or never had access to. The problem operates on two levels, and both matter.</p>
           <p>For a player who spent Crowns on a specific item, seeing that item offered for free to new arrivals is a direct devaluation of their purchase. The item they paid for is now a welcome gift. There is no compensation, no acknowledgement, and no opt-in — it simply happens, and the spending player is informed by noticing it in the community.</p>
           <p>For a long-term player who never owned that item, the message is different but equally clear: new players are more commercially valuable to LKWD than you are. The investment of years of time, community participation, and real money purchases is worth less, in LKWD's apparent calculus, than the potential future spending of someone who just downloaded the game.</p>
@@ -570,7 +575,7 @@
           <div class="article__title">The Economic Backlash: What LKWD's Current Model Is Actually Achieving — and Where It Leads</div>
           <p class="article__deck">The problems with Avakin Life's economy are not just frustrating for individual players. They represent a structural pattern that, if uncorrected, will accelerate the very decline LKWD should be most concerned about preventing.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>Free-to-play games face a genuine commercial tension. They need revenue to survive, and that revenue must come from a portion of a playerbase that includes many who pay nothing. The answer most successful games have found is to make spending feel good rather than feel necessary — to create an economy where free players have a meaningful experience and paying players feel genuinely rewarded, not just less excluded.</p>
           <p>Avakin Life's current model leans in the opposite direction. The Coin store is hollow. Crown prices are high. Recoloured assets are sold at full price alongside genuinely new designs, with no distinction made between the two. New players receive welcome gifts that devalue existing players' purchases. Free earning mechanisms produce negligible results. VIP — itself a paid subscription — is the only structural path to minor Crown benefits without direct spending.</p>
           <p><strong>What this produces in the short term:</strong> revenue from Crown packages, VIP subscriptions, and event passes. These numbers look adequate on a quarterly report. The damage is not visible in a single quarter.</p>
@@ -590,15 +595,15 @@
       </div>
 
       <!-- COMMUNITY 1: Creator inactivity -->
-      <div class="article" id="article-community1" data-category="community">
+      <div class="article" id="article-community1" data-article="community1" data-category="community">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--amber">Community-documented</span><span class="badge badge--blue">Creator Programme</span><span class="article__updated">Updated Mar 2026</span><button class="article__share" onclick="shareArticle('article-community1',this)">Share</button></div>
-          <div class="article__title">Badges Without Accountability: Official Creators Who Are No Longer Active</div>
-          <p class="article__deck">A-Creators, Trendsetters, and Content Creators carry official badges visible on their profiles. Many of these accounts have been inactive on Instagram and in-game for months or longer. The badges remain — and no review process appears to exist.</p>
+          <div class="article__title" data-i18n="art_community1_t">Badges Without Accountability: Official Creators Who Are No Longer Active</div>
+          <p class="article__deck" data-i18n="art_community1_d">Content Creator and Trendsetter badges carry official status visible on profiles. Many of these accounts have been inactive on Instagram and in-game for months or longer. The badges remain — and no review process appears to exist.</p>
         </div>
-        <div class="article__body">
-          <p>Avakin Life's creator programme operates across several tiers: A-Creators, Trendsetters, and Content Creators. These designations carry visible in-game badges and represent an official relationship between LKWD and the account holder. For the community, these badges signal active, legitimate ambassadors of the game — people who are creating content, engaging with players, and representing the Avakin Life brand.</p>
-          <p>The problem is that many badge holders are no longer doing any of these things. Community members who follow these accounts on Instagram have noted that some have gone months without posting Avakin-related content — or any content at all. In-game, their activity has similarly gone dark. But their official badges remain active and visible, continuing to signal a relationship that no longer appears to exist in any meaningful form.</p>
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
+          <p>Avakin Life's creator programme spans several tiers. The A-Creator programme is relatively recent, and concerns about it are separate. The badges that carry a more visible accountability problem are those of the older tiers: <strong>Content Creators</strong> (an earlier programme) and <strong>Trendsetters</strong>. These account holders carry official in-game badges and are understood by the community to represent active ambassadors of the game. LKWD staff who do not post publicly are given a pass here — they work behind the scenes, and that is reasonable. The issue is specifically with content-facing badge holders who are no longer creating content.</p>
+          <p>Community members who follow these accounts on Instagram have noted that many have gone months without posting Avakin-related content — or any content at all. In-game, their activity has similarly gone dark. But their official badges remain active and visible, continuing to signal a relationship that no longer appears to exist in any meaningful form.</p>
           <div class="callout"><strong>Why this matters:</strong> The badge system derives its meaning from the expectation that badge holders are active, engaged representatives of the community. When inactive accounts retain badges indefinitely, two problems follow. First, the badge loses credibility — it no longer reliably signals what it is supposed to signal. Second, the badge slots those inactive accounts occupy could be held by genuinely active community members who are creating content, running fan pages, or producing original Avakin art right now.</div>
           <p>There is no visible process by which LKWD reviews creator activity or considers badge suspension for inactive accounts. This is a gap — not necessarily a deliberate policy, but an absence of process that has a real effect on the programme's credibility and fairness.</p>
           <p>A reasonable accountability structure is not complicated: a minimum activity threshold (for example, a meaningful post or in-game activity in the last three to six months), a review process that pauses badges for accounts that fall below it, and a clear path to reinstatement for creators who become active again. This kind of structure exists in many creator programmes across other platforms and games. Its absence here is noticeable.</p>
@@ -611,14 +616,14 @@
       </div>
 
       <!-- COMMUNITY 2: LKWD gap -->
-      <div class="article" id="article-community2" data-category="community">
+      <div class="article" id="article-community2" data-article="community2" data-category="community">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--amber">Widely reported</span><span class="badge badge--blue">LKWD</span><span class="article__updated">Updated Mar 2026</span><button class="article__share" onclick="shareArticle('article-community2',this)">Share</button></div>
-          <div class="article__title">The Gap Between LKWD and the Average Player — and Questions About the Creator Selection Process</div>
-          <p class="article__deck">For most Avakin Life players, the support ticket is the only direct point of contact with LKWD. The company's visible communications are filtered through its creator programme. The result is that the majority of the playerbase has no effective voice — and the people who do have access were selected through a process whose criteria remain unclear.</p>
+          <div class="article__title" data-i18n="art_community2_t">The Gap Between LKWD and the Average Player — and Questions About the Creator Selection Process</div>
+          <p class="article__deck" data-i18n="art_community2_d">For most Avakin Life players, the support ticket is the only direct point of contact with LKWD. The company's visible communications are filtered through its creator programme. The result is that the majority of the playerbase has no effective voice — and the people who do have access were selected through a process whose criteria remain unclear.</p>
         </div>
-        <div class="article__body">
-          <p>Avakin Life operates a clear communication hierarchy. At the top, LKWD staff interact regularly with A-Creators, Trendsetters, and Content Creators — through early access previews, direct messages, event invitations, and social media interactions. These creators then relay information (or impressions) to the broader community. The average player receives information filtered through this layer, with no direct path to LKWD themselves beyond the support system.</p>
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
+          <p>Avakin Life operates a clear communication hierarchy. At the top, LKWD staff interact with Content Creators, Trendsetters, and A-Creators through early access previews, direct messages, event invitations, and social media interactions. These creators then relay information (or impressions) to the broader community. The average player receives information filtered through this layer, with no direct path to LKWD themselves beyond the support system.</p>
           <p>The support system, as documented in separate articles on this site, is overwhelmed. Response times are long, resolutions are inconsistent, and many issues — particularly complex account problems or disputed trades — fall outside what the support team can practically resolve. For a player who has a genuine grievance or a meaningful product suggestion, the path to anyone at LKWD who can act on it is effectively closed.</p>
           <p>This creates a situation where LKWD's understanding of what the community wants and needs is mediated entirely through the creator tier — a group that is, by selection, already more invested and more positive about the game than the average player, and whose ongoing official status depends on that relationship continuing to go well. It is not a reliable mechanism for surfacing difficult truths about the player experience.</p>
           <div class="callout"><strong>The creator selection question:</strong> The criteria by which LKWD selects creators for official programme tiers are not publicly documented. Community members who have observed the programme over time note that the content produced across the creator tier tends to follow similar aesthetic and tonal patterns — which raises a reasonable question about whether selection is prioritising creative diversity and genuine community representation, or whether it is weighted toward a particular content profile that happens to align with what LKWD's marketing already looks like. A programme that produces homogeneous content is not serving the full range of its community.</div>
@@ -632,13 +637,13 @@
       </div>
 
       <!-- CONTENT 1: Design copying -->
-      <div class="article" id="article-content1" data-category="content">
+      <div class="article" id="article-content1" data-article="content1" data-category="content">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--amber">Community-documented</span><span class="badge badge--blue">Design</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-content1',this)">Share</button></div>
-          <div class="article__title">Borrowed Without Credit: Real-World Designs in the Store, and the Artists Who Could Do It Properly</div>
-          <p class="article__deck">Community members have found real-life clothing and furniture designs — identifiable on Pinterest and in retail catalogues — replicated as in-game Avakin items, with no credit or licensing acknowledgement. Meanwhile, a community of independent Avakin-focused artists is ready and willing to collaborate legally.</p>
+          <div class="article__title" data-i18n="art_content1_t">Borrowed Without Credit: Real-World Designs in the Store, and the Artists Who Could Do It Properly</div>
+          <p class="article__deck" data-i18n="art_content1_d">Community members have found real-life clothing and furniture designs — identifiable on Pinterest and in retail catalogues — replicated as in-game Avakin items, with no credit or licensing acknowledgement. Meanwhile, a community of independent Avakin-focused artists is ready and willing to collaborate legally.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>This concern has been raised in community forums for some time and has been documented visually through Pinterest comparisons: players who recognised an in-game item from a real-world source, cross-referenced the two, and shared the comparison publicly. The pattern involves clothing silhouettes, print designs, and furniture pieces that closely mirror specific, identifiable real products — not broad stylistic influences, but close replications of particular items that appear to have a clear real-world origin.</p>
           <p>In-game items carry no credits or licensing notes. Whether each case constitutes a legal issue is a matter for legal analysis beyond the scope of this article. What is clear from community documentation is that the pattern exists, the comparisons are publicly viewable on Pinterest, and no acknowledgement has been provided by LKWD for any of the documented cases.</p>
           <div class="callout"><strong>The alternative that is being overlooked:</strong> There is an active community of Avakin Life-focused artists on Instagram who produce original fashion illustrations, clothing concepts, and furniture designs specifically in the visual language of the game. Many have publicly stated they would welcome the opportunity to collaborate with LKWD — legally, with proper credit and fair compensation. These artists know the game, understand its aesthetic, and would produce genuinely original content that the community is already receptive to.</div>
@@ -651,13 +656,13 @@
       </div>
 
       <!-- CONTENT 2: Contests -->
-      <div class="article" id="article-content2" data-category="content">
+      <div class="article" id="article-content2" data-article="content2" data-category="content">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--red">Pattern observed</span><span class="badge badge--blue">Contests</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-content2',this)">Share</button></div>
-          <div class="article__title">Are LKWD's Official Contests Fair? Winners Consistently Share the Same Profile</div>
-          <p class="article__deck">LKWD's Instagram creativity contests present themselves as open competitions judged on creative merit. Community analysis of winner profiles tells a more consistent story: social following, existing LKWD connections, and promotional capacity appear to matter as much as — or more than — the quality of the entry itself.</p>
+          <div class="article__title" data-i18n="art_content2_t">Are LKWD's Official Contests Fair? Winners Consistently Share the Same Profile</div>
+          <p class="article__deck" data-i18n="art_content2_d">LKWD's Instagram creativity contests present themselves as open competitions judged on creative merit. Community analysis of winner profiles tells a more consistent story: social following, existing LKWD connections, and promotional capacity appear to matter as much as — or more than — the quality of the entry itself.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>Lockwood runs creativity contests through their official Instagram, offering Crown prizes and in-game badges to winners. The contests are framed as open to any player. What community members have found, by tracking results across multiple contest cycles, is that winners tend to share a consistent profile: Instagram accounts with between 500 and 1,000 or more followers; accounts already followed by LKWD or associated A-Creator accounts; players with a demonstrated ability to amplify content beyond Avakin Life itself; accounts that already hold other official badges or recognitions within the game ecosystem.</p>
           <p>No single one of these factors is conclusive alone. The point is the pattern across many contests, not any individual result. When the same combination of factors appears consistently among winners — despite the stated premise of the contest being creative merit — the conclusion that judging is based purely on creative quality becomes difficult to sustain.</p>
           <div class="callout"><strong>The psychological mechanism:</strong> This matters beyond the immediate unfairness of any single contest. A creativity competition that functions as a visibility competition sends a specific message to everyone who enters: your work is secondary to your reach. That message, experienced repeatedly, erodes the belief that genuine creative effort is recognised or valued by the platform. Players stop seeing contests as opportunities and start seeing them as marketing exercises. Participation drops. The creative community — which is one of Avakin Life's most distinctive assets — shrinks and disengages.</div>
@@ -672,17 +677,19 @@
       </div>
 
       <!-- CONTENT 3: Event fatigue -->
-      <div class="article" id="article-content3" data-category="content">
+      <div class="article" id="article-content3" data-article="content3" data-category="content">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--amber">Recurring feedback</span><span class="badge badge--blue">Events</span><span class="article__updated">Updated Apr 2026</span><button class="article__share" onclick="shareArticle('article-content3',this)">Share</button></div>
-          <div class="article__title">Event Fatigue: The Same Formula, Over and Over, Without the Fun</div>
-          <p class="article__deck">Avakin Life's event calendar is busy. But the events themselves follow a formula so consistent that veteran players can describe the next one before it launches: complete tasks, collect items, unlock rewards. The element that is consistently missing is genuine fun.</p>
+          <div class="article__title" data-i18n="art_content3_t">Event Fatigue: The Same Formula, Over and Over, Without the Fun</div>
+          <p class="article__deck" data-i18n="art_content3_d">Avakin Life's event calendar is busy. But the events themselves follow a formula so consistent that veteran players can describe the next one before it launches: complete tasks, collect items, unlock rewards. The element that is consistently missing is genuine fun.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>Events in Avakin Life follow a predictable structure. There is a themed set of tasks — collect a number of specific items, visit particular locations, complete daily actions. There are tiered rewards unlocked by completing enough tasks. There is usually a premium track accessible to paying players, and a free track that requires significantly more time to complete. The theme changes. The formula does not.</p>
           <p>This formula is not without purpose — achievement-based progression does drive consistent logins, which is useful for engagement metrics. But it optimises for a very narrow definition of engagement: the player logs in, completes the checklist, and logs out. The social dimension — the conversations, the creative collaboration, the shared experience of something surprising or genuinely delightful — is not part of the formula, and its absence over repeated events is something the community notices.</p>
           <div class="callout"><strong>What events could be:</strong> Events designed around player creativity — community-voted design competitions with real in-game prizes, collaborative building challenges, mystery-based exploration events with hidden content that rewards curiosity rather than repetition — would engage a different and more sustained kind of participation. They would also produce organic social content: players sharing discoveries, comparing their entries, celebrating each other's work. That kind of engagement is far more valuable to a social platform than task completion metrics.</div>
           <p>The reuse problem extends beyond format. Specific event themes, visual aesthetics, and in some cases near-identical item collections have appeared across multiple events with minimal variation. Players who have been in the game for two or more years can identify the recycled elements. This is not a subjective impression — it is a documented pattern in the community, with players specifically naming items or scenes from earlier events when new ones launch.</p>
+          <p>The same pattern exists on LKWD's official social media. Instagram posts, contests, and announcements follow the same visual formula — the same lighting, the same poses, the same type of caption — cycle after cycle. Even the creativity contests that are supposed to celebrate originality end up looking identical to each other in how they are presented and promoted.</p>
+          <div class="callout"><strong>Offers of help are turned down:</strong> Community members — including creators and artists who have actively offered to contribute ideas, designs, or content for events in exchange for a small payment or even just in-game Crowns — have reported being declined. The pattern that emerges is consistent: if your Instagram account has fewer than 500 followers, your offer of help will most likely not be taken seriously. It is not about the quality of what you bring. It is about the size of your audience and how much attention you can generate. In a game that presents itself as community-first, this reveals where the actual priorities lie.</div>
           <p>The balance that current events are missing is not complicated to describe, even if it requires genuine investment to deliver: less grind, more discovery; less task completion, more player expression; less recycled content, more investment in original creative moments that give players something they have not seen before. A game built on creativity should have events that make players feel creative, not events that make players feel like they are doing homework.</p>
         </div>
         <div class="article__source"><strong>Sources:</strong> r/AvakinLife — event feedback threads, particularly posts comparing current events to previous cycles · Google Play reviews noting event repetition · Community forum posts on official Avakin channels</div>
@@ -692,13 +699,13 @@
       </div>
 
       <!-- TECHNICAL 1: Servers -->
-      <div class="article" id="article-technical1" data-category="technical">
+      <div class="article" id="article-technical1" data-article="technical1" data-category="technical">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--red">Ongoing</span><span class="badge badge--grey">Technical</span><span class="article__updated">Updated Feb 2026</span><button class="article__share" onclick="shareArticle('article-technical1',this)">Share</button></div>
-          <div class="article__title">Server Instability: Disconnections and Lost Progress Remain Unresolved</div>
-          <p class="article__deck">Server outages and disconnections have appeared in community feedback for years. They are most damaging during events — precisely when the most players are online and the most is at stake.</p>
+          <div class="article__title" data-i18n="art_technical1_t">Server Instability: Disconnections and Lost Progress Remain Unresolved</div>
+          <p class="article__deck" data-i18n="art_technical1_d">Server outages and disconnections have appeared in community feedback for years. They are most damaging during events — precisely when the most players are online and the most is at stake.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>Server instability is among the most consistently documented issues in Avakin Life, appearing in Google Play reviews spanning multiple years and surfacing in r/AvakinLife threads whenever a significant outage occurs. Disconnections tend to coincide with major update launches and in-game events — peak load moments — which maximises their impact on players who have invested time in event progress or real money in event passes.</p>
           <p>LKWD communicates outages through their official Discord and social channels, which is a positive practice. The community's frustration is not that problems go unacknowledged but that the same category of problem recurs repeatedly without apparent improvement. Compensation following outages is inconsistent — sometimes offered via community channels, sometimes not — and requires players to be actively monitoring those channels to know it exists.</p>
           <p>For players who have purchased Crown items that were inaccessible during an outage, or who lost event progress due to server failure, the absence of automatic compensation is a concrete grievance. A structured policy — clearly communicated, automatically applied — would address this without requiring individual support tickets for every affected account.</p>
@@ -710,13 +717,13 @@
       </div>
 
       <!-- TECHNICAL 2: Bans -->
-      <div class="article" id="article-technical2" data-category="technical">
+      <div class="article" id="article-technical2" data-article="technical2" data-category="technical">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--red">Active concern</span><span class="badge badge--grey">Accounts</span><span class="article__updated">Updated Feb 2026</span><button class="article__share" onclick="shareArticle('article-technical2',this)">Share</button></div>
-          <div class="article__title">Account Bans: When Automated Systems Penalise Normal Behaviour</div>
-          <p class="article__deck">Permanent bans issued to players who believe they did nothing wrong are a recurring community concern. Normal activities — family members on the same network, logging in from a new device, purchasing multiple times quickly — appear to trigger automated fraud flags with limited appeal options.</p>
+          <div class="article__title" data-i18n="art_technical2_t">Account Bans: When Automated Systems Penalise Normal Behaviour</div>
+          <p class="article__deck" data-i18n="art_technical2_d">Permanent bans issued to players who believe they did nothing wrong are a recurring community concern. Normal activities — family members on the same network, logging in from a new device, purchasing multiple times quickly — appear to trigger automated fraud flags with limited appeal options.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>The ban concern documented in community spaces is specifically about apparent false positives — accounts permanently banned for behaviour the player describes as entirely normal. Community-reported triggers include: playing from a shared home network with a family member; logging in while travelling on a different device; making several Crown purchases in a short period. Each of these is a normal, legitimate activity. Each has appeared in ban reports.</p>
           <p>The appeal process described by affected players is consistently unhelpful: templated responses that do not address the specific situation, long resolution times, and outcomes that are frequently unchanged regardless of evidence provided. LKWD's Terms of Service grant the company broad discretion over account actions, which limits formal player recourse — a clause reasonable in theory but very difficult to accept in apparent false-positive cases.</p>
           <p>The real cost here is not just access to a game. It is years of creative work, social connections, and real monetary spending. That makes the accuracy of the ban system, and the quality of the appeals process, a meaningful consumer concern — not merely a game management one.</p>
@@ -728,13 +735,13 @@
       </div>
 
       <!-- TECHNICAL 3: Support -->
-      <div class="article" id="article-technical3" data-category="technical">
+      <div class="article" id="article-technical3" data-article="technical3" data-category="technical">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--amber">Frequently cited</span><span class="badge badge--grey">Support</span><span class="article__updated">Updated Feb 2026</span><button class="article__share" onclick="shareArticle('article-technical3',this)">Share</button></div>
-          <div class="article__title">Customer Support: Slow, Templated, and Overwhelmed</div>
-          <p class="article__deck">Long response times, automated first replies, and unresolved closures are the most consistent support complaints. For time-sensitive issues, a slow support process turns a fixable problem into a permanent loss.</p>
+          <div class="article__title" data-i18n="art_technical3_t">Customer Support: Slow, Templated, and Overwhelmed</div>
+          <p class="article__deck" data-i18n="art_technical3_d">Long response times, automated first replies, and unresolved closures are the most consistent support complaints. For time-sensitive issues, a slow support process turns a fixable problem into a permanent loss.</p>
         </div>
-        <div class="article__body">
+        <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
           <p>Support quality issues appear across Avakin Life's community feedback at every star rating level — including some 4 and 5 star reviews that note it as the game's weakest area. The complaints are consistent: waits measured in days or weeks rather than hours; first responses that are clearly automated and do not address the specific problem; tickets closed without resolution. The support team appears to be handling a volume of issues that exceeds what the current process can manage effectively.</p>
           <p>For issues that are time-sensitive — a missing event item, a scam that just occurred, a ban during an active event — the delays have practical consequences beyond frustration. Support that arrives a week after the event ended cannot recover event progress. An appeal response that arrives months after a ban has been issued arrives after the player's social connections have dissipated and their motivation to return has passed.</p>
           <p>The scam situation is worth naming specifically. LKWD's policy that trades are final — which exists for legitimate reasons — means that players who lose items through social engineering have essentially no support recovery path. The community has responded by building its own scam-documentation resources, including guides on r/AvakinLife, because the official support system offers little help after the fact. That the community has had to fill this gap itself is a measure of how far the official system falls short.</p>
@@ -799,9 +806,10 @@
   <div class="wrap">
     <img src="images/rose-pergola.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
     <span class="label">Community Suggestions</span>
-    <h1 class="page-title">Vote &amp; Suggest</h1>
-    <p class="page-sub">Browse improvement suggestions from the community. Click the arrow to upvote the ideas you support. Add your own using the button below. The most-voted suggestions are shown first.</p>
-    <div class="notice">Community improvement suggestions. Submit your own using the button below. <strong>Admin:</strong> <a href="#" onclick="openAdminLogin()">Log in</a> to manage suggestions.</div>
+    <h1 class="page-title">Suggestions</h1>
+    <p class="page-sub">Improvement ideas sourced from the community. Browse by category using the filters below. Community voting will be introduced in a future update.</p>
+    <div class="notice"><strong>Want to submit a suggestion?</strong> Send your idea by email — an editorial address is coming soon. All submissions are reviewed before being published. <span id="sg-admin-hint" style="display:none;"> | <a href="#" onclick="openAdminLogin()" style="color:var(--accent);">Admin login</a></span></div>
+    <div class="notice notice--warn" style="margin-top:-10px;"><strong>Community voting — coming soon.</strong> A full voting system requires a shared database, which is in planning. For now, suggestions are shown in a fixed editorial order.</div>
 
     <div class="suggestion-tag-filter" id="sg-filter">
       <button class="filter-btn active" onclick="filterSuggestions('all')">All</button>
@@ -815,7 +823,9 @@
 
     <div class="suggestion-list" id="suggestion-list"></div>
 
-    <button class="submit-btn" style="margin-top:24px;" onclick="openSubmitModal()">+ Submit a suggestion</button>
+    <div id="sg-admin-add-bar" style="display:none;margin-top:20px;">
+      <button class="submit-btn" onclick="openAdminAddSuggestion()">+ Add suggestion (admin)</button>
+    </div>
   </div>
 </div>
 
@@ -1056,13 +1066,13 @@
 
       <div class="mvr-card">
         <div class="mvr-side mvr-side--claim">
-          <span class="mvr-side-label mvr-side-label--claim">LKWD implication</span>
-          <p class="mvr-text">"Free players can enjoy a full Avakin Life experience."</p>
-          <p class="mvr-source">App Store description — "free-to-play" positioning</p>
+          <span class="mvr-side-label mvr-side-label--claim">The real question</span>
+          <p class="mvr-text">Is Avakin Life still enjoyable if you don't spend money?</p>
+          <p class="mvr-source">App Store "free-to-play" label vs. what players who don't spend actually experience</p>
         </div>
         <div class="mvr-side mvr-side--reality">
-          <span class="mvr-side-label mvr-side-label--reality">Community experience</span>
-          <p class="mvr-text">The in-game Coin store has been progressively emptied. Nearly all desirable items require Crowns. Free earning of Crowns is negligible. A player who does not spend real money is excluded from the majority of the game's content economy.</p>
+          <span class="mvr-side-label mvr-side-label--reality">The honest answer: No.</span>
+          <p class="mvr-text">The Coin store has been progressively emptied. Nearly all desirable items require Crowns. Free Crown earning is negligible. If you refuse to spend real money, you are excluded from the majority of the game's content. The "free-to-play" label describes a shell — the actual experience for a non-spending player is one of permanent, visible exclusion.</p>
         </div>
       </div>
 
@@ -1081,7 +1091,7 @@
       <div class="mvr-card">
         <div class="mvr-side mvr-side--claim">
           <span class="mvr-side-label mvr-side-label--claim">LKWD implication</span>
-          <p class="mvr-text">"Our A-Creator and Trendsetter programme represents the community."</p>
+          <p class="mvr-text">"Our Content Creator and Trendsetter programme represents the community."</p>
           <p class="mvr-source">LKWD creator programme — in-game badge system</p>
         </div>
         <div class="mvr-side mvr-side--reality">
@@ -1167,6 +1177,81 @@
     </div>
 
     <div class="notice" style="margin-top:20px;"><strong>Methodology:</strong> Statements are drawn from publicly accessible LKWD posts, Discord messages, and in-game announcements. Status labels — kept, partially kept, not kept, disputed, no update — reflect community-observed outcomes, not legal assessments. Where a statement was partially acted on or remains ambiguous, "partially kept" is used.</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+  PROMOTE
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-promote">
+  <div class="wrap">
+    <img src="images/gclass-sunset.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
+    <span class="label">Advertise with Avakin Report</span>
+    <h1 class="page-title">Promotion</h1>
+    <p class="page-sub">Avakin Report is an independent community publication. Promotion slots are coming soon — this page shows what will be available and at what price so you can plan ahead.</p>
+
+    <div class="notice notice--warn" style="margin-bottom:28px;">
+      <strong>Promotion is not yet open.</strong> The editorial email and booking process are being set up. This page gives you advance notice of what will be available. When promotion opens, this notice will be updated with contact details.
+    </div>
+
+    <span class="label" style="margin-bottom:16px;">What is available</span>
+    <div class="compare-wrap" style="margin-bottom:28px;">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Placement</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Price (CHF)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Canvas Pick — Weekly</td>
+            <td style="text-align:left;color:var(--ink);">Your creator profile featured as Canvas Pick of the Week on The Canvas page</td>
+            <td style="text-align:center;">1 week</td>
+            <td style="text-align:center;font-weight:700;color:var(--ink);">CHF 12</td>
+          </tr>
+          <tr>
+            <td>Canvas Pick — Monthly</td>
+            <td style="text-align:left;color:var(--ink);">Featured as Canvas Pick of the Month — higher visibility, full month</td>
+            <td style="text-align:center;">1 month</td>
+            <td style="text-align:center;font-weight:700;color:var(--ink);">CHF 25</td>
+          </tr>
+          <tr>
+            <td>Homepage Quote</td>
+            <td style="text-align:left;color:var(--ink);">Your message or creator quote in the Avakin Report Quote block on the homepage</td>
+            <td style="text-align:center;">1 week</td>
+            <td style="text-align:center;font-weight:700;color:var(--ink);">CHF 10</td>
+          </tr>
+          <tr>
+            <td>Community Artist Listing</td>
+            <td style="text-align:left;color:var(--ink);">Permanent listing in The Canvas community artists grid with name, handle, and description</td>
+            <td style="text-align:center;">Permanent</td>
+            <td style="text-align:center;font-weight:700;color:var(--ink);">CHF 8</td>
+          </tr>
+          <tr>
+            <td>Sponsored Article</td>
+            <td style="text-align:left;color:var(--ink);">A clearly labeled community content article about your work, creative project, or creator story</td>
+            <td style="text-align:center;">Permanent</td>
+            <td style="text-align:center;font-weight:700;color:var(--ink);">CHF 40</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notice">
+      <strong>Editorial independence:</strong> All sponsored content is clearly labeled. Paid placements do not influence editorial articles, the Issues page, the Accountability page, or any factual reporting on this site. Promotion is for community creators and artists only — not for LKWD or affiliated organisations.
+    </div>
+
+    <hr class="divider" />
+    <span class="label" style="margin-bottom:12px;">Who this is for</span>
+    <div class="steps">
+      <div class="step"><div class="step__num">1</div><div><div class="step__title">Independent community artists and fashion creators</div><div class="step__body">If you create Avakin-themed art, fashion illustrations, or interior designs on Instagram and want visibility among the Avakin Life community, this is for you.</div></div></div>
+      <div class="step"><div class="step__num">2</div><div><div class="step__title">Content creators building their audience</div><div class="step__body">Promotion on Avakin Report reaches players who care about honest, community-first content — an audience that appreciates genuine creative work.</div></div></div>
+      <div class="step"><div class="step__num">3</div><div><div class="step__title">Anyone with something real to share</div><div class="step__body">If you have a project, a collaboration, or a creative idea relevant to the Avakin Life community, get in touch when booking opens.</div></div></div>
+    </div>
   </div>
 </div>
 
@@ -1273,6 +1358,32 @@
   </div>
 </div>
 
+
+<!-- Admin: add new suggestion -->
+<div class="modal-bg" id="modal-admin-sg">
+  <div class="modal">
+    <div class="modal__title">Add Suggestion (Admin)</div>
+    <div class="modal__sub">Add a community-submitted suggestion for display on the site.</div>
+    <label>Title</label>
+    <input type="text" id="admin-sg-title" placeholder="Suggestion title…" maxlength="120" />
+    <label>Description</label>
+    <textarea id="admin-sg-desc" placeholder="Explain the suggestion…" maxlength="500"></textarea>
+    <label>Category</label>
+    <select id="admin-sg-tag">
+      <option>Economy</option><option>Creator Programme</option><option>Events</option>
+      <option>Community</option><option>Design</option><option>Contests</option>
+      <option>Technical</option><option>Other</option>
+    </select>
+    <label style="display:flex;align-items:center;gap:8px;margin-top:2px;">
+      <input type="checkbox" id="admin-sg-pin" style="width:auto;margin:0;" /> Pin to top
+    </label>
+    <div class="modal__error" id="admin-sg-error">Please fill in title and description.</div>
+    <div class="modal__actions">
+      <button class="submit-btn submit-btn--outline" onclick="closeModal('modal-admin-sg')">Cancel</button>
+      <button class="submit-btn" onclick="saveAdminSuggestion()">Add</button>
+    </div>
+  </div>
+</div>
 
 <!-- Quote edit modal -->
 <div class="modal-bg" id="modal-quote">
@@ -1544,6 +1655,10 @@ function onAdminLogin() {
   if (logoutLink) logoutLink.style.display = '';
   const loginLink = document.getElementById('footer-admin-link');
   if (loginLink) loginLink.style.display = 'none';
+  const sgHint = document.getElementById('sg-admin-hint');
+  if (sgHint) sgHint.style.display = '';
+  const sgAddBar = document.getElementById('sg-admin-add-bar');
+  if (sgAddBar) sgAddBar.style.display = '';
   refreshAdminBars();
   renderSuggestions();
   renderCanvas();
@@ -1558,9 +1673,33 @@ function adminLogout() {
   if (logoutLink) logoutLink.style.display = 'none';
   const loginLink = document.getElementById('footer-admin-link');
   if (loginLink) loginLink.style.display = '';
+  const sgHint = document.getElementById('sg-admin-hint');
+  if (sgHint) sgHint.style.display = 'none';
+  const sgAddBar = document.getElementById('sg-admin-add-bar');
+  if (sgAddBar) sgAddBar.style.display = 'none';
   refreshAdminBars();
   renderSuggestions();
   renderCanvas();
+}
+
+/* ── ADMIN ADD SUGGESTION ─────────────────────────── */
+function openAdminAddSuggestion() {
+  document.getElementById('admin-sg-title').value = '';
+  document.getElementById('admin-sg-desc').value = '';
+  document.getElementById('admin-sg-error').classList.remove('show');
+  openModal('modal-admin-sg');
+}
+function saveAdminSuggestion() {
+  const title = document.getElementById('admin-sg-title').value.trim();
+  const desc  = document.getElementById('admin-sg-desc').value.trim();
+  const tag   = document.getElementById('admin-sg-tag').value;
+  const pin   = document.getElementById('admin-sg-pin').checked;
+  if (!title || !desc) { document.getElementById('admin-sg-error').classList.add('show'); return; }
+  const custom = getCustom();
+  custom.push({ id: 'sg-' + Date.now(), title, desc, tags: [tag], baseUp: 0, baseDown: 0, status: pin ? 'pinned' : 'open' });
+  saveCustom(custom);
+  closeModal('modal-admin-sg');
+  renderSuggestions();
 }
 
 function refreshAdminBars() {
@@ -1666,8 +1805,9 @@ const STRINGS = {
   en: {
     nav_home:'Home', nav_issues:'Issues', nav_reviews:'Reviews', nav_suggestions:'Suggestions',
     nav_guide:'Player Guide', nav_canvas:'The Canvas', nav_compare:'Compare',
-    nav_accountability:'Accountability', nav_sources:'Sources', nav_about:'About',
+    nav_accountability:'Accountability', nav_promote:'Promote', nav_sources:'Sources', nav_about:'About',
     search_placeholder:'Search articles and suggestions…',
+    lang_notice:'Article text is in English. Full translations are coming soon.',
     canvas_label:'Creator Spotlight', canvas_title:'The Canvas',
     canvas_sub:'Celebrating the creative people who make Avakin Life worth playing.',
     canvas_pick_week:'Canvas Pick — This Week', canvas_pick_month:'Canvas Pick — This Month',
@@ -1677,12 +1817,36 @@ const STRINGS = {
     acc_label:'Transparency & Accountability', acc_title:'Accountability',
     acc_sub:'Tracking what LKWD has said publicly — and how that compares to what players experience.',
     acc_myth_title:'Myth vs. Reality', acc_tracker_title:'LKWD Statement Tracker',
+    // Article titles + decks
+    art_economy1_t:'Crowns for Free Are Nearly Unreachable — and the Coin Store Has Been Hollowed Out',
+    art_economy1_d:'In theory, Avakin Life offers two currencies: Crowns (paid) and Coins (free). In practice, the free path to meaningful content has been progressively narrowed until it is almost non-existent.',
+    art_economy2_t:'The New Player Paradox: Welcome Gifts for Newcomers, Nothing for Veterans',
+    art_economy2_d:'New players receive free Crown items as part of their introduction. Long-term players who paid for those same items are watching this happen with growing frustration.',
+    art_economy3_t:'The Economic Backlash: What LKWD\'s Current Model Is Actually Achieving — and Where It Leads',
+    art_economy3_d:'The problems with Avakin Life\'s economy represent a structural pattern that, if uncorrected, will accelerate the very decline LKWD should be most concerned about preventing.',
+    art_community1_t:'Badges Without Accountability: Official Creators Who Are No Longer Active',
+    art_community1_d:'Content Creator and Trendsetter badges carry official status visible on profiles. Many of these accounts have been inactive on Instagram and in-game for months or longer.',
+    art_community2_t:'The Gap Between LKWD and the Average Player — and Questions About the Creator Selection Process',
+    art_community2_d:'For most Avakin Life players, the support ticket is the only direct point of contact with LKWD. The majority of the playerbase has no effective voice.',
+    art_content1_t:'Borrowed Without Credit: Real-World Designs in the Store, and the Artists Who Could Do It Properly',
+    art_content1_d:'Community members have found real-life clothing and furniture designs replicated as in-game Avakin items, with no credit or licensing acknowledgement.',
+    art_content2_t:'Are LKWD\'s Official Contests Fair? Winners Consistently Share the Same Profile',
+    art_content2_d:'LKWD\'s Instagram creativity contests present themselves as open competitions. Community analysis of winner profiles tells a more consistent story: reach and connections matter more than creative merit.',
+    art_content3_t:'Event Fatigue: The Same Formula, Over and Over, Without the Fun',
+    art_content3_d:'Events follow a formula so consistent that veteran players can describe the next one before it launches. The element that is consistently missing is genuine fun — and genuine creativity.',
+    art_technical1_t:'Server Instability: Disconnections and Lost Progress Remain Unresolved',
+    art_technical1_d:'Server outages and disconnections have appeared in community feedback for years. They are most damaging during events — precisely when the most is at stake.',
+    art_technical2_t:'Account Bans: When Automated Systems Penalise Normal Behaviour',
+    art_technical2_d:'Permanent bans issued to players who believe they did nothing wrong are a recurring concern. Normal activities appear to trigger automated fraud flags with limited appeal options.',
+    art_technical3_t:'Customer Support: Slow, Templated, and Overwhelmed',
+    art_technical3_d:'Long response times, automated first replies, and unresolved closures are the most consistent support complaints.',
   },
   de: {
     nav_home:'Start', nav_issues:'Probleme', nav_reviews:'Bewertungen', nav_suggestions:'Vorschläge',
     nav_guide:'Spielerguide', nav_canvas:'The Canvas', nav_compare:'Vergleich',
-    nav_accountability:'Rechenschaft', nav_sources:'Quellen', nav_about:'Über uns',
+    nav_accountability:'Rechenschaft', nav_promote:'Werbung', nav_sources:'Quellen', nav_about:'Über uns',
     search_placeholder:'Artikel und Vorschläge durchsuchen…',
+    lang_notice:'Artikeltext auf Englisch. Vollständige Übersetzungen folgen bald.',
     canvas_label:'Creator-Spotlight', canvas_title:'The Canvas',
     canvas_sub:'Wir feiern die kreativen Menschen, die Avakin Life spielenswert machen.',
     canvas_pick_week:'Canvas Pick — Diese Woche', canvas_pick_month:'Canvas Pick — Diesen Monat',
@@ -1692,12 +1856,35 @@ const STRINGS = {
     acc_label:'Transparenz & Rechenschaft', acc_title:'Rechenschaft',
     acc_sub:'Wir verfolgen, was LKWD öffentlich gesagt hat — und wie das mit den Erfahrungen der Spieler übereinstimmt.',
     acc_myth_title:'Mythos vs. Realität', acc_tracker_title:'LKWD Aussagen-Tracker',
+    art_economy1_t:'Kronen kostenlos zu verdienen ist fast unmöglich — und der Coin-Shop ist leer',
+    art_economy1_d:'Theoretisch bietet Avakin Life zwei Währungen: Kronen (bezahlt) und Coins (gratis). Praktisch wurde der kostenlose Weg zu gutem Inhalt so stark eingeschränkt, dass er kaum noch existiert.',
+    art_economy2_t:'Das Paradox für neue Spieler: Willkommensgeschenke für Anfänger, nichts für Veteranen',
+    art_economy2_d:'Neue Spieler erhalten gratis Kronen-Artikel. Langzeitspieler, die dieselben Artikel einst bezahlt haben, sehen das mit wachsender Frustration.',
+    art_economy3_t:'Der wirtschaftliche Rückschlag: Was LKWDs Modell wirklich erreicht — und wohin es führt',
+    art_economy3_d:'Die Probleme mit Avakin Lifes Wirtschaft sind ein strukturelles Muster, das den Niedergang der Plattform beschleunigt, wenn nichts dagegen getan wird.',
+    art_community1_t:'Abzeichen ohne Rechenschaftspflicht: Offizielle Creator, die nicht mehr aktiv sind',
+    art_community1_d:'Content Creator- und Trendsetter-Abzeichen signalisieren aktive Botschafter. Viele dieser Konten sind seit Monaten inaktiv.',
+    art_community2_t:'Die Lücke zwischen LKWD und dem durchschnittlichen Spieler',
+    art_community2_d:'Für die meisten Spieler ist das Support-Ticket der einzige direkte Kontaktpunkt mit LKWD. Die reguläre Community hat keine wirksame Stimme.',
+    art_content1_t:'Kopiert ohne Quellenangabe: Echte Designs im Shop und Künstler, die es besser machen würden',
+    art_content1_d:'Community-Mitglieder fanden echte Kleidungs- und Möbeldesigns, die als Avakin-Artikel auftauchen — ohne Quellenangabe oder Lizenz.',
+    art_content2_t:'Sind LKWDs Wettbewerbe fair? Die Gewinner haben immer das gleiche Profil',
+    art_content2_d:'LKWDs Instagram-Kreativitätswettbewerbe gelten als offen. Die Analyse der Gewinnerprofile zeigt: Reichweite und Verbindungen zählen mehr als Kreativität.',
+    art_content3_t:'Event-Müdigkeit: Immer dasselbe Schema, ohne echten Spaß',
+    art_content3_d:'Events folgen einer so vorhersehbaren Formel, dass Veteranen das nächste beschreiben können, bevor es startet.',
+    art_technical1_t:'Serverinstabilität: Verbindungsabbrüche und Fortschrittsverluste bleiben ungelöst',
+    art_technical1_d:'Serverausfälle und Verbindungsabbrüche tauchen seit Jahren in Community-Feedback auf. Sie treffen am härtesten während Events.',
+    art_technical2_t:'Account-Sperren: Wenn automatische Systeme normales Verhalten bestrafen',
+    art_technical2_d:'Permanente Sperren für Spieler, die nichts falsch gemacht haben, sind ein wiederkehrendes Community-Problem.',
+    art_technical3_t:'Kundensupport: Langsam, schablonenhaft und überwältigt',
+    art_technical3_d:'Lange Antwortzeiten, automatisierte erste Antworten und ungelöste Schließungen sind die häufigsten Support-Beschwerden.',
   },
   fr: {
     nav_home:'Accueil', nav_issues:'Problèmes', nav_reviews:'Avis', nav_suggestions:'Suggestions',
     nav_guide:'Guide joueur', nav_canvas:'The Canvas', nav_compare:'Comparatif',
-    nav_accountability:'Responsabilité', nav_sources:'Sources', nav_about:'À propos',
+    nav_accountability:'Responsabilité', nav_promote:'Publicité', nav_sources:'Sources', nav_about:'À propos',
     search_placeholder:'Rechercher des articles et suggestions…',
+    lang_notice:'Texte de l\'article en anglais. Traductions complètes à venir.',
     canvas_label:'Coup de projecteur', canvas_title:'The Canvas',
     canvas_sub:'Célébrons les personnes créatives qui rendent Avakin Life valant la peine.',
     canvas_pick_week:'Canvas Pick — Cette semaine', canvas_pick_month:'Canvas Pick — Ce mois',
@@ -1707,13 +1894,151 @@ const STRINGS = {
     acc_label:'Transparence & Responsabilité', acc_title:'Responsabilité',
     acc_sub:'Nous suivons ce que LKWD a déclaré publiquement.',
     acc_myth_title:'Mythe vs. Réalité', acc_tracker_title:'Suivi des déclarations LKWD',
+    art_economy1_t:'Les Couronnes gratuites sont quasi inaccessibles — et le magasin Coins a été vidé',
+    art_economy1_d:'En théorie, Avakin Life offre deux monnaies : Couronnes (payantes) et Coins (gratuits). En pratique, la voie gratuite vers du contenu utile a presque disparu.',
+    art_economy2_t:'Le paradoxe des nouveaux joueurs : cadeaux de bienvenue pour les débutants, rien pour les vétérans',
+    art_economy2_d:'Les nouveaux joueurs reçoivent des articles Couronnes gratuits. Les vétérans qui ont payé ces articles observent cela avec frustration.',
+    art_economy3_t:'Le contrecoup économique : ce que le modèle actuel de LKWD accomplit vraiment',
+    art_economy3_d:'Les problèmes de l\'économie représentent un schéma structurel qui, sans correction, accélérera le déclin.',
+    art_community1_t:'Des badges sans responsabilité : des créateurs officiels qui ne sont plus actifs',
+    art_community1_d:'Les badges Content Creator et Trendsetter signalent des ambassadeurs actifs. Beaucoup sont inactifs depuis des mois.',
+    art_community2_t:'Le fossé entre LKWD et le joueur ordinaire',
+    art_community2_d:'Pour la plupart des joueurs, le ticket de support est le seul contact direct avec LKWD. La communauté ordinaire n\'a pas de voix efficace.',
+    art_content1_t:'Copié sans crédit : des designs réels dans la boutique et des artistes qui pourraient faire mieux',
+    art_content1_d:'Des membres de la communauté ont trouvé des designs réels sur Pinterest reproduits comme articles Avakin sans crédit.',
+    art_content2_t:'Les concours de LKWD sont-ils équitables ? Les gagnants ont toujours le même profil',
+    art_content2_d:'Les concours Instagram de LKWD se veulent ouverts. L\'analyse montre que la portée et les connexions comptent plus que la créativité.',
+    art_content3_t:'Fatigue des événements : la même formule, encore et encore',
+    art_content3_d:'Les événements suivent une formule si prévisible que les vétérans peuvent décrire le prochain avant son lancement.',
+    art_technical1_t:'Instabilité des serveurs : déconnexions et pertes de progression non résolues',
+    art_technical1_d:'Les pannes de serveur apparaissent dans les retours depuis des années. Elles touchent le plus durement pendant les événements.',
+    art_technical2_t:'Bannissements : quand les systèmes automatisés punissent un comportement normal',
+    art_technical2_d:'Les bannissements permanents infligés à des joueurs innocents sont un problème récurrent.',
+    art_technical3_t:'Support client : lent, automatisé et débordé',
+    art_technical3_d:'Longs délais, premières réponses automatisées et fermetures non résolues — les plaintes de support les plus fréquentes.',
+  },
+  ar: {
+    nav_home:'الرئيسية', nav_issues:'المشاكل', nav_reviews:'التقييمات', nav_suggestions:'اقتراحات',
+    nav_guide:'دليل اللاعب', nav_canvas:'The Canvas', nav_compare:'مقارنة',
+    nav_accountability:'المساءلة', nav_promote:'الإعلان', nav_sources:'المصادر', nav_about:'حول',
+    search_placeholder:'ابحث في المقالات والاقتراحات…',
+    lang_notice:'نص المقال باللغة الإنجليزية. الترجمات الكاملة قادمة قريباً.',
+    canvas_label:'تسليط الضوء على المبدعين', canvas_title:'The Canvas',
+    canvas_sub:'نحتفي بالأشخاص المبدعين الذين يجعلون Avakin Life يستحق اللعب.',
+    canvas_pick_week:'اختيار هذا الأسبوع', canvas_pick_month:'اختيار هذا الشهر',
+    canvas_community:'فنانو المجتمع',
+    compare_label:'مقارنة الألعاب', compare_title:'.Avakin Life مقابل المنافسين',
+    compare_sub:'.مقارنة واقعية بين Avakin Life وIMVU وZepeto',
+    acc_label:'الشفافية والمساءلة', acc_title:'المساءلة',
+    acc_sub:'.نتتبع ما صرّحت به LKWD علناً — وكيف يتعارض مع تجربة اللاعبين',
+    acc_myth_title:'الأسطورة مقابل الواقع', acc_tracker_title:'متتبع تصريحات LKWD',
+    art_economy1_t:'الحصول على التيجان مجاناً شبه مستحيل — ومتجر العملات المجانية أُفرغ',
+    art_economy1_d:'نظرياً، تقدم Avakin Life عملتين. عملياً، تقلّص الطريق المجاني للمحتوى حتى كاد يختفي.',
+    art_economy2_t:'مفارقة اللاعبين الجدد: هدايا للمبتدئين ولا شيء للمخضرمين',
+    art_economy2_d:'يتلقى اللاعبون الجدد أغراضاً مجانية. أما اللاعبون القدامى فيشاهدون ذلك بإحباط متزايد.',
+    art_economy3_t:'التداعيات الاقتصادية: ما يحققه نموذج LKWD فعلاً — وإلى أين يقود',
+    art_economy3_d:'مشاكل الاقتصاد تمثل نمطاً هيكلياً سيُسرّع الانهيار إن لم تُعالَج.',
+    art_community1_t:'شارات بلا مساءلة: منشئو المحتوى الرسميون الذين لم يعودوا نشطين',
+    art_community1_d:'شارات Content Creator وTrendsetter تُشير إلى سفراء نشطين. لكن كثيراً منها معطل منذ أشهر.',
+    art_community2_t:'الفجوة بين LKWD واللاعب العادي',
+    art_community2_d:'تذكرة الدعم هي نقطة الاتصال الوحيدة مع LKWD لمعظم اللاعبين. المجتمع العادي لا يملك صوتاً.',
+    art_content1_t:'منقول بلا إشارة مصدر: تصاميم حقيقية في المتجر وفنانون قادرون على الأداء بشكل صحيح',
+    art_content1_d:'وجد أعضاء المجتمع تصاميم حقيقية تظهر كمنتجات Avakin دون أي إشارة للمصدر.',
+    art_content2_t:'هل مسابقات LKWD عادلة؟ الفائزون دائماً لهم نفس الملف الشخصي',
+    art_content2_d:'تحليل ملفات الفائزين يكشف: المتابعون والصلات بـ LKWD أهم من الإبداع.',
+    art_content3_t:'إجهاد الأحداث: نفس الصيغة مراراً وتكراراً — بلا متعة',
+    art_content3_d:'الأحداث تتبع صيغة ثابتة لدرجة أن المخضرمين يستطيعون وصف التالية قبل إطلاقها.',
+    art_technical1_t:'عدم استقرار الخوادم: انقطاعات وخسائر في التقدم تبقى دون حل',
+    art_technical1_d:'انقطاعات الخوادم في آراء المجتمع منذ سنوات. أضرارها الأكبر أثناء الأحداث.',
+    art_technical2_t:'حظر الحسابات: عندما تعاقب الأنظمة الآلية السلوك الطبيعي',
+    art_technical2_d:'الحظر الدائم للاعبين الذين لم يخطئوا مشكلة متكررة.',
+    art_technical3_t:'دعم العملاء: بطيء، قوالب جاهزة، مُرهق',
+    art_technical3_d:'أوقات استجابة طويلة، وردود أولى آلية، وإغلاق دون حل.',
+  },
+  af: {
+    nav_home:'Tuis', nav_issues:'Probleme', nav_reviews:'Resensies', nav_suggestions:'Voorstelle',
+    nav_guide:'Spelershandleiding', nav_canvas:'The Canvas', nav_compare:'Vergelyking',
+    nav_accountability:'Verantwoordbaarheid', nav_promote:'Adverteer', nav_sources:'Bronne', nav_about:'Oor',
+    search_placeholder:'Soek artikels en voorstelle…',
+    lang_notice:'Artikelteks in Engels. Volledige vertalings kom binnekort.',
+    canvas_label:'Skepper-spotlight', canvas_title:'The Canvas',
+    canvas_sub:'Ons vier die kreatiewe mense wat Avakin Life die moeite werd maak.',
+    canvas_pick_week:'Canvas Pick — Hierdie week', canvas_pick_month:'Canvas Pick — Hierdie maand',
+    canvas_community:'Gemeenskapskunstenaars',
+    compare_label:'Spelvergelyking', compare_title:'Avakin Life vs. Mededingers',
+    compare_sub:"'n Saaklike vergelyking van Avakin Life, IMVU en Zepeto.",
+    acc_label:'Deursigtigheid & Verantwoordbaarheid', acc_title:'Verantwoordbaarheid',
+    acc_sub:'Ons volg wat LKWD openbaar gesê het — en hoe dit vergelyk met wat spelers ondervind.',
+    acc_myth_title:'Mite vs. Werklikheid', acc_tracker_title:'LKWD Verklaringsnasporing',
+    art_economy1_t:'Kronne gratis verdien is amper onmoontlik — en die Munt-winkel is uitgehol',
+    art_economy1_d:'In teorie bied Avakin Life twee geldeenhede. In die praktyk is die gratis pad so ingekrimp dat dit amper nie meer bestaan nie.',
+    art_economy2_t:'Die nuweling-paradoks: verwelkomingsgeskenke vir nuwelinge, niks vir veterane',
+    art_economy2_d:'Nuwe spelers ontvang gratis Kroon-items. Langdurige spelers kyk met frustrasie toe.',
+    art_economy3_t:'Die ekonomiese terugslae: wat LKWD se model werklik bereik',
+    art_economy3_d:"Die probleme verteenwoordig 'n strukturele patroon wat die agteruitgang versnel.",
+    art_community1_t:'Kentekens sonder verantwoordbaarheid: amptelike skeppers wat nie meer aktief is',
+    art_community1_d:'Baie Content Creator- en Trendsetter-rekeninge is vir maande onaktief.',
+    art_community2_t:'Die gaping tussen LKWD en die gemiddelde speler',
+    art_community2_d:'Die ondersteuningskaartjie is die enigste direkte kontakpunt. Die gewone gemeenskap het geen stem nie.',
+    art_content1_t:'Gekopieer sonder krediet: regte ontwerpe in die winkel',
+    art_content1_d:'Regte ontwerpe op Pinterest word as Avakin-items gebruik sonder enige krediet.',
+    art_content2_t:'Is LKWD se kompetisies regverdig? Wenners het altyd dieselfde profiel',
+    art_content2_d:'Ontleding wys: volgers en verbindings tel meer as kreatiwiteit.',
+    art_content3_t:'Geleentheid-moegheid: dieselfde formule, keer op keer',
+    art_content3_d:'Gebeure volg so voorspelbare formules dat veterane die volgende kan beskryf voor dit begin.',
+    art_technical1_t:'Bediener-onstabiliteit: afkoppelings bly onopgelos',
+    art_technical1_d:'Bedienerstoornisse verskyn al jare in gemeenskapsterugvoer.',
+    art_technical2_t:'Rekening-verbanne: wanneer stelsels normale gedrag straf',
+    art_technical2_d:'Permanente verbanne vir onskuldige spelers is herhaaldelik.',
+    art_technical3_t:'Kliëntediens: stadig, sjabloonmatig en oorweldig',
+    art_technical3_d:'Lang reaksietye en onopgeloste sluitings is die mees algemene klagtes.',
+  },
+  zh: {
+    nav_home:'主页', nav_issues:'问题', nav_reviews:'评价', nav_suggestions:'建议',
+    nav_guide:'玩家指南', nav_canvas:'The Canvas', nav_compare:'对比',
+    nav_accountability:'问责', nav_promote:'推广', nav_sources:'来源', nav_about:'关于',
+    search_placeholder:'搜索文章和建议…',
+    lang_notice:'文章为英文。完整翻译即将推出。',
+    canvas_label:'创作者聚焦', canvas_title:'The Canvas',
+    canvas_sub:'致敬让Avakin Life值得游玩的创意人。',
+    canvas_pick_week:'本周Canvas精选', canvas_pick_month:'本月Canvas精选',
+    canvas_community:'社区艺术家',
+    compare_label:'游戏对比', compare_title:'Avakin Life vs. 竞争对手',
+    compare_sub:'Avakin Life、IMVU和Zepeto的客观横向对比。',
+    acc_label:'透明度与问责', acc_title:'问责',
+    acc_sub:'追踪LKWD的公开表态——以及与玩家实际体验的对比。',
+    acc_myth_title:'官方说法 vs. 现实', acc_tracker_title:'LKWD表态追踪',
+    art_economy1_t:'免费获得皇冠几乎不可能——金币商店已被掏空',
+    art_economy1_d:'理论上有两种货币，实际上免费路径已被逐步压缩至几乎消失。',
+    art_economy2_t:'新玩家悖论：新人有礼包，老玩家什么都没有',
+    art_economy2_d:'新玩家免费获得皇冠道具，老玩家只能眼睁睁看着，越来越失望。',
+    art_economy3_t:'经济反弹：LKWD当前模式的真实成效——以及走向',
+    art_economy3_d:'若不纠正，这种结构性模式将加速平台衰退。',
+    art_community1_t:'有徽章却无问责：已不再活跃的官方创作者',
+    art_community1_d:'内容创作者和潮流引领者徽章的许多账号已沉寂数月。',
+    art_community2_t:'LKWD与普通玩家之间的鸿沟',
+    art_community2_d:'提交支持工单是大多数玩家与LKWD唯一的联系方式。',
+    art_content1_t:'抄袭无署名：商店里的现实设计与本可正当合作的艺术家',
+    art_content1_d:'社区成员发现Pinterest上的真实设计被复制为游戏道具，毫无版权说明。',
+    art_content2_t:'LKWD的官方比赛公平吗？获奖者总是相似的面孔',
+    art_content2_d:'数据分析显示：粉丝数量和与LKWD的关联比创意更重要。',
+    art_content3_t:'活动疲劳：千篇一律的公式，毫无乐趣',
+    art_content3_d:'所有活动都遵循同一公式——老玩家甚至能在开始前预知内容。',
+    art_technical1_t:'服务器不稳定：断线和进度丢失悬而未决',
+    art_technical1_d:'服务器崩溃问题存在多年，活动期间危害最大。',
+    art_technical2_t:'账号封禁：当自动系统惩罚正常行为',
+    art_technical2_d:'对无辜玩家的永久封禁是反复出现的问题。',
+    art_technical3_t:'客户支持：缓慢、套话，不堪重负',
+    art_technical3_d:'漫长响应时间、自动化回复和未解决工单是最常见的投诉。',
   }
 };
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem(LANG_KEY, lang);
   document.documentElement.lang = lang;
-  ['en','de','fr'].forEach(l => document.getElementById('lang-'+l).classList.toggle('active', l === lang));
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  const sel = document.getElementById('lang-select');
+  if (sel) sel.value = lang;
   const s = STRINGS[lang] || STRINGS.en;
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
@@ -1728,6 +2053,12 @@ function setLang(lang) {
     const page = btn.dataset.page;
     const key = 'nav_' + page;
     if (s[key]) btn.textContent = s[key];
+  });
+  // article lang notices
+  const notice = s.lang_notice || STRINGS.en.lang_notice;
+  document.querySelectorAll('[data-lang-notice]').forEach(el => {
+    el.textContent = notice;
+    el.style.display = lang !== 'en' ? 'block' : 'none';
   });
 }
 
@@ -1940,7 +2271,12 @@ if (savedDark === '1') setDark(true);
 
 // Language
 const savedLang = localStorage.getItem(LANG_KEY);
-if (savedLang && STRINGS[savedLang]) setLang(savedLang);
+if (savedLang && STRINGS[savedLang]) {
+  setLang(savedLang);
+} else {
+  const sel = document.getElementById('lang-select');
+  if (sel) sel.value = 'en';
+}
 
 // Quote
 loadQuote();
