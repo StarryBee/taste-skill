@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Avakin Life — Community Report</title>
+  <meta name="description" content="An independent community accountability site covering Avakin Life by Lockwood Publishing. Player issues, reviews, suggestions, and transparency tracking." />
+  <meta property="og:title" content="Avakin Life — Community Report" />
+  <meta property="og:description" content="An independent community accountability site covering Avakin Life by Lockwood Publishing. Player issues, reviews, suggestions, and transparency tracking." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Avakin Life — Community Report" />
+  <meta name="twitter:description" content="An independent community accountability site covering Avakin Life by Lockwood Publishing." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>" />
   <style>
     :root {
       --bg:      #f5f2ed;
@@ -569,7 +577,7 @@
       </div>
 
       <!-- ECONOMY 3: The economic backlash -->
-      <div class="article" id="article-economy2" data-category="economy">
+      <div class="article" id="article-economy3" data-article="economy3" data-category="economy">
         <div class="article__header">
           <div class="article__meta"><span class="badge badge--red">In-depth analysis</span><span class="badge badge--amber">Economy</span><span class="article__updated">Updated May 2026</span><button class="article__share" onclick="shareArticle('article-economy3',this)">Share</button></div>
           <div class="article__title">The Economic Backlash: What LKWD's Current Model Is Actually Achieving — and Where It Leads</div>
@@ -807,9 +815,8 @@
     <img src="images/rose-pergola.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
     <span class="label">Community Suggestions</span>
     <h1 class="page-title">Suggestions</h1>
-    <p class="page-sub">Improvement ideas sourced from the community. Browse by category using the filters below. Community voting will be introduced in a future update.</p>
+    <p class="page-sub">Improvement ideas sourced from the community. Browse by category and vote on the ideas you support. Votes are saved locally in your browser.</p>
     <div class="notice"><strong>Want to submit a suggestion?</strong> Send your idea by email — an editorial address is coming soon. All submissions are reviewed before being published. <span id="sg-admin-hint" style="display:none;"> | <a href="#" onclick="openAdminLogin()" style="color:var(--accent);">Admin login</a></span></div>
-    <div class="notice notice--warn" style="margin-top:-10px;"><strong>Community voting — coming soon.</strong> A full voting system requires a shared database, which is in planning. For now, suggestions are shown in a fixed editorial order.</div>
 
     <div class="suggestion-tag-filter" id="sg-filter">
       <button class="filter-btn active" onclick="filterSuggestions('all')">All</button>
@@ -905,6 +912,7 @@
       <p>The Suggestions page collects community improvement ideas and allows personal voting using your browser's local storage. Votes are stored in your browser only — they are not sent anywhere and are not shared across users or devices. The system is suitable for personal priority tracking; a true community-wide voting system would require a server-side database.</p>
       <h3>The admin panel</h3>
       <p>A password-protected admin mode is accessible via the footer. Admin mode allows adding editor notes to articles and managing the suggestions list. Credentials and notes are stored in your browser's local storage — they are not transmitted anywhere. This means the admin mode works on one device; switching devices requires re-entering the password and notes will not carry over. For cross-device access, use the Export function in the admin panel and import on your other device.</p>
+      <p><strong>Security note:</strong> The admin password is stored as base64 encoding in your browser's local storage — this is not encryption. Anyone with access to your browser's DevTools can decode it trivially. Only use this feature on a personal device you trust.</p>
       <h3>Images</h3>
       <p>Images throughout the site are decorative screenshots from Avakin Life, used to illustrate the visual character of the game. They are not attributed to specific players and are used as aesthetic decoration only.</p>
       <h3>Disclaimer</h3>
@@ -1186,7 +1194,6 @@
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-promote">
   <div class="wrap">
-    <img src="images/gclass-sunset.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
     <span class="label">Advertise with Avakin Report</span>
     <h1 class="page-title">Promotion</h1>
     <p class="page-sub">Avakin Report is an independent community publication. Promotion slots are coming soon — this page shows what will be available and at what price so you can plan ahead.</p>
@@ -1571,7 +1578,23 @@ function renderSuggestions() {
       ? `<div class="suggestion-admin visible">
            <button class="admin-btn" onclick="openSgAdmin('${s.id}','${s.status}')">Manage</button>
          </div>` : '';
+    const vote = userVote(s.id);
+    const voteHtml = `<div class="vote-group">
+      <button class="vbtn vbtn--up${vote === 'up' ? ' active' : ''}" onclick="castVote('${s.id}','up')" title="Support">
+        <span class="vbtn__icon">▲</span>
+        <span class="vbtn__count">${upCount(s)}</span>
+      </button>
+      <button class="vbtn vbtn--neut${vote === 'neutral' ? ' active' : ''}" onclick="castVote('${s.id}','neutral')" title="Neutral">
+        <span class="vbtn__icon">—</span>
+        <span class="vbtn__count"></span>
+      </button>
+      <button class="vbtn vbtn--down${vote === 'down' ? ' active' : ''}" onclick="castVote('${s.id}','down')" title="Oppose">
+        <span class="vbtn__icon">▼</span>
+        <span class="vbtn__count">${downCount(s)}</span>
+      </button>
+    </div>`;
     return `<div class="suggestion-card${s.status === 'pinned' ? ' suggestion-card--pinned' : ''}" data-id="${s.id}">
+      ${voteHtml}
       <div class="suggestion-card__content">
         <div class="suggestion-card__title">${s.title}${statusLabel(s.status)}</div>
         <div class="suggestion-card__desc">${s.desc}</div>
@@ -2294,3 +2317,4 @@ handleHash();
 </script>
 </body>
 </html>
+
