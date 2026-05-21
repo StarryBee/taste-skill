@@ -220,6 +220,9 @@
     [data-theme="dark"] .vbtn--up.active   { background: #1e4024; border-color: #3a8c4a; color: #a3d9a8; }
     [data-theme="dark"] .vbtn--down.active { background: #3a0e0e; border-color: #c04040; color: #f5b8b8; }
     .vbtn__count { font-family: var(--sans); font-size: .68rem; font-weight: 700; opacity: .75; }
+    .vbtn:disabled { opacity: .45; cursor: not-allowed; pointer-events: none; }
+    .vbtn.active:disabled { opacity: .85; }
+    .vote-done { font-size: .7rem; color: var(--mid); text-align: center; padding-top: 8px; font-style: italic; letter-spacing: .04em; }
     .suggestion-card__content { min-width: 0; }
     .suggestion-card__title { font-weight: 600; font-size: .93rem; margin-bottom: 5px; line-height: 1.35; }
     .suggestion-card__desc { font-size: .84rem; color: var(--mid); line-height: 1.6; margin-bottom: 8px; }
@@ -496,18 +499,18 @@
 <div class="page active" id="page-home">
   <div class="wrap">
     <img src="images/lakeside-cottage.jpg" class="deco" alt="Avakin Life — decorative" />
-    <span class="label">Independent Community Report</span>
-    <h1 class="page-title">Avakin Life — What Players Are Saying</h1>
-    <p class="page-sub">A community-sourced overview of the current state of Avakin Life by Lockwood Publishing (LKWD). Feedback is drawn from Google Play, Reddit, Instagram, and Pinterest. Nothing here is invented.</p>
+    <span class="label" data-i18n="home_label">Independent Community Report</span>
+    <h1 class="page-title" data-i18n="home_title">Avakin Life — What Players Are Saying</h1>
+    <p class="page-sub" data-i18n="home_sub">A community-sourced overview of the current state of Avakin Life by Lockwood Publishing (LKWD). Feedback is drawn from Google Play, Reddit, Instagram, and Pinterest. Nothing here is invented.</p>
     <div class="home-intro">
       <div class="intro-card">
-        <span class="label">What is Avakin Life?</span>
-        <div class="intro-card__title">A 3D social world on mobile</div>
+        <span class="label" data-i18n="home_card1_label">What is Avakin Life?</span>
+        <div class="intro-card__title" data-i18n="home_card1_title">A 3D social world on mobile</div>
         <div class="intro-card__body">Avakin Life is a free-to-play social mobile game by <strong>Lockwood Publishing (LKWD)</strong>, available on Android and iOS since 2013. Players create avatars, furnish apartments, attend events, and socialise across virtual environments.</div>
       </div>
       <div class="intro-card">
-        <span class="label">Why this report?</span>
-        <div class="intro-card__title">Recurring, unresolved concerns</div>
+        <span class="label" data-i18n="home_card2_label">Why this report?</span>
+        <div class="intro-card__title" data-i18n="home_card2_title">Recurring, unresolved concerns</div>
         <div class="intro-card__body">Community concerns have grown clearer over time: the Crown economy, free-play exclusion, inactive badge holders, contest fairness, LKWD's distance from regular players, and repetitive events. This site addresses each honestly.</div>
       </div>
     </div>
@@ -519,7 +522,7 @@
       <button class="avr-quote__edit" id="avr-quote-edit-btn" onclick="openQuoteEdit()">Edit</button>
     </div>
 
-    <span class="label" style="margin-bottom:12px;">What's covered here</span>
+    <span class="label" style="margin-bottom:12px;" data-i18n="home_covered">What's covered here</span>
     <div class="summary-list">
       <div class="summary-item" onclick="show('issues')"><div class="summary-item__icon">💰</div><div><div class="summary-item__title">Crown Economy &amp; Free Play</div><div class="summary-item__desc">Crowns are nearly impossible to earn for free. The Coin store has been hollowed out. New players receive Crown gifts that veterans had to pay for.</div><div class="summary-item__tag">Ongoing</div></div></div>
       <div class="summary-item" onclick="show('issues')"><div class="summary-item__icon">📉</div><div><div class="summary-item__title">The Economic Backlash</div><div class="summary-item__desc">A detailed analysis of what LKWD's current monetisation model is actually producing — and where that trajectory leads.</div><div class="summary-item__tag">In-depth</div></div></div>
@@ -537,9 +540,9 @@
 <div class="page" id="page-issues">
   <div class="wrap">
     <img src="images/fountain-conservatory.jpg" class="deco" alt="Avakin Life — decorative" />
-    <span class="label">Community-reported problems</span>
-    <h1 class="page-title">Known Issues</h1>
-    <p class="page-sub">Each article addresses a specific, documented concern. Sources are shown at the end of each. Where something is a community-observed pattern, that is stated clearly.</p>
+    <span class="label" data-i18n="issues_label">Community-reported problems</span>
+    <h1 class="page-title" data-i18n="issues_title">Known Issues</h1>
+    <p class="page-sub" data-i18n="issues_sub">Each article addresses a specific, documented concern. Sources are shown at the end of each. Where something is a community-observed pattern, that is stated clearly.</p>
 
     <div class="notice">
       <strong>Currency note:</strong> Avakin Life has two currencies. <strong>Crowns</strong> are the premium currency, purchased with real money. <strong>Coins</strong> are the free currency earned through gameplay. Most concerns below relate directly to how access to each has changed over time.
@@ -547,11 +550,11 @@
 
     <!-- Filter bar -->
     <div class="filter-bar">
-      <button class="filter-btn active" onclick="filterIssues('all')">All</button>
-      <button class="filter-btn" onclick="filterIssues('economy')">Economy</button>
-      <button class="filter-btn" onclick="filterIssues('community')">Community</button>
-      <button class="filter-btn" onclick="filterIssues('content')">Content</button>
-      <button class="filter-btn" onclick="filterIssues('technical')">Technical</button>
+      <button class="filter-btn active" onclick="filterIssues('all')" data-i18n="filter_all">All</button>
+      <button class="filter-btn" onclick="filterIssues('economy')" data-i18n="filter_economy">Economy</button>
+      <button class="filter-btn" onclick="filterIssues('community')" data-i18n="filter_community">Community</button>
+      <button class="filter-btn" onclick="filterIssues('content')" data-i18n="filter_content">Content</button>
+      <button class="filter-btn" onclick="filterIssues('technical')" data-i18n="filter_technical">Technical</button>
     </div>
 
     <div class="article-list">
@@ -792,9 +795,9 @@
 <div class="page" id="page-reviews">
   <div class="wrap">
     <img src="images/autumn-tree.jpg" class="deco" alt="Avakin Life — decorative" />
-    <span class="label">Google Play Store</span>
-    <h1 class="page-title">Player Reviews</h1>
-    <p class="page-sub">Representative reviews from the Avakin Life Google Play listing, reflecting common themes found across hundreds of entries. Both positive and critical reviews are included.</p>
+    <span class="label" data-i18n="reviews_label">Google Play Store</span>
+    <h1 class="page-title" data-i18n="reviews_title">Player Reviews</h1>
+    <p class="page-sub" data-i18n="reviews_sub">Representative reviews from the Avakin Life Google Play listing, reflecting common themes found across hundreds of entries. Both positive and critical reviews are included.</p>
     <div class="notice"><strong>Transparency:</strong> These are real, publicly visible review patterns from Google Play. The rating distribution is a snapshot from 2024–2025 and may have shifted. Visit the listing directly for current reviews.</div>
     <div class="rating-summary">
       <div>
@@ -809,7 +812,7 @@
         <div class="rbar"><div class="rbar__label">1★</div><div class="rbar__track"><div class="rbar__fill" style="width:27%"></div></div><div class="rbar__pct">27%</div></div>
       </div>
     </div>
-    <span class="label" style="margin-bottom:14px;">Positive reviews</span>
+    <span class="label" style="margin-bottom:14px;" data-i18n="reviews_positive">Positive reviews</span>
     <div class="review-grid" style="margin-bottom:28px;">
       <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">"I've been playing for years and genuinely love the creativity this game allows. The apartment design system is really impressive and events are fun when the servers hold up."</p><div class="review-card__meta">Google Play · 5 stars · 2024</div></div>
       <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">"Beautiful graphics, always something new happening. I've made real friends here. It's a unique social experience on mobile."</p><div class="review-card__meta">Google Play · 5 stars · 2024</div></div>
@@ -817,7 +820,7 @@
       <div class="review-card"><div class="review-card__stars">★★★★★</div><p class="review-card__text">"I play mostly for free and still enjoy it a lot. You don't need to spend money to have fun if you're patient. The free events give decent items."</p><div class="review-card__meta">Google Play · 5 stars · 2024</div></div>
     </div>
     <hr class="divider" />
-    <span class="label" style="margin-bottom:14px;">Critical reviews</span>
+    <span class="label" style="margin-bottom:14px;" data-i18n="reviews_critical">Critical reviews</span>
     <div class="review-grid">
       <div class="review-card"><div class="review-card__stars review-card__stars--low">★☆☆☆☆</div><p class="review-card__text">"Banned after four years with no warning and no real explanation. Support sends the same copy-paste response. Lost everything I built and bought."</p><div class="review-card__meta">Google Play · 1 star · 2024</div></div>
       <div class="review-card"><div class="review-card__stars review-card__stars--low">★★☆☆☆</div><p class="review-card__text">"The game is gorgeous but Coins are basically useless now. Everything worth having costs Crowns, and the prices are high for what you actually get. Half the new items are recolours."</p><div class="review-card__meta">Google Play · 2 stars · 2025</div></div>
@@ -834,19 +837,19 @@
 <div class="page" id="page-suggestions">
   <div class="wrap">
     <img src="images/rose-pergola.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
-    <span class="label">Community Suggestions</span>
-    <h1 class="page-title">Suggestions</h1>
-    <p class="page-sub">Improvement ideas sourced from the community. Browse by category and vote on the ideas you support. Votes are saved locally in your browser.</p>
+    <span class="label" data-i18n="sg_label">Community Suggestions</span>
+    <h1 class="page-title" data-i18n="sg_title">Suggestions</h1>
+    <p class="page-sub" data-i18n="sg_sub">Improvement ideas sourced from the community. Browse by category and vote on the ideas you support. Votes are saved locally in your browser.</p>
     <div class="notice"><strong>Want to submit a suggestion?</strong> Send your idea by email — an editorial address is coming soon. All submissions are reviewed before being published. <span id="sg-admin-hint" style="display:none;"> | <a href="#" onclick="openAdminLogin()" style="color:var(--accent);">Admin login</a></span></div>
 
     <div class="suggestion-tag-filter" id="sg-filter">
-      <button class="filter-btn active" onclick="filterSuggestions('all')">All</button>
-      <button class="filter-btn" onclick="filterSuggestions('Economy')">Economy</button>
-      <button class="filter-btn" onclick="filterSuggestions('Creator Programme')">Creator Programme</button>
-      <button class="filter-btn" onclick="filterSuggestions('Events')">Events</button>
-      <button class="filter-btn" onclick="filterSuggestions('Community')">Community</button>
-      <button class="filter-btn" onclick="filterSuggestions('Design')">Design</button>
-      <button class="filter-btn" onclick="filterSuggestions('Contests')">Contests</button>
+      <button class="filter-btn active" onclick="filterSuggestions('all')" data-i18n="filter_all">All</button>
+      <button class="filter-btn" onclick="filterSuggestions('Economy')" data-i18n="filter_economy">Economy</button>
+      <button class="filter-btn" onclick="filterSuggestions('Creator Programme')" data-i18n="sg_filter_creator">Creator Programme</button>
+      <button class="filter-btn" onclick="filterSuggestions('Events')" data-i18n="sg_filter_events">Events</button>
+      <button class="filter-btn" onclick="filterSuggestions('Community')" data-i18n="filter_community">Community</button>
+      <button class="filter-btn" onclick="filterSuggestions('Design')" data-i18n="sg_filter_design">Design</button>
+      <button class="filter-btn" onclick="filterSuggestions('Contests')" data-i18n="sg_filter_contests">Contests</button>
     </div>
 
     <div class="suggestion-list" id="suggestion-list"></div>
@@ -864,10 +867,10 @@
 <div class="page" id="page-guide">
   <div class="wrap">
     <img src="images/interior-room.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
-    <span class="label">Practical advice</span>
-    <h1 class="page-title">Player Guide</h1>
-    <p class="page-sub">Steps to protect your account, your Crowns, and your progress. Based on advice from r/AvakinLife, the community wiki, and LKWD's own help centre.</p>
-    <span class="label" style="margin-bottom:14px;">Account protection</span>
+    <span class="label" data-i18n="guide_label">Practical advice</span>
+    <h1 class="page-title" data-i18n="guide_title">Player Guide</h1>
+    <p class="page-sub" data-i18n="guide_sub">Steps to protect your account, your Crowns, and your progress. Based on advice from r/AvakinLife, the community wiki, and LKWD's own help centre.</p>
+    <span class="label" style="margin-bottom:14px;" data-i18n="guide_account">Account protection</span>
     <div class="steps" style="margin-bottom:28px;">
       <div class="step"><div class="step__num">1</div><div><div class="step__title">Use a strong, unique password and secure your email</div><div class="step__body">Your Avakin account is tied to your email. If your email is compromised, so is your account. Use a unique password and enable two-factor authentication on your email.</div></div></div>
       <div class="step"><div class="step__num">2</div><div><div class="step__title">Never share your login credentials</div><div class="step__body">Account sharing violates LKWD's ToS and is the most common way accounts are stolen. LKWD staff will never ask for your password through in-game chat.</div></div></div>
@@ -875,14 +878,14 @@
       <div class="step"><div class="step__num">4</div><div><div class="step__title">Keep all Crown purchase receipts</div><div class="step__body">Google Play and Apple send a confirmation for every in-app purchase. Archive these. They are your primary proof of payment and useful for app-store-level disputes independent of LKWD support.</div></div></div>
     </div>
     <hr class="divider" />
-    <span class="label" style="margin-bottom:14px;">Avoiding scams</span>
+    <span class="label" style="margin-bottom:14px;" data-i18n="guide_scams">Avoiding scams</span>
     <div class="steps" style="margin-bottom:28px;">
       <div class="step"><div class="step__num">5</div><div><div class="step__title">No legitimate offer requires you to send anything first</div><div class="step__body">Every documented Avakin scam involves asking you to give something before you receive anything. Giveaway rooms requiring entry fees, Crown doubling, and first-mover trades are all scams. LKWD's help centre documents these explicitly.</div></div></div>
       <div class="step"><div class="step__num">6</div><div><div class="step__title">Treat every high-value trade as permanent and irreversible</div><div class="step__body">LKWD's policy is that completed trades are final. Read the r/AvakinLife community wiki on common trade manipulation tactics before trading rare items.</div></div></div>
       <div class="step"><div class="step__num">7</div><div><div class="step__title">LKWD staff will never message you in-game to give rewards</div><div class="step__body">Impersonating LKWD employees is a known tactic. Official communications come through the app itself, the official website, or verified social accounts.</div></div></div>
     </div>
     <hr class="divider" />
-    <span class="label" style="margin-bottom:14px;">When things go wrong</span>
+    <span class="label" style="margin-bottom:14px;" data-i18n="guide_wrong">When things go wrong</span>
     <div class="steps">
       <div class="step"><div class="step__num">8</div><div><div class="step__title">Submit a specific, documented support ticket immediately</div><div class="step__body">Use LKWD's help centre (in-game settings). Be precise: account email, what happened, when, and all evidence you have. Vague tickets are easier to close without resolution.</div></div></div>
       <div class="step"><div class="step__num">9</div><div><div class="step__title">For missing purchases, contact the app store as well</div><div class="step__body">Google Play and Apple have refund or dispute processes that operate independently from LKWD's policies. Pursue these in parallel with a support ticket.</div></div></div>
@@ -899,9 +902,9 @@
 <div class="page" id="page-sources">
   <div class="wrap">
     <img src="images/enchanted-path.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
-    <span class="label">Transparency</span>
-    <h1 class="page-title">Sources</h1>
-    <p class="page-sub">Every claim on this site comes from a public, verifiable source or is clearly identified as a community-observed pattern. The full list is below.</p>
+    <span class="label" data-i18n="sources_label">Transparency</span>
+    <h1 class="page-title" data-i18n="sources_title">Sources</h1>
+    <p class="page-sub" data-i18n="sources_sub">Every claim on this site comes from a public, verifiable source or is clearly identified as a community-observed pattern. The full list is below.</p>
     <div class="source-list">
       <div class="source-item"><div class="source-item__icon">🎮</div><div><div class="source-item__name">Google Play Store — Avakin Life listing</div><div class="source-item__desc">Primary source for player reviews and rating distribution. Reviews quoted are real, publicly visible patterns. Rating snapshot is from 2024–2025.</div><div class="source-item__link">Search "Avakin Life" on Google Play to view current reviews.</div></div></div>
       <div class="source-item"><div class="source-item__icon">💬</div><div><div class="source-item__name">r/AvakinLife — Reddit community</div><div class="source-item__desc">Used to corroborate recurring concerns: server issues, Crown pricing, bans, scam types, contest patterns, creator programme observations, and event feedback. All threads publicly visible and searchable.</div><div class="source-item__link">reddit.com/r/AvakinLife</div></div></div>
@@ -922,8 +925,8 @@
 <div class="page" id="page-about">
   <div class="wrap">
     <img src="images/camping-sunset.jpg" class="deco deco--short" alt="Avakin Life — decorative" />
-    <span class="label">About</span>
-    <h1 class="page-title">About Avakin Report</h1>
+    <span class="label" data-i18n="about_label">About</span>
+    <h1 class="page-title" data-i18n="about_title">About Avakin Report</h1>
     <div class="about-body">
       <h3>What is this?</h3>
       <p>Avakin Report is an independent community reference site about Avakin Life. It is not affiliated with Lockwood Publishing in any way. Its purpose is to organise publicly available community feedback into a clear, honest, easy-to-read format — with all sources shown transparently.</p>
@@ -985,7 +988,7 @@
 
     <hr class="divider" />
     <span class="label" style="margin-bottom:12px;" data-i18n="canvas_community">Community Artists</span>
-    <p class="page-sub" style="margin-bottom:16px;">Independent artists and creators from the Avakin Life community. These creators are not affiliated with LKWD and are not part of any official programme.</p>
+    <p class="page-sub" style="margin-bottom:16px;" data-i18n="canvas_community_sub">Independent artists and creators from the Avakin Life community. These creators are not affiliated with LKWD and are not part of any official programme.</p>
     <div class="canvas-artists" id="canvas-artists-grid"></div>
     <div class="canvas-add-bar" id="canvas-add-bar">
       <button class="admin-btn" onclick="openCanvasAddArtist()">+ Add artist</button>
@@ -1223,15 +1226,15 @@
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-promote">
   <div class="wrap">
-    <span class="label">Advertise with Avakin Report</span>
-    <h1 class="page-title">Promotion</h1>
-    <p class="page-sub">Avakin Report is an independent community publication. Promotion slots are coming soon — this page shows what will be available and at what price so you can plan ahead.</p>
+    <span class="label" data-i18n="promote_label">Advertise with Avakin Report</span>
+    <h1 class="page-title" data-i18n="promote_title">Promotion</h1>
+    <p class="page-sub" data-i18n="promote_sub">Avakin Report is an independent community publication. Promotion slots are coming soon — this page shows what will be available and at what price so you can plan ahead.</p>
 
     <div class="notice notice--warn" style="margin-bottom:28px;">
       <strong>Promotion is not yet open.</strong> The editorial email and booking process are being set up. This page gives you advance notice of what will be available. When promotion opens, this notice will be updated with contact details.
     </div>
 
-    <span class="label" style="margin-bottom:16px;">What is available</span>
+    <span class="label" style="margin-bottom:16px;" data-i18n="promote_avail">What is available</span>
     <div class="compare-wrap" style="margin-bottom:28px;">
       <table class="compare-table">
         <thead>
@@ -1270,7 +1273,7 @@
     </div>
 
     <hr class="divider" />
-    <span class="label" style="margin-bottom:12px;">Who this is for</span>
+    <span class="label" style="margin-bottom:12px;" data-i18n="promote_who">Who this is for</span>
     <div class="steps">
       <div class="step"><div class="step__num">1</div><div><div class="step__title">Independent community artists and fashion creators</div><div class="step__body">If you create Avakin-themed art, fashion illustrations, or interior designs on Instagram and want visibility among the Avakin Life community, this is for you.</div></div></div>
       <div class="step"><div class="step__num">2</div><div><div class="step__title">Content creators building their audience</div><div class="step__body">Promotion on Avakin Report reaches players who care about honest, community-first content — an audience that appreciates genuine creative work.</div></div></div>
@@ -1496,18 +1499,18 @@ function filterIssues(cat) {
 
 /* ── SUGGESTIONS DATA ─────────────────────────────── */
 const SEEDS = [
-  { id:'sg-01', title:'Remove or pause badges from inactive official creators', desc:'A-Creator, Trendsetter, and Content Creator badges should require ongoing activity. Accounts inactive for 6+ months should have badges paused until activity resumes.', tags:['Creator Programme'], baseUp:847, baseDown:21, status:'open' },
-  { id:'sg-02', title:'Publish a transparent activity log for all official creator tiers', desc:'LKWD should maintain a visible record of each badge holder\'s last active date and content output, so the community can see which relationships are genuinely active.', tags:['Creator Programme','Community'], baseUp:634, baseDown:18, status:'open' },
-  { id:'sg-03', title:'Add meaningful free Crown earning paths', desc:'Introduce daily missions, weekly streaks, or achievement milestones that produce Crowns consistently — not as a rare drop from the mystery box, but as a reliable, achievable reward for regular play.', tags:['Economy'], baseUp:1243, baseDown:45, status:'open' },
-  { id:'sg-04', title:'Veteran loyalty programme — reward long-term players', desc:'Players with 2, 3, or 5+ years in the game should receive meaningful recognition: exclusive items, Crown milestones, or anniversary gifts. Loyalty should be rewarded, not ignored.', tags:['Economy','Community'], baseUp:1089, baseDown:31, status:'open' },
-  { id:'sg-05', title:'Stop using veteran-era Crown items as new player welcome gifts', desc:'New player packs should use Coins, not Crowns. Giving new players Crown items that veterans paid for devalues those items and sends the wrong message about who matters to LKWD.', tags:['Economy'], baseUp:922, baseDown:27, status:'open' },
-  { id:'sg-06', title:'The in-game free store has effectively disappeared — this needs to change', desc:'There is barely anything left purchasable with Coins. The few remaining items are either low-quality or require days to weeks of consistent daily play to afford — not hours. If you do not spend real money, there is nothing meaningful available to you. Free play in Avakin Life as it currently stands is not a real option.', tags:['Economy'], baseUp:1156, baseDown:38, status:'open' },
-  { id:'sg-07', title:'Monthly LKWD open Q&A accessible to all players', desc:'A monthly session — Discord, Instagram Live, or similar — where LKWD staff answer questions from regular players, not screened through creators. Open access, not curated PR.', tags:['Community'], baseUp:788, baseDown:22, status:'open' },
-  { id:'sg-08', title:'Commission original designs from Avakin Life Instagram artists', desc:'Independent artists on Instagram already create content in the Avakin visual language and are willing to collaborate legally for fair compensation. This is a straightforward path to credited, original content.', tags:['Design','Community'], baseUp:703, baseDown:19, status:'open' },
-  { id:'sg-09', title:'Events should be built around fun and creativity, not just task checklists', desc:'Design events around discovery, creative challenges, and player expression — not around grinding a checklist until a reward unlocks. Variety in format, not just in theme.', tags:['Events'], baseUp:867, baseDown:33, status:'open' },
-  { id:'sg-10', title:'Establish a rotating player advisory group from regular accounts', desc:'A small group of non-badge, non-creator players who participate in feedback sessions before major updates or store changes. Not a promise to act on everything — just structured, honest input.', tags:['Community'], baseUp:674, baseDown:29, status:'open' },
-  { id:'sg-11', title:'Publish contest judging criteria before each contest opens', desc:'State clearly what is being assessed, whether social reach is a factor, and who is judging. Even if the process does not change, transparency would allow the community to engage with it accurately.', tags:['Contests'], baseUp:591, baseDown:24, status:'open' },
-  { id:'sg-12', title:'Credit original designers when in-game items are inspired by real-world work', desc:'When an item is demonstrably inspired by or based on a real designer\'s work, that designer should be credited in the item description. This is standard practice and costs nothing to implement.', tags:['Design'], baseUp:512, baseDown:11, status:'open' },
+  { id:'sg-01', title:'Remove or pause badges from inactive official creators', desc:'A-Creator, Trendsetter, and Content Creator badges should require ongoing activity. Accounts inactive for 6+ months should have badges paused until activity resumes.', tags:['Creator Programme'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-02', title:'Publish a transparent activity log for all official creator tiers', desc:'LKWD should maintain a visible record of each badge holder\'s last active date and content output, so the community can see which relationships are genuinely active.', tags:['Creator Programme','Community'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-03', title:'Add meaningful free Crown earning paths', desc:'Introduce daily missions, weekly streaks, or achievement milestones that produce Crowns consistently — not as a rare drop from the mystery box, but as a reliable, achievable reward for regular play.', tags:['Economy'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-04', title:'Veteran loyalty programme — reward long-term players', desc:'Players with 2, 3, or 5+ years in the game should receive meaningful recognition: exclusive items, Crown milestones, or anniversary gifts. Loyalty should be rewarded, not ignored.', tags:['Economy','Community'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-05', title:'Stop using veteran-era Crown items as new player welcome gifts', desc:'New player packs should use Coins, not Crowns. Giving new players Crown items that veterans paid for devalues those items and sends the wrong message about who matters to LKWD.', tags:['Economy'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-06', title:'The in-game free store has effectively disappeared — this needs to change', desc:'There is barely anything left purchasable with Coins. The few remaining items are either low-quality or require days to weeks of consistent daily play to afford — not hours. If you do not spend real money, there is nothing meaningful available to you. Free play in Avakin Life as it currently stands is not a real option.', tags:['Economy'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-07', title:'Monthly LKWD open Q&A accessible to all players', desc:'A monthly session — Discord, Instagram Live, or similar — where LKWD staff answer questions from regular players, not screened through creators. Open access, not curated PR.', tags:['Community'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-08', title:'Commission original designs from Avakin Life Instagram artists', desc:'Independent artists on Instagram already create content in the Avakin visual language and are willing to collaborate legally for fair compensation. This is a straightforward path to credited, original content.', tags:['Design','Community'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-09', title:'Events should be built around fun and creativity, not just task checklists', desc:'Design events around discovery, creative challenges, and player expression — not around grinding a checklist until a reward unlocks. Variety in format, not just in theme.', tags:['Events'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-10', title:'Establish a rotating player advisory group from regular accounts', desc:'A small group of non-badge, non-creator players who participate in feedback sessions before major updates or store changes. Not a promise to act on everything — just structured, honest input.', tags:['Community'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-11', title:'Publish contest judging criteria before each contest opens', desc:'State clearly what is being assessed, whether social reach is a factor, and who is judging. Even if the process does not change, transparency would allow the community to engage with it accurately.', tags:['Contests'], baseUp:0, baseDown:0, status:'open' },
+  { id:'sg-12', title:'Credit original designers when in-game items are inspired by real-world work', desc:'When an item is demonstrably inspired by or based on a real designer\'s work, that designer should be credited in the item description. This is standard practice and costs nothing to implement.', tags:['Design'], baseUp:0, baseDown:0, status:'open' },
 ];
 
 const VOTES_KEY    = 'avr_votes_v1';
@@ -1553,8 +1556,8 @@ function userVote(id) { return getVotes()[id]; }
 
 function castVote(id, dir) {
   const v = getVotes();
-  if (v[id] === dir) delete v[id]; // clicking same = remove vote
-  else v[id] = dir;
+  if (v[id] !== undefined) return; // vote already cast — locked
+  v[id] = dir;
   saveVotes(v);
   renderSuggestions();
 }
@@ -1600,18 +1603,21 @@ function renderSuggestions() {
     const down = downCount(s);
     const total = up + down;
     const pct   = total > 0 ? Math.round((up / total) * 100) : 50;
+    const voted = vote !== undefined;
+    const ls = STRINGS[currentLang] || STRINGS.en;
     const votePanelHtml = `<div class="vote-panel">
-      <div class="vote-panel__label">Community Vote</div>
+      <div class="vote-panel__label">${ls.vote_label || 'Community Vote'}</div>
       <div class="vote-result">
         <span class="vote-result__for">▲ ${up}</span>
         <div class="vote-result__track"><div class="vote-result__fill" style="width:${pct}%"></div></div>
         <span class="vote-result__against">▼ ${down}</span>
       </div>
       <div class="vote-bar">
-        <button class="vbtn vbtn--up${vote === 'up' ? ' active' : ''}" onclick="castVote('${s.id}','up')">For <span class="vbtn__count">${up}</span></button>
-        <button class="vbtn vbtn--neut${vote === 'neutral' ? ' active' : ''}" onclick="castVote('${s.id}','neutral')">Abstain</button>
-        <button class="vbtn vbtn--down${vote === 'down' ? ' active' : ''}" onclick="castVote('${s.id}','down')">Against <span class="vbtn__count">${down}</span></button>
+        <button class="vbtn vbtn--up${vote === 'up' ? ' active' : ''}" onclick="castVote('${s.id}','up')"${voted ? ' disabled' : ''}>${ls.vote_for || 'For'} <span class="vbtn__count">${up}</span></button>
+        <button class="vbtn vbtn--neut${vote === 'neutral' ? ' active' : ''}" onclick="castVote('${s.id}','neutral')"${voted ? ' disabled' : ''}>${ls.vote_abstain || 'Abstain'}</button>
+        <button class="vbtn vbtn--down${vote === 'down' ? ' active' : ''}" onclick="castVote('${s.id}','down')"${voted ? ' disabled' : ''}>${ls.vote_against || 'Against'} <span class="vbtn__count">${down}</span></button>
       </div>
+      ${voted ? `<div class="vote-done">${ls.vote_voted || 'Your vote is recorded'}</div>` : ''}
     </div>`;
     return `<div class="suggestion-card${s.status === 'pinned' ? ' suggestion-card--pinned' : ''}" data-id="${s.id}">
       <div class="suggestion-card__content">
@@ -1883,6 +1889,32 @@ const STRINGS = {
     art_technical2_d:'Permanent bans issued to players who believe they did nothing wrong are a recurring concern. Normal activities appear to trigger automated fraud flags with limited appeal options.',
     art_technical3_t:'Customer Support: Slow, Templated, and Overwhelmed',
     art_technical3_d:'Long response times, automated first replies, and unresolved closures are the most consistent support complaints.',
+    // Page structure
+    home_label:'Independent Community Report', home_title:'Avakin Life — What Players Are Saying',
+    home_sub:'A community-sourced overview of the current state of Avakin Life by Lockwood Publishing (LKWD). Feedback is drawn from Google Play, Reddit, Instagram, and Pinterest. Nothing here is invented.',
+    home_card1_label:'What is Avakin Life?', home_card2_label:'Why this report?',
+    home_card1_title:'A 3D social world on mobile', home_card2_title:'Recurring, unresolved concerns',
+    home_covered:"What's covered here",
+    issues_label:'Community-reported problems', issues_title:'Known Issues',
+    issues_sub:'Each article addresses a specific, documented concern. Sources are shown at the end of each. Where something is a community-observed pattern, that is stated clearly.',
+    filter_all:'All', filter_economy:'Economy', filter_community:'Community', filter_content:'Content', filter_technical:'Technical',
+    reviews_label:'Google Play Store', reviews_title:'Player Reviews',
+    reviews_sub:'Representative reviews from the Avakin Life Google Play listing, reflecting common themes found across hundreds of entries. Both positive and critical reviews are included.',
+    reviews_positive:'Positive reviews', reviews_critical:'Critical reviews',
+    sg_label:'Community Suggestions', sg_title:'Suggestions',
+    sg_sub:'Improvement ideas sourced from the community. Browse by category and vote on the ideas you support. Votes are saved locally in your browser.',
+    sg_filter_creator:'Creator Programme', sg_filter_events:'Events', sg_filter_design:'Design', sg_filter_contests:'Contests',
+    guide_label:'Practical advice', guide_title:'Player Guide',
+    guide_sub:"Steps to protect your account, your Crowns, and your progress. Based on advice from r/AvakinLife, the community wiki, and LKWD's own help centre.",
+    guide_account:'Account protection', guide_scams:'Avoiding scams', guide_wrong:'When things go wrong',
+    sources_label:'Transparency', sources_title:'Sources',
+    sources_sub:'Every claim on this site comes from a public, verifiable source or is clearly identified as a community-observed pattern. The full list is below.',
+    about_label:'About', about_title:'About Avakin Report',
+    promote_label:'Advertise with Avakin Report', promote_title:'Promotion',
+    promote_sub:'Avakin Report is an independent community publication. Promotion slots are coming soon — this page shows what will be available and at what price so you can plan ahead.',
+    promote_avail:'What is available', promote_who:'Who this is for',
+    canvas_community_sub:'Independent artists and creators from the Avakin Life community. These creators are not affiliated with LKWD and are not part of any official programme.',
+    vote_label:'Community Vote', vote_for:'For', vote_abstain:'Abstain', vote_against:'Against', vote_voted:'Your vote is recorded',
   },
   de: {
     nav_home:'Start', nav_issues:'Probleme', nav_reviews:'Bewertungen', nav_suggestions:'Vorschläge',
@@ -1921,6 +1953,31 @@ const STRINGS = {
     art_technical2_d:'Permanente Sperren für Spieler, die nichts falsch gemacht haben, sind ein wiederkehrendes Community-Problem.',
     art_technical3_t:'Kundensupport: Langsam, schablonenhaft und überwältigt',
     art_technical3_d:'Lange Antwortzeiten, automatisierte erste Antworten und ungelöste Schließungen sind die häufigsten Support-Beschwerden.',
+    home_label:'Unabhängiger Community-Bericht', home_title:'Avakin Life — Was Spieler sagen',
+    home_sub:'Eine community-basierte Übersicht über den aktuellen Stand von Avakin Life. Feedback stammt aus Google Play, Reddit, Instagram und Pinterest.',
+    home_card1_label:'Was ist Avakin Life?', home_card2_label:'Warum dieser Bericht?',
+    home_card1_title:'Eine soziale 3D-Welt auf dem Handy', home_card2_title:'Wiederkehrende, ungelöste Probleme',
+    home_covered:'Was hier behandelt wird',
+    issues_label:'Von der Community gemeldete Probleme', issues_title:'Bekannte Probleme',
+    issues_sub:'Jeder Artikel befasst sich mit einem spezifischen, dokumentierten Anliegen. Quellen werden am Ende genannt.',
+    filter_all:'Alle', filter_economy:'Wirtschaft', filter_community:'Community', filter_content:'Inhalt', filter_technical:'Technik',
+    reviews_label:'Google Play Store', reviews_title:'Spielerbewertungen',
+    reviews_sub:'Repräsentative Bewertungen aus dem Avakin Life Google Play-Eintrag.',
+    reviews_positive:'Positive Bewertungen', reviews_critical:'Kritische Bewertungen',
+    sg_label:'Community-Vorschläge', sg_title:'Vorschläge',
+    sg_sub:'Verbesserungsideen aus der Community. Nach Kategorie filtern und abstimmen.',
+    sg_filter_creator:'Creator-Programm', sg_filter_events:'Events', sg_filter_design:'Design', sg_filter_contests:'Wettbewerbe',
+    guide_label:'Praktische Hinweise', guide_title:'Spielerguide',
+    guide_sub:'Schritte zum Schutz deines Kontos, deiner Kronen und deines Fortschritts.',
+    guide_account:'Kontoschutz', guide_scams:'Betrug vermeiden', guide_wrong:'Wenn etwas schiefläuft',
+    sources_label:'Transparenz', sources_title:'Quellen',
+    sources_sub:'Jede Behauptung auf dieser Seite kommt aus einer öffentlichen, nachprüfbaren Quelle.',
+    about_label:'Über', about_title:'Über Avakin Report',
+    promote_label:'Werbung mit Avakin Report', promote_title:'Werbung',
+    promote_sub:'Avakin Report ist eine unabhängige Community-Publikation. Werbeplätze kommen bald.',
+    promote_avail:'Was verfügbar ist', promote_who:'Für wen ist das?',
+    canvas_community_sub:'Unabhängige Künstler und Kreative aus der Avakin Life Community. Sie sind nicht mit LKWD verbunden.',
+    vote_label:'Community-Abstimmung', vote_for:'Dafür', vote_abstain:'Enthalten', vote_against:'Dagegen', vote_voted:'Ihre Stimme wurde erfasst',
   },
   fr: {
     nav_home:'Accueil', nav_issues:'Problèmes', nav_reviews:'Avis', nav_suggestions:'Suggestions',
@@ -1959,6 +2016,31 @@ const STRINGS = {
     art_technical2_d:'Les bannissements permanents infligés à des joueurs innocents sont un problème récurrent.',
     art_technical3_t:'Support client : lent, automatisé et débordé',
     art_technical3_d:'Longs délais, premières réponses automatisées et fermetures non résolues — les plaintes de support les plus fréquentes.',
+    home_label:'Rapport communautaire indépendant', home_title:'Avakin Life — Ce que disent les joueurs',
+    home_sub:"Un aperçu communautaire de l'état actuel d'Avakin Life par Lockwood Publishing. Les retours proviennent de Google Play, Reddit, Instagram et Pinterest.",
+    home_card1_label:"Qu'est-ce qu'Avakin Life ?", home_card2_label:'Pourquoi ce rapport ?',
+    home_card1_title:'Un monde social 3D sur mobile', home_card2_title:'Préoccupations récurrentes et non résolues',
+    home_covered:'Ce qui est couvert ici',
+    issues_label:'Problèmes signalés par la communauté', issues_title:'Problèmes connus',
+    issues_sub:'Chaque article traite une préoccupation spécifique et documentée. Les sources sont indiquées à la fin.',
+    filter_all:'Tout', filter_economy:'Économie', filter_community:'Communauté', filter_content:'Contenu', filter_technical:'Technique',
+    reviews_label:'Google Play Store', reviews_title:'Avis des joueurs',
+    reviews_sub:"Avis représentatifs de la fiche Google Play d'Avakin Life, reflétant les thèmes communs.",
+    reviews_positive:'Avis positifs', reviews_critical:'Avis critiques',
+    sg_label:'Suggestions de la communauté', sg_title:'Suggestions',
+    sg_sub:'Idées d'amélioration issues de la communauté. Filtrer par catégorie et voter.',
+    sg_filter_creator:'Programme créateurs', sg_filter_events:'Événements', sg_filter_design:'Design', sg_filter_contests:'Concours',
+    guide_label:'Conseils pratiques', guide_title:'Guide du joueur',
+    guide_sub:'Étapes pour protéger votre compte, vos Couronnes et vos progrès.',
+    guide_account:'Protection du compte', guide_scams:'Éviter les arnaques', guide_wrong:'Quand les choses tournent mal',
+    sources_label:'Transparence', sources_title:'Sources',
+    sources_sub:"Chaque affirmation sur ce site provient d'une source publique et vérifiable.",
+    about_label:'À propos', about_title:"À propos d'Avakin Report",
+    promote_label:'Faire de la publicité avec Avakin Report', promote_title:'Publicité',
+    promote_sub:"Avakin Report est une publication communautaire indépendante. Les espaces publicitaires arrivent bientôt.",
+    promote_avail:'Ce qui est disponible', promote_who:'Pour qui ?',
+    canvas_community_sub:"Artistes et créateurs indépendants de la communauté Avakin Life. Ils ne sont pas affiliés à LKWD.",
+    vote_label:'Vote communautaire', vote_for:'Pour', vote_abstain:'Abstention', vote_against:'Contre', vote_voted:'Votre vote est enregistré',
   },
   ar: {
     nav_home:'الرئيسية', nav_issues:'المشاكل', nav_reviews:'التقييمات', nav_suggestions:'اقتراحات',
@@ -1997,6 +2079,31 @@ const STRINGS = {
     art_technical2_d:'الحظر الدائم للاعبين الذين لم يخطئوا مشكلة متكررة.',
     art_technical3_t:'دعم العملاء: بطيء، قوالب جاهزة، مُرهق',
     art_technical3_d:'أوقات استجابة طويلة، وردود أولى آلية، وإغلاق دون حل.',
+    home_label:'تقرير مجتمعي مستقل', home_title:'Avakin Life — ما يقوله اللاعبون',
+    home_sub:'نظرة عامة مجتمعية على الوضع الحالي لـ Avakin Life. الملاحظات مستمدة من Google Play وReddit وInstagram وPinterest.',
+    home_card1_label:'ما هو Avakin Life؟', home_card2_label:'لماذا هذا التقرير؟',
+    home_card1_title:'عالم اجتماعي ثلاثي الأبعاد على الهاتف', home_card2_title:'مشاكل متكررة وغير محلولة',
+    home_covered:'ما يتناوله هذا الموقع',
+    issues_label:'مشاكل أبلغ عنها المجتمع', issues_title:'المشاكل المعروفة',
+    issues_sub:'كل مقال يتناول مشكلة محددة وموثقة. المصادر مذكورة في النهاية.',
+    filter_all:'الكل', filter_economy:'الاقتصاد', filter_community:'المجتمع', filter_content:'المحتوى', filter_technical:'التقني',
+    reviews_label:'متجر Google Play', reviews_title:'تقييمات اللاعبين',
+    reviews_sub:'تقييمات تمثيلية من قائمة Avakin Life على Google Play.',
+    reviews_positive:'التقييمات الإيجابية', reviews_critical:'التقييمات الناقدة',
+    sg_label:'اقتراحات المجتمع', sg_title:'الاقتراحات',
+    sg_sub:'أفكار تحسين من المجتمع. تصفية حسب الفئة والتصويت.',
+    sg_filter_creator:'برنامج المبدعين', sg_filter_events:'الأحداث', sg_filter_design:'التصميم', sg_filter_contests:'المسابقات',
+    guide_label:'نصائح عملية', guide_title:'دليل اللاعب',
+    guide_sub:'خطوات لحماية حسابك ونقاط التيجان وتقدمك.',
+    guide_account:'حماية الحساب', guide_scams:'تجنب الاحتيال', guide_wrong:'عندما تسوء الأمور',
+    sources_label:'الشفافية', sources_title:'المصادر',
+    sources_sub:'كل ادعاء على هذا الموقع مصدره عام وقابل للتحقق.',
+    about_label:'حول', about_title:'حول Avakin Report',
+    promote_label:'أعلن مع Avakin Report', promote_title:'الإعلان',
+    promote_sub:'.Avakin Report منشور مجتمعي مستقل. أماكن الإعلانات قادمة قريباً',
+    promote_avail:'ما هو متاح', promote_who:'من هذا مخصص له',
+    canvas_community_sub:'فنانون ومبدعون مستقلون من مجتمع Avakin Life. غير تابعين لـ LKWD.',
+    vote_label:'تصويت المجتمع', vote_for:'مع', vote_abstain:'امتناع', vote_against:'ضد', vote_voted:'تم تسجيل صوتك',
   },
   af: {
     nav_home:'Tuis', nav_issues:'Probleme', nav_reviews:'Resensies', nav_suggestions:'Voorstelle',
@@ -2035,6 +2142,31 @@ const STRINGS = {
     art_technical2_d:'Permanente verbanne vir onskuldige spelers is herhaaldelik.',
     art_technical3_t:'Kliëntediens: stadig, sjabloonmatig en oorweldig',
     art_technical3_d:'Lang reaksietye en onopgeloste sluitings is die mees algemene klagtes.',
+    home_label:'Onafhanklike gemeenskapsverslag', home_title:"Avakin Life — Wat spelers sê",
+    home_sub:"'n Gemeenskapsgebaseerde oorsig van die huidige toestand van Avakin Life. Terugvoer kom van Google Play, Reddit, Instagram en Pinterest.",
+    home_card1_label:'Wat is Avakin Life?', home_card2_label:'Hoekom hierdie verslag?',
+    home_card1_title:"'n 3D-sosiale wêreld op mobiel", home_card2_title:'Herhalende, onopgeloste probleme',
+    home_covered:'Wat hier behandel word',
+    issues_label:'Deur gemeenskap gemelde probleme', issues_title:'Bekende probleme',
+    issues_sub:"Elke artikel behandel 'n spesifieke, gedokumenteerde probleem. Bronne word aan die einde getoon.",
+    filter_all:'Alles', filter_economy:'Ekonomie', filter_community:'Gemeenskap', filter_content:'Inhoud', filter_technical:'Tegnies',
+    reviews_label:'Google Play Store', reviews_title:'Spelerresensies',
+    reviews_sub:'Verteenwoordigende resensies van die Avakin Life Google Play-inskrywing.',
+    reviews_positive:'Positiewe resensies', reviews_critical:'Kritiese resensies',
+    sg_label:'Gemeenskapsvoorstelle', sg_title:'Voorstelle',
+    sg_sub:'Verbeteringsidees van die gemeenskap. Filter per kategorie en stem.',
+    sg_filter_creator:'Skeppersprogram', sg_filter_events:'Geleenthede', sg_filter_design:'Ontwerp', sg_filter_contests:'Kompetisies',
+    guide_label:'Praktiese advies', guide_title:'Spelershandleiding',
+    guide_sub:'Stappe om jou rekening, Kronne en vordering te beskerm.',
+    guide_account:'Rekeningbeskerming', guide_scams:'Bedrog vermy', guide_wrong:'Wanneer dinge skeefloop',
+    sources_label:'Deursigtigheid', sources_title:'Bronne',
+    sources_sub:"Elke bewering op hierdie webwerf kom van 'n openbare, verifieerbare bron.",
+    about_label:'Oor', about_title:'Oor Avakin Report',
+    promote_label:'Adverteer by Avakin Report', promote_title:'Adverteer',
+    promote_sub:"Avakin Report is 'n onafhanklike gemeenskapspublikasie. Advertensieplekke kom binnekort.",
+    promote_avail:'Wat beskikbaar is', promote_who:'Vir wie is dit?',
+    canvas_community_sub:'Onafhanklike kunstenaars en skeppers uit die Avakin Life-gemeenskap. Hulle is nie verbonde aan LKWD nie.',
+    vote_label:'Gemeenskapsstem', vote_for:'Voor', vote_abstain:'Onthou', vote_against:'Teen', vote_voted:'Jou stem is opgeteken',
   },
   zh: {
     nav_home:'主页', nav_issues:'问题', nav_reviews:'评价', nav_suggestions:'建议',
@@ -2073,6 +2205,31 @@ const STRINGS = {
     art_technical2_d:'对无辜玩家的永久封禁是反复出现的问题。',
     art_technical3_t:'客户支持：缓慢、套话，不堪重负',
     art_technical3_d:'漫长响应时间、自动化回复和未解决工单是最常见的投诉。',
+    home_label:'独立社区报告', home_title:'Avakin Life — 玩家心声',
+    home_sub:'基于社区的Avakin Life现状综合报告，来源于Google Play、Reddit、Instagram和Pinterest。内容均有据可查。',
+    home_card1_label:'什么是Avakin Life？', home_card2_label:'为什么有这份报告？',
+    home_card1_title:'手机上的3D社交世界', home_card2_title:'反复出现、未得解决的问题',
+    home_covered:'本站涵盖的内容',
+    issues_label:'社区反映的问题', issues_title:'已知问题',
+    issues_sub:'每篇文章针对一个具体、有据可查的问题，文末附有来源。',
+    filter_all:'全部', filter_economy:'经济', filter_community:'社区', filter_content:'内容', filter_technical:'技术',
+    reviews_label:'Google Play商店', reviews_title:'玩家评价',
+    reviews_sub:'来自Avakin Life Google Play页面的代表性评价，反映数百条评论中的常见主题。',
+    reviews_positive:'正面评价', reviews_critical:'批评性评价',
+    sg_label:'社区建议', sg_title:'建议',
+    sg_sub:'来自社区的改进想法，按类别筛选并投票。投票仅保存在本地浏览器中。',
+    sg_filter_creator:'创作者项目', sg_filter_events:'活动', sg_filter_design:'设计', sg_filter_contests:'比赛',
+    guide_label:'实用建议', guide_title:'玩家指南',
+    guide_sub:'保护账号、皇冠和游戏进度的步骤。',
+    guide_account:'账号保护', guide_scams:'防范诈骗', guide_wrong:'出问题时怎么办',
+    sources_label:'透明度', sources_title:'来源',
+    sources_sub:'本站所有陈述均来自公开、可核实的来源，或明确标注为社区观察模式。',
+    about_label:'关于', about_title:'关于Avakin Report',
+    promote_label:'在Avakin Report打广告', promote_title:'推广',
+    promote_sub:'Avakin Report是独立社区刊物。推广位即将开放，本页提前展示可用选项及价格。',
+    promote_avail:'可用位置', promote_who:'适合哪些人',
+    canvas_community_sub:'来自Avakin Life社区的独立艺术家和创作者，与LKWD无关联。',
+    vote_label:'社区投票', vote_for:'赞成', vote_abstain:'弃权', vote_against:'反对', vote_voted:'您的投票已记录',
   }
 };
 function setLang(lang) {
@@ -2103,6 +2260,8 @@ function setLang(lang) {
     el.textContent = notice;
     el.style.display = lang !== 'en' ? 'block' : 'none';
   });
+  // re-render dynamic content so vote labels update
+  renderSuggestions();
 }
 
 /* ── SEARCH ───────────────────────────────────────── */
