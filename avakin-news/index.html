@@ -547,6 +547,53 @@
       .home-sidebar .inline-promo-slot { flex-direction:row; flex-wrap:wrap; }
     }
 
+    /* ── ARTICLE ACCORDION ─────────────────────────────── */
+    .article__lang-notice,
+    .article__body,
+    .article__source,
+    .article__admin-bar {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: max-height .48s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+    }
+    .article__header {
+      cursor: pointer;
+      user-select: none;
+      border-radius: 6px;
+      margin: -6px;
+      padding: 6px;
+      transition: background .18s;
+    }
+    .article__header:hover { background: rgba(201,168,76,.05); }
+    .article__header:active { background: rgba(201,168,76,.1); }
+    .article__expand-hint {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 9px;
+      font-size: .68rem;
+      letter-spacing: .03em;
+      color: var(--mid);
+      opacity: .55;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+    .article__header:hover .article__expand-hint { opacity: .88; }
+    .article__expand-chevron {
+      width: 10px; height: 10px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform .32s ease;
+    }
+    .article--open .article__expand-chevron { transform: rotate(180deg); }
+    .article__expand-hint .article__expand-label { }
+
   </style>
 </head>
 <body>
@@ -4195,6 +4242,99 @@ if (isAdmin()) {
 
 // Hash routing
 handleHash();
+
+/* ── ARTICLE ACCORDION ─────────────────────────────── */
+(function () {
+  var COLS = [
+    'article__lang-notice',
+    'article__body',
+    'article__source',
+    'article__admin-bar'
+  ];
+
+  function getCols(art) {
+    return COLS.map(function (c) { return art.querySelector('.' + c); }).filter(Boolean);
+  }
+
+  document.querySelectorAll('.article').forEach(function (art) {
+    var header = art.querySelector('.article__header');
+    if (!header) return;
+
+    // Inject expand hint (chevron + label)
+    var hint = document.createElement('div');
+    hint.className = 'article__expand-hint';
+    hint.setAttribute('aria-hidden', 'true');
+    hint.innerHTML =
+      '<svg class="article__expand-chevron" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg">' +
+      '<polyline points="1,1.5 6,6.5 11,1.5"/></svg>' +
+      '<span class="article__expand-label">double-tap to read</span>';
+    header.appendChild(hint);
+
+    var label = hint.querySelector('.article__expand-label');
+    var isOpen = false;
+    var lastTap = 0;
+
+    function expandArt() {
+      isOpen = true;
+      art.classList.add('article--open');
+      label.textContent = 'double-tap to close';
+      getCols(art).forEach(function (el) {
+        el.style.maxHeight = el.scrollHeight + 'px';
+        el.style.opacity = '1';
+        el.style.pointerEvents = 'auto';
+        el.addEventListener('transitionend', function unlock() {
+          if (isOpen) el.style.maxHeight = 'none';
+          el.removeEventListener('transitionend', unlock);
+        });
+      });
+    }
+
+    function collapseArt() {
+      isOpen = false;
+      art.classList.remove('article--open');
+      label.textContent = 'double-tap to read';
+      getCols(art).forEach(function (el) {
+        // Snapshot current height before animating to 0
+        var cur = el.style.maxHeight === 'none' || el.style.maxHeight === ''
+          ? el.scrollHeight
+          : parseFloat(el.style.maxHeight);
+        el.style.maxHeight = cur + 'px';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            el.style.maxHeight = '0';
+            el.style.opacity = '0';
+            el.style.pointerEvents = 'none';
+          });
+        });
+      });
+    }
+
+    function onToggle(e) {
+      if (e.target && e.target.closest && e.target.closest('.article__share')) return;
+      isOpen ? collapseArt() : expandArt();
+    }
+
+    // Desktop: double-click
+    header.addEventListener('dblclick', onToggle);
+
+    // Mobile: double-tap (two taps within 340 ms)
+    header.addEventListener('touchend', function (e) {
+      var now = Date.now();
+      if (now - lastTap < 340) {
+        onToggle(e);
+        e.preventDefault(); // prevent accidental zoom
+      }
+      lastTap = now;
+    });
+
+    // Keyboard: Enter or Space on focused header
+    header.setAttribute('tabindex', '0');
+    header.setAttribute('role', 'button');
+    header.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); isOpen ? collapseArt() : expandArt(); }
+    });
+  });
+})();
 </script>
 </body>
 </html>
