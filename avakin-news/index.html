@@ -970,7 +970,7 @@
     <div class="canvas-picks" style="margin-bottom:28px;">
       <div class="canvas-pick canvas-pick--week" id="canvas-week-card">
         <span class="canvas-pick__badge" data-i18n="canvas_pick_week">Canvas Pick · This Week</span>
-        <div id="canvas-week-content"><p class="canvas-pick__empty">No creator featured yet.</p></div>
+        <div id="canvas-week-content"><p class="canvas-pick__empty" data-i18n="canvas_no_pick">No creator featured yet.</p></div>
         <div class="canvas-pick__actions" id="canvas-week-actions">
           <button class="admin-btn" onclick="openCanvasEdit('week')">Edit pick</button>
           <button class="admin-btn" onclick="clearCanvasPick('week')">Clear</button>
@@ -978,7 +978,7 @@
       </div>
       <div class="canvas-pick" id="canvas-month-card">
         <span class="canvas-pick__badge" data-i18n="canvas_pick_month">Canvas Pick · This Month</span>
-        <div id="canvas-month-content"><p class="canvas-pick__empty">No creator featured yet.</p></div>
+        <div id="canvas-month-content"><p class="canvas-pick__empty" data-i18n="canvas_no_pick">No creator featured yet.</p></div>
         <div class="canvas-pick__actions" id="canvas-month-actions">
           <button class="admin-btn" onclick="openCanvasEdit('month')">Edit pick</button>
           <button class="admin-btn" onclick="clearCanvasPick('month')">Clear</button>
@@ -1021,50 +1021,50 @@
         </thead>
         <tbody>
           <tr>
-            <td>Google Play rating (2024–25)</td>
+            <td data-i18n="cmp_f1">Google Play rating (2024–25)</td>
             <td class="c-mid">3.4 ★</td>
             <td class="c-mid">3.7 ★</td>
             <td class="c-good">4.1 ★</td>
           </tr>
           <tr>
-            <td>Free currency earning</td>
-            <td class="c-bad">Very limited — Coin store hollowed out, no reliable Crown earning</td>
+            <td data-i18n="cmp_f2">Free currency earning</td>
+            <td class="c-bad" data-i18n="cmp_al2">Very limited — Coin store hollowed out, no reliable Crown earning</td>
             <td class="c-mid">Moderate — credits earnable via daily tasks</td>
             <td class="c-mid">Moderate — ZEM earnable through social interactions</td>
           </tr>
           <tr>
-            <td>Veteran / loyalty rewards</td>
-            <td class="c-bad">None visible — no milestone rewards, no anniversary recognition</td>
+            <td data-i18n="cmp_f3">Veteran / loyalty rewards</td>
+            <td class="c-bad" data-i18n="cmp_al3">None visible — no milestone rewards, no anniversary recognition</td>
             <td class="c-mid">Loyalty badges for tenure — limited item rewards</td>
             <td class="c-mid">Anniversary event items — modest recognition</td>
           </tr>
           <tr>
-            <td>Creator programme transparency</td>
-            <td class="c-bad">Low — selection criteria not published, inactive badges retained</td>
+            <td data-i18n="cmp_f4">Creator programme transparency</td>
+            <td class="c-bad" data-i18n="cmp_al4">Low — selection criteria not published, inactive badges retained</td>
             <td class="c-mid">Medium — creator programme documented with visible tiers</td>
             <td class="c-mid">Medium — creator tools publicly accessible</td>
           </tr>
           <tr>
-            <td>Support quality</td>
-            <td class="c-bad">Slow, often templated, inconsistent resolution</td>
+            <td data-i18n="cmp_f5">Support quality</td>
+            <td class="c-bad" data-i18n="cmp_al5">Slow, often templated, inconsistent resolution</td>
             <td class="c-mid">Mixed — faster for billing issues, slower for account disputes</td>
             <td class="c-mid">Generally faster response times reported</td>
           </tr>
           <tr>
-            <td>Free-to-play viability</td>
-            <td class="c-bad">Low — social experience increasingly gated behind Crown spending</td>
+            <td data-i18n="cmp_f6">Free-to-play viability</td>
+            <td class="c-bad" data-i18n="cmp_al6">Low — social experience increasingly gated behind Crown spending</td>
             <td class="c-mid">Low-medium — some content free but premium-heavy</td>
             <td class="c-good">Medium — more content accessible without purchase</td>
           </tr>
           <tr>
-            <td>Content originality</td>
-            <td class="c-mid">Mixed — some original scenes, recurring recolour complaints</td>
+            <td data-i18n="cmp_f7">Content originality</td>
+            <td class="c-mid" data-i18n="cmp_al7">Mixed — some original scenes, recurring recolour complaints</td>
             <td class="c-mid">Mixed — large catalogue, quality varies</td>
             <td class="c-good">Growing UGC (user-generated content) system</td>
           </tr>
           <tr>
-            <td>Community contest fairness</td>
-            <td class="c-bad">Questioned — winner profiles suggest reach over merit</td>
+            <td data-i18n="cmp_f8">Community contest fairness</td>
+            <td class="c-bad" data-i18n="cmp_al8">Questioned — winner profiles suggest reach over merit</td>
             <td class="c-mid">Moderate — some community-run events with clearer criteria</td>
             <td class="c-mid">Some creator challenges with transparent judging</td>
           </tr>
@@ -1234,37 +1234,37 @@
     </div>
 
     <span class="label" style="margin-bottom:16px;" data-i18n="promote_avail">What is available</span>
-    <div class="compare-wrap" style="margin-bottom:28px;">
-      <table class="compare-table">
-        <thead>
-          <tr>
-            <th>Placement</th>
-            <th>Description</th>
-            <th>Duration</th>
-            <th>Price (CHF)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Homepage Quote</td>
-            <td style="text-align:left;color:var(--ink);">Your message or creator quote in the Avakin Report Quote block on the homepage</td>
-            <td style="text-align:center;">1 week</td>
-            <td style="text-align:center;font-weight:700;color:var(--ink);">CHF 10</td>
-          </tr>
-          <tr>
-            <td>Community Artist Listing</td>
-            <td style="text-align:left;color:var(--ink);">Permanent listing in The Canvas community artists grid with name, handle, and description</td>
-            <td style="text-align:center;">Permanent</td>
-            <td style="text-align:center;font-weight:700;color:var(--ink);">CHF 8</td>
-          </tr>
-          <tr>
-            <td>Sponsored Article</td>
-            <td style="text-align:left;color:var(--ink);">A clearly labeled community content article about your work, creative project, or creator story</td>
-            <td style="text-align:center;">Permanent</td>
-            <td style="text-align:center;font-weight:700;color:var(--ink);">CHF 40</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <div class="pricing-card__type" data-i18n="promo_type1">Homepage</div>
+        <div class="pricing-card__name" data-i18n="promo_name1">Homepage Quote</div>
+        <div class="pricing-card__price-row">
+          <span class="pricing-card__currency">CHF</span>
+          <span class="pricing-card__price">5</span>
+        </div>
+        <div class="pricing-card__period" data-i18n="promo_period1">per week</div>
+        <div class="pricing-card__desc" data-i18n="promo_desc1">Your message or creator quote in the Avakin Report Quote block on the homepage</div>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-card__type" data-i18n="promo_type2">The Canvas</div>
+        <div class="pricing-card__name" data-i18n="promo_name2">Community Artist Listing</div>
+        <div class="pricing-card__price-row">
+          <span class="pricing-card__currency">CHF</span>
+          <span class="pricing-card__price">12</span>
+        </div>
+        <div class="pricing-card__period" data-i18n="promo_period2">3 months</div>
+        <div class="pricing-card__desc" data-i18n="promo_desc2">Listing in The Canvas community artists grid with your name, handle, and description</div>
+      </div>
+      <div class="pricing-card pricing-card--featured">
+        <div class="pricing-card__type" data-i18n="promo_type3">Sponsored</div>
+        <div class="pricing-card__name" data-i18n="promo_name3">Sponsored Article</div>
+        <div class="pricing-card__price-row">
+          <span class="pricing-card__currency">CHF</span>
+          <span class="pricing-card__price">25</span>
+        </div>
+        <div class="pricing-card__period" data-i18n="promo_period3">3 months</div>
+        <div class="pricing-card__desc" data-i18n="promo_desc3">A clearly labeled community content article about your work, creative project, or creator story</div>
+      </div>
     </div>
 
     <div class="notice" data-i18n-html="promote_editorial">All sponsored content is clearly labeled. Paid placements do not influence editorial articles, the Issues page, the Accountability page, or any factual reporting on this site. Promotion is for community creators and artists only — not for LKWD or affiliated organisations.
@@ -1984,6 +1984,21 @@ const STRINGS = {
     mvr4_real_lbl:'Community experience',mvr4_real_txt:'Multiple badge holders are inactive — months without posting or in-game presence. No visible review process. Content across the badge tier follows similar aesthetic patterns, suggesting narrow selection criteria rather than community-wide representation.',
     mvr5_claim_lbl:'LKWD implication',mvr5_claim_txt:'"New content is added regularly for all players."',mvr5_claim_src:'App Store description, update announcements',
     mvr5_real_lbl:'Community experience',mvr5_real_txt:'New store items are predominantly Crown-priced. Many are documented recolours of existing assets at full price. Event formats repeat without significant variation. Players who played two or more years ago can identify recycled elements in current events.',
+    canvas_no_pick:'No creator featured yet.',
+    canvas_no_artists:'No community artists added yet.',
+    cmp_f1:'Google Play rating (2024–25)',cmp_f2:'Free currency earning',cmp_f3:'Veteran / loyalty rewards',
+    cmp_f4:'Creator programme transparency',cmp_f5:'Support quality',cmp_f6:'Free-to-play viability',
+    cmp_f7:'Content originality',cmp_f8:'Community contest fairness',
+    cmp_al2:'Very limited — Coin store hollowed out, no reliable Crown earning',
+    cmp_al3:'None visible — no milestone rewards, no anniversary recognition',
+    cmp_al4:'Low — selection criteria not published, inactive badges retained',
+    cmp_al5:'Slow, often templated, inconsistent resolution',
+    cmp_al6:'Low — social experience increasingly gated behind Crown spending',
+    cmp_al7:'Mixed — some original scenes, recurring recolour complaints',
+    cmp_al8:'Questioned — winner profiles suggest reach over merit',
+    promo_type1:'Homepage',promo_name1:'Homepage Quote',promo_period1:'per week',promo_desc1:'Your message or creator quote in the Avakin Report Quote block on the homepage',
+    promo_type2:'The Canvas',promo_name2:'Community Artist Listing',promo_period2:'3 months',promo_desc2:'Listing in The Canvas community artists grid with your name, handle, and description',
+    promo_type3:'Sponsored',promo_name3:'Sponsored Article',promo_period3:'3 months',promo_desc3:'A clearly labeled community content article about your work, creative project, or creator story',
   },
   de: {
     nav_home:'Start', nav_issues:'Probleme', nav_reviews:'Bewertungen', nav_suggestions:'Vorschläge',
@@ -2103,6 +2118,21 @@ const STRINGS = {
     sg_sg10_t:'Eine rotierende Spieler-Beratungsgruppe aus regulären Konten einrichten',sg_sg10_d:'Eine kleine Gruppe von Nicht-Abzeichen-, Nicht-Creator-Spielern, die vor großen Updates oder Store-Änderungen an Feedback-Sitzungen teilnehmen.',
     sg_sg11_t:'Beurteilungskriterien für Wettbewerbe vor jedem Start veröffentlichen',sg_sg11_d:'Klar angeben, was bewertet wird, ob soziale Reichweite ein Faktor ist und wer bewertet. Transparenz würde der Community ermöglichen, sich genau damit auseinanderzusetzen.',
     sg_sg12_t:'Original-Designer nennen, wenn In-Game-Items von echter Arbeit inspiriert sind',sg_sg12_d:'Wenn ein Item nachweislich von der Arbeit eines echten Designers inspiriert ist, sollte dieser Designer in der Item-Beschreibung erwähnt werden.',
+    canvas_no_pick:'Noch kein Creator vorgestellt.',
+    canvas_no_artists:'Noch keine Community-Künstler hinzugefügt.',
+    cmp_f1:'Google Play-Bewertung (2024–25)',cmp_f2:'Kostenlose Währung verdienen',cmp_f3:'Veteranen- / Treueboni',
+    cmp_f4:'Creator-Programm-Transparenz',cmp_f5:'Support-Qualität',cmp_f6:'Free-to-Play-Tauglichkeit',
+    cmp_f7:'Inhalt-Originalität',cmp_f8:'Fairness bei Community-Wettbewerben',
+    cmp_al2:'Sehr begrenzt — Münzladen ausgehöhlt, kein verlässliches Kronen-Verdienen',
+    cmp_al3:'Nicht sichtbar — keine Meilensteinbelohnungen, keine Jubiläumserkennung',
+    cmp_al4:'Niedrig — Auswahlkriterien nicht veröffentlicht, inaktive Abzeichen behalten',
+    cmp_al5:'Langsam, oft schablonenhaft, uneinheitliche Lösung',
+    cmp_al6:'Niedrig — soziales Erlebnis zunehmend hinter Kronen-Ausgaben gesperrt',
+    cmp_al7:'Gemischt — einige Originalszenen, wiederkehrende Umfärbungsbeschwerden',
+    cmp_al8:'Befragt — Gewinnerprofile legen Reichweite über Verdienst nahe',
+    promo_type1:'Startseite',promo_name1:'Startseiten-Zitat',promo_period1:'pro Woche',promo_desc1:'Ihre Nachricht oder ein Creator-Zitat im Avakin Report-Zitatblock auf der Startseite',
+    promo_type2:'The Canvas',promo_name2:'Community-Künstler-Eintrag',promo_period2:'3 Monate',promo_desc2:'Eintrag im The Canvas Community-Künstlergitter mit Ihrem Namen, Handle und Beschreibung',
+    promo_type3:'Gesponsert',promo_name3:'Gesponserte Artikel',promo_period3:'3 Monate',promo_desc3:'Ein klar beschrifteter Community-Content-Artikel über Ihre Arbeit, Ihr kreatives Projekt oder Ihre Creator-Geschichte',
     canvas_notice:'<strong>Über The Canvas:</strong> Dieser Bereich ist unabhängigen Community-Künstlern und Kreativen gewidmet — nicht offiziellen Abzeichen-Inhabern. Wir stellen Menschen vor, deren Werk für sich spricht.',
     canvas_callout:'<strong>Wie Canvas Picks ausgewählt werden — von der Community, nicht von LKWD.</strong><br /><br />Canvas Picks werden durch Community-Abstimmungen über Instagram-Story-Umfragen auf <a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a> entschieden (öffentliches Profil — jeder kann die Abstimmungen sehen). Lockwood Publishing (LKWD) ist nicht an der Auswahl beteiligt und wählt, beeinflusst oder genehmigt keine Canvas-Pick-Gewinner. Diese Picks sind vollständig unabhängig und communitygetrieben.<br /><br /><strong>Eine Regel zur Teilnahme:</strong> Folge <a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a> auf Instagram. Das ist alles.',
     compare_method:'<strong>Hinweis zur Methodik:</strong> Dieser Vergleich verwendet öffentlich verfügbare Daten und Community-beobachtete Muster. Es ist keine kommerzielle Empfehlung für ein Spiel. IMVU- und Zepeto-Daten spiegeln zum Zeitpunkt des Schreibens den breiten Community-Konsens wider.',
@@ -2248,6 +2278,21 @@ const STRINGS = {
     sg_sg10_t:'Établir un groupe consultatif de joueurs rotatif issus de comptes réguliers',sg_sg10_d:'Un petit groupe de joueurs non-badge, non-créateur qui participent à des sessions de feedback avant les mises à jour majeures.',
     sg_sg11_t:'Publier les critères de jugement des concours avant chaque ouverture',sg_sg11_d:"Indiquer clairement ce qui est évalué, si la portée sociale est un facteur et qui juge. La transparence permettrait à la communauté de s'y engager avec précision.",
     sg_sg12_t:'Créditer les designers originaux lorsque des objets en jeu sont inspirés de vrais travaux',sg_sg12_d:"Lorsqu'un objet est manifestement inspiré du travail d'un vrai designer, ce designer devrait être crédité dans la description de l'objet."  ,
+    canvas_no_pick:'Aucun créateur mis en avant pour le moment.',
+    canvas_no_artists:'Aucun artiste communautaire ajouté pour le moment.',
+    cmp_f1:'Note Google Play (2024–25)',cmp_f2:'Gains en monnaie gratuite',cmp_f3:'Récompenses vétéran / fidélité',
+    cmp_f4:'Transparence du programme créateur',cmp_f5:'Qualité du support',cmp_f6:'Viabilité free-to-play',
+    cmp_f7:'Originalité du contenu',cmp_f8:'Équité des concours communautaires',
+    cmp_al2:'Très limité — boutique Pièces vidée, aucun gain fiable en Couronnes',
+    cmp_al3:'Aucun visible — pas de récompenses de jalon, pas de reconnaissance d\'anniversaire',
+    cmp_al4:'Faible — critères de sélection non publiés, badges inactifs conservés',
+    cmp_al5:'Lent, souvent générique, résolution incohérente',
+    cmp_al6:'Faible — expérience sociale de plus en plus conditionnée aux dépenses en Couronnes',
+    cmp_al7:'Mixte — quelques scènes originales, plaintes récurrentes sur les recolorations',
+    cmp_al8:'Remis en question — les profils des gagnants suggèrent la portée plutôt que le mérite',
+    promo_type1:'Page d\'accueil',promo_name1:'Citation page d\'accueil',promo_period1:'par semaine',promo_desc1:'Votre message ou citation créateur dans le bloc Citation Avakin Report sur la page d\'accueil',
+    promo_type2:'The Canvas',promo_name2:'Liste artiste communautaire',promo_period2:'3 mois',promo_desc2:'Inscription dans la grille des artistes communautaires de The Canvas avec votre nom, handle et description',
+    promo_type3:'Sponsorisé',promo_name3:'Article sponsorisé',promo_period3:'3 mois',promo_desc3:'Un article de contenu communautaire clairement labellisé sur votre travail, projet créatif ou histoire de créateur',
     canvas_notice:"<strong>À propos de The Canvas :</strong> Cet espace est dédié aux artistes et créateurs communautaires indépendants — pas aux détenteurs de badges officiels. Nous mettons en lumière des personnes dont le travail parle de lui-même.",
     canvas_callout:"<strong>Comment les Canvas Picks sont choisis — par la communauté, pas par LKWD.</strong><br /><br />Les Canvas Picks sont décidés par vote communautaire via des sondages Instagram Story sur <a href='https://www.instagram.com/itssagewren/' target='_blank' rel='noopener' style='color:var(--accent);font-weight:700;'>@itssagewren</a> (profil public — tout le monde peut voir les votes). Lockwood Publishing (LKWD) n'est pas impliqué dans le processus de sélection et ne choisit, n'influence ni n'approuve les gagnants des Canvas Picks. Ces choix sont entièrement indépendants et communautaires.<br /><br /><strong>Une seule règle pour être éligible :</strong> Suivre <a href='https://www.instagram.com/itssagewren/' target='_blank' rel='noopener' style='color:var(--accent);font-weight:700;'>@itssagewren</a> sur Instagram. C'est tout.",
     compare_method:"<strong>Note sur la méthodologie :</strong> Cette comparaison utilise des données publiquement disponibles et des tendances observées par la communauté. Ce n'est pas une recommandation commerciale pour un jeu. Les données IMVU et Zepeto reflètent le consensus général de la communauté au moment de la rédaction.",
@@ -2393,6 +2438,21 @@ const STRINGS = {
     sg_sg10_t:'إنشاء مجموعة استشارية دوارة من اللاعبين من الحسابات العادية',sg_sg10_d:'مجموعة صغيرة من اللاعبين غير المميزين يشاركون في جلسات تعليقات قبل التحديثات الكبرى.',
     sg_sg11_t:'نشر معايير تحكيم المسابقات قبل بدء كل مسابقة',sg_sg11_d:'التوضيح الصريح لما يُقيَّم، وما إذا كان الوصول الاجتماعي عاملًا، ومن يحكم. الشفافية ستتيح للمجتمع المشاركة بدقة.',
     sg_sg12_t:'الاعتراف بالمصممين الأصليين عندما تكون عناصر اللعبة مستوحاة من أعمال حقيقية',sg_sg12_d:'عندما يكون العنصر مستوحى بشكل واضح من عمل مصمم حقيقي، يجب ذكر ذلك المصمم في وصف العنصر.',
+    canvas_no_pick:'لم يُبرز أي منشئ بعد.',
+    canvas_no_artists:'لم يتم إضافة فنانين مجتمعيين بعد.',
+    cmp_f1:'تقييم Google Play (2024–25)',cmp_f2:'كسب العملة المجانية',cmp_f3:'مكافآت قدامى المحاربين / الولاء',
+    cmp_f4:'شفافية برنامج المبدعين',cmp_f5:'جودة الدعم',cmp_f6:'جدوى اللعب المجاني',
+    cmp_f7:'أصالة المحتوى',cmp_f8:'نزاهة مسابقات المجتمع',
+    cmp_al2:'محدود جدًا — متجر العملات مُفرَّغ، لا كسب موثوق للتيجان',
+    cmp_al3:'غير مرئي — لا مكافآت إنجازات، لا تقدير للذكرى السنوية',
+    cmp_al4:'منخفض — معايير الاختيار غير منشورة، الشارات غير النشطة محتفظ بها',
+    cmp_al5:'بطيء، غالبًا نموذجي، حل غير متسق',
+    cmp_al6:'منخفض — التجربة الاجتماعية تزداد اشتراطًا لإنفاق التيجان',
+    cmp_al7:'مختلط — بعض المشاهد الأصلية، شكاوى متكررة من إعادة التلوين',
+    cmp_al8:'موضع تساؤل — ملفات الفائزين تشير إلى الوصول على الجدارة',
+    promo_type1:'الصفحة الرئيسية',promo_name1:'اقتباس الصفحة الرئيسية',promo_period1:'أسبوعيًا',promo_desc1:'رسالتك أو اقتباس منشئ في كتلة الاقتباس على الصفحة الرئيسية',
+    promo_type2:'The Canvas',promo_name2:'قائمة الفنانين المجتمعيين',promo_period2:'3 أشهر',promo_desc2:'إدراج في شبكة فناني The Canvas مع اسمك ومعرفك ووصفك',
+    promo_type3:'مدعوم',promo_name3:'مقالة مدعومة',promo_period3:'3 أشهر',promo_desc3:'مقالة محتوى مجتمعي موسومة بوضوح عن عملك أو مشروعك الإبداعي أو قصتك كمنشئ',
     canvas_notice:'<strong>حول The Canvas:</strong> هذه المساحة مخصصة للفنانين والمبدعين المجتمعيين المستقلين — وليس لحاملي الشارات الرسمية. نسلط الضوء على أشخاص يتحدث عملهم عن نفسه.',
     canvas_callout:'<strong>كيف يتم اختيار Canvas Picks — من قِبل المجتمع، وليس LKWD.</strong><br /><br />يتم تحديد Canvas Picks عبر تصويت المجتمع من خلال استطلاعات Instagram Story على <a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a> (ملف عام — يمكن للجميع رؤية الأصوات). لا تتدخل Lockwood Publishing في عملية الاختيار. هذه الاختيارات مستقلة تمامًا وتقودها المجتمع.<br /><br /><strong>قاعدة واحدة للأهلية:</strong> تابع <a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a> على Instagram. هذا كل شيء.',
     compare_method:'<strong>ملاحظة حول المنهجية:</strong> يستخدم هذا المقارنة البيانات المتاحة للعموم والأنماط الملاحظة من المجتمع. وليس توصية تجارية لأي لعبة. تعكس بيانات IMVU وZepeto التوافق العام للمجتمع وقت الكتابة.',
@@ -2537,7 +2597,22 @@ const STRINGS = {
     sg_sg09_t:"Geleenthede moet rondom pret en kreatiwiteit gebou word, nie net taaklyste nie",sg_sg09_d:"Ontwerp geleenthede rondom ontdekking, kreatiewe uitdagings en spelersuitdrukking.",
     sg_sg10_t:"Stel 'n roterende speleradviesngroep van gewone rekeninge in",sg_sg10_d:"'n Klein groep nie-kenteken-, nie-skepper-spelers wat deelneem aan terugvoersessies voor groot opdaterings of winkelveranderinge.",
     sg_sg11_t:"Publiseer wedstrydbeoordelingskriteria voor elke wedstryd oopgaan",sg_sg11_d:"Sê duidelik wat beoordeel word, of sosiale bereik 'n faktor is, en wie beoordeel. Deursigtigheid sal die gemeenskap toelaat om dit akkuraat te betrek.",
-    sg_sg12_t:"Krediet oorspronklike ontwerpers wanneer in-spel-items deur werklike werk geïnspireer word",sg_sg12_d:"Wanneer 'n item aantoonbaar geïnspireer is deur 'n werklike ontwerper se werk, moet daardie ontwerper in die item-beskrywing genoem word."  ,
+    sg_sg12_t:"Krediet oorspronklike ontwerpers wanneer in-spel-items deur werklike werk geïnspireer word",sg_sg12_d:"Wanneer 'n item aantoonbaar geïnspireer is deur 'n werklike ontwerper se werk, moet daardie ontwerper in die item-beskrywing genoem word.",
+    canvas_no_pick:"Geen skepper uitgelig nie.",
+    canvas_no_artists:"Geen gemeenskapskunstenaars bygevoeg nie.",
+    cmp_f1:"Google Play-gradering (2024–25)",cmp_f2:"Gratis valuta verdien",cmp_f3:"Veteraan- / lojaliteitsbelonings",
+    cmp_f4:"Skepperprogramm-deursigtigheid",cmp_f5:"Ondersteuningskwaliteit",cmp_f6:"Free-to-play lewensvatbaarheid",
+    cmp_f7:"Inhoud-oorspronklikheid",cmp_f8:"Gemeenskapswedstryd-billikheid",
+    cmp_al2:"Baie beperk — Muntstoor uitgehol, geen betroubare Kroon-verdien",
+    cmp_al3:"Nie sigbaar nie — geen mylpaalbelonings, geen verjaardagsherkenning",
+    cmp_al4:"Laag — keuringskriteria nie gepubliseer nie, onaktiewe kentekens behou",
+    cmp_al5:"Stadig, dikwels sjabloonagtig, onkonsekwente resolusie",
+    cmp_al6:"Laag — sosiale ervaring toenemend agter Kroon-besteding gesluit",
+    cmp_al7:"Gemengd — sommige oorspronklike tonele, herhalende herkleuringslagteë",
+    cmp_al8:"Bevraagteken — wennerprofiele dui bereik bo verdienste aan",
+    promo_type1:"Tuisblad",promo_name1:"Tuisblad-aanhaling",promo_period1:"per week",promo_desc1:"Jou boodskap of skepper-aanhaling in die Avakin Report-aanhalingblok op die tuisblad",
+    promo_type2:"The Canvas",promo_name2:"Gemeenskapskunstenaar-lys",promo_period2:"3 maande",promo_desc2:"Inskrywing in die The Canvas gemeenskapskunstenaarsrooster met jou naam, handvatsel en beskrywing",
+    promo_type3:"Geborg",promo_name3:"Geborg artikel",promo_period3:"3 maande",promo_desc3:"'n Duidelik gemerk gemeenskapsinhoudartikel oor jou werk, kreatiewe projek of skepperverhaal",
     canvas_notice:'<strong>Oor The Canvas:</strong> Hierdie ruimte is toegewy aan onafhanklike gemeenskapskunstenaars en skeppers — nie aan amptelike kentekendraers nie. Ons stel mense in die kollig wie se werk vir sigself spreek.',
     canvas_callout:"<strong>Hoe Canvas Picks gekies word — deur die gemeenskap, nie LKWD nie.</strong><br /><br />Canvas Picks word beslis deur gemeenskapsstemming via Instagram-storie-peiling op <a href='https://www.instagram.com/itssagewren/' target='_blank' rel='noopener' style='color:var(--accent);font-weight:700;'>@itssagewren</a> (openbare profiel — almal kan die stemme sien). Lockwood Publishing (LKWD) is nie betrokke by die keuringsproses nie. Hierdie keuses is heeltemal onafhanklik en gemeenskapgedrewe.<br /><br /><strong>Een reël om in aanmerking te kom:</strong> Volg <a href='https://www.instagram.com/itssagewren/' target='_blank' rel='noopener' style='color:var(--accent);font-weight:700;'>@itssagewren</a> op Instagram. Dit is al.",
     compare_method:"<strong>Nota oor metodologie:</strong> Hierdie vergelyking gebruik openbaar beskikbare data en gemeenskapsbeobagtigde patrone. Dit is nie 'n kommersiële aanbeveling van enige spel nie. IMVU- en Zepeto-data weerspieël breë gemeenskapskonsensus ten tye van skryf.",
@@ -2683,6 +2758,21 @@ const STRINGS = {
     sg_sg10_t:'从普通账户建立轮换的玩家顾问团',sg_sg10_d:'一小群非徽章、非创作者玩家，在重大更新或商店变更前参与反馈会议。不是承诺对所有事情都采取行动——只是结构化的、诚实的意见。',
     sg_sg11_t:'在每次比赛开放前发布比赛评判标准',sg_sg11_d:'明确说明评估内容、社交影响力是否是一个因素，以及谁在评判。透明度将允许社区准确地参与其中。',
     sg_sg12_t:'当游戏内物品受真实作品启发时，为原创设计师致谢',sg_sg12_d:'当一个物品明显受到真实设计师作品的启发或基于其作品时，该设计师应在物品描述中得到致谢。',
+    canvas_no_pick:'暂无精选创作者。',
+    canvas_no_artists:'暂未添加社区艺术家。',
+    cmp_f1:'Google Play评分（2024–25）',cmp_f2:'免费货币获取',cmp_f3:'老玩家/忠诚度奖励',
+    cmp_f4:'创作者计划透明度',cmp_f5:'客服质量',cmp_f6:'免费游玩可行性',
+    cmp_f7:'内容原创性',cmp_f8:'社区比赛公平性',
+    cmp_al2:'非常有限——金币商店被掏空，无可靠皇冠获取途径',
+    cmp_al3:'不可见——无里程碑奖励，无周年纪念认可',
+    cmp_al4:'低——选拔标准未公布，非活跃徽章被保留',
+    cmp_al5:'缓慢，经常是模板式回复，解决结果不一致',
+    cmp_al6:'低——社交体验越来越被皇冠消费所限制',
+    cmp_al7:'参差不齐——部分原创场景，反复出现重新着色投诉',
+    cmp_al8:'受质疑——获胜者资料表明靠影响力而非实力获奖',
+    promo_type1:'主页',promo_name1:'主页引语',promo_period1:'每周',promo_desc1:'您的消息或创作者引语展示在主页的Avakin Report引语模块中',
+    promo_type2:'The Canvas',promo_name2:'社区艺术家列表',promo_period2:'3个月',promo_desc2:'在The Canvas社区艺术家网格中展示，包含您的姓名、账号和简介',
+    promo_type3:'赞助',promo_name3:'赞助文章',promo_period3:'3个月',promo_desc3:'关于您的作品、创意项目或创作者故事的清晰标注的社区内容文章',
     canvas_notice:'<strong>关于The Canvas：</strong>此空间专为独立社区艺术家和创作者而设——而非官方徽章持有者。我们展示那些凭借作品本身说话的人。',
     canvas_callout:'<strong>Canvas Picks如何选出——由社区，而非LKWD。</strong><br /><br />Canvas Picks通过<a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a>的Instagram Story投票由社区决定（公开资料——任何人都可以看到投票结果）。Lockwood Publishing (LKWD) 不参与选拔过程。这些选择完全独立，由社区驱动。<br /><br /><strong>参与资格唯一条件：</strong>在Instagram上关注<a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a>。就这样。',
     compare_method:'<strong>关于方法论的说明：</strong>本比较使用公开数据和社区观察到的规律。这不是对任何游戏的商业推荐。IMVU和Zepeto数据反映撰写时的广泛社区共识。',
@@ -2860,7 +2950,8 @@ function renderCanvas() {
         <div class="canvas-pick__desc">${pick.desc || ''}</div>
         ${pick.specialty ? `<span class="canvas-pick__specialty">${pick.specialty}</span>` : ''}`;
     } else {
-      el.innerHTML = '<p class="canvas-pick__empty">No creator featured yet.</p>';
+      const _ls = STRINGS[currentLang] || STRINGS.en;
+      el.innerHTML = '<p class="canvas-pick__empty">' + (_ls.canvas_no_pick || 'No creator featured yet.') + '</p>';
     }
   });
 
@@ -2868,7 +2959,8 @@ function renderCanvas() {
   if (!grid) return;
   const artists = getCanvasArtists();
   if (!artists.length) {
-    grid.innerHTML = '<p style="font-size:.87rem;color:var(--mid);font-style:italic;">No community artists added yet.</p>';
+    const _ls2 = STRINGS[currentLang] || STRINGS.en;
+    grid.innerHTML = '<p style="font-size:.87rem;color:var(--mid);font-style:italic;">' + (_ls2.canvas_no_artists || 'No community artists added yet.') + '</p>';
   } else {
     grid.innerHTML = artists.map((a, i) => `
       <div class="canvas-artist">
