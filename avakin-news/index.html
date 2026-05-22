@@ -521,6 +521,29 @@
     .inline-promo-slot__coming { font-size:.72rem; color:var(--mid); font-style:italic; }
     .inline-promo-slot__img-note { font-size:.65rem; color:var(--mid); margin-top:8px; padding-top:8px; border-top:1px solid var(--border); text-align:center; letter-spacing:.04em; }
 
+    /* ── HOME PAGE: EDITORIAL AD LAYOUT ─────────────── */
+    .home-ad-label { font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); text-align:center; margin-bottom:6px; opacity:.7; }
+
+    /* Full-width banner directly below nav */
+    .home-banner-wrap { width:100%; background:var(--surface); border-bottom:1px solid var(--border); padding:10px 20px 14px; }
+    .home-banner-wrap .inline-promo-slot { max-width:920px; margin:0 auto; border-radius:8px; display:flex; align-items:center; gap:20px; padding:12px 18px; }
+    .home-banner-wrap .inline-promo-slot__header { flex-direction:column; align-items:flex-start; margin-bottom:0; flex-shrink:0; gap:4px; }
+    .home-banner-wrap .inline-promo-slot__body { flex:1; margin:0; }
+    .home-banner-wrap .inline-promo-slot__img { width:80px; height:60px; border-radius:6px; font-size:1.6rem; flex-shrink:0; }
+    .home-banner-wrap .inline-promo-slot__img-note { margin-top:0; padding-top:0; border-top:none; flex-shrink:0; white-space:nowrap; }
+
+    /* Sidebar slot floated right */
+    .home-sidebar { float:right; width:260px; margin:0 0 24px 28px; }
+    .home-sidebar .inline-promo-slot { width:100%; }
+    .home-sidebar .inline-promo-slot__img { width:100%; height:120px; border-radius:6px; font-size:2rem; margin-bottom:10px; }
+    .home-sidebar .inline-promo-slot__body { flex-direction:column; align-items:stretch; }
+    .home-sidebar .inline-promo-slot__text { padding:0; }
+    @media (max-width:680px) {
+      .home-sidebar { float:none; width:100%; margin:0 0 24px 0; }
+      .home-banner-wrap .inline-promo-slot { flex-direction:column; align-items:stretch; }
+      .home-banner-wrap .inline-promo-slot__img { width:100%; height:80px; }
+    }
+
   </style>
 </head>
 <body>
@@ -586,7 +609,47 @@
   HOME
 ══════════════════════════════════════════════════ -->
 <div class="page active" id="page-home">
+
+  <!-- ── Full-width banner slot (below nav, editorial style) ── -->
+  <div class="home-banner-wrap">
+    <p class="home-ad-label">Advertisement</p>
+    <div class="inline-promo-slot">
+      <div class="inline-promo-slot__header">
+        <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+        <span class="inline-promo-slot__price">from CHF 15/wk</span>
+      </div>
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__body">
+        <div class="inline-promo-slot__text">
+          <div class="inline-promo-slot__title">Homepage Banner</div>
+          <div class="inline-promo-slot__coming">This function will be open soon.</div>
+        </div>
+      </div>
+      <div class="inline-promo-slot__img-note">Image upload · +CHF 5</div>
+    </div>
+  </div>
+
   <div class="wrap">
+
+    <!-- ── Sidebar slot (floated right, editorial style) ── -->
+    <div class="home-sidebar">
+      <p class="home-ad-label">Advertisement</p>
+      <div class="inline-promo-slot">
+        <div class="inline-promo-slot__header">
+          <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+          <span class="inline-promo-slot__price">from CHF 20/wk</span>
+        </div>
+        <div class="inline-promo-slot__body">
+          <div class="inline-promo-slot__img">&#128247;</div>
+          <div class="inline-promo-slot__text">
+            <div class="inline-promo-slot__title">Featured Sidebar</div>
+            <div class="inline-promo-slot__coming">This function will be open soon.</div>
+          </div>
+        </div>
+        <div class="inline-promo-slot__img-note">Image upload · +CHF 5</div>
+      </div>
+    </div>
+
     <img src="images/lakeside-cottage.jpg" class="deco" alt="Avakin Life — decorative" />
     <span class="label" data-i18n="home_label">Independent Community Report</span>
     <h1 class="page-title" data-i18n="home_title">Avakin Life — What Players Are Saying</h1>
@@ -618,37 +681,6 @@
       <div class="summary-item" onclick="show('issues')"><div class="summary-item__icon">🏅</div><div><div class="summary-item__title" data-i18n="home_sum3_title">Creator Programme &amp; LKWD Accessibility</div><div class="summary-item__desc" data-i18n="home_sum3_desc">Many official badge holders are inactive. LKWD communicates primarily through the creator tier, leaving regular players without a direct voice.</div><div class="summary-item__tag" data-i18n="home_sum3_tag">Community-documented</div></div></div>
       <div class="summary-item" onclick="show('issues')"><div class="summary-item__icon">🎨</div><div><div class="summary-item__title" data-i18n="home_sum4_title">Design Copying, Contest Fairness &amp; Event Fatigue</div><div class="summary-item__desc" data-i18n="home_sum4_desc">Real-world designs replicated without credit, contests that favour reach over talent, and events that repeat the same formulas.</div></div></div>
       <div class="summary-item" onclick="show('suggestions')"><div class="summary-item__icon">🗳️</div><div><div class="summary-item__title" data-i18n="home_sum5_title">Community Suggestions — Vote</div><div class="summary-item__desc" data-i18n="home_sum5_desc">Browse and upvote community improvement suggestions. Add your own. The most-voted ideas are shown first.</div></div></div>
-    </div>
-
-    <div class="inline-promo-slots">
-  <div class="inline-promo-slot">
-    <div class="inline-promo-slot__header">
-      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
-      <span class="inline-promo-slot__price">from CHF 15/wk</span>
-    </div>
-    <div class="inline-promo-slot__body">
-      <div class="inline-promo-slot__img">&#128247;</div>
-      <div class="inline-promo-slot__text">
-        <div class="inline-promo-slot__title">Homepage Banner</div>
-        <div class="inline-promo-slot__coming">This function will be open soon.</div>
-      </div>
-    </div>
-    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
-  </div>
-  <div class="inline-promo-slot">
-    <div class="inline-promo-slot__header">
-      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
-      <span class="inline-promo-slot__price">from CHF 20/wk</span>
-    </div>
-    <div class="inline-promo-slot__body">
-      <div class="inline-promo-slot__img">&#128247;</div>
-      <div class="inline-promo-slot__text">
-        <div class="inline-promo-slot__title">Featured Sidebar</div>
-        <div class="inline-promo-slot__coming">This function will be open soon.</div>
-      </div>
-    </div>
-    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
-  </div>
     </div>
   </div>
 </div><!-- ══════════════════════════════════════════════════
