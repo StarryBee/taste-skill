@@ -434,6 +434,78 @@
       .nav { padding: 0; overflow-x: visible; flex: 1; }
       .nav-utils { padding: 0; }
     }
+    /* ── PRICELIST (luxury promote) ────────────────── */
+    .pricelist-wrap { background:#f8f4ee; border-radius:16px; border:1px solid rgba(201,168,76,.3); padding:44px 32px; margin:24px 0 32px; }
+    [data-theme="dark"] .pricelist-wrap { background:#1c1810; border-color:rgba(201,168,76,.2); }
+    .pricelist-emboss { text-align:center; margin-bottom:36px; line-height:1; }
+    .pricelist-emboss__main { display:block; font-family:var(--serif); font-size:clamp(2.2rem,8vw,4.2rem); font-weight:300; letter-spacing:.22em; text-transform:uppercase; color:#ddd5c2; text-shadow:1px 1px 0 rgba(255,255,255,.95),-1px -1px 0 rgba(0,0,0,.09); }
+    [data-theme="dark"] .pricelist-emboss__main { color:#201c12; text-shadow:1px 1px 0 rgba(255,255,255,.04),-1px -1px 0 rgba(0,0,0,.55); }
+    .pricelist-emboss__sub { display:block; font-family:var(--serif); font-size:clamp(1.5rem,5.5vw,3rem); font-style:italic; font-weight:300; letter-spacing:.12em; color:#d5ccb8; text-shadow:1px 1px 0 rgba(255,255,255,.95),-1px -1px 0 rgba(0,0,0,.07); margin-top:-4px; }
+    [data-theme="dark"] .pricelist-emboss__sub { color:#1a1710; }
+    .pricelist-divider { border:none; border-top:1px solid rgba(201,168,76,.5); margin:0 0 16px; }
+    .pricelist-col-header { display:flex; padding:0 0 8px; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:#c9a84c; font-weight:700; border-bottom:1px solid rgba(201,168,76,.4); margin-bottom:0; }
+    .pricelist-col-header span:last-child { margin-left:auto; }
+    .pricelist-row { display:flex; align-items:baseline; gap:8px; padding:13px 0; border-bottom:1px solid rgba(201,168,76,.25); }
+    .pricelist-row:first-of-type { border-top:none; }
+    .pricelist-row__name { font-family:var(--serif); font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); flex-shrink:0; }
+    .pricelist-row__detail { font-size:.72rem; color:var(--mid); flex:1; padding:0 12px; font-style:italic; }
+    .pricelist-row__price { font-family:var(--serif); font-size:.88rem; font-weight:700; letter-spacing:.05em; color:var(--ink); white-space:nowrap; text-align:right; }
+    .pricelist-row__price small { font-weight:400; font-size:.72rem; color:var(--mid); }
+    .pricelist-row--bundle .pricelist-row__name,.pricelist-row--bundle .pricelist-row__price { color:#c9a84c; }
+    .pricelist-row--bundle { border-top:1px solid rgba(201,168,76,.5) !important; margin-top:4px; }
+    .pricelist-note { font-size:.72rem; color:var(--mid); margin-top:20px; line-height:1.7; text-align:center; }
+    .pricelist-note strong { color:var(--ink); }
+    .made-in-ch { display:inline-flex; align-items:center; gap:5px; font-size:.65rem; letter-spacing:.09em; text-transform:uppercase; color:var(--mid); padding:4px 10px; border:1px solid var(--border); border-radius:20px; margin-top:10px; }
+
+    /* Promo preview slots */
+    .promo-preview-note { font-size:.8rem; color:var(--mid); text-align:center; margin-bottom:20px; font-style:italic; }
+    .promo-slots-grid { display:flex; flex-direction:column; gap:12px; opacity:.6; pointer-events:none; }
+    .promo-slot { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 18px; }
+    .promo-slot--featured { border-color:rgba(201,168,76,.5); background:linear-gradient(135deg,var(--surface) 80%,rgba(201,168,76,.05) 100%); }
+    .promo-slot--banner { border-style:dashed; }
+    .promo-slot__badge { font-size:.58rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#c9a84c; display:block; margin-bottom:2px; }
+    .promo-slot__slot-name { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--mid); display:block; margin-bottom:8px; }
+    .promo-slot__handle { font-size:.8rem; font-weight:700; color:var(--accent); margin-bottom:2px; }
+    .promo-slot__headline { font-family:var(--serif); font-size:.92rem; font-weight:700; color:var(--ink); margin-bottom:4px; }
+    .promo-slot__desc { font-size:.77rem; color:var(--mid); line-height:1.5; margin-bottom:10px; }
+    .promo-slot__footer { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .promo-slot__cta { font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:5px 12px; border-radius:4px; background:var(--accent); color:#fff; }
+    .promo-slot__expiry { font-size:.68rem; color:var(--mid); font-style:italic; }
+
+    /* Promote contact */
+    .promote-contact { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:22px 24px; margin-bottom:28px; }
+    .promote-contact__title { font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .promote-contact__row { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+    .promote-contact__row:last-child { margin-bottom:0; }
+    .promote-contact__icon { font-size:1rem; flex-shrink:0; margin-top:2px; }
+    .promote-contact__val { font-size:.87rem; font-weight:600; color:var(--ink); word-break:break-all; }
+    .promote-contact__note { font-size:.73rem; color:var(--mid); margin-top:2px; }
+
+    /* Creator page */
+    .creator-profile { display:flex; flex-direction:column; align-items:center; text-align:center; padding:28px 0 8px; gap:10px; }
+    .creator-avatar { width:90px; height:90px; border-radius:50%; background:var(--surface); border:2px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:2.2rem; }
+    .creator-name { font-family:var(--serif); font-size:1.5rem; font-weight:700; color:var(--ink); line-height:1.1; }
+    .creator-handle { font-size:.88rem; color:var(--accent); font-weight:600; }
+    .creator-role { font-size:.66rem; letter-spacing:.12em; text-transform:uppercase; color:var(--mid); }
+    .creator-bio { background:var(--surface); border:1px dashed var(--border); border-radius:10px; padding:24px; font-size:.87rem; color:var(--mid); font-style:italic; line-height:1.7; margin:16px 0; text-align:center; }
+    .creator-socials { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:4px; }
+    .creator-social-btn { font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:7px 18px; border-radius:5px; border:1.5px solid var(--border); color:var(--mid); text-decoration:none; }
+
+    /* Support / Helplines page */
+    .support-message { background:linear-gradient(135deg,rgba(201,168,76,.08) 0%,rgba(201,168,76,.02) 100%); border:1px solid rgba(201,168,76,.3); border-radius:12px; padding:24px 26px; margin-bottom:32px; }
+    .support-message__quote { font-family:var(--serif); font-size:1rem; color:var(--ink); line-height:1.75; font-style:italic; }
+    .support-message__sig { font-size:.72rem; color:var(--mid); margin-top:10px; text-align:right; letter-spacing:.05em; }
+    .support-region { margin-bottom:28px; }
+    .support-region__title { display:flex; align-items:center; gap:10px; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:12px; }
+    .support-region__title::after { content:''; flex:1; height:1px; background:rgba(201,168,76,.3); }
+    .support-lines { display:flex; flex-direction:column; gap:8px; }
+    .support-line { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:12px 16px; }
+    .support-line__name { font-size:.82rem; font-weight:700; color:var(--ink); margin-bottom:1px; }
+    .support-line__number { font-size:.9rem; color:var(--accent); font-weight:700; letter-spacing:.04em; font-family:var(--serif); }
+    .support-line__desc { font-size:.71rem; color:var(--mid); margin-top:2px; line-height:1.4; }
+    .support-note { font-size:.72rem; color:var(--mid); margin-top:8px; font-style:italic; padding-left:4px; }
+    @media (min-width:600px) { .support-lines { display:grid; grid-template-columns:1fr 1fr; } }
+
   </style>
 </head>
 <body>
@@ -476,6 +548,8 @@
       <button class="nav__btn"         data-page="promote"        onclick="show('promote')"        data-i18n="nav_promote">Promote</button>
       <button class="nav__btn"         data-page="sources"        onclick="show('sources')"        data-i18n="nav_sources">Sources</button>
       <button class="nav__btn"         data-page="about"          onclick="show('about')"          data-i18n="nav_about">About</button>
+      <button class="nav__btn"         data-page="creator"        onclick="show('creator')"        data-i18n="nav_creator">Creator</button>
+      <button class="nav__btn"         data-page="support"        onclick="show('support')"        data-i18n="nav_support">Helplines</button>
     </div>
   </div>
 </nav>
@@ -947,8 +1021,200 @@
 
 
 <!-- ══════════════════════════════════════════════════
-  THE CANVAS
+  ABOUT THE CREATOR
 ══════════════════════════════════════════════════ -->
+<div class="page" id="page-creator">
+  <div class="wrap">
+    <span class="label" data-i18n="creator_label">Behind the Site</span>
+    <h1 class="page-title" data-i18n="creator_title">About the Creator</h1>
+    <p class="page-sub" data-i18n="creator_sub">The person behind Avakin Report — an independent publication for the Avakin Life community.</p>
+
+    <div class="creator-profile">
+      <div class="creator-avatar">&#127803;</div>
+      <div class="creator-name">Sage</div>
+      <div class="creator-handle">@itssagewren</div>
+      <div class="creator-role" data-i18n="creator_role">Founder &amp; Editor — Avakin Report · Switzerland</div>
+    </div>
+
+    <div class="creator-bio" data-i18n="creator_bio">
+      More about Sage is coming soon. This section will include a personal message about why Avakin Report exists, what motivates the project, and what community-first publishing means in practice.
+    </div>
+
+    <div class="creator-socials">
+      <a class="creator-social-btn" href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+
+    <div class="notice" style="margin-top:28px;" data-i18n-html="creator_notice">
+      <strong>This section is a placeholder.</strong> The creator bio will be filled in soon. Check back later or follow <a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a> on Instagram for updates.
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+  SAFETY HELPLINES
+══════════════════════════════════════════════════ -->
+<div class="page" id="page-support">
+  <div class="wrap">
+    <span class="label" data-i18n="support_label">You Are Not Alone</span>
+    <h1 class="page-title" data-i18n="support_title">Safety Helplines</h1>
+    <p class="page-sub" data-i18n="support_sub">Crisis and support lines by region. If you are in danger, please contact emergency services first (112 in the EU, 911 in North America, 999 in the UK).</p>
+
+    <!-- Creator message -->
+    <div class="support-message">
+      <p class="support-message__quote" data-i18n="support_msg">As a survivor myself, it means a lot that Avakin Life players feel safe and supported — even when LKWD falls short. I hope this page can help, especially for those who need it most. You are not alone, and it is okay to reach out.</p>
+      <p class="support-message__sig">— Sage / @itssagewren</p>
+    </div>
+
+    <!-- EUROPE -->
+    <div class="support-region">
+      <div class="support-region__title">&#127466;&#127482; Europe</div>
+      <div class="support-lines">
+        <div class="support-line">
+          <div class="support-line__name">Die Dargebotene Hand (CH)</div>
+          <div class="support-line__number">143</div>
+          <div class="support-line__desc" data-i18n="sl_ch1">Crisis &amp; emotional support · Switzerland · 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Pro Juventute (CH)</div>
+          <div class="support-line__number">147</div>
+          <div class="support-line__desc" data-i18n="sl_ch2">Youth support line · Switzerland · 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Telefonseelsorge (DE)</div>
+          <div class="support-line__number">0800 111 0 111</div>
+          <div class="support-line__desc" data-i18n="sl_de1">Emotional support · Germany · free, 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Numéro national prévention suicide (FR)</div>
+          <div class="support-line__number">3114</div>
+          <div class="support-line__desc" data-i18n="sl_fr1">Crisis line · France · 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Samaritans (UK)</div>
+          <div class="support-line__number">116 123</div>
+          <div class="support-line__desc" data-i18n="sl_uk1">Emotional support · UK &amp; Ireland · free, 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Sensoor (NL)</div>
+          <div class="support-line__number">0800-0113</div>
+          <div class="support-line__desc" data-i18n="sl_nl1">Emotional support · Netherlands · free, 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">EU Domestic Violence Helpline</div>
+          <div class="support-line__number">116 006</div>
+          <div class="support-line__desc" data-i18n="sl_eu_dv">Domestic violence support · EU-wide · free</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NORTH AMERICA -->
+    <div class="support-region">
+      <div class="support-region__title">&#127482;&#127480; North America</div>
+      <div class="support-lines">
+        <div class="support-line">
+          <div class="support-line__name">988 Suicide &amp; Crisis Lifeline (USA/CA)</div>
+          <div class="support-line__number">988</div>
+          <div class="support-line__desc" data-i18n="sl_us1">Call or text · USA &amp; Canada · 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Crisis Text Line (USA)</div>
+          <div class="support-line__number">Text HOME to 741741</div>
+          <div class="support-line__desc" data-i18n="sl_us2">Text-based crisis support · USA · 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">National DV Hotline (USA)</div>
+          <div class="support-line__number">1-800-799-7233</div>
+          <div class="support-line__desc" data-i18n="sl_us3">Domestic violence support · USA · 24/7</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOUTH AMERICA -->
+    <div class="support-region">
+      <div class="support-region__title">&#127463;&#127479; South America</div>
+      <div class="support-lines">
+        <div class="support-line">
+          <div class="support-line__name">CVV (BR)</div>
+          <div class="support-line__number">188</div>
+          <div class="support-line__desc" data-i18n="sl_br1">Crisis support · Brazil · free, 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Centro de Asistencia al Suicida (AR)</div>
+          <div class="support-line__number">135</div>
+          <div class="support-line__desc" data-i18n="sl_ar1">Crisis support · Argentina · free, 24/7</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AFRICA -->
+    <div class="support-region">
+      <div class="support-region__title">&#127462;&#127467; Africa</div>
+      <div class="support-lines">
+        <div class="support-line">
+          <div class="support-line__name">SADAG (ZA)</div>
+          <div class="support-line__number">0800 567 567</div>
+          <div class="support-line__desc" data-i18n="sl_za1">Mental health support · South Africa · free, 24/7</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASIA -->
+    <div class="support-region">
+      <div class="support-region__title">&#127462;&#127480; Asia</div>
+      <div class="support-lines">
+        <div class="support-line">
+          <div class="support-line__name">iCall (IN)</div>
+          <div class="support-line__number">9152987821</div>
+          <div class="support-line__desc" data-i18n="sl_in1">Psychosocial support · India</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Inochi no Denwa (JP)</div>
+          <div class="support-line__number">0120-783-556</div>
+          <div class="support-line__desc" data-i18n="sl_jp1">Crisis line · Japan · free, 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Korea Suicide Prevention Hotline</div>
+          <div class="support-line__number">1393</div>
+          <div class="support-line__desc" data-i18n="sl_kr1">Crisis line · South Korea · 24/7</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OCEANIA -->
+    <div class="support-region">
+      <div class="support-region__title">&#127462;&#127482; Oceania</div>
+      <div class="support-lines">
+        <div class="support-line">
+          <div class="support-line__name">Lifeline (AU)</div>
+          <div class="support-line__number">13 11 14</div>
+          <div class="support-line__desc" data-i18n="sl_au1">Crisis support · Australia · 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Beyond Blue (AU)</div>
+          <div class="support-line__number">1300 22 4636</div>
+          <div class="support-line__desc" data-i18n="sl_au2">Mental health support · Australia · 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Lifeline (NZ)</div>
+          <div class="support-line__number">0800 543 354</div>
+          <div class="support-line__desc" data-i18n="sl_nz1">Crisis support · New Zealand · 24/7</div>
+        </div>
+        <div class="support-line">
+          <div class="support-line__name">Need to Talk (NZ)</div>
+          <div class="support-line__number">1737</div>
+          <div class="support-line__desc" data-i18n="sl_nz2">Text or call · New Zealand · free, 24/7</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="support-note" data-i18n="support_footer_note">Numbers may change. If a number does not connect, search for the name of the service in your country for updated contact details.</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════
+  THE CANVAS
 <div class="page" id="page-canvas">
   <div class="wrap">
     <img src="images/art-class.jpg" class="deco" alt="Avakin Life — decorative" />
@@ -1228,55 +1494,107 @@
   <div class="wrap">
     <span class="label" data-i18n="promote_label">Advertise with Avakin Report</span>
     <h1 class="page-title" data-i18n="promote_title">Promotion</h1>
-    <p class="page-sub" data-i18n="promote_sub">Avakin Report is an independent community publication. Promotion slots are coming soon — this page shows what will be available and at what price so you can plan ahead.</p>
+    <p class="page-sub" data-i18n="promote_sub">Reach the Avakin Life community through an independent, community-first publication. Slots are displayed here as a preview — booking is not yet open.</p>
 
-    <div class="notice notice--warn" style="margin-bottom:28px;" data-i18n-html="promote_warn">The editorial email and booking process are being set up. This page gives you advance notice of what will be available. When promotion opens, this notice will be updated with contact details.
-    </div>
+    <div class="notice notice--warn" style="margin-bottom:28px;" data-i18n-html="promote_warn"><strong>Promotion is not yet open.</strong> The booking process is being set up. This page is a preview of what will be available and at what price. When promotion opens, this notice will be removed and the contact form will be activated.</div>
 
-    <span class="label" style="margin-bottom:16px;" data-i18n="promote_avail">What is available</span>
-    <div class="pricing-cards">
-      <div class="pricing-card">
-        <div class="pricing-card__type" data-i18n="promo_type1">Homepage</div>
-        <div class="pricing-card__name" data-i18n="promo_name1">Homepage Quote</div>
-        <div class="pricing-card__price-row">
-          <span class="pricing-card__currency">CHF</span>
-          <span class="pricing-card__price">5</span>
-        </div>
-        <div class="pricing-card__period" data-i18n="promo_period1">per week</div>
-        <div class="pricing-card__desc" data-i18n="promo_desc1">Your message or creator quote in the Avakin Report Quote block on the homepage</div>
+    <!-- ── LUXURY PRICE LIST ─── -->
+    <div class="pricelist-wrap">
+      <div class="pricelist-emboss">
+        <span class="pricelist-emboss__main" data-i18n="pl_main">Avakin Report</span>
+        <span class="pricelist-emboss__sub" data-i18n="pl_sub">Promotion Services</span>
       </div>
-      <div class="pricing-card">
-        <div class="pricing-card__type" data-i18n="promo_type2">The Canvas</div>
-        <div class="pricing-card__name" data-i18n="promo_name2">Community Artist Listing</div>
-        <div class="pricing-card__price-row">
-          <span class="pricing-card__currency">CHF</span>
-          <span class="pricing-card__price">12</span>
-        </div>
-        <div class="pricing-card__period" data-i18n="promo_period2">3 months</div>
-        <div class="pricing-card__desc" data-i18n="promo_desc2">Listing in The Canvas community artists grid with your name, handle, and description</div>
+      <hr class="pricelist-divider" />
+      <div class="pricelist-col-header">
+        <span data-i18n="pl_col_service">Service</span>
+        <span data-i18n="pl_col_rate">Rate / week</span>
       </div>
-      <div class="pricing-card pricing-card--featured">
-        <div class="pricing-card__type" data-i18n="promo_type3">Sponsored</div>
-        <div class="pricing-card__name" data-i18n="promo_name3">Sponsored Article</div>
-        <div class="pricing-card__price-row">
-          <span class="pricing-card__currency">CHF</span>
-          <span class="pricing-card__price">25</span>
+      <div class="pricelist-row">
+        <span class="pricelist-row__name" data-i18n="pl_slot1_name">Homepage Banner</span>
+        <span class="pricelist-row__detail" data-i18n="pl_slot1_detail">Full-width banner at the top of the homepage</span>
+        <span class="pricelist-row__price">CHF 15 <small data-i18n="pl_per_week">/wk</small></span>
+      </div>
+      <div class="pricelist-row">
+        <span class="pricelist-row__name" data-i18n="pl_slot2_name">Featured Sidebar</span>
+        <span class="pricelist-row__detail" data-i18n="pl_slot2_detail">Highlighted placement in the sidebar — above all other listings</span>
+        <span class="pricelist-row__price">CHF 20 <small data-i18n="pl_per_week">/wk</small></span>
+      </div>
+      <div class="pricelist-row">
+        <span class="pricelist-row__name" data-i18n="pl_slot3_name">Standard Sidebar</span>
+        <span class="pricelist-row__detail" data-i18n="pl_slot3_detail">Sidebar listing with your handle, headline, and link</span>
+        <span class="pricelist-row__price">CHF 10 <small data-i18n="pl_per_week">/wk</small></span>
+      </div>
+      <div class="pricelist-row pricelist-row--bundle">
+        <span class="pricelist-row__name" data-i18n="pl_slot4_name">&#9733; Bundle</span>
+        <span class="pricelist-row__detail" data-i18n="pl_slot4_detail">Homepage Banner + Featured Sidebar + Standard Sidebar — saves CHF 10</span>
+        <span class="pricelist-row__price">CHF 35 <small data-i18n="pl_per_week">/wk</small></span>
+      </div>
+      <p class="pricelist-note">
+        <strong data-i18n="pl_paypal_label">Payment:</strong>
+        <span data-i18n="pl_paypal_note">PayPal only. Crowns and AvaCoins are not accepted. Prices are in CHF (Swiss Francs).</span><br />
+        <span class="made-in-ch">&#127464;&#127469; <span data-i18n="pl_swiss">Made in Switzerland</span></span>
+      </p>
+    </div>
+
+    <!-- ── PREVIEW SLOTS (disabled until booking opens) ─── -->
+    <span class="label" style="margin-bottom:8px;" data-i18n="pl_preview_label">Preview — How Your Promotion Will Appear</span>
+    <p class="promo-preview-note" data-i18n="pl_preview_note">These slots are shown as examples only. Booking is not yet open.</p>
+    <div class="promo-slots-grid" aria-hidden="true">
+      <div class="promo-slot promo-slot--banner">
+        <span class="promo-slot__badge" data-i18n="pl_badge">&#9670; Promoted</span>
+        <span class="promo-slot__slot-name" data-i18n="pl_s_banner">Homepage Banner</span>
+        <div class="promo-slot__handle">@yourcreatorhandle</div>
+        <div class="promo-slot__headline" data-i18n="pl_demo_headline">Your headline goes here — up to 40 characters</div>
+        <div class="promo-slot__desc" data-i18n="pl_demo_desc">Your description goes here — up to 120 characters. Tell the community what you create and where to find you.</div>
+        <div class="promo-slot__footer">
+          <span class="promo-slot__cta" data-i18n="pl_cta">View Profile</span>
+          <span class="promo-slot__expiry" data-i18n="pl_expiry">Expires: —</span>
         </div>
-        <div class="pricing-card__period" data-i18n="promo_period3">3 months</div>
-        <div class="pricing-card__desc" data-i18n="promo_desc3">A clearly labeled community content article about your work, creative project, or creator story</div>
+      </div>
+      <div class="promo-slot promo-slot--featured">
+        <span class="promo-slot__badge" data-i18n="pl_badge">&#9670; Promoted</span>
+        <span class="promo-slot__slot-name" data-i18n="pl_s_featured">Featured Sidebar</span>
+        <div class="promo-slot__handle">@yourcreatorhandle</div>
+        <div class="promo-slot__headline" data-i18n="pl_demo_headline">Your headline goes here — up to 40 characters</div>
+        <div class="promo-slot__desc" data-i18n="pl_demo_desc">Your description goes here — up to 120 characters. Tell the community what you create and where to find you.</div>
+        <div class="promo-slot__footer">
+          <span class="promo-slot__cta" data-i18n="pl_cta">View Profile</span>
+          <span class="promo-slot__expiry" data-i18n="pl_expiry">Expires: —</span>
+        </div>
+      </div>
+      <div class="promo-slot">
+        <span class="promo-slot__badge" data-i18n="pl_badge">&#9670; Promoted</span>
+        <span class="promo-slot__slot-name" data-i18n="pl_s_standard">Standard Sidebar</span>
+        <div class="promo-slot__handle">@yourcreatorhandle</div>
+        <div class="promo-slot__headline" data-i18n="pl_demo_headline">Your headline goes here — up to 40 characters</div>
+        <div class="promo-slot__desc" data-i18n="pl_demo_desc">Your description goes here — up to 120 characters. Tell the community what you create and where to find you.</div>
+        <div class="promo-slot__footer">
+          <span class="promo-slot__cta" data-i18n="pl_cta">View Profile</span>
+          <span class="promo-slot__expiry" data-i18n="pl_expiry">Expires: —</span>
+        </div>
       </div>
     </div>
 
-    <div class="notice" data-i18n-html="promote_editorial">All sponsored content is clearly labeled. Paid placements do not influence editorial articles, the Issues page, the Accountability page, or any factual reporting on this site. Promotion is for community creators and artists only — not for LKWD or affiliated organisations.
+    <!-- ── CONTACT ─── -->
+    <div class="promote-contact" style="margin-top:32px;">
+      <div class="promote-contact__title" data-i18n="pl_contact_title">Book a Promotion Slot</div>
+      <div class="promote-contact__row">
+        <span class="promote-contact__icon">✉</span>
+        <div>
+          <div class="promote-contact__val">avknreport@gmail.com</div>
+          <div class="promote-contact__note" data-i18n="pl_contact_email_note">Email with your handle, preferred slot, and the week you want to run</div>
+        </div>
+      </div>
+      <div class="promote-contact__row">
+        <span class="promote-contact__icon">&#128247;</span>
+        <div>
+          <div class="promote-contact__val">@itssagewren</div>
+          <div class="promote-contact__note" data-i18n="pl_contact_ig_note">Instagram DM — include "Promo Request" in your first message</div>
+        </div>
+      </div>
     </div>
 
-    <hr class="divider" />
-    <span class="label" style="margin-bottom:12px;" data-i18n="promote_who">Who this is for</span>
-    <div class="steps">
-      <div class="step"><div class="step__num">1</div><div><div class="step__title" data-i18n="promote_step1_t">Independent community artists and fashion creators</div><div class="step__body" data-i18n="promote_step1_b">If you create Avakin-themed art, fashion illustrations, or interior designs on Instagram and want visibility among the Avakin Life community, this is for you.</div></div></div>
-      <div class="step"><div class="step__num">2</div><div><div class="step__title" data-i18n="promote_step2_t">Content creators building their audience</div><div class="step__body" data-i18n="promote_step2_b">Promotion on Avakin Report reaches players who care about honest, community-first content — an audience that appreciates genuine creative work.</div></div></div>
-      <div class="step"><div class="step__num">3</div><div><div class="step__title" data-i18n="promote_step3_t">Anyone with something real to share</div><div class="step__body" data-i18n="promote_step3_b">If you have a project, a collaboration, or a creative idea relevant to the Avakin Life community, get in touch when booking opens.</div></div></div>
-    </div>
+    <div class="notice" style="margin-top:16px;" data-i18n-html="promote_editorial"><strong>Editorial independence:</strong> All sponsored content is clearly labeled. Paid placements do not influence editorial articles, the Issues page, the Accountability page, or any factual reporting on this site. Promotion is for community creators and artists only — not for LKWD or affiliated organisations.</div>
   </div>
 </div>
 
@@ -1286,6 +1604,9 @@
   Avakin Report — independent community resource — not affiliated with Lockwood Publishing ·
   <a onclick="show('sources')">Sources</a> ·
   <a onclick="show('about')">About</a> ·
+  <a onclick="show('creator')">Creator</a> ·
+  <a onclick="show('support')">Helplines</a> ·
+  <span style="opacity:.55;font-size:.7em;">&#127464;&#127469; Made in Switzerland</span> ·
   <a id="footer-admin-link" onclick="openAdminLogin()">Admin</a> ·
   <a id="footer-logout-link" style="display:none;" onclick="adminLogout()">Log out</a>
 </footer>
@@ -1958,6 +2279,56 @@ const STRINGS = {
     about_p5:"<strong>Security note:</strong> The admin password is stored as base64 encoding in your browser's local storage — this is not encryption. Anyone with access to your browser's DevTools can decode it trivially. Only use this feature on a personal device you trust.",
     about_h5:'Images',about_p6:'Images throughout the site are decorative screenshots from Avakin Life, used to illustrate the visual character of the game. They are not attributed to specific players and are used as aesthetic decoration only.',
     about_h6:'Disclaimer',about_p7:'Avakin Life, Crowns, A-Creator, and Lockwood Publishing are trademarks of Lockwood Publishing Ltd. This site has no affiliation with Lockwood Publishing.',
+    nav_creator:'Creator', nav_support:'Helplines',
+    creator_label:'Behind the Site', creator_title:'About the Creator',
+    creator_sub:'The person behind Avakin Report — an independent publication for the Avakin Life community.',
+    creator_role:'Founder & Editor — Avakin Report · Switzerland',
+    creator_bio:'More about Sage is coming soon. This section will include a personal message about why Avakin Report exists, what motivates the project, and what community-first publishing means in practice.',
+    creator_notice:'<strong>This section is a placeholder.</strong> The creator bio will be filled in soon. Check back later or follow <a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a> on Instagram for updates.',
+    support_label:'You Are Not Alone', support_title:'Safety Helplines',
+    support_sub:'Crisis and support lines by region. If you are in danger, please contact emergency services first (112 in the EU, 911 in North America, 999 in the UK).',
+    support_msg:"As a survivor myself, it means a lot that Avakin Life players feel safe and supported — even when LKWD falls short. I hope this page can help, especially for those who need it most. You are not alone, and it is okay to reach out.",
+    support_footer_note:'Numbers may change. If a number does not connect, search for the name of the service in your country for updated contact details.',
+    sl_ch1:'Crisis & emotional support · Switzerland · 24/7',
+    sl_ch2:'Youth support line · Switzerland · 24/7',
+    sl_de1:'Emotional support · Germany · free, 24/7',
+    sl_fr1:'Crisis line · France · 24/7',
+    sl_uk1:'Emotional support · UK & Ireland · free, 24/7',
+    sl_nl1:'Emotional support · Netherlands · free, 24/7',
+    sl_eu_dv:'Domestic violence support · EU-wide · free',
+    sl_us1:'Call or text · USA & Canada · 24/7',
+    sl_us2:'Text-based crisis support · USA · 24/7',
+    sl_us3:'Domestic violence support · USA · 24/7',
+    sl_br1:'Crisis support · Brazil · free, 24/7',
+    sl_ar1:'Crisis support · Argentina · free, 24/7',
+    sl_za1:'Mental health support · South Africa · free, 24/7',
+    sl_in1:'Psychosocial support · India',
+    sl_jp1:'Crisis line · Japan · free, 24/7',
+    sl_kr1:'Crisis line · South Korea · 24/7',
+    sl_au1:'Crisis support · Australia · 24/7',
+    sl_au2:'Mental health support · Australia · 24/7',
+    sl_nz1:'Crisis support · New Zealand · 24/7',
+    sl_nz2:'Text or call · New Zealand · free, 24/7',
+    pl_main:'Avakin Report', pl_sub:'Promotion Services',
+    pl_col_service:'Service', pl_col_rate:'Rate / week',
+    pl_slot1_name:'Homepage Banner', pl_slot1_detail:'Full-width banner at the top of the homepage',
+    pl_slot2_name:'Featured Sidebar', pl_slot2_detail:'Highlighted placement in the sidebar — above all other listings',
+    pl_slot3_name:'Standard Sidebar', pl_slot3_detail:'Sidebar listing with your handle, headline, and link',
+    pl_slot4_name:'Bundle', pl_slot4_detail:'Homepage Banner + Featured Sidebar + Standard Sidebar — saves CHF 10',
+    pl_per_week:'/wk',
+    pl_paypal_label:'Payment:', pl_paypal_note:'PayPal only. Crowns and AvaCoins are not accepted. Prices are in CHF (Swiss Francs).',
+    pl_swiss:'Made in Switzerland',
+    pl_preview_label:'Preview — How Your Promotion Will Appear',
+    pl_preview_note:'These slots are shown as examples only. Booking is not yet open.',
+    pl_badge:'\u25C6 Promoted',
+    pl_s_banner:'Homepage Banner', pl_s_featured:'Featured Sidebar', pl_s_standard:'Standard Sidebar',
+    pl_demo_headline:'Your headline goes here — up to 40 characters',
+    pl_demo_desc:'Your description goes here — up to 120 characters. Tell the community what you create and where to find you.',
+    pl_cta:'View Profile', pl_expiry:'Expires: —',
+    pl_contact_title:'Book a Promotion Slot',
+    pl_contact_email_note:'Email with your handle, preferred slot, and the week you want to run',
+    pl_contact_ig_note:'Instagram DM — include \"Promo Request\" in your first message',
+    promote_sub:'Reach the Avakin Life community through an independent, community-first publication. Slots are displayed here as a preview — booking is not yet open.',
     canvas_notice:'<strong>About The Canvas:</strong> This space is dedicated to independent community artists and creators — not to official badge holders. We spotlight people whose work stands on its own.',
     canvas_callout:'<strong>How Canvas Picks are chosen — by the community, not LKWD.</strong><br /><br />Canvas Picks are decided by community vote through Instagram Story polls on <a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a> (public profile — anyone can see the votes). Lockwood Publishing (LKWD) has no involvement in the selection process and does not choose, influence, or approve Canvas Pick winners. These picks are entirely independent and community-driven.<br /><br /><strong>One rule to be eligible:</strong> Follow <a href="https://www.instagram.com/itssagewren/" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">@itssagewren</a> on Instagram. That\'s it.',
     compare_method:'<strong>Note on methodology:</strong> This comparison uses publicly available data and community-observed patterns. It is not a commercial endorsement of any game. IMVU and Zepeto data reflects broad community consensus at time of writing.',
@@ -2015,6 +2386,7 @@ const STRINGS = {
     nav_home:'Start', nav_issues:'Probleme', nav_reviews:'Bewertungen', nav_suggestions:'Vorschläge',
     nav_guide:'Spielerguide', nav_canvas:'The Canvas', nav_compare:'Vergleich',
     nav_accountability:'Rechenschaft', nav_promote:'Werbung', nav_sources:'Quellen', nav_about:'Über uns',
+    nav_creator:'Ersteller', nav_support:'Hilfstelefone',
     search_placeholder:'Artikel und Vorschläge durchsuchen…',
     lang_notice:'Artikeltext auf Englisch. Vollständige Übersetzungen folgen bald.',
     canvas_label:'Creator-Spotlight', canvas_title:'The Canvas',
@@ -2117,6 +2489,55 @@ const STRINGS = {
     about_p5:'<strong>Sicherheitshinweis:</strong> Das Admin-Passwort wird als Base64-Kodierung im lokalen Browser-Speicher gespeichert — dies ist keine Verschlüsselung. Verwende diese Funktion nur auf einem persönlichen Gerät, dem du vertraust.',
     about_h5:'Bilder',about_p6:'Bilder auf der gesamten Seite sind dekorative Screenshots aus Avakin Life. Sie werden keinen bestimmten Spielern zugeschrieben und dienen nur als ästhetische Dekoration.',
     about_h6:'Haftungsausschluss',about_p7:'Avakin Life, Kronen, A-Creator und Lockwood Publishing sind Marken von Lockwood Publishing Ltd. Diese Seite hat keine Verbindung zu Lockwood Publishing.',
+    creator_label:'Hinter der Seite', creator_title:'Über die Gründerin',
+    creator_sub:'Die Person hinter Avakin Report — eine unabhängige Publikation für die Avakin Life Community.',
+    creator_role:'Gründerin & Redaktion — Avakin Report · Schweiz',
+    creator_bio:'Mehr über Sage folgt bald. Dieser Bereich wird eine persönliche Botschaft darüber enthalten, warum Avakin Report existiert.',
+    creator_notice:'<strong>Dieser Bereich ist ein Platzhalter.</strong> Das Creator-Profil wird bald ausgefüllt.',
+    support_label:'Du bist nicht allein', support_title:'Hilfstelefone',
+    support_sub:'Krisen- und Hilfstelefone nach Region. Bei akuter Gefahr bitte zuerst den Notruf kontaktieren (112 in der EU).',
+    support_msg:'Als Überlebende selbst liegt mir sehr viel daran, dass sich Avakin-Life-Spieler sicher und unterstützt fühlen — auch wenn LKWD versagt. Du bist nicht allein, und es ist okay, sich Hilfe zu suchen.',
+    support_footer_note:'Nummern können sich ändern. Wenn eine Nummer nicht verbindet, suche nach dem Namen des Dienstes in deinem Land.',
+    sl_ch1:'Krisen- & emotionale Unterstützung · Schweiz · 24/7',
+    sl_ch2:'Jugend-Hilfslinie · Schweiz · 24/7',
+    sl_de1:'Seelsorge · Deutschland · kostenlos, 24/7',
+    sl_fr1:'Krisentelefon · Frankreich · 24/7',
+    sl_uk1:'Emotionale Unterstützung · UK & Irland · kostenlos, 24/7',
+    sl_nl1:'Emotionale Unterstützung · Niederlande · kostenlos, 24/7',
+    sl_eu_dv:'Häusliche Gewalt · EU-weit · kostenlos',
+    sl_us1:'Anrufen oder SMS · USA & Kanada · 24/7',
+    sl_us2:'Krisenunterstützung per SMS · USA · 24/7',
+    sl_us3:'Häusliche Gewalt · USA · 24/7',
+    sl_br1:'Krisenunterstützung · Brasilien · kostenlos, 24/7',
+    sl_ar1:'Krisenunterstützung · Argentinien · kostenlos, 24/7',
+    sl_za1:'Psychische Gesundheit · Südafrika · kostenlos, 24/7',
+    sl_in1:'Psychosoziale Unterstützung · Indien',
+    sl_jp1:'Krisentelefon · Japan · kostenlos, 24/7',
+    sl_kr1:'Krisentelefon · Südkorea · 24/7',
+    sl_au1:'Krisenunterstützung · Australien · 24/7',
+    sl_au2:'Psychische Gesundheit · Australien · 24/7',
+    sl_nz1:'Krisenunterstützung · Neuseeland · 24/7',
+    sl_nz2:'SMS oder Anruf · Neuseeland · kostenlos, 24/7',
+    pl_main:'Avakin Report', pl_sub:'Werbeleistungen',
+    pl_col_service:'Leistung', pl_col_rate:'Preis / Woche',
+    pl_slot1_name:'Homepage-Banner', pl_slot1_detail:'Ganzseitiges Banner oben auf der Homepage',
+    pl_slot2_name:'Featured Sidebar', pl_slot2_detail:'Hervorgehobene Platzierung in der Sidebar',
+    pl_slot3_name:'Standard Sidebar', pl_slot3_detail:'Sidebar-Eintrag mit Handle, Headline und Link',
+    pl_slot4_name:'Bundle', pl_slot4_detail:'Homepage-Banner + Featured + Standard — spart CHF 10',
+    pl_per_week:'/Wo.',
+    pl_paypal_label:'Zahlung:', pl_paypal_note:'Nur PayPal. Crowns und AvaCoins werden nicht akzeptiert. Preise in CHF (Schweizer Franken).',
+    pl_swiss:'Hergestellt in der Schweiz',
+    pl_preview_label:'Vorschau — So erscheint deine Werbung',
+    pl_preview_note:'Diese Slots sind nur als Beispiele zu sehen. Buchungen sind noch nicht möglich.',
+    pl_badge:'\u25C6 Gesponsert',
+    pl_s_banner:'Homepage-Banner', pl_s_featured:'Featured Sidebar', pl_s_standard:'Standard Sidebar',
+    pl_demo_headline:'Dein Headline hier — max. 40 Zeichen',
+    pl_demo_desc:'Deine Beschreibung hier — max. 120 Zeichen.',
+    pl_cta:'Profil ansehen', pl_expiry:'Läuft ab: —',
+    pl_contact_title:'Werbeslot buchen',
+    pl_contact_email_note:'E-Mail mit deinem Handle, gewünschtem Slot und gewünschter Woche',
+    pl_contact_ig_note:'Instagram DM — \"Promo-Anfrage\" im ersten Satz erwähnen',
+    promote_sub:'Erreiche die Avakin Life Community durch eine unabhängige, community-first Publikation.',
     sg_sg01_t:'Abzeichen von inaktiven offiziellen Creators entfernen oder pausieren',sg_sg01_d:'A-Creator-, Trendsetter- und Content-Creator-Abzeichen sollten fortlaufende Aktivität erfordern. Konten, die seit 6+ Monaten inaktiv sind, sollten pausiert werden, bis die Aktivität wieder aufgenommen wird.',
     sg_sg02_t:'Transparentes Aktivitätsprotokoll für alle offiziellen Creator-Stufen veröffentlichen',sg_sg02_d:'LKWD sollte ein sichtbares Protokoll über das letzte aktive Datum und die Inhaltsproduktion jedes Abzeicheninhabers führen.',
     sg_sg03_t:'Sinnvolle kostenlose Kronen-Verdienmöglichkeiten hinzufügen',sg_sg03_d:'Tägliche Missionen, wöchentliche Serien oder Leistungsmeilensteine einführen, die konsequent Kronen produzieren — nicht als seltenen Tropfen aus der Mysterybox, sondern als verlässliche, erreichbare Belohnung.',
@@ -2186,6 +2607,7 @@ const STRINGS = {
     nav_home:'Accueil', nav_issues:'Problèmes', nav_reviews:'Avis', nav_suggestions:'Suggestions',
     nav_guide:'Guide joueur', nav_canvas:'The Canvas', nav_compare:'Comparatif',
     nav_accountability:'Responsabilité', nav_promote:'Publicité', nav_sources:'Sources', nav_about:'À propos',
+    nav_creator:'Créatrice', nav_support:'Lignes d\'aide',
     search_placeholder:'Rechercher des articles et suggestions…',
     lang_notice:'Texte de l\'article en anglais. Traductions complètes à venir.',
     canvas_label:'Coup de projecteur', canvas_title:'The Canvas',
@@ -2288,6 +2710,55 @@ const STRINGS = {
     about_p5:"<strong>Note de sécurité :</strong> Le mot de passe admin est stocké en encodage base64 dans le stockage local du navigateur — ce n'est pas un chiffrement. N'utilisez cette fonctionnalité que sur un appareil personnel de confiance.",
     about_h5:'Images',about_p6:"Les images sur tout le site sont des captures décoratives d'Avakin Life, utilisées pour illustrer le caractère visuel du jeu. Elles ne sont pas attribuées à des joueurs spécifiques et sont utilisées uniquement comme décoration esthétique.",
     about_h6:'Avertissement',about_p7:"Avakin Life, Couronnes, A-Creator et Lockwood Publishing sont des marques de Lockwood Publishing Ltd. Ce site n'a aucune affiliation avec Lockwood Publishing." ,
+    creator_label:'Derrière le site', creator_title:'À propos de la créatrice',
+    creator_sub:"La personne derrière Avakin Report — une publication communautaire indépendante pour Avakin Life.",
+    creator_role:'Fondatrice & rédactrice — Avakin Report · Suisse',
+    creator_bio:"Plus d\'informations sur Sage arrivent bientôt.",
+    creator_notice:"<strong>Cette section est un espace réservé.</strong> Le profil de la créatrice sera rempli bientôt.",
+    support_label:"Vous n\'êtes pas seul·e", support_title:"Lignes d\'aide",
+    support_sub:"Lignes de crise et soutien par région. En cas de danger, contactez d\'abord les services d\'urgence (112 en UE, 15 en France).",
+    support_msg:"En tant que survivante, il m\'importe que les joueurs d\'Avakin Life se sentent en sécurité. Vous n\'êtes pas seul·e.",
+    support_footer_note:"Les numéros peuvent changer. Recherchez le nom du service dans votre pays si un numéro ne répond pas.",
+    sl_ch1:'Soutien émotionnel · Suisse · 24h/24',
+    sl_ch2:'Ligne jeunesse · Suisse · 24h/24',
+    sl_de1:'Soutien émotionnel · Allemagne · gratuit, 24h/24',
+    sl_fr1:'Prévention suicide · France · 24h/24',
+    sl_uk1:'Soutien émotionnel · Royaume-Uni & Irlande · gratuit, 24h/24',
+    sl_nl1:'Soutien émotionnel · Pays-Bas · gratuit, 24h/24',
+    sl_eu_dv:'Violences domestiques · UE · gratuit',
+    sl_us1:'Appel ou SMS · USA & Canada · 24h/24',
+    sl_us2:'Crise par SMS · USA · 24h/24',
+    sl_us3:'Violences domestiques · USA · 24h/24',
+    sl_br1:'Soutien crise · Brésil · gratuit, 24h/24',
+    sl_ar1:'Soutien crise · Argentine · gratuit, 24h/24',
+    sl_za1:'Santé mentale · Afrique du Sud · gratuit, 24h/24',
+    sl_in1:'Soutien psychosocial · Inde',
+    sl_jp1:'Ligne de crise · Japon · gratuit, 24h/24',
+    sl_kr1:'Ligne de crise · Corée du Sud · 24h/24',
+    sl_au1:'Soutien crise · Australie · 24h/24',
+    sl_au2:'Santé mentale · Australie · 24h/24',
+    sl_nz1:'Soutien crise · Nouvelle-Zélande · 24h/24',
+    sl_nz2:'SMS ou appel · Nouvelle-Zélande · gratuit, 24h/24',
+    pl_main:'Avakin Report', pl_sub:'Services Publicitaires',
+    pl_col_service:'Service', pl_col_rate:'Tarif / semaine',
+    pl_slot1_name:"Bannière d\'accueil", pl_slot1_detail:"Bannière pleine largeur en haut de la page d\'accueil",
+    pl_slot2_name:'Sidebar vedette', pl_slot2_detail:'Placement mis en avant dans la sidebar',
+    pl_slot3_name:'Sidebar standard', pl_slot3_detail:'Annonce dans la sidebar avec pseudo, titre et lien',
+    pl_slot4_name:'Forfait', pl_slot4_detail:'Bannière + Sidebar vedette + Sidebar standard — économise CHF 10',
+    pl_per_week:'/sem.',
+    pl_paypal_label:'Paiement :', pl_paypal_note:'PayPal uniquement. Couronnes et AvaCoins non acceptés. Prix en CHF (francs suisses).',
+    pl_swiss:'Fabriqué en Suisse',
+    pl_preview_label:"Aperçu — Comment apparaîtra votre publicité",
+    pl_preview_note:"Ces emplacements sont présentés à titre d\'exemples. Réservations pas encore ouvertes.",
+    pl_badge:'\u25C6 Sponsorisé',
+    pl_s_banner:"Bannière d\'accueil", pl_s_featured:'Sidebar vedette', pl_s_standard:'Sidebar standard',
+    pl_demo_headline:'Votre titre ici — max. 40 caractères',
+    pl_demo_desc:'Votre description ici — max. 120 caractères.',
+    pl_cta:'Voir le profil', pl_expiry:'Expire : —',
+    pl_contact_title:'Réserver un emplacement',
+    pl_contact_email_note:"E-mail avec votre pseudo, l\'emplacement souhaité et la semaine choisie",
+    pl_contact_ig_note:'DM Instagram — mentionner \"Demande Promo\" dans votre premier message',
+    promote_sub:"Atteignez la communauté Avakin Life via une publication indépendante et communautaire.",
     sg_sg01_t:'Supprimer ou mettre en pause les badges des créateurs officiels inactifs',sg_sg01_d:"Les badges A-Creator, Trendsetter et Content Creator devraient exiger une activité continue. Les comptes inactifs depuis 6+ mois devraient avoir leurs badges mis en pause.",
     sg_sg02_t:"Publier un journal d'activité transparent pour tous les niveaux de créateurs officiels",sg_sg02_d:'LKWD devrait maintenir un dossier visible de la dernière date active et de la production de contenu de chaque détenteur de badge.',
     sg_sg03_t:'Ajouter des moyens significatifs de gagner des Couronnes gratuitement',sg_sg03_d:"Introduire des missions quotidiennes, des séries hebdomadaires ou des jalons de réussite qui produisent des Couronnes de manière fiable.",
@@ -2459,6 +2930,56 @@ const STRINGS = {
     about_p5:'<strong>ملاحظة أمنية:</strong> تُخزَّن كلمة المرور الإدارية بترميز base64 في المتصفح — هذا ليس تشفيراً. استخدم هذه الميزة على جهاز شخصي تثق به فقط.',
     about_h5:'الصور',about_p6:'الصور عبر الموقع لقطات زخرفية من Avakin Life لتوضيح طابع اللعبة. لا تُنسب لأي لاعب بعينه.',
     about_h6:'إخلاء المسؤولية',about_p7:'.Avakin Life وتيجان وA-Creator وLockwood Publishing علامات تجارية لـ Lockwood Publishing Ltd. لا ارتباط لهذا الموقع بها',
+    nav_creator:'المنشئة', nav_support:'خطوط المساعدة',
+    creator_label:'خلف الموقع', creator_title:'عن المنشئة',
+    creator_sub:'الشخص خلف Avakin Report — منشور مجتمعي مستقل لـ Avakin Life.',
+    creator_role:'المؤسسة والمحررة — Avakin Report · سويسرا',
+    creator_bio:'المزيد عن Sage قريباً.',
+    creator_notice:'<strong>هذا القسم مؤقت.</strong> سيتم ملء الملف الشخصي للمنشئة قريباً.',
+    support_label:'لست وحدك', support_title:'خطوط المساعدة',
+    support_sub:'خطوط الأزمات والدعم حسب المنطقة. في حالة الخطر، اتصل بالطوارئ أولاً.',
+    support_msg:'بوصفي ناجية بنفسي، يعني لي كثيراً أن يشعر لاعبو Avakin Life بالأمان والدعم. لست وحدك، ولا بأس في طلب المساعدة.',
+    support_footer_note:'قد تتغير الأرقام. إذا لم يعمل رقم، ابحث عن اسم الخدمة في بلدك.',
+    sl_ch1:'دعم الأزمات · سويسرا · 24/7',
+    sl_ch2:'خط الشباب · سويسرا · 24/7',
+    sl_de1:'الدعم العاطفي · ألمانيا · مجاناً، 24/7',
+    sl_fr1:'خط الأزمات · فرنسا · 24/7',
+    sl_uk1:'الدعم العاطفي · المملكة المتحدة · مجاناً، 24/7',
+    sl_nl1:'الدعم العاطفي · هولندا · مجاناً، 24/7',
+    sl_eu_dv:'دعم العنف المنزلي · الاتحاد الأوروبي · مجاناً',
+    sl_us1:'اتصل أو أرسل رسالة · الولايات المتحدة وكندا · 24/7',
+    sl_us2:'دعم الأزمات عبر الرسائل · الولايات المتحدة · 24/7',
+    sl_us3:'العنف المنزلي · الولايات المتحدة · 24/7',
+    sl_br1:'دعم الأزمات · البرازيل · مجاناً، 24/7',
+    sl_ar1:'دعم الأزمات · الأرجنتين · مجاناً، 24/7',
+    sl_za1:'الصحة النفسية · جنوب أفريقيا · مجاناً، 24/7',
+    sl_in1:'الدعم النفسي الاجتماعي · الهند',
+    sl_jp1:'خط الأزمات · اليابان · مجاناً، 24/7',
+    sl_kr1:'خط الأزمات · كوريا الجنوبية · 24/7',
+    sl_au1:'دعم الأزمات · أستراليا · 24/7',
+    sl_au2:'الصحة النفسية · أستراليا · 24/7',
+    sl_nz1:'دعم الأزمات · نيوزيلندا · 24/7',
+    sl_nz2:'رسالة أو اتصال · نيوزيلندا · مجاناً، 24/7',
+    pl_main:'Avakin Report', pl_sub:'خدمات الإعلان',
+    pl_col_service:'الخدمة', pl_col_rate:'السعر / أسبوع',
+    pl_slot1_name:'لافتة الصفحة الرئيسية', pl_slot1_detail:'لافتة عريضة في أعلى الصفحة الرئيسية',
+    pl_slot2_name:'الشريط الجانبي المميز', pl_slot2_detail:'موضع بارز في الشريط الجانبي',
+    pl_slot3_name:'الشريط الجانبي العادي', pl_slot3_detail:'إدراج في الشريط الجانبي مع المقبض والعنوان والرابط',
+    pl_slot4_name:'الحزمة', pl_slot4_detail:'لافتة + شريط مميز + شريط عادي — توفير CHF 10',
+    pl_per_week:'/أسبوع',
+    pl_paypal_label:'الدفع:', pl_paypal_note:'PayPal فقط. لا يُقبل التاج ولا AvaCoins. الأسعار بالفرنك السويسري (CHF).',
+    pl_swiss:'صُنع في سويسرا',
+    pl_preview_label:'معاينة — كيف ستظهر إعلاناتك',
+    pl_preview_note:'هذه الفتحات معروضة كأمثلة فقط. الحجز غير متاح بعد.',
+    pl_badge:'\u25C6 ممول',
+    pl_s_banner:'لافتة الصفحة الرئيسية', pl_s_featured:'الشريط المميز', pl_s_standard:'الشريط العادي',
+    pl_demo_headline:'عنوانك هنا — حتى 40 حرفاً',
+    pl_demo_desc:'وصفك هنا — حتى 120 حرفاً.',
+    pl_cta:'عرض الملف الشخصي', pl_expiry:'ينتهي: —',
+    pl_contact_title:'احجز فتحة إعلانية',
+    pl_contact_email_note:'أرسل بريداً إلكترونياً مع معرفك والفتحة المطلوبة والأسبوع المفضل',
+    pl_contact_ig_note:'رسالة مباشرة على إنستغرام — اذكر \"طلب ترويج\" في رسالتك الأولى',
+    promote_sub:'تواصل مع مجتمع Avakin Life من خلال منشور مستقل يضع المجتمع أولاً.',
     sg_sg01_t:'إزالة أو إيقاف مؤقت للشارات من المبدعين الرسميين غير النشطين',sg_sg01_d:'ينبغي أن تتطلب شارات A-Creator وTrendsetter وContent Creator نشاطًا مستمرًا. يجب إيقاف شارات الحسابات غير النشطة لأكثر من 6 أشهر.',
     sg_sg02_t:'نشر سجل نشاط شفاف لجميع مستويات المبدعين الرسميين',sg_sg02_d:'يجب أن تحتفظ LKWD بسجل مرئي لآخر تاريخ نشاط وإنتاج محتوى لكل حامل شارة.',
     sg_sg03_t:'إضافة مسارات ذات معنى لكسب التيجان مجانًا',sg_sg03_d:'إطلاق مهام يومية أو خطوط أسبوعية أو معالم إنجازات تنتج تيجانًا بشكل منتظم — كمكافأة يمكن تحقيقها للعب المنتظم.',
@@ -2528,6 +3049,7 @@ const STRINGS = {
     nav_home:'Tuis', nav_issues:'Probleme', nav_reviews:'Resensies', nav_suggestions:'Voorstelle',
     nav_guide:'Spelershandleiding', nav_canvas:'The Canvas', nav_compare:'Vergelyking',
     nav_accountability:'Verantwoordbaarheid', nav_promote:'Adverteer', nav_sources:'Bronne', nav_about:'Oor',
+    nav_creator:'Skepper', nav_support:'Hulplyne',
     search_placeholder:'Soek artikels en voorstelle…',
     lang_notice:'Artikelteks in Engels. Volledige vertalings kom binnekort.',
     canvas_label:'Skepper-spotlight', canvas_title:'The Canvas',
@@ -2630,6 +3152,55 @@ const STRINGS = {
     about_p5:"<strong>Sekuriteitsnota:</strong> Die admin-wagwoord word as base64-kodering in jou blaaier se plaaslike stoor gestoor — dit is nie versleuteling nie. Gebruik hierdie funksie slegs op 'n persoonlike toestel wat jy vertrou.",
     about_h5:'Beelde',about_p6:'Beelde regdeur die webwerf is dekoratiewe skermkiekies van Avakin Life wat gebruik word om die visuele karakter van die spel te illustreer. Hulle word nie aan spesifieke spelers toegeskryf nie.',
     about_h6:'Vrywaring',about_p7:'Avakin Life, Kronne, A-Creator en Lockwood Publishing is handelsmerke van Lockwood Publishing Ltd. Hierdie webwerf het geen verbinding met Lockwood Publishing nie.',
+    creator_label:'Agter die werf', creator_title:'Oor die Skepper',
+    creator_sub:"Die persoon agter Avakin Report — 'n onafhanklike gemeenskapspublikasie vir Avakin Life.",
+    creator_role:'Stigter & Redakteur — Avakin Report · Switserland',
+    creator_bio:'Meer oor Sage kom binnekort.',
+    creator_notice:'<strong>Hierdie afdeling is \'n plekhouer.</strong> Die profiel sal binnekort ingevul word.',
+    support_label:'Jy is nie alleen nie', support_title:'Hulplyne',
+    support_sub:"Krisis- en ondersteuningslyne per streek. Skakel nooddienste eerste as jy in gevaar is.",
+    support_msg:"As 'n oorlewende myself beteken dit baie vir my dat Avakin Life-spelers veilig en ondersteun voel. Jy is nie alleen nie.",
+    support_footer_note:"Nommers kan verander. As 'n nommer nie werk nie, soek die naam van die diens in jou land.",
+    sl_ch1:'Krisis & emosionele ondersteuning · Switserland · 24/7',
+    sl_ch2:'Jeugondersteuninglyn · Switserland · 24/7',
+    sl_de1:'Emosionele ondersteuning · Duitsland · gratis, 24/7',
+    sl_fr1:'Krisislyn · Frankryk · 24/7',
+    sl_uk1:'Emosionele ondersteuning · VK & Ierland · gratis, 24/7',
+    sl_nl1:'Emosionele ondersteuning · Nederland · gratis, 24/7',
+    sl_eu_dv:'Huishoudelike geweld · EU-wyd · gratis',
+    sl_us1:'Bel of SMS · VSA & Kanada · 24/7',
+    sl_us2:'Krisisondersteuning per SMS · VSA · 24/7',
+    sl_us3:'Huishoudelike geweld · VSA · 24/7',
+    sl_br1:'Krisisondersteuning · Brasilië · gratis, 24/7',
+    sl_ar1:'Krisisondersteuning · Argentinië · gratis, 24/7',
+    sl_za1:'Geestesgesondheid · Suid-Afrika · gratis, 24/7',
+    sl_in1:'Psigososiale ondersteuning · Indië',
+    sl_jp1:'Krisislyn · Japan · gratis, 24/7',
+    sl_kr1:'Krisislyn · Suid-Korea · 24/7',
+    sl_au1:'Krisisondersteuning · Australië · 24/7',
+    sl_au2:'Geestesgesondheid · Australië · 24/7',
+    sl_nz1:'Krisisondersteuning · Nieu-Seeland · 24/7',
+    sl_nz2:'SMS of bel · Nieu-Seeland · gratis, 24/7',
+    pl_main:'Avakin Report', pl_sub:'Promosiedienste',
+    pl_col_service:'Diens', pl_col_rate:'Tarief / week',
+    pl_slot1_name:'Tuisbladbanier', pl_slot1_detail:'Volle-breedte banier bo-op die tuisblad',
+    pl_slot2_name:'Uitgestalde Sykolom', pl_slot2_detail:'Uitgeligte plasing in die sykolom',
+    pl_slot3_name:'Standaard Sykolom', pl_slot3_detail:'Sykolom-inskrywing met handvatsel, opskrif en skakel',
+    pl_slot4_name:'Bundel', pl_slot4_detail:'Tuisbladbanier + Uitgestald + Standaard — spaar CHF 10',
+    pl_per_week:'/wk',
+    pl_paypal_label:'Betaling:', pl_paypal_note:'Slegs PayPal. Kronne en AvaCoins word nie aanvaar nie. Pryse in CHF (Switserse Frank).',
+    pl_swiss:'Gemaak in Switserland',
+    pl_preview_label:'Voorskou — Hoe jou advertensie sal lyk',
+    pl_preview_note:'Hierdie slote word as voorbeelde getoon. Besprekings is nog nie oop nie.',
+    pl_badge:'\u25C6 Gesponsord',
+    pl_s_banner:'Tuisbladbanier', pl_s_featured:'Uitgestalde Sykolom', pl_s_standard:'Standaard Sykolom',
+    pl_demo_headline:'Jou opskrif hier — tot 40 karakters',
+    pl_demo_desc:'Jou beskrywing hier — tot 120 karakters.',
+    pl_cta:'Bekyk Profiel', pl_expiry:'Verval: —',
+    pl_contact_title:'Bespreek \'n Promosiesleuf',
+    pl_contact_email_note:"Stuur e-pos met jou handvatsel, gewenste gleuf en week",
+    pl_contact_ig_note:'Instagram DM — meld \"Promo-versoek\" in jou eerste boodskap',
+    promote_sub:"Bereik die Avakin Life-gemeenskap deur 'n onafhanklike, gemeenskapsgerigte publikasie.",
     sg_sg01_t:"Verwyder of pauzeer kentekens van onaktiewe amptelike skeppers",sg_sg01_d:"A-Creator-, Trendsetter- en Content Creator-kentekens moet deurlopende aktiwiteit vereis. Rekeninge wat 6+ maande lank onaktief is, moet hul kentekens laat pauzeer totdat aktiwiteit hervat word.",
     sg_sg02_t:"Publiseer 'n deursigtige aktiwiteitslog vir alle amptelike skeppervlakke",sg_sg02_d:"LKWD moet 'n sigbare rekord byhou van elke kentekendraer se laaste aktiewe datum en inhoudslewering.",
     sg_sg03_t:"Voeg betekenisvolle gratis Kroon-verdienpaaie by",sg_sg03_d:"Stel daaglikse missies, weeklikse reekse of prestasiemylpale bekend wat Krone konsekwent lewer — as 'n betroubare, bereikbare beloning vir gereelde spel.",
@@ -2699,6 +3270,7 @@ const STRINGS = {
     nav_home:'主页', nav_issues:'问题', nav_reviews:'评价', nav_suggestions:'建议',
     nav_guide:'玩家指南', nav_canvas:'The Canvas', nav_compare:'对比',
     nav_accountability:'问责', nav_promote:'推广', nav_sources:'来源', nav_about:'关于',
+    nav_creator:'创作者', nav_support:'援助热线',
     search_placeholder:'搜索文章和建议…',
     lang_notice:'文章为英文。完整翻译即将推出。',
     canvas_label:'创作者聚焦', canvas_title:'The Canvas',
@@ -2801,6 +3373,55 @@ const STRINGS = {
     about_p5:'<strong>安全说明：</strong>管理员密码以base64编码存储在浏览器本地存储中——这不是加密。只在您信任的个人设备上使用此功能。',
     about_h5:'图片',about_p6:'网站各处的图片是Avakin Life的装饰性截图，用于说明游戏的视觉特征。它们未归因于特定玩家，仅用作美学装饰。',
     about_h6:'免责声明',about_p7:'Avakin Life、皇冠、A-Creator和Lockwood Publishing是Lockwood Publishing Ltd.的商标。本网站与Lockwood Publishing没有任何关联.',
+    creator_label:'网站背后', creator_title:'关于创作者',
+    creator_sub:'Avakin Report背后的人——一个为Avakin Life社区服务的独立社区出版物。',
+    creator_role:'创始人及编辑 — Avakin Report · 瑞士',
+    creator_bio:'更多关于Sage的信息即将发布。',
+    creator_notice:'<strong>此版块为占位符。</strong>创作者简介即将填充。',
+    support_label:'你并不孤单', support_title:'援助热线',
+    support_sub:'按地区列出的危机与援助热线。若处于危险中，请首先联系紧急服务。',
+    support_msg:'作为一名幸存者，Avakin Life玩家感到安全和被支持对我意义重大。你并不孤单，寻求帮助是完全正常的。',
+    support_footer_note:'号码可能会更改。如号码无法接通，请在您所在国家搜索该服务名称。',
+    sl_ch1:'危机与情感支持 · 瑞士 · 24/7',
+    sl_ch2:'青少年支持热线 · 瑞士 · 24/7',
+    sl_de1:'情感支持 · 德国 · 免费，24/7',
+    sl_fr1:'危机热线 · 法国 · 24/7',
+    sl_uk1:'情感支持 · 英国及爱尔兰 · 免费，24/7',
+    sl_nl1:'情感支持 · 荷兰 · 免费，24/7',
+    sl_eu_dv:'家庭暴力支持 · 欧盟 · 免费',
+    sl_us1:'电话或短信 · 美国及加拿大 · 24/7',
+    sl_us2:'短信危机支持 · 美国 · 24/7',
+    sl_us3:'家庭暴力热线 · 美国 · 24/7',
+    sl_br1:'危机支持 · 巴西 · 免费，24/7',
+    sl_ar1:'危机支持 · 阿根廷 · 免费，24/7',
+    sl_za1:'心理健康支持 · 南非 · 免费，24/7',
+    sl_in1:'心理社会支持 · 印度',
+    sl_jp1:'危机热线 · 日本 · 免费，24/7',
+    sl_kr1:'危机热线 · 韩国 · 24/7',
+    sl_au1:'危机支持 · 澳大利亚 · 24/7',
+    sl_au2:'心理健康支持 · 澳大利亚 · 24/7',
+    sl_nz1:'危机支持 · 新西兰 · 24/7',
+    sl_nz2:'短信或电话 · 新西兰 · 免费，24/7',
+    pl_main:'Avakin Report', pl_sub:'推广服务',
+    pl_col_service:'服务', pl_col_rate:'费率 / 周',
+    pl_slot1_name:'首页横幅', pl_slot1_detail:'首页顶部全宽横幅',
+    pl_slot2_name:'精选侧边栏', pl_slot2_detail:'侧边栏中的突出位置——在所有其他列表之上',
+    pl_slot3_name:'标准侧边栏', pl_slot3_detail:'包含您的账号、标题和链接的侧边栏列表',
+    pl_slot4_name:'套餐', pl_slot4_detail:'首页横幅 + 精选侧边栏 + 标准侧边栏——节省CHF 10',
+    pl_per_week:'/周',
+    pl_paypal_label:'付款：', pl_paypal_note:'仅接受PayPal。不接受皇冠和AvaCoins。价格以CHF（瑞士法郎）计。',
+    pl_swiss:'瑞士制造',
+    pl_preview_label:'预览 — 您的推广将如何显示',
+    pl_preview_note:'这些位置仅作示例展示。预订尚未开放。',
+    pl_badge:'\u25C6 推广',
+    pl_s_banner:'首页横幅', pl_s_featured:'精选侧边栏', pl_s_standard:'标准侧边栏',
+    pl_demo_headline:'您的标题在此 — 最多40个字符',
+    pl_demo_desc:'您的描述在此 — 最多120个字符。',
+    pl_cta:'查看主页', pl_expiry:'到期：—',
+    pl_contact_title:'预订推广位置',
+    pl_contact_email_note:'发送电子邮件，注明您的账号、所需位置和周次',
+    pl_contact_ig_note:'Instagram私信 — 在首条消息中注明"推广申请"',
+    promote_sub:'通过独立的、以社区为先的出版物触达Avakin Life社区。',
     sg_sg01_t:'撤销或暂停不活跃官方创作者的徽章',sg_sg01_d:'A-Creator、Trendsetter和Content Creator徽章应要求持续活跃。超过6个月不活跃的账户应暂停其徽章，直到恢复活动为止。',
     sg_sg02_t:'为所有官方创作者级别发布透明活动日志',sg_sg02_d:'LKWD应维护每位徽章持有者最后活跃日期和内容产出的可见记录。',
     sg_sg03_t:'添加有意义的免费皇冠赚取路径',sg_sg03_d:'引入每日任务、每周连续或成就里程碑，稳定产出皇冠——作为常规游玩的可靠、可实现的奖励，而非从神秘盒子中的罕见掉落。',
