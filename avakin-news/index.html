@@ -548,51 +548,69 @@
     }
 
     /* ── ARTICLE ACCORDION ─────────────────────────────── */
-    .article__lang-notice,
-    .article__body,
-    .article__source,
-    .article__admin-bar {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      pointer-events: none;
-      transition: max-height .48s cubic-bezier(.4,0,.2,1), opacity .3s ease;
+
+    /* Left accent on every card */
+    .article {
+      border-left-width: 3px;
+      border-left-color: rgba(201,168,76,.18);
+      transition: border-left-color .22s ease, box-shadow .22s ease;
     }
+    .article:hover {
+      border-left-color: rgba(201,168,76,.55);
+      box-shadow: 0 3px 18px rgba(0,0,0,.07);
+    }
+    .article--open {
+      border-left-color: var(--accent);
+      box-shadow: 0 4px 22px rgba(0,0,0,.09);
+    }
+
+    /* Compact header — overrides original 22px 26px 0 */
     .article__header {
+      padding: 18px 22px 14px !important;
       cursor: pointer;
       user-select: none;
-      border-radius: 6px;
-      margin: -6px;
-      padding: 6px;
-      transition: background .18s;
     }
-    .article__header:hover { background: rgba(201,168,76,.05); }
-    .article__header:active { background: rgba(201,168,76,.1); }
+    /* Remove the bottom padding deck was adding after its text */
+    .article__header .article__deck { padding-bottom: 0; }
+
+    /* Collapsible wrapper (created by JS) */
+    .article__collapsible {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height .52s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* Divider-chevron expand hint */
     .article__expand-hint {
       display: flex;
       align-items: center;
-      gap: 5px;
-      margin-top: 9px;
-      font-size: .68rem;
-      letter-spacing: .03em;
+      gap: 9px;
+      margin: 13px 0 0;
       color: var(--mid);
-      opacity: .55;
-      pointer-events: none;
-      transition: opacity .2s;
+      opacity: .28;
+      transition: opacity .22s;
     }
-    .article__header:hover .article__expand-hint { opacity: .88; }
+    .article__expand-hint::before,
+    .article__expand-hint::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
     .article__expand-chevron {
-      width: 10px; height: 10px;
-      flex-shrink: 0;
-      stroke: currentColor;
+      width: 13px;
+      height: 13px;
+      stroke: var(--accent);
       fill: none;
-      stroke-width: 1.8;
+      stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      transition: transform .32s ease;
+      flex-shrink: 0;
+      transition: transform .32s ease, opacity .22s;
     }
+    .article__header:hover .article__expand-hint { opacity: .7; }
+    .article--open .article__expand-hint { opacity: .45; }
     .article--open .article__expand-chevron { transform: rotate(180deg); }
-    .article__expand-hint .article__expand-label { }
 
   </style>
 </head>
@@ -4245,66 +4263,54 @@ handleHash();
 
 /* ── ARTICLE ACCORDION ─────────────────────────────── */
 (function () {
-  var COLS = [
-    'article__lang-notice',
-    'article__body',
-    'article__source',
-    'article__admin-bar'
-  ];
-
-  function getCols(art) {
-    return COLS.map(function (c) { return art.querySelector('.' + c); }).filter(Boolean);
-  }
+  var COLS = ['article__lang-notice','article__body','article__source','article__admin-bar'];
 
   document.querySelectorAll('.article').forEach(function (art) {
     var header = art.querySelector('.article__header');
     if (!header) return;
 
-    // Inject expand hint (chevron + label)
+    // Wrap all collapsible content in one element so padding never leaks
+    var wrapper = document.createElement('div');
+    wrapper.className = 'article__collapsible';
+    COLS.forEach(function (cls) {
+      var el = art.querySelector('.' + cls);
+      if (el) wrapper.appendChild(el);
+    });
+    art.appendChild(wrapper);
+
+    // Divider + chevron hint
     var hint = document.createElement('div');
     hint.className = 'article__expand-hint';
     hint.setAttribute('aria-hidden', 'true');
     hint.innerHTML =
-      '<svg class="article__expand-chevron" viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg">' +
-      '<polyline points="1,1.5 6,6.5 11,1.5"/></svg>' +
-      '<span class="article__expand-label">double-tap to read</span>';
+      '<svg class="article__expand-chevron" viewBox="0 0 14 9" xmlns="http://www.w3.org/2000/svg">' +
+      '<polyline points="1,1.5 7,7.5 13,1.5"/></svg>';
     header.appendChild(hint);
 
-    var label = hint.querySelector('.article__expand-label');
     var isOpen = false;
     var lastTap = 0;
 
     function expandArt() {
       isOpen = true;
       art.classList.add('article--open');
-      label.textContent = 'double-tap to close';
-      getCols(art).forEach(function (el) {
-        el.style.maxHeight = el.scrollHeight + 'px';
-        el.style.opacity = '1';
-        el.style.pointerEvents = 'auto';
-        el.addEventListener('transitionend', function unlock() {
-          if (isOpen) el.style.maxHeight = 'none';
-          el.removeEventListener('transitionend', unlock);
-        });
+      wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+      wrapper.addEventListener('transitionend', function done() {
+        if (isOpen) wrapper.style.maxHeight = 'none';
+        wrapper.removeEventListener('transitionend', done);
       });
     }
 
     function collapseArt() {
       isOpen = false;
-      art.classList.remove('article--open');
-      label.textContent = 'double-tap to read';
-      getCols(art).forEach(function (el) {
-        // Snapshot current height before animating to 0
-        var cur = el.style.maxHeight === 'none' || el.style.maxHeight === ''
-          ? el.scrollHeight
-          : parseFloat(el.style.maxHeight);
-        el.style.maxHeight = cur + 'px';
+      // Snapshot current height before animating (handles 'none' case)
+      var cur = (wrapper.style.maxHeight === 'none' || wrapper.style.maxHeight === '')
+        ? wrapper.scrollHeight
+        : parseFloat(wrapper.style.maxHeight);
+      wrapper.style.maxHeight = cur + 'px';
+      requestAnimationFrame(function () {
         requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            el.style.maxHeight = '0';
-            el.style.opacity = '0';
-            el.style.pointerEvents = 'none';
-          });
+          wrapper.style.maxHeight = '0';
+          art.classList.remove('article--open');
         });
       });
     }
@@ -4317,21 +4323,23 @@ handleHash();
     // Desktop: double-click
     header.addEventListener('dblclick', onToggle);
 
-    // Mobile: double-tap (two taps within 340 ms)
+    // Mobile: two taps within 340 ms
     header.addEventListener('touchend', function (e) {
       var now = Date.now();
-      if (now - lastTap < 340) {
-        onToggle(e);
-        e.preventDefault(); // prevent accidental zoom
-      }
+      if (now - lastTap < 340) { onToggle(e); e.preventDefault(); }
       lastTap = now;
     });
 
-    // Keyboard: Enter or Space on focused header
+    // Keyboard: Enter / Space
     header.setAttribute('tabindex', '0');
     header.setAttribute('role', 'button');
+    header.setAttribute('aria-expanded', 'false');
     header.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); isOpen ? collapseArt() : expandArt(); }
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        isOpen ? collapseArt() : expandArt();
+        header.setAttribute('aria-expanded', String(!isOpen));
+      }
     });
   });
 })();
