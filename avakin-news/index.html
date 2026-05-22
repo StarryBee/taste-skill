@@ -507,41 +507,44 @@
     .support-note { font-size:.72rem; color:var(--mid); margin-top:8px; font-style:italic; padding-left:4px; }
     @media (min-width:600px) { .support-lines { display:grid; grid-template-columns:1fr 1fr; } }
 
-    /* ── INLINE PROMO SLOTS ────────────────────────── */
-    .inline-promo-slots { display:flex; flex-direction:column; gap:10px; margin:28px 0 4px; }
-    .inline-promo-slot { border:1px dashed rgba(201,168,76,.45); border-radius:10px; padding:14px 16px; background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 100%); }
-    [data-theme="dark"] .inline-promo-slot { background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 100%); }
-    .inline-promo-slot__header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; }
-    .inline-promo-slot__badge { font-size:.58rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#c9a84c; }
-    .inline-promo-slot__price { font-size:.65rem; font-weight:700; letter-spacing:.06em; color:var(--mid); border:1px solid var(--border); border-radius:20px; padding:2px 8px; }
-    .inline-promo-slot__body { display:flex; align-items:center; gap:12px; }
-    .inline-promo-slot__img { width:52px; height:52px; flex-shrink:0; border-radius:7px; background:var(--surface); border:1px dashed var(--border); display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--mid); }
-    .inline-promo-slot__text { flex:1; min-width:0; }
-    .inline-promo-slot__title { font-size:.82rem; font-weight:700; color:var(--ink); margin-bottom:2px; }
-    .inline-promo-slot__coming { font-size:.72rem; color:var(--mid); font-style:italic; }
-    .inline-promo-slot__img-note { font-size:.65rem; color:var(--mid); margin-top:8px; padding-top:8px; border-top:1px solid var(--border); text-align:center; letter-spacing:.04em; }
+    /* ── PROMO SLOTS — minimal reserved-space style ── */
+    /* Thin strip for mid-content placement on inner pages */
+    .promo-strip { display:flex; align-items:center; gap:10px; padding:7px 14px; margin:28px 0; border:1px solid rgba(201,168,76,.18); border-radius:5px; opacity:.72; transition:opacity .2s; }
+    .promo-strip:hover { opacity:1; }
+    .promo-strip__dot { font-size:.5rem; color:#c9a84c; flex-shrink:0; }
+    .promo-strip__label { font-size:.58rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:#c9a84c; flex-shrink:0; }
+    .promo-strip__name { font-size:.7rem; color:var(--mid); flex:1; }
+    .promo-strip__price { font-size:.65rem; color:var(--mid); flex-shrink:0; white-space:nowrap; }
+    .promo-strip__coming { font-size:.62rem; color:var(--mid); font-style:italic; flex-shrink:0; padding-left:10px; border-left:1px solid var(--border); white-space:nowrap; }
+    /* Keep old .inline-promo-slot class working but reset to strip style */
+    .inline-promo-slots { display:flex; flex-direction:column; gap:8px; margin:24px 0; }
+    .inline-promo-slot { display:flex; align-items:center; gap:10px; padding:7px 14px; border:1px solid rgba(201,168,76,.18); border-radius:5px; opacity:.72; transition:opacity .2s; }
+    .inline-promo-slot:hover { opacity:1; }
+    .inline-promo-slot__header { display:contents; }
+    .inline-promo-slot__badge { font-size:.58rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:#c9a84c; flex-shrink:0; }
+    .inline-promo-slot__price { font-size:.65rem; color:var(--mid); flex-shrink:0; margin-left:auto; white-space:nowrap; }
+    .inline-promo-slot__body { display:contents; }
+    .inline-promo-slot__img { display:none; }
+    .inline-promo-slot__text { display:contents; }
+    .inline-promo-slot__title { font-size:.7rem; color:var(--mid); }
+    .inline-promo-slot__coming { font-size:.62rem; color:var(--mid); font-style:italic; padding-left:10px; border-left:1px solid var(--border); white-space:nowrap; flex-shrink:0; }
+    .inline-promo-slot__img-note { font-size:.6rem; color:var(--mid); margin-left:8px; opacity:.8; flex-shrink:0; }
 
-    /* ── HOME PAGE: EDITORIAL AD LAYOUT ─────────────── */
-    .home-ad-label { font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:var(--mid); text-align:center; margin-bottom:6px; opacity:.7; }
-
-    /* Full-width banner directly below nav */
-    .home-banner-wrap { width:100%; background:var(--surface); border-bottom:1px solid var(--border); padding:10px 20px 14px; }
-    .home-banner-wrap .inline-promo-slot { max-width:920px; margin:0 auto; border-radius:8px; display:flex; align-items:center; gap:20px; padding:12px 18px; }
-    .home-banner-wrap .inline-promo-slot__header { flex-direction:column; align-items:flex-start; margin-bottom:0; flex-shrink:0; gap:4px; }
-    .home-banner-wrap .inline-promo-slot__body { flex:1; margin:0; }
-    .home-banner-wrap .inline-promo-slot__img { width:80px; height:60px; border-radius:6px; font-size:1.6rem; flex-shrink:0; }
-    .home-banner-wrap .inline-promo-slot__img-note { margin-top:0; padding-top:0; border-top:none; flex-shrink:0; white-space:nowrap; }
-
-    /* Sidebar slot floated right */
-    .home-sidebar { float:right; width:260px; margin:0 0 24px 28px; }
-    .home-sidebar .inline-promo-slot { width:100%; }
-    .home-sidebar .inline-promo-slot__img { width:100%; height:120px; border-radius:6px; font-size:2rem; margin-bottom:10px; }
-    .home-sidebar .inline-promo-slot__body { flex-direction:column; align-items:stretch; }
-    .home-sidebar .inline-promo-slot__text { padding:0; }
-    @media (max-width:680px) {
-      .home-sidebar { float:none; width:100%; margin:0 0 24px 0; }
-      .home-banner-wrap .inline-promo-slot { flex-direction:column; align-items:stretch; }
-      .home-banner-wrap .inline-promo-slot__img { width:100%; height:80px; }
+    /* ── HOME PAGE: editorial ad positions ─────────── */
+    /* Thin mid-content banner (between intro cards and quote) */
+    .home-banner-wrap { border-top:1px solid rgba(201,168,76,.12); border-bottom:1px solid rgba(201,168,76,.12); margin:0; padding:5px 0; }
+    .home-banner-wrap .inline-promo-slot { border:none; border-radius:0; max-width:920px; margin:0 auto; padding:5px 20px; opacity:.6; background:transparent; }
+    .home-banner-wrap .inline-promo-slot:hover { opacity:.9; }
+    /* Compact sidebar float (sits quietly beside summary list) */
+    .home-sidebar { float:right; width:148px; margin:4px 0 16px 22px; }
+    .home-sidebar .inline-promo-slot { flex-direction:column; align-items:flex-start; gap:5px; padding:9px 11px; border-color:rgba(201,168,76,.22); opacity:.65; }
+    .home-sidebar .inline-promo-slot:hover { opacity:1; }
+    .home-sidebar .inline-promo-slot__price { margin-left:0; }
+    .home-sidebar .inline-promo-slot__coming { padding-left:0; border-left:none; }
+    .home-ad-label { font-size:.52rem; letter-spacing:.16em; text-transform:uppercase; color:var(--mid); margin-bottom:4px; opacity:.55; text-align:center; }
+    @media (max-width:600px) {
+      .home-sidebar { float:none; width:100%; margin:0 0 16px 0; }
+      .home-sidebar .inline-promo-slot { flex-direction:row; flex-wrap:wrap; }
     }
 
   </style>
@@ -609,47 +612,7 @@
   HOME
 ══════════════════════════════════════════════════ -->
 <div class="page active" id="page-home">
-
-  <!-- ── Full-width banner slot (below nav, editorial style) ── -->
-  <div class="home-banner-wrap">
-    <p class="home-ad-label">Advertisement</p>
-    <div class="inline-promo-slot">
-      <div class="inline-promo-slot__header">
-        <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
-        <span class="inline-promo-slot__price">from CHF 15/wk</span>
-      </div>
-      <div class="inline-promo-slot__img">&#128247;</div>
-      <div class="inline-promo-slot__body">
-        <div class="inline-promo-slot__text">
-          <div class="inline-promo-slot__title">Homepage Banner</div>
-          <div class="inline-promo-slot__coming">This function will be open soon.</div>
-        </div>
-      </div>
-      <div class="inline-promo-slot__img-note">Image upload · +CHF 5</div>
-    </div>
-  </div>
-
   <div class="wrap">
-
-    <!-- ── Sidebar slot (floated right, editorial style) ── -->
-    <div class="home-sidebar">
-      <p class="home-ad-label">Advertisement</p>
-      <div class="inline-promo-slot">
-        <div class="inline-promo-slot__header">
-          <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
-          <span class="inline-promo-slot__price">from CHF 20/wk</span>
-        </div>
-        <div class="inline-promo-slot__body">
-          <div class="inline-promo-slot__img">&#128247;</div>
-          <div class="inline-promo-slot__text">
-            <div class="inline-promo-slot__title">Featured Sidebar</div>
-            <div class="inline-promo-slot__coming">This function will be open soon.</div>
-          </div>
-        </div>
-        <div class="inline-promo-slot__img-note">Image upload · +CHF 5</div>
-      </div>
-    </div>
-
     <img src="images/lakeside-cottage.jpg" class="deco" alt="Avakin Life — decorative" />
     <span class="label" data-i18n="home_label">Independent Community Report</span>
     <h1 class="page-title" data-i18n="home_title">Avakin Life — What Players Are Saying</h1>
@@ -666,6 +629,18 @@
         <div class="intro-card__body" data-i18n-html="home_card2_body">Community concerns have grown clearer over time: the Crown economy, free-play exclusion, inactive badge holders, contest fairness, LKWD's distance from regular players, and repetitive events. This site addresses each honestly.</div>
       </div>
     </div>
+
+    <!-- Thin banner strip — sits between intro cards and quote as a natural section pause -->
+    <div class="home-banner-wrap">
+      <div class="inline-promo-slot">
+        <span class="inline-promo-slot__badge">&#9670; Promotion</span>
+        <span class="inline-promo-slot__title">Homepage Banner</span>
+        <span class="inline-promo-slot__coming">Opening soon</span>
+        <span class="inline-promo-slot__img-note">+ CHF 5 with image</span>
+        <span class="inline-promo-slot__price">from CHF 15/wk</span>
+      </div>
+    </div>
+
     <!-- Avakin Report Quote (admin-editable) -->
     <div class="avr-quote">
       <span class="avr-quote__label">Avakin Report</span>
@@ -674,6 +649,17 @@
       <button class="avr-quote__edit" id="avr-quote-edit-btn" onclick="openQuoteEdit()">Edit</button>
     </div>
 
+    <!-- Sidebar floated right beside the summary list — quiet and unobtrusive -->
+    <div class="home-sidebar">
+      <p class="home-ad-label">Ad</p>
+      <div class="inline-promo-slot">
+        <span class="inline-promo-slot__badge">&#9670; Promo</span>
+        <span class="inline-promo-slot__title">Sidebar</span>
+        <span class="inline-promo-slot__price">from CHF 20/wk</span>
+        <span class="inline-promo-slot__coming">Opening soon</span>
+        <span class="inline-promo-slot__img-note">+ CHF 5 image</span>
+      </div>
+    </div>
     <span class="label" style="margin-bottom:12px;" data-i18n="home_covered">What's covered here</span>
     <div class="summary-list">
       <div class="summary-item" onclick="show('issues')"><div class="summary-item__icon">💰</div><div><div class="summary-item__title" data-i18n="home_sum1_title">Crown Economy &amp; Free Play</div><div class="summary-item__desc" data-i18n="home_sum1_desc">Crowns are nearly impossible to earn for free. The Coin store has been hollowed out. New players receive Crown gifts that veterans had to pay for.</div><div class="summary-item__tag" data-i18n="home_sum1_tag">Ongoing</div></div></div>
@@ -683,7 +669,9 @@
       <div class="summary-item" onclick="show('suggestions')"><div class="summary-item__icon">🗳️</div><div><div class="summary-item__title" data-i18n="home_sum5_title">Community Suggestions — Vote</div><div class="summary-item__desc" data-i18n="home_sum5_desc">Browse and upvote community improvement suggestions. Add your own. The most-voted ideas are shown first.</div></div></div>
     </div>
   </div>
-</div><!-- ══════════════════════════════════════════════════
+</div>
+
+<!-- ══════════════════════════════════════════════════
   ISSUES
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-issues">
