@@ -445,11 +445,12 @@
     .pricelist-divider { border:none; border-top:1px solid rgba(201,168,76,.5); margin:0 0 16px; }
     .pricelist-col-header { display:flex; padding:0 0 8px; font-size:.62rem; letter-spacing:.14em; text-transform:uppercase; color:#c9a84c; font-weight:700; border-bottom:1px solid rgba(201,168,76,.4); margin-bottom:0; }
     .pricelist-col-header span:last-child { margin-left:auto; }
-    .pricelist-row { display:flex; align-items:baseline; gap:8px; padding:13px 0; border-bottom:1px solid rgba(201,168,76,.25); }
+    .pricelist-row { display:block; padding:16px 0; border-bottom:1px solid rgba(201,168,76,.25); }
     .pricelist-row:first-of-type { border-top:none; }
-    .pricelist-row__name { font-family:var(--serif); font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); flex-shrink:0; }
-    .pricelist-row__detail { font-size:.72rem; color:var(--mid); flex:1; padding:0 12px; font-style:italic; }
-    .pricelist-row__price { font-family:var(--serif); font-size:.88rem; font-weight:700; letter-spacing:.05em; color:var(--ink); white-space:nowrap; text-align:right; }
+    .pricelist-row__top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:5px; }
+    .pricelist-row__name { font-family:var(--serif); font-size:.88rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); }
+    .pricelist-row__detail { font-size:.82rem; color:var(--mid); line-height:1.5; padding-left:2px; }
+    .pricelist-row__price { font-family:var(--serif); font-size:1.05rem; font-weight:700; letter-spacing:.03em; color:var(--ink); white-space:nowrap; }
     .pricelist-row__price small { font-weight:400; font-size:.72rem; color:var(--mid); }
     .pricelist-row--bundle .pricelist-row__name,.pricelist-row--bundle .pricelist-row__price { color:#c9a84c; }
     .pricelist-row--bundle { border-top:1px solid rgba(201,168,76,.5) !important; margin-top:4px; }
@@ -505,6 +506,20 @@
     .support-line__desc { font-size:.71rem; color:var(--mid); margin-top:2px; line-height:1.4; }
     .support-note { font-size:.72rem; color:var(--mid); margin-top:8px; font-style:italic; padding-left:4px; }
     @media (min-width:600px) { .support-lines { display:grid; grid-template-columns:1fr 1fr; } }
+
+    /* ── INLINE PROMO SLOTS ────────────────────────── */
+    .inline-promo-slots { display:flex; flex-direction:column; gap:10px; margin:28px 0 4px; }
+    .inline-promo-slot { border:1px dashed rgba(201,168,76,.45); border-radius:10px; padding:14px 16px; background:linear-gradient(135deg,rgba(201,168,76,.04) 0%,transparent 100%); }
+    [data-theme="dark"] .inline-promo-slot { background:linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 100%); }
+    .inline-promo-slot__header { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px; }
+    .inline-promo-slot__badge { font-size:.58rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#c9a84c; }
+    .inline-promo-slot__price { font-size:.65rem; font-weight:700; letter-spacing:.06em; color:var(--mid); border:1px solid var(--border); border-radius:20px; padding:2px 8px; }
+    .inline-promo-slot__body { display:flex; align-items:center; gap:12px; }
+    .inline-promo-slot__img { width:52px; height:52px; flex-shrink:0; border-radius:7px; background:var(--surface); border:1px dashed var(--border); display:flex; align-items:center; justify-content:center; font-size:1.3rem; color:var(--mid); }
+    .inline-promo-slot__text { flex:1; min-width:0; }
+    .inline-promo-slot__title { font-size:.82rem; font-weight:700; color:var(--ink); margin-bottom:2px; }
+    .inline-promo-slot__coming { font-size:.72rem; color:var(--mid); font-style:italic; }
+    .inline-promo-slot__img-note { font-size:.65rem; color:var(--mid); margin-top:8px; padding-top:8px; border-top:1px solid var(--border); text-align:center; letter-spacing:.04em; }
 
   </style>
 </head>
@@ -604,11 +619,39 @@
       <div class="summary-item" onclick="show('issues')"><div class="summary-item__icon">🎨</div><div><div class="summary-item__title" data-i18n="home_sum4_title">Design Copying, Contest Fairness &amp; Event Fatigue</div><div class="summary-item__desc" data-i18n="home_sum4_desc">Real-world designs replicated without credit, contests that favour reach over talent, and events that repeat the same formulas.</div></div></div>
       <div class="summary-item" onclick="show('suggestions')"><div class="summary-item__icon">🗳️</div><div><div class="summary-item__title" data-i18n="home_sum5_title">Community Suggestions — Vote</div><div class="summary-item__desc" data-i18n="home_sum5_desc">Browse and upvote community improvement suggestions. Add your own. The most-voted ideas are shown first.</div></div></div>
     </div>
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 15/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Homepage Banner</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   ISSUES
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-issues">
@@ -859,11 +902,39 @@
       </div>
 
     </div><!-- /article-list -->
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 10/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Standard Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   REVIEWS
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-reviews">
@@ -901,11 +972,39 @@
       <div class="review-card"><div class="review-card__stars review-card__stars--low">★☆☆☆☆</div><p class="review-card__text" data-i18n="reviews_crit3">"Server crashes every time there's a big event. Had purchases not register twice. Support told me they couldn't verify it even though I had the receipt."</p><div class="review-card__meta">Google Play · 1 star · 2024</div></div>
       <div class="review-card"><div class="review-card__stars review-card__stars--low">★★☆☆☆</div><p class="review-card__text" data-i18n="reviews_crit4">"Entered one of their Instagram contests. The winner had 800+ followers and was already being followed by the official account. Felt completely pointless for regular players."</p><div class="review-card__meta">Google Play · 2 stars · 2025</div></div>
     </div>
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 10/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Standard Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   SUGGESTIONS
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-suggestions">
@@ -931,11 +1030,39 @@
     <div id="sg-admin-add-bar" style="display:none;margin-top:20px;">
       <button class="submit-btn" onclick="openAdminAddSuggestion()">+ Add suggestion (admin)</button>
     </div>
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 10/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Standard Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   GUIDE
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-guide">
@@ -966,11 +1093,39 @@
       <div class="step"><div class="step__num">10</div><div><div class="step__title" data-i18n="guide_step10_t">On contests — go in with realistic expectations</div><div class="step__body" data-i18n="guide_step10_b">Based on community analysis (see Issues page), LKWD's creativity contests appear to favour players with existing social following and LKWD connections. Participating can still be enjoyable, but fair judging on creative merit alone does not appear to be the consistent outcome.</div></div></div>
       <div class="step"><div class="step__num">11</div><div><div class="step__title" data-i18n="guide_step11_t">Check r/AvakinLife before assuming your issue is unique</div><div class="step__body" data-i18n="guide_step11_b">Most issues have been experienced and documented by others. The subreddit often has community workarounds, context on whether an issue is widespread, and advice that saves significant time.</div></div></div>
     </div>
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 10/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Standard Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   SOURCES
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-sources">
@@ -989,11 +1144,39 @@
       <div class="source-item"><div class="source-item__icon">📢</div><div><div class="source-item__name" data-i18n="src7_name">LKWD — Official Discord and Social Channels</div><div class="source-item__desc" data-i18n="src7_desc">Source for outage acknowledgements, patch notes, and creator programme announcements.</div></div></div>
     </div>
     <div class="notice" style="margin-top:24px;" data-i18n-html="sources_disclaimer"><strong>What this site does not do:</strong> We do not publish invented statistics, fabricated quotes, or claims without a named source or a clearly identified community pattern.</div>
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 10/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Standard Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   ABOUT
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-about">
@@ -1016,11 +1199,39 @@
       <h3 data-i18n="about_h6">Disclaimer</h3>
       <p data-i18n="about_p7">Avakin Life, Crowns, A-Creator, and Lockwood Publishing are trademarks of Lockwood Publishing Ltd. This site has no affiliation with Lockwood Publishing.</p>
     </div>
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 10/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Standard Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   ABOUT THE CREATOR
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-creator">
@@ -1215,6 +1426,7 @@
 
 <!-- ══════════════════════════════════════════════════
   THE CANVAS
+══════════════════════════════════════════════════ -->
 <div class="page" id="page-canvas">
   <div class="wrap">
     <img src="images/art-class.jpg" class="deco" alt="Avakin Life — decorative" />
@@ -1339,11 +1551,39 @@
     </div>
 
     <div class="notice" style="margin-top:24px;" data-i18n-html="compare_disclaimer">IMVU and Zepeto data is based on publicly available information and community feedback at time of writing and may not reflect recent updates. This table is not exhaustive.</div>
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 10/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Standard Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   ACCOUNTABILITY
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-accountability">
@@ -1483,11 +1723,39 @@
     </div>
 
     <div class="notice" style="margin-top:20px;" data-i18n-html="acc_method">Statements are drawn from publicly accessible LKWD posts, Discord messages, and in-game announcements. Status labels — kept, partially kept, not kept, disputed, no update — reflect community-observed outcomes, not legal assessments. Where a statement was partially acted on or remains ambiguous, "partially kept" is used.</div>
+
+    <div class="inline-promo-slots">
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 10/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Standard Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
   </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════════
+  <div class="inline-promo-slot">
+    <div class="inline-promo-slot__header">
+      <span class="inline-promo-slot__badge">&#9670; Promotion Slot</span>
+      <span class="inline-promo-slot__price">from CHF 20/wk</span>
+    </div>
+    <div class="inline-promo-slot__body">
+      <div class="inline-promo-slot__img">&#128247;</div>
+      <div class="inline-promo-slot__text">
+        <div class="inline-promo-slot__title">Featured Sidebar</div>
+        <div class="inline-promo-slot__coming">This function will be open soon.</div>
+      </div>
+    </div>
+    <div class="inline-promo-slot__img-note">Image upload available · +CHF 5</div>
+  </div>
+    </div>
+  </div>
+</div><!-- ══════════════════════════════════════════════════
   PROMOTE
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-promote">
@@ -1510,24 +1778,36 @@
         <span data-i18n="pl_col_rate">Rate / week</span>
       </div>
       <div class="pricelist-row">
-        <span class="pricelist-row__name" data-i18n="pl_slot1_name">Homepage Banner</span>
-        <span class="pricelist-row__detail" data-i18n="pl_slot1_detail">Full-width banner at the top of the homepage</span>
-        <span class="pricelist-row__price">CHF 15 <small data-i18n="pl_per_week">/wk</small></span>
+        <div class="pricelist-row__top">
+          <span class="pricelist-row__name" data-i18n="pl_slot1_name">Homepage Banner</span>
+          <span class="pricelist-row__price">CHF 15 <small data-i18n="pl_per_week">/wk</small></span>
+        </div>
+        <div class="pricelist-row__detail" data-i18n="pl_slot1_detail">Full-width banner at the top of the homepage</div>
+        <div class="pricelist-row__detail" style="margin-top:2px;font-size:.75rem;color:#c9a84c;">+ CHF 5 with image upload</div>
       </div>
       <div class="pricelist-row">
-        <span class="pricelist-row__name" data-i18n="pl_slot2_name">Featured Sidebar</span>
-        <span class="pricelist-row__detail" data-i18n="pl_slot2_detail">Highlighted placement in the sidebar — above all other listings</span>
-        <span class="pricelist-row__price">CHF 20 <small data-i18n="pl_per_week">/wk</small></span>
+        <div class="pricelist-row__top">
+          <span class="pricelist-row__name" data-i18n="pl_slot2_name">Featured Sidebar</span>
+          <span class="pricelist-row__price">CHF 20 <small data-i18n="pl_per_week">/wk</small></span>
+        </div>
+        <div class="pricelist-row__detail" data-i18n="pl_slot2_detail">Highlighted placement in the sidebar — above all other listings</div>
+        <div class="pricelist-row__detail" style="margin-top:2px;font-size:.75rem;color:#c9a84c;">+ CHF 5 with image upload</div>
       </div>
       <div class="pricelist-row">
-        <span class="pricelist-row__name" data-i18n="pl_slot3_name">Standard Sidebar</span>
-        <span class="pricelist-row__detail" data-i18n="pl_slot3_detail">Sidebar listing with your handle, headline, and link</span>
-        <span class="pricelist-row__price">CHF 10 <small data-i18n="pl_per_week">/wk</small></span>
+        <div class="pricelist-row__top">
+          <span class="pricelist-row__name" data-i18n="pl_slot3_name">Standard Sidebar</span>
+          <span class="pricelist-row__price">CHF 10 <small data-i18n="pl_per_week">/wk</small></span>
+        </div>
+        <div class="pricelist-row__detail" data-i18n="pl_slot3_detail">Sidebar listing with your handle, headline, and link</div>
+        <div class="pricelist-row__detail" style="margin-top:2px;font-size:.75rem;color:#c9a84c;">+ CHF 5 with image upload</div>
       </div>
       <div class="pricelist-row pricelist-row--bundle">
-        <span class="pricelist-row__name" data-i18n="pl_slot4_name">&#9733; Bundle</span>
-        <span class="pricelist-row__detail" data-i18n="pl_slot4_detail">Homepage Banner + Featured Sidebar + Standard Sidebar — saves CHF 10</span>
-        <span class="pricelist-row__price">CHF 35 <small data-i18n="pl_per_week">/wk</small></span>
+        <div class="pricelist-row__top">
+          <span class="pricelist-row__name" data-i18n="pl_slot4_name">&#9733; Bundle</span>
+          <span class="pricelist-row__price">CHF 35 <small data-i18n="pl_per_week">/wk</small></span>
+        </div>
+        <div class="pricelist-row__detail" data-i18n="pl_slot4_detail">Homepage Banner + Featured Sidebar + Standard Sidebar — saves CHF 10</div>
+        <div class="pricelist-row__detail" style="margin-top:2px;font-size:.75rem;color:#c9a84c;">+ CHF 5 with image upload</div>
       </div>
       <p class="pricelist-note">
         <strong data-i18n="pl_paypal_label">Payment:</strong>
