@@ -2,6 +2,9 @@
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Avakin Life — Community Report</title>
   <meta name="description" content="An independent community accountability site covering Avakin Life by Lockwood Publishing. Player issues, reviews, suggestions, and transparency tracking." />
@@ -644,6 +647,51 @@
     .article--open .article__close-hint { opacity: .35; }
     .article--open .article__close-hint:hover { opacity: .75; }
 
+    /* ── QUOTE BARS ─────────────────────────────────────────── */
+    @keyframes quoteBarFadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+    .quote-bar {
+      text-align: center;
+      padding: 52px 32px 44px;
+      margin: 60px 0;
+      background: #fff;
+      animation: quoteBarFadeUp 0.65s ease both;
+      animation-delay: 0.18s;
+    }
+    [data-theme="dark"] .quote-bar { background: var(--surface); }
+    .quote-bar__rule {
+      width: 60px;
+      height: 1px;
+      background: #b8a878;
+      margin: 0 auto;
+    }
+    .quote-bar__rule--top  { margin-bottom: 22px; }
+    .quote-bar__rule--bot  { margin-top: 22px; margin-bottom: 14px; }
+    .quote-bar__text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: var(--ink);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+    .quote-bar__attribution {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #7a6a48;
+      margin: 0;
+    }
+    @media (max-width: 600px) {
+      .quote-bar { padding: 36px 18px 30px; margin: 40px 0; }
+      .quote-bar__text { font-size: 1.03rem; }
+    }
+    /* ─────────────────────────────────────────────────────────── */
+
   </style>
 </head>
 <body>
@@ -793,6 +841,12 @@
 
     <div class="article-list">
 
+      <div class="quote-bar">
+        <div class="quote-bar__rule quote-bar__rule--top"></div>
+        <blockquote class="quote-bar__text">When the people shall have nothing more to eat, they will eat the rich.</blockquote>
+        <div class="quote-bar__rule quote-bar__rule--bot"></div>
+        <p class="quote-bar__attribution">&#8212; Rousseau</p>
+      </div>
       <!-- ECONOMY 1: Crown access -->
       <div class="article" id="article-economy1" data-article="economy1" data-category="economy">
         <div class="article__header">
@@ -1151,6 +1205,12 @@
           <button class="admin-btn" onclick="addEditorNote('content1')">+ Add note</button>
         </div>
       </div>
+      <div class="quote-bar">
+        <div class="quote-bar__rule quote-bar__rule--top"></div>
+        <blockquote class="quote-bar__text">Ten people who speak make more noise than ten thousand who are silent.</blockquote>
+        <div class="quote-bar__rule quote-bar__rule--bot"></div>
+        <p class="quote-bar__attribution">&#8212; Napoleon Bonaparte</p>
+      </div>
       <!-- CONTENT 2: Contests -->
       <div class="article" id="article-content2" data-article="content2" data-category="content">
         <div class="article__header">
@@ -1410,23 +1470,82 @@
         </div>
       </div>
 
+      <div class="quote-bar">
+        <div class="quote-bar__rule quote-bar__rule--top"></div>
+        <blockquote class="quote-bar__text">Rebellion is born when rulers forget they are meant to serve.</blockquote>
+        <div class="quote-bar__rule quote-bar__rule--bot"></div>
+        <p class="quote-bar__attribution">&#8212; Confucius</p>
+      </div>
       <!-- TECHNICAL 3: Support -->
       <div class="article" id="article-technical3" data-article="technical3" data-category="technical">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--amber">Frequently cited</span><span class="badge badge--grey">Support</span><span class="article__updated">Updated Feb 2026</span><button class="article__share" onclick="shareArticle('article-technical3',this)">Share</button></div>
-          <div class="article__title" data-i18n="art_technical3_t">Customer Support: Slow, Templated, and Overwhelmed</div>
-          <p class="article__deck" data-i18n="art_technical3_d">Long response times, automated first replies, and unresolved closures are the most consistent support complaints. For time-sensitive issues, a slow support process turns a fixable problem into a permanent loss.</p>
+          <div class="article__meta"><span class="badge badge--red">Unresolved</span><span class="badge badge--blue">Customer support</span><span class="article__updated">Updated May 2026</span><button class="article__share" onclick="shareArticle('article-technical3',this)">Share</button></div>
+          <div class="article__title" data-i18n="art_technical3_t">The Support Wall: How Lockwood&#8217;s Customer Service Became a Closed Door</div>
+          <p class="article__deck" data-i18n="art_technical3_d">Avakin Life carries a 1.0-star average from 208 complaint reviews on ComplaintsBoard &#8212; zero resolved complaints on record. Account suspensions arrive without warning; appeals enter silence. Players who spent real money on Crowns and Gold VIP subscriptions find no proportional service relationship when something goes wrong. The support system operates as a wall rather than a door.</p>
         </div>
         <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
-          <p>Support quality issues appear across Avakin Life's community feedback at every star rating level — including some 4 and 5 star reviews that note it as the game's weakest area. The complaints are consistent: waits measured in days or weeks rather than hours; first responses that are clearly automated and do not address the specific problem; tickets closed without resolution. The support team appears to be handling a volume of issues that exceeds what the current process can manage effectively.</p>
-          <p>For issues that are time-sensitive — a missing event item, a scam that just occurred, a ban during an active event — the delays have practical consequences beyond frustration. Support that arrives a week after the event ended cannot recover event progress. An appeal response that arrives months after a ban has been issued arrives after the player's social connections have dissipated and their motivation to return has passed.</p>
-          <p>The scam situation is worth naming specifically. LKWD's policy that trades are final — which exists for legitimate reasons — means that players who lose items through social engineering have essentially no support recovery path. The community has responded by building its own scam-documentation resources, including guides on r/AvakinLife, because the official support system offers little help after the fact. That the community has had to fill this gap itself is a measure of how far the official system falls short.</p>
+
+          <p>When a player spends real money on a game, they are not only buying the item or the currency or the subscription tier. They are buying a relationship with the company that took their money &#8212; the implicit understanding that if something goes wrong, someone will be reachable, someone will respond, and the problem will be addressed with something proportional to what the player invested. That relationship is not written into the terms of service in explicit terms. But it is the bedrock assumption on which every purchase is made. No player who spends twenty dollars on Crown packages is doing so in the belief that those Crowns might vanish, their account might be suspended, and the support system will return their emails with silence or a template.</p>
+
+          <p>For a significant and documented portion of Avakin Life&#8217;s player base, that is precisely what has happened. Not once or twice, as isolated incidents, but as a pattern consistent enough across years of complaint records that it has become a defining feature of how the game treats its paying customers. The support system that is supposed to resolve disputes, restore accounts, investigate unfair bans, and address billing errors functions, in the documented experience of hundreds of players, as a wall rather than a door. Tickets are submitted. Responses do not arrive. When they do arrive, they confirm decisions without explaining them. Appeals disappear into silence. And the player who has spent years and real money building an account they care about is left with nothing but the knowledge that the company that took their money does not consider their situation worth a human response.</p>
+
+          <h4>The Record That Exists: What Complaint Platforms Document</h4>
+
+          <p>The external complaint record for Avakin Life&#8217;s customer support is not difficult to locate, and it is not ambiguous in its overall picture. On ComplaintsBoard, Avakin Life carries a 1.0-star average rating from 208 reviews, with zero resolved complaints in the documented record. The platform&#8217;s own summary states directly: &#8220;It&#8217;s quite possible that Avakin Life is not aware of the complaints or rarely monitors their existence because we find it hard to believe they don&#8217;t care about their customers.&#8221; That observation &#8212; remarkable for its diplomatic restraint given the rating &#8212; reflects the visible gap between the volume of documented complaints and the complete absence of any formal resolution.</p>
+
+          <p>The complaints themselves follow a recognisable pattern across three distinct categories. The most common involves account suspensions or bans that the affected player believes to be incorrect &#8212; handed down without warning, without specific evidence, and without a meaningful appeal pathway. A player banned for &#8220;sexually explicit content&#8221; describes daily exposure to other players engaging in far more explicit behaviour who remain untouched. A player suspended for &#8220;phishing&#8221; explains that the flagged behaviour was a game glitch &#8212; rapidly tapping a gift share button &#8212; rather than any intentional violation. A player suspended for &#8220;fraud&#8221; on an account they had not accessed in years cannot understand how a dormant account generates a fraud finding. In each case, the appeal pathway produced an inadequate, delayed, or entirely absent response.</p>
+
+          <p>The second category involves account access failures &#8212; players who lose access to accounts they have invested in, financially and socially, and find no functioning pathway to recovery. One player with a Level 32 account containing years of purchased items had been waiting months for a response. Another had been unable to access their account for two full years, had reached out repeatedly, and received nothing. A third player&#8217;s account disappeared entirely when they reset their tablet &#8212; a hardware change, not a rule violation &#8212; and support provided no mechanism to restore what was lost. The third category is billing: purchases made in good faith, for Crowns or VIP subscriptions, where the payment processed but the content did not deliver. A player charged fourteen dollars with no corresponding in-game record. A player who paid for Crown packages and found them missing. In each case, the resolution pathway produced no result or a result that did not address the actual problem.</p>
+
+          <div class="callout"><strong>The platform&#8217;s own assessment:</strong> ComplaintsBoard, which hosts the external complaint record, does not typically editorialise about the companies it reviews. Its observation that Lockwood may simply &#8220;not be aware of the complaints or rarely monitors their existence&#8221; is, in the context of 208 reviews at 1.0 stars with zero resolved, an unusually direct statement about a company&#8217;s relationship with its player complaints. Zero resolved complaints is not a statistical anomaly. It is a consistent outcome.</div>
+
+          <h4>The Automated Wall: What Players Encounter When They Try</h4>
+
+          <p>The support pathway that Lockwood directs players toward operates through a ticket system accessible via avakin.com/support or through the in-game settings menu. The formal process requires players to submit their issue, account details, and relevant evidence, and to await a response from the support team. The stated support hours on ComplaintsBoard&#8217;s verified contact information are Monday through Friday, nine to five &#8212; standard UK business hours for a Nottingham-based company.</p>
+
+          <p>What players document encountering is a system that does not match these formal parameters in practice. The first response to many tickets is not a human assessment but a template &#8212; a form reply that acknowledges receipt and provides the same troubleshooting steps available on the public wiki, regardless of whether the player&#8217;s issue is technical, administrative, or financial. For issues that require human judgement &#8212; an appeal of a ban, an investigation of a billing discrepancy, a review of a suspension decision &#8212; the template response is not a solution. It is a further barrier. Players who push past the template and request human review describe one of two outcomes: a second template that confirms the original decision without further explanation, or no response at all.</p>
+
+          <p>The workforce reduction at Lockwood Publishing &#8212; the company&#8217;s headcount having roughly halved from its 2021 peak &#8212; provides structural context for why the support system operates the way it does. A smaller team handling the same or larger volume of support requests produces longer response times, more reliance on automated triage, and less capacity for the kind of individual case review that complex disputes require. This is not an excuse. It is an explanation for a consequence that players are bearing without having chosen to accept it, and without compensation for the service level they are not receiving.</p>
+
+          <h4>What Is Actually at Stake for the Player</h4>
+
+          <p>The stakes of a non-functioning customer support system are not abstract. They are specific and, in many documented cases, significant. A player who has invested three hundred dollars in Crown purchases over eighteen months, who is suspended on an allegation they dispute, and who receives no meaningful response to their appeal has not simply lost access to a game. They have lost the financial value of everything they spent, the social connections they built within it, and any realistic expectation of a remedy. The terms of service, which all players agree to, make clear that Avakin Life retains the right to suspend accounts and that virtual currency has no real-world monetary value &#8212; legal protections that leave the player with no formal recourse.</p>
+
+          <p>This is the architecture of a support failure that operates without consequence on Lockwood&#8217;s side. The company faces no legal obligation to restore a suspended account or refund Crown purchases. The customer review platforms that document the pattern carry no enforcement mechanism. The players who document their experiences are, in the formal sense, without remedy. What they retain is only the ability to leave &#8212; and the documented record suggests that this is precisely what many of them do. The player who wrote &#8220;they&#8217;re milking our money but ain&#8217;t giving us the best support&#8221; was not describing a unique grievance. They were articulating the structural bargain of Avakin Life&#8217;s current model as it is experienced from the receiving end: money flows in through Crown purchases and VIP subscriptions; support flows back at a rate that does not match the investment. &#8220;When we spend money for Gold VIP and spent more money in Crowns, they just ban like nothing.&#8221;</p>
+
+          <h4>The Moderation Asymmetry: Swift on Bans, Slow on Appeals</h4>
+
+          <p>One of the most consistent observations in the documented complaint record is the asymmetry between the speed of account action and the speed of support response. Bans and suspensions are applied promptly and, in the accounts of multiple players, without warning. Appeal processes are slow, opaque, and in many cases unresponsive. The same automated decision that suspended an account within a single session cannot be reviewed by a human on a timeline that approaches the same urgency.</p>
+
+          <p>This asymmetry has a practical consequence that goes beyond individual frustration. It means that the moderation system&#8217;s error rate &#8212; whatever proportion of bans are applied incorrectly, based on glitches, false reports, or automated systems that misread legitimate behaviour &#8212; has no efficient correction mechanism. A player who is banned incorrectly may wait weeks for a response that then confirms the ban without explanation. During that wait, they have no access to their account, no access to the items and progress they paid for, and no information about what they would need to demonstrate to reverse the decision.</p>
+
+          <div class="callout"><strong>The Steam acknowledgement:</strong> The Steam Early Access launch introduced a category of unexpected bans labelled as &#8220;fraud&#8221; or &#8220;disruptive behaviour&#8221; that the company itself acknowledged were in error: &#8220;We&#8217;re aware of the recent unexpected bans listed as &#8216;fraud&#8217; or &#8216;disruptive behaviour&#8217; &#8212; sorry for the confusion on this. It&#8217;s late here now, but we&#8217;ll investigate tomorrow.&#8221; The incident confirmed two things simultaneously: that the automated moderation system can produce incorrect ban outcomes at scale, and that the company is capable of acknowledging this publicly and committing to investigation. What it has not demonstrated, in the broader complaint record, is the capacity to apply that same responsive approach to individual players whose ban disputes arrive through the ticket system rather than on a visible community forum.</div>
+
+          <h4>The Silence as Communication</h4>
+
+          <p>What Lockwood&#8217;s support system communicates through its silence is not neutrality. It is a statement about where the company&#8217;s priorities sit, visible in the allocation of resources between content production and player remediation. A weekly store release requires design, production, and deployment capacity. Responding to a player whose account was suspended incorrectly requires a human being to read the case, assess the evidence, and make a judgement. One of these activities is funded. The other is, in the documented experience of hundreds of players, chronically understaffed.</p>
+
+          <div class="callout"><strong>The subscription asymmetry:</strong> The Avakin Life case has a specific texture that other games do not share in the same degree: the combination of a subscription product &#8212; the VIP Club, at up to nineteen dollars and ninety-nine cents per month &#8212; with a support system that cannot reliably respond to the subscribers who pay for it. A subscription implies an ongoing service relationship, not merely access to content. When a Gold VIP subscriber&#8217;s account is suspended and no one responds to their appeal for three weeks, the subscription&#8217;s implicit promise of a premium relationship has been violated in a way that the terms of service does not formally require Lockwood to remedy.</div>
+
+          <h4>What a Functional Support System Looks Like</h4>
+
+          <p>The contrast with how other gaming companies handle support does not need to be with Riot Games or Epic to be meaningful. It needs only to be with what Lockwood has demonstrated it can do when the motivation is present. The Steam Early Access ban incident is the clearest evidence: when bans appeared in a visible, public forum where they reflected directly on the game&#8217;s launch reputation, the response was prompt, human, and explicitly committed to investigation. The same category of ban &#8212; an automated system producing an incorrect outcome &#8212; has been documented in the ticket system for years without producing a comparable response. The difference is not capability. It is visibility. When a problem is visible to the public in a space that affects the game&#8217;s commercial reputation, it receives attention. When it is confined to a support ticket in a player&#8217;s inbox, it does not.</p>
+
+          <p>A functional support system closes that gap. It applies the same standard of responsiveness to the individual ticket that it applies to the public forum complaint. It has a human review pathway that is not contingent on the player&#8217;s complaint achieving sufficient social visibility to force a response. It communicates timelines, acknowledges receipt with something more than a template, and &#8212; at minimum &#8212; provides a specific explanation when a decision is upheld rather than a generic confirmation. None of these are technically complex to implement. They require only the resource allocation to staff them and the institutional decision to treat private complaints with the same urgency as public ones. The community is not asking for perfection. It is asking for the minimum that a company which takes subscription revenue and real-money purchases owes to the people who pay for them: someone to answer when things go wrong.</p>
+
         </div>
-        <div class="article__source"><strong>Sources:</strong> Google Play reviews — "support" as consistent keyword in low-star reviews · r/AvakinLife support failure threads · LKWD Help Centre (in-game settings) · LKWD trade policy documentation</div>
+        <div class="article__source"><strong>Sources:</strong> ComplaintsBoard &#8212; Avakin Life reviews and complaint archive (1.0-star average, 208 reviews, 0 resolved complaints; 2016&#8211;2025) &#183; ComplaintsBoard &#8212; Avakin Life contacts page (verified support hours; Monday&#8211;Friday 9am&#8211;5pm UK) &#183; Sikayetvar / Xolvie &#8212; Avakin Life complaint filings (multiple; 2024&#8211;2025): &#8220;Account Access Issue &#8212; Locked Out with No Support Response&#8221; (Aug 2024); &#8220;Support Has Not Responded to My Suspension Appeal&#8221; (Oct 2025); &#8220;Notification Issues &#8212; No Support Response for Missing Alerts&#8221; (Nov 2024); &#8220;Banned my account unfairly after an avatar error&#8221; (2024); &#8220;Banned me for phishing due to a game glitch&#8221; (2024) &#183; Steam Community &#8212; Avakin Life Known Issues thread (LKWD team; Early Access 2025): unexpected ban acknowledgement &#183; Steam Community &#8212; Avakin Life FAQ discussion (LKWD Jessie; Feb 2025): support ticket redirect language &#183; Avakin Life Wiki (avakin.fandom.com) &#8212; &#8220;Troubleshooting Avakin Life&#8221;: moderation described as manual and evidence-based &#183; Lockwood Publishing Limited &#8212; Companies House filings: workforce reduction from ~200 to ~100 (2021&#8211;2024) &#183; r/AvakinOfficial &#8212; community support complaint threads (various)</div>
         <div class="article__admin-bar" id="admin-bar-technical3">
           <button class="admin-btn" onclick="addEditorNote('technical3')">+ Add note</button>
         </div>
       </div>
+      <div class="quote-bar">
+        <div class="quote-bar__rule quote-bar__rule--top"></div>
+        <blockquote class="quote-bar__text">You can also commit injustice by doing nothing.</blockquote>
+        <div class="quote-bar__rule quote-bar__rule--bot"></div>
+        <p class="quote-bar__attribution">&#8212; Marcus Aurelius</p>
+      </div>
+
 
     </div><!-- /article-list -->
 
@@ -3013,8 +3132,8 @@ const STRINGS = {
     art_technical1_d:'Avakin Life\'s server instability has been documented in complaint records since 2016 — the same connection failures, the same crashes, the same lost progress across update cycles and platform expansions. Every new event, every Crown-priced purchase, and every social space is built on infrastructure whose unreliability has outlasted twelve years of patches. The Steam Known Issues thread, the troubleshooting wiki, and years of community complaints all document the same problem. It has not been resolved.',
     art_technical2_t:'Account Bans: When Automated Systems Penalise Normal Behaviour',
     art_technical2_d:'Permanent bans issued to players who believe they did nothing wrong are a recurring concern. Normal activities appear to trigger automated fraud flags with limited appeal options.',
-    art_technical3_t:'Customer Support: Slow, Templated, and Overwhelmed',
-    art_technical3_d:'Long response times, automated first replies, and unresolved closures are the most consistent support complaints.',
+    art_technical3_t:'The Support Wall: How Lockwood\'s Customer Service Became a Closed Door',
+    art_technical3_d:'Avakin Life carries a 1.0-star average from 208 complaint reviews on ComplaintsBoard — zero resolved complaints on record. Account suspensions arrive without warning; appeals enter silence. Players who spent real money on Crowns and Gold VIP find no proportional service when something goes wrong.',
     // Page structure
     home_label:'Independent Community Report', home_title:'Avakin Life — What Players Are Saying',
     home_sub:'A community-sourced overview of the current state of Avakin Life by Lockwood Publishing (LKWD). Feedback is drawn from Google Play, Reddit, Instagram, and Pinterest. Nothing here is invented.',
@@ -3225,8 +3344,8 @@ const STRINGS = {
     art_technical1_d:'Avakins Serverinstabilität ist seit 2016 dokumentiert — dieselben Verbindungsfehler, dieselben Abstürze, derselbe Fortschrittsverlust über Update-Zyklen und Plattformerweiterungen hinweg. Der Steam-Known-Issues-Thread, das Troubleshooting-Wiki und jahrelange Community-Beschwerden dokumentieren dasselbe Problem. Es ist nicht gelöst.',
     art_technical2_t:'Account-Sperren: Wenn automatische Systeme normales Verhalten bestrafen',
     art_technical2_d:'Permanente Sperren für Spieler, die nichts falsch gemacht haben, sind ein wiederkehrendes Community-Problem.',
-    art_technical3_t:'Kundensupport: Langsam, schablonenhaft und überwältigt',
-    art_technical3_d:'Lange Antwortzeiten, automatisierte erste Antworten und ungelöste Schließungen sind die häufigsten Support-Beschwerden.',
+    art_technical3_t:'Die Support-Mauer: Wie Lockwoods Kundendienst zur geschlossenen Tür wurde',
+    art_technical3_d:'Avakin Life führt eine 1,0-Sterne-Bewertung von 208 Beschwerden auf ComplaintsBoard — null gelöste Beschwerden. Kontosperrungen erfolgen ohne Vorwarnung; Einsprüche verschwinden in der Stille. Spieler, die echtes Geld für Crowns und Gold-VIP ausgaben, finden keine proportionale Unterstützung, wenn etwas schiefgeht.',
     home_label:'Unabhängiger Community-Bericht', home_title:'Avakin Life — Was Spieler sagen',
     home_sub:'Eine community-basierte Übersicht über den aktuellen Stand von Avakin Life. Feedback stammt aus Google Play, Reddit, Instagram und Pinterest.',
     home_card1_label:'Was ist Avakin Life?', home_card2_label:'Warum dieser Bericht?',
@@ -3446,8 +3565,8 @@ const STRINGS = {
     art_technical1_d:'L\'instabilité des serveurs d\'Avakin est documentée depuis 2016 — les mêmes échecs de connexion, les mêmes plantages, les mêmes pertes de progression à travers les cycles de mises à jour et les expansions de plateformes. Le fil Known Issues Steam, le wiki de dépannage et des années de plaintes communautaires documentent le même problème. Il n\'est pas résolu.',
     art_technical2_t:'Bannissements : quand les systèmes automatisés punissent un comportement normal',
     art_technical2_d:'Les bannissements permanents infligés à des joueurs innocents sont un problème récurrent.',
-    art_technical3_t:'Support client : lent, automatisé et débordé',
-    art_technical3_d:'Longs délais, premières réponses automatisées et fermetures non résolues — les plaintes de support les plus fréquentes.',
+    art_technical3_t:'Le mur du support : comment le service client de Lockwood est devenu une porte fermée',
+    art_technical3_d:'Avakin Life affiche une moyenne de 1,0 étoile sur 208 plaintes sur ComplaintsBoard — zéro plainte résolue. Les suspensions de compte arrivent sans avertissement ; les appels disparaissent dans le silence. Les joueurs ayant dépensé de l\'argent réel en Crowns et Gold VIP ne trouvent aucun service proportionnel en cas de problème.',
     home_label:'Rapport communautaire indépendant', home_title:'Avakin Life — Ce que disent les joueurs',
     home_sub:"Un aperçu communautaire de l'état actuel d'Avakin Life par Lockwood Publishing. Les retours proviennent de Google Play, Reddit, Instagram et Pinterest.",
     home_card1_label:"Qu'est-ce qu'Avakin Life ?", home_card2_label:'Pourquoi ce rapport ?',
@@ -3666,8 +3785,8 @@ const STRINGS = {
     art_technical1_d:'يُوثَّق عدم استقرار خوادم أفاكين منذ عام 2016 — نفس فشل الاتصال، نفس التعطل، نفس فقدان التقدم عبر دورات التحديث وتوسعات المنصات. يُوثِّق خيط Known Issues على Steam وصفحة الاستكشاف وسنوات من شكاوى المجتمع المشكلةَ ذاتها. لم تُحَلّ.',
     art_technical2_t:'حظر الحسابات: عندما تعاقب الأنظمة الآلية السلوك الطبيعي',
     art_technical2_d:'الحظر الدائم للاعبين الذين لم يخطئوا مشكلة متكررة.',
-    art_technical3_t:'دعم العملاء: بطيء، قوالب جاهزة، مُرهق',
-    art_technical3_d:'أوقات استجابة طويلة، وردود أولى آلية، وإغلاق دون حل.',
+    art_technical3_t:'جدار الدعم: كيف أصبحت خدمة عملاء Lockwood باباً مغلقاً',
+    art_technical3_d:'يحمل أفاكين متوسط نجمة واحدة من 208 شكوى على ComplaintsBoard — صفر شكاوى تم حلها. تصل تعليقات الحساب دون تحذير؛ تختفي الاستئنافات في صمت. اللاعبون الذين أنفقوا أموالاً حقيقية على الكراون وGold VIP لا يجدون خدمة متناسبة عند حدوث مشكلة.',
     home_label:'تقرير مجتمعي مستقل', home_title:'Avakin Life — ما يقوله اللاعبون',
     home_sub:'نظرة عامة مجتمعية على الوضع الحالي لـ Avakin Life. الملاحظات مستمدة من Google Play وReddit وInstagram وPinterest.',
     home_card1_label:'ما هو Avakin Life؟', home_card2_label:'لماذا هذا التقرير؟',
@@ -3888,8 +4007,8 @@ const STRINGS = {
     art_technical1_d:'Avakin Life se bedienersonstabiliteit is sedert 2016 gedokumenteer — dieselfde verbindingsfoute, dieselfde ineenstortings, dieselfde verlore vordering oor opdateringssiklusse en platformuitbreidings. Die Steam Known Issues-draad, die probleemoplossings-wiki en jare van gemeenskapsklagtes dokumenteer dieselfde probleem. Dit is nie opgelos nie.',
     art_technical2_t:'Rekening-verbanne: wanneer stelsels normale gedrag straf',
     art_technical2_d:'Permanente verbanne vir onskuldige spelers is herhaaldelik.',
-    art_technical3_t:'Kliëntediens: stadig, sjabloonmatig en oorweldig',
-    art_technical3_d:'Lang reaksietye en onopgeloste sluitings is die mees algemene klagtes.',
+    art_technical3_t:'Die ondersteuningmuur: hoe Lockwood se kliëntediens \'n geslote deur geword het',
+    art_technical3_d:'Avakin Life dra \'n 1.0-ster-gemiddeld van 208 klagtes op ComplaintsBoard — nul opgeleosde klagtes. Rekeningopskorting gebeur sonder waarskuwing; appèlle verdwyn in stilte. Spelers wat werklike geld aan Crowns en Gold VIP bestee het, vind geen proporsionele diens wanneer iets verkeerd gaan nie.',
     home_label:'Onafhanklike gemeenskapsverslag', home_title:"Avakin Life — Wat spelers sê",
     home_sub:"'n Gemeenskapsgebaseerde oorsig van die huidige toestand van Avakin Life. Terugvoer kom van Google Play, Reddit, Instagram en Pinterest.",
     home_card1_label:'Wat is Avakin Life?', home_card2_label:'Hoekom hierdie verslag?',
@@ -4109,8 +4228,8 @@ const STRINGS = {
     art_technical1_d:'Avakin Life的服务器不稳定性自2016年起便有记录——相同的连接失败、相同的崩溃、相同的进度丢失，贯穿更新周期与平台扩展始终。Steam已知问题帖、故障排查wiki以及多年社区投诉均记录了同一问题。它至今未被解决。',
     art_technical2_t:'账号封禁：当自动系统惩罚正常行为',
     art_technical2_d:'对无辜玩家的永久封禁是反复出现的问题。',
-    art_technical3_t:'客户支持：缓慢、套话，不堪重负',
-    art_technical3_d:'漫长响应时间、自动化回复和未解决工单是最常见的投诉。',
+    art_technical3_t:'支持之墙：Lockwood客户服务如何变成一扇关闭的门',
+    art_technical3_d:'Avakin Life在ComplaintsBoard上的208条投诉中获得1.0星平均评分——零已解决投诉。账户封禁无预警而来；申诉石沉大海。花费真实金钱购买皇冠和金VIP的玩家，在出现问题时找不到相应的服务。',
     home_label:'独立社区报告', home_title:'Avakin Life — 玩家心声',
     home_sub:'基于社区的Avakin Life现状综合报告，来源于Google Play、Reddit、Instagram和Pinterest。内容均有据可查。',
     home_card1_label:'什么是Avakin Life？', home_card2_label:'为什么有这份报告？',
