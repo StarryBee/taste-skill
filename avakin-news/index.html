@@ -612,6 +612,38 @@
     .article--open .article__expand-hint { opacity: .45; }
     .article--open .article__expand-chevron { transform: rotate(180deg); }
 
+    /* Bottom close hint — only visible when article is open */
+    .article__close-hint {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin: 16px 0 4px;
+      padding: 0 22px 6px;
+      opacity: 0;
+      cursor: pointer;
+      user-select: none;
+      transition: opacity .22s;
+    }
+    .article__close-hint::before,
+    .article__close-hint::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .article__close-chevron {
+      width: 13px;
+      height: 13px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .article--open .article__close-hint { opacity: .35; }
+    .article--open .article__close-hint:hover { opacity: .75; }
+
   </style>
 </head>
 <body>
@@ -1296,21 +1328,70 @@
       <!-- TECHNICAL 1: Servers -->
       <div class="article" id="article-technical1" data-article="technical1" data-category="technical">
         <div class="article__header">
-          <div class="article__meta"><span class="badge badge--red">Ongoing</span><span class="badge badge--grey">Technical</span><span class="article__updated">Updated Feb 2026</span><button class="article__share" onclick="shareArticle('article-technical1',this)">Share</button></div>
+          <div class="article__meta"><span class="badge badge--red">Unresolved</span><span class="badge badge--blue">Infrastructure</span><span class="article__updated">Updated May 2026</span><button class="article__share" onclick="shareArticle('article-technical1',this)">Share</button></div>
           <div class="article__title" data-i18n="art_technical1_t">Server Instability: Disconnections and Lost Progress Remain Unresolved</div>
-          <p class="article__deck" data-i18n="art_technical1_d">Server outages and disconnections have appeared in community feedback for years. They are most damaging during events — precisely when the most players are online and the most is at stake.</p>
+          <p class="article__deck" data-i18n="art_technical1_d">Avakin Life&#8217;s server instability has been documented in complaint records since 2016 &#8212; the same connection failures, the same crashes, the same lost progress across update cycles and platform expansions. Every new event, every Crown-priced purchase, every social space is built on infrastructure whose unreliability has outlasted twelve years of patches. The Steam Known Issues thread, the troubleshooting wiki, and years of community complaints all document the same problem. It has not been resolved.</p>
         </div>
         <div class="article__lang-notice" data-lang-notice></div><div class="article__body">
-          <p>Server instability is among the most consistently documented issues in Avakin Life, appearing in Google Play reviews spanning multiple years and surfacing in r/AvakinLife threads whenever a significant outage occurs. Disconnections tend to coincide with major update launches and in-game events — peak load moments — which maximises their impact on players who have invested time in event progress or real money in event passes.</p>
-          <p>LKWD communicates outages through their official Discord and social channels, which is a positive practice. The community's frustration is not that problems go unacknowledged but that the same category of problem recurs repeatedly without apparent improvement. Compensation following outages is inconsistent — sometimes offered via community channels, sometimes not — and requires players to be actively monitoring those channels to know it exists.</p>
-          <p>For players who have purchased Crown items that were inaccessible during an outage, or who lost event progress due to server failure, the absence of automatic compensation is a concrete grievance. A structured policy — clearly communicated, automatically applied — would address this without requiring individual support tickets for every affected account.</p>
+
+          <p>There is a category of problem that a game can have which is different in kind from every other. Not a design decision that some players disagree with, not a monetisation choice that feels unfair, not an event structure that exhausts rather than excites &#8212; but a technical failure at the level of the game&#8217;s most fundamental promise. Avakin Life is a social platform. Its value is entirely dependent on the ability of players to connect to it, stay connected to it, and trust that what happens inside it will persist. A disconnection is not an inconvenience in Avakin Life the way it might be in a single-player game. It is a rupture in the experience the game exists to provide. And for a significant portion of the player base, across a significant portion of the game&#8217;s twelve-year history, that rupture has been a constant companion.</p>
+
+          <p>The server instability problem in Avakin Life is not a story about a technical team that has not tried. It is a story about a problem that has been acknowledged, partially addressed, and acknowledged again &#8212; across update cycles, across years, across the game&#8217;s expansion to new platforms &#8212; without ever being resolved at the root. Players have documented it in Google Play reviews, on ComplaintsBoard, on the Avakin Life Fandom wiki&#8217;s troubleshooting page, on Steam&#8217;s Early Access discussion boards, and in the comment sections of content creators who mention it not as a complaint they are raising but as a feature of the game so consistent it requires no particular context. It is, in the precise sense of the word, endemic &#8212; present everywhere, affecting everyone, normalised to the point where the question is not whether a session will involve a disconnection but when.</p>
+
+          <p>What makes this problem more than a technical inconvenience is the context in which it exists. Lockwood Publishing has spent the period in which server instability has remained unresolved launching new events, new monetisation tiers, new store content, a VIP subscription, and a full Steam Early Access release. Each of these additions has introduced new layers of content demand &#8212; new events that require sustained participation, new Crown-priced items with countdown timers, new social spaces in which players are expected to gather and interact. Every single one of those demands is built on a foundation that has been documented, by the company&#8217;s own community team, as unreliable. You do not fix event fatigue by launching more events. And you do not fix server instability by launching a Steam version. You fix the infrastructure first. In Avakin Life, that has not happened.</p>
+
+          <h4>The Documented Record: Years of the Same Complaint</h4>
+
+          <p>The clearest evidence that server instability in Avakin Life is a structural problem rather than an intermittent one is not any single incident. It is the consistency of the complaint across time. The earliest reviews raising connection issues on ComplaintsBoard date to 2016. The same complaints appear in 2018, in 2020, in 2022, in 2024. They follow the same pattern each time: a player with a verified stable network connection &#8212; tested on other applications, tested on other games, sometimes tested from a different account on the same device &#8212; finds themselves unable to connect to public servers. Or they connect, participate in a session, and are ejected mid-interaction. Or they load the game to a certain percentage and find it freezes there, session after session. &#8220;It keep saying avakin life connection temporarily unavailable check my network connection status. My other games work perfectly fine.&#8221; Another: &#8220;I am unable to connect to any game servers in ava. It&#8217;s been over 8 hrs since this issue has begun to occur. I&#8217;ve checked the network stability on my end and it&#8217;s perfectly fine.&#8221;</p>
+
+          <div class="callout"><strong>The deflection pattern:</strong> The player-facing troubleshooting documentation on the Avakin Life Fandom wiki states directly: &#8220;Avakin Life needs a reliable and strong connection to run properly &#8212; most game issues are caused by connection issues. Internet connections are usually the culprit if the game will not finish loading.&#8221; On rare occasions, the documentation concedes, the servers may be offline. In 99 percent of cases, it assures, they will be back within 24 hours. This framing performs a specific function: it deflects. It positions the player as the variable, the server infrastructure as the constant, and the gap as the player&#8217;s responsibility to close. But the documented pattern of complaints does not describe players with unreliable internet. It describes players whose connections work fine for every other application and fail specifically and repeatedly for Avakin Life.</div>
+
+          <h4>The Steam Launch: Expanding the Problem&#8217;s Surface Area</h4>
+
+          <p>In 2025, Lockwood Publishing brought Avakin Life to Steam in Early Access &#8212; a decision that introduced the game to a new platform audience and, simultaneously, a new set of documented challenges. The Steam community&#8217;s Known Issues thread, published by the development team, lists acknowledged bugs that are not edge cases or minor visual glitches. They include: camera controls stopping work after pressing menu options and returning to game; animations not completing or updating correctly when moving; WSAD movement controls failing in all social spots; interactive items desyncing from their correct positions during interactions; and a white screen appearing when viewing Fashion Contest results.</p>
+
+          <p>These are not launch-day instabilities that were quickly resolved. They are issues Lockwood acknowledged on a public thread and invited players to work around or report individually via support tickets. One Spanish-speaking player documented the experience precisely in the same thread: the game loading to ten percent and stopping, the error reading &#8220;Avakin Life connection is temporarily unavailable, check your network status,&#8221; the attempt with a VPN making no difference, the conclusion that something had fundamentally changed about the game&#8217;s infrastructure. The thread&#8217;s moderator response acknowledged the pattern without resolving it.</p>
+
+          <div class="callout"><strong>The Steam numbers:</strong> Peak concurrent players on Steam reached 697 before dropping to a stable figure of around 286 &#8212; a decline that represents not the normal settling of a new launch but the experience of players who tried the Steam version, encountered the documented instability, and decided whether the game was worth their continued time. The Known Issues thread remained active. The issues remained known.</div>
+
+          <h4>The Patch Cycle That Does Not Patch the Underlying Problem</h4>
+
+          <p>Lockwood publishes update notes. The game receives regular patches. The language of those patches, across multiple updates, is instructive about what is and is not being addressed. A broad survey of patch note content reveals a consistent pattern: &#8220;fixed a number of bugs that caused crashes and freezes,&#8221; &#8220;fixed a number of bugs that caused issues with avatar customisation,&#8221; &#8220;fixed a number of other miscellaneous bugs.&#8221; These descriptions are not specific. They do not name the crash, identify its cause, or explain why this fix is permanent rather than temporary. They communicate the form of action &#8212; a fix was applied &#8212; without communicating the substance: what was broken, why it was breaking, and whether the root cause has been addressed or merely suppressed.</p>
+
+          <p>A Steam Early Access review from a player who had been with the game for over eight years captured this pattern precisely: &#8220;Bugs: ever present. Crashes: hello old friend.&#8221; The phrase is darkly comic, but it contains an accurate observation: the same category of problem reappears across the game&#8217;s history with the familiarity of something that has never truly been removed. The eight-year veteran recognised crashes not as a new problem introduced by a recent update but as an old acquaintance whose continued presence was unremarkable. That normalisation &#8212; the acceptance of instability as a feature of the game rather than a failure of its maintenance &#8212; is one of the most telling measures of how long this problem has been unaddressed.</p>
+
+          <h4>The Content Creator Signal: When Official Voices Document Unofficial Problems</h4>
+
+          <p>The most significant evidence that server instability is not a fringe complaint is that it has been mentioned by official and semi-official community voices. Content creators who operate within or adjacent to Lockwood&#8217;s creator ecosystem &#8212; who have relationships with the community team, who receive early access to content, who promote the game&#8217;s events and releases &#8212; have acknowledged the connection and crash issues in their own content. This matters because it removes the easy characterisation of server complaints as the frustration of players who are already disengaged. When creators whose function is, in part, to celebrate and promote the game also acknowledge that it disconnects, crashes, and loses player progress &#8212; not as an occasional exception but as a consistent reality &#8212; they are documenting a problem that the game&#8217;s most supportive community voices cannot avoid mentioning.</p>
+
+          <h4>The Specific Damage: What Instability Does to a Social Platform</h4>
+
+          <p>The consequences of server instability in Avakin Life are not equivalent to the consequences of the same problem in a different game genre. In a competitive multiplayer game, a crash means a lost match. In an open-world single-player game, it means losing unsaved progress. In Avakin Life, it means something different: the destruction of a social moment.</p>
+
+          <p>The value of Avakin Life exists in the interactions it facilitates &#8212; conversations between friends, gatherings in public social spaces, collaborative apartment design sessions, the shared experience of events and locations. All of these interactions require sustained connectivity. A disconnection does not just remove a player from the game. It removes them from a conversation mid-sentence, from a social gathering they arranged with other players, from an event they were participating in with a time-limited reward at stake. The interaction cannot be paused and resumed. The Crown spent to participate in the event session does not refund itself because a server dropped the connection. The progress toward an event reward track that was erased by a crash does not restore automatically.</p>
+
+          <div class="callout"><strong>The compounding damage:</strong> Every disconnection is a broken appointment. Every crash during an event is a monetary loss, for players who have spent real money on Crowns, that Lockwood does not compensate. The support documentation advises players to contact the support team if troubleshooting steps do not help &#8212; but the support team&#8217;s documented response time does not match the urgency of a problem that cost a player real money and social capital in real time. This is the dimension that purely technical descriptions of server instability fail to capture. It is not a game engine issue. It is a social infrastructure failure occurring inside a social product.</div>
+
+          <h4>The Compounding Logic: New Content on an Unstable Foundation</h4>
+
+          <p>The argument the community has articulated repeatedly is not that server instability is a bad thing in isolation. Every online game experiences server problems. The argument is about sequence and priority. When a game is actively launching new events, new monetisation tiers, a VIP subscription, and a full expansion to a new platform, while its server infrastructure remains unreliable enough to be the subject of a Known Issues thread and years of consistent community documentation, it is making a specific choice about what it considers worth fixing first.</p>
+
+          <p>Each new piece of content Lockwood releases is an additional demand on the infrastructure that is already failing to meet existing demand. Each new social space requires server capacity to populate it. Each new event with time-limited rewards makes disconnection during that event more damaging than disconnection during ordinary play. Each new Crown-priced item purchased by a player who then crashes before they can use it represents a transaction whose value was not delivered. The instability does not sit beside the content releases as a separate problem. It runs beneath them, undermining each one, making every new addition to the game less reliable than it would be on a stable platform.</p>
+
+          <h4>What a Resolved Problem Looks Like &#8212; and Why This One Is Not There</h4>
+
+          <p>Studios that have successfully resolved deep infrastructure instability in live-service games have done so through the same sequence: acknowledge the specific problem publicly, pause or reduce content velocity while the fix is implemented, communicate progress against a timeline, and verify resolution before resuming the full content release schedule.</p>
+
+          <p>The acknowledgement step &#8212; genuinely naming the problem rather than redirecting to the player&#8217;s network settings &#8212; is the one that Avakin Life&#8217;s official documentation has consistently avoided. The troubleshooting wiki&#8217;s framing of connection issues as a player-side problem, combined with the caveat that server outages are &#8220;rare&#8221; and resolve &#8220;within 24 hours,&#8221; creates an official record that contradicts the documented pattern of player experience. A player who reads the troubleshooting documentation and then encounters the same connection issue that has been documented across eight years of complaints is not encountering a rare server outage. They are encountering the infrastructure&#8217;s normal operating condition, described in official documentation as an exception.</p>
+
+          <p>The players know this. The content creators know this. The Known Issues thread, which acknowledges specific bugs publicly on the Steam platform, suggests that some members of the development team know this too. What the official documentation and communication record does not yet reflect is an acknowledgment that the problem is structural, that it has been present across a timeframe that makes &#8220;temporary&#8221; an inadequate description, and that resolving it is a prerequisite for every other improvement the game might attempt to make. You cannot ask players to trust an event system when the infrastructure that delivers events disconnects them mid-participation. You cannot ask players to spend real money on Crown-priced content when the platform has a documented history of crashing before that content can be enjoyed. The server instability is the longest-standing broken promise the game has made. And it has not been kept.</p>
+
         </div>
-        <div class="article__source"><strong>Sources:</strong> Google Play Store reviews — "crash", "server", "disconnected" across multiple years · r/AvakinLife outage threads · LKWD official Discord outage announcements</div>
+        <div class="article__source"><strong>Sources:</strong> Avakin Life Known Issues thread &#8212; Steam Community Hub, Early Access (2025) &#183; Steam Community &#8212; Avakin Life Early Access reviews (mixed/negative; 2025) &#183; Steam Community &#8212; Avakin Life FAQ discussion thread (LKWD Jessie, Feb 2025) &#183; Avakin Life Wiki (avakin.fandom.com) &#8212; &#8220;Troubleshooting Avakin Life&#8221; (accessed 2026) &#183; ComplaintsBoard &#8212; Avakin Life reviews and complaints (1.0-star average from 208 reviews; 0 resolved complaints; 2016&#8211;2024) &#183; Outagedown.com &#8212; Avakin Life server status and user-reported issues (various dates) &#183; SaaSHub Down Detector &#8212; Avakin Life status page; user-reported outage history &#183; avakin-life.net &#8212; &#8220;New Update: Changes &amp; Fixes&#8221; patch note archive (Jul 2022) &#183; SteamDB &#8212; Avakin Life patch notes 2.18.0 and 2.18.1 (Mar 2025) &#183; Avakin Life Facebook &#8212; &#8220;We are currently experiencing issues with the in-game support system&#8221; (AvakinOfficial) &#183; GamesIndustry.biz &#8212; Avakin Life daily active user decline data (2020&#8211;2025) &#183; Steam Charts &#8212; Avakin Life concurrent player data; peak 697 to stable ~286 (2025) &#183; r/AvakinOfficial &#8212; community threads on connection and crash issues (various) &#183; MelissajDiamonds &#8212; Avakin Life event guides YouTube playlist (2024); creator acknowledgment of instability in-context</div>
         <div class="article__admin-bar" id="admin-bar-technical1">
           <button class="admin-btn" onclick="addEditorNote('technical1')">+ Add note</button>
         </div>
       </div>
-
       <!-- TECHNICAL 2: Bans -->
       <div class="article" id="article-technical2" data-article="technical2" data-category="technical">
         <div class="article__header">
@@ -2929,7 +3010,7 @@ const STRINGS = {
     art_content3_t:'Event Fatigue: When the Calendar Becomes the Cage',
     art_content3_d:'Avakin Life\'s event calendar leaves no empty space: every week carries at least one timed engagement requirement, layered with FOMO mechanics, Crown-priced exclusives, and overlapping deadlines. Industry research identifies exactly this structure as one of the top three reasons players stop engaging with live-service games. The game has lost 84 percent of its daily active users since 2020.',
     art_technical1_t:'Server Instability: Disconnections and Lost Progress Remain Unresolved',
-    art_technical1_d:'Server outages and disconnections have appeared in community feedback for years. They are most damaging during events — precisely when the most is at stake.',
+    art_technical1_d:'Avakin Life\'s server instability has been documented in complaint records since 2016 — the same connection failures, the same crashes, the same lost progress across update cycles and platform expansions. Every new event, every Crown-priced purchase, and every social space is built on infrastructure whose unreliability has outlasted twelve years of patches. The Steam Known Issues thread, the troubleshooting wiki, and years of community complaints all document the same problem. It has not been resolved.',
     art_technical2_t:'Account Bans: When Automated Systems Penalise Normal Behaviour',
     art_technical2_d:'Permanent bans issued to players who believe they did nothing wrong are a recurring concern. Normal activities appear to trigger automated fraud flags with limited appeal options.',
     art_technical3_t:'Customer Support: Slow, Templated, and Overwhelmed',
@@ -3141,7 +3222,7 @@ const STRINGS = {
     art_content3_t:'Event-Müdigkeit: Wenn der Kalender zum Käfig wird',
     art_content3_d:'Avakins Eventkalender lässt keine Atempause: Jede Woche enthält mindestens eine zeitkritische Anforderung, überlagert von FOMO-Mechanismen und Crown-exklusiven Inhalten. Forschungen identifizieren genau diese Struktur als einen der drei Hauptgründe, warum Spieler Live-Service-Spiele aufgeben. Das Spiel hat seit 2020 84 Prozent seiner täglichen aktiven Nutzer verloren.',
     art_technical1_t:'Serverinstabilität: Verbindungsabbrüche und Fortschrittsverluste bleiben ungelöst',
-    art_technical1_d:'Serverausfälle und Verbindungsabbrüche tauchen seit Jahren in Community-Feedback auf. Sie treffen am härtesten während Events.',
+    art_technical1_d:'Avakins Serverinstabilität ist seit 2016 dokumentiert — dieselben Verbindungsfehler, dieselben Abstürze, derselbe Fortschrittsverlust über Update-Zyklen und Plattformerweiterungen hinweg. Der Steam-Known-Issues-Thread, das Troubleshooting-Wiki und jahrelange Community-Beschwerden dokumentieren dasselbe Problem. Es ist nicht gelöst.',
     art_technical2_t:'Account-Sperren: Wenn automatische Systeme normales Verhalten bestrafen',
     art_technical2_d:'Permanente Sperren für Spieler, die nichts falsch gemacht haben, sind ein wiederkehrendes Community-Problem.',
     art_technical3_t:'Kundensupport: Langsam, schablonenhaft und überwältigt',
@@ -3362,7 +3443,7 @@ const STRINGS = {
     art_content3_t:'Fatigue des événements : quand le calendrier devient une cage',
     art_content3_d:'Le calendrier événementiel d\'Avakin Life ne laisse aucun espace vide : chaque semaine comporte au moins une obligation temporelle, des mécaniques FOMO, et des exclusivités payantes. La recherche identifie cette structure comme l\'une des trois principales raisons pour lesquelles les joueurs abandonnent les jeux en direct. Le jeu a perdu 84 % de ses utilisateurs actifs quotidiens depuis 2020.',
     art_technical1_t:'Instabilité des serveurs : déconnexions et pertes de progression non résolues',
-    art_technical1_d:'Les pannes de serveur apparaissent dans les retours depuis des années. Elles touchent le plus durement pendant les événements.',
+    art_technical1_d:'L\'instabilité des serveurs d\'Avakin est documentée depuis 2016 — les mêmes échecs de connexion, les mêmes plantages, les mêmes pertes de progression à travers les cycles de mises à jour et les expansions de plateformes. Le fil Known Issues Steam, le wiki de dépannage et des années de plaintes communautaires documentent le même problème. Il n\'est pas résolu.',
     art_technical2_t:'Bannissements : quand les systèmes automatisés punissent un comportement normal',
     art_technical2_d:'Les bannissements permanents infligés à des joueurs innocents sont un problème récurrent.',
     art_technical3_t:'Support client : lent, automatisé et débordé',
@@ -3582,7 +3663,7 @@ const STRINGS = {
     art_content3_t:'إجهاد الأحداث: حين يصبح التقويم قفصاً',
     art_content3_d:'تقويم أحداث أفاكين لا يترك مساحة فارغة: كل أسبوع يحمل متطلب مشاركة مُحدَّد بوقت، مع آليات FOMO وحصريات بالكراون. تُحدد الأبحاث هذا النمط بوصفه أحد أهم ثلاثة أسباب لتوقف اللاعبين. فقدت اللعبة 84% من مستخدميها اليوميين منذ 2020.',
     art_technical1_t:'عدم استقرار الخوادم: انقطاعات وخسائر في التقدم تبقى دون حل',
-    art_technical1_d:'انقطاعات الخوادم في آراء المجتمع منذ سنوات. أضرارها الأكبر أثناء الأحداث.',
+    art_technical1_d:'يُوثَّق عدم استقرار خوادم أفاكين منذ عام 2016 — نفس فشل الاتصال، نفس التعطل، نفس فقدان التقدم عبر دورات التحديث وتوسعات المنصات. يُوثِّق خيط Known Issues على Steam وصفحة الاستكشاف وسنوات من شكاوى المجتمع المشكلةَ ذاتها. لم تُحَلّ.',
     art_technical2_t:'حظر الحسابات: عندما تعاقب الأنظمة الآلية السلوك الطبيعي',
     art_technical2_d:'الحظر الدائم للاعبين الذين لم يخطئوا مشكلة متكررة.',
     art_technical3_t:'دعم العملاء: بطيء، قوالب جاهزة، مُرهق',
@@ -3803,8 +3884,8 @@ const STRINGS = {
     art_content2_d:'Lockwood hou amptelike kompetisies op grond van twee ongedefinieerde kriteria \u2014 \'oorspronklikheid\' en \'samehang\' \u2014 sonder rooster, sonder terugvoer, met besluite wat \'finaal en bindend\' is. Gemeenskapswaarneming oor jare dokumenteer \'n konsekwente wennerpatroon. Die Greeter-programklousule is die eerste amptelike erkenning dat nabyheid aan die beoordelingspan nie \'n neutrale veranderlike is nie.',
     art_content3_t:'Geleentheid-moegheid: wanneer die kalender \'n kooi word',
     art_content3_d:'Avakin Life se geleentheidkalender laat geen leë spasie nie: elke week bevat ten minste een tydsbeperkte betrokkenheidsvereiste, FOMO-meganismes en Crown-eksklusiewe inhoud. Navorsing identifiseer hierdie struktuur as een van die top drie redes waarom spelers aftree. Die spel het 84 persent van sy daaglikse aktiewe gebruikers sedert 2020 verloor.',
-    art_technical1_t:'Bediener-onstabiliteit: afkoppelings bly onopgelos',
-    art_technical1_d:'Bedienerstoornisse verskyn al jare in gemeenskapsterugvoer.',
+    art_technical1_t:'Bediener-onstabiliteit: afkoppelings en verlore vordering bly onopgelos',
+    art_technical1_d:'Avakin Life se bedienersonstabiliteit is sedert 2016 gedokumenteer — dieselfde verbindingsfoute, dieselfde ineenstortings, dieselfde verlore vordering oor opdateringssiklusse en platformuitbreidings. Die Steam Known Issues-draad, die probleemoplossings-wiki en jare van gemeenskapsklagtes dokumenteer dieselfde probleem. Dit is nie opgelos nie.',
     art_technical2_t:'Rekening-verbanne: wanneer stelsels normale gedrag straf',
     art_technical2_d:'Permanente verbanne vir onskuldige spelers is herhaaldelik.',
     art_technical3_t:'Kliëntediens: stadig, sjabloonmatig en oorweldig',
@@ -4025,7 +4106,7 @@ const STRINGS = {
     art_content3_t:'活动疲劳：当日历变成囚笼',
     art_content3_d:'Avakin Life的活动日历没有空白：每周至少有一项限时参与要求，叠加FOMO机制、皇冠专属内容与交叉截止日期。行业研究将这一结构列为玩家放弃休闲服务游戏的三大原因之一。自2020年以来，游戏已流失84%的日活跃用户。',
     art_technical1_t:'服务器不稳定：断线和进度丢失悬而未决',
-    art_technical1_d:'服务器崩溃问题存在多年，活动期间危害最大。',
+    art_technical1_d:'Avakin Life的服务器不稳定性自2016年起便有记录——相同的连接失败、相同的崩溃、相同的进度丢失，贯穿更新周期与平台扩展始终。Steam已知问题帖、故障排查wiki以及多年社区投诉均记录了同一问题。它至今未被解决。',
     art_technical2_t:'账号封禁：当自动系统惩罚正常行为',
     art_technical2_d:'对无辜玩家的永久封禁是反复出现的问题。',
     art_technical3_t:'客户支持：缓慢、套话，不堪重负',
@@ -4503,6 +4584,15 @@ handleHash();
     });
     art.appendChild(wrapper);
 
+    // Bottom close hint — lives inside collapsible wrapper
+    var closeHint = document.createElement('div');
+    closeHint.className = 'article__close-hint';
+    closeHint.setAttribute('aria-hidden', 'true');
+    closeHint.innerHTML =
+      '<svg class="article__close-chevron" viewBox="0 0 14 9" xmlns="http://www.w3.org/2000/svg">' +
+      '<polyline points="1,7.5 7,1.5 13,7.5"/></svg>';
+    wrapper.appendChild(closeHint);
+
     // Divider + chevron hint
     var hint = document.createElement('div');
     hint.className = 'article__expand-hint';
@@ -4577,6 +4667,17 @@ handleHash();
         e.preventDefault();
         isOpen ? collapseArt() : expandArt();
       }
+    });
+
+    // Bottom close-hint: single click/tap collapses
+    closeHint.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (isOpen) collapseArt();
+    });
+    closeHint.addEventListener('touchend', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      if (isOpen) collapseArt();
     });
   });
 })();
