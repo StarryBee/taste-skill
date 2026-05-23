@@ -66,6 +66,9 @@
     /* ── TYPOGRAPHY ──────────────────────────────────── */
     .page-title { font-family: var(--serif); font-size: clamp(1.6rem,4vw,2.2rem); font-weight: 700; line-height: 1.2; margin-bottom: 8px; letter-spacing: -.02em; }
     .page-sub { font-size: .95rem; color: var(--mid); margin-bottom: 32px; line-height: 1.65; }
+    .page-sub p { margin: 0 0 14px; }
+    .page-sub p:last-child { margin-bottom: 0; }
+    .page-sub__note { font-size: .88rem; color: var(--mid); opacity: .82; }
     .label { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
     .divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
     .section-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 16px; }
@@ -824,7 +827,7 @@
     <img src="images/fountain-conservatory.jpg" class="deco" alt="Avakin Life — decorative" />
     <span class="label" data-i18n="issues_label">Community-reported problems</span>
     <h1 class="page-title" data-i18n="issues_title">Known Issues</h1>
-    <p class="page-sub" data-i18n="issues_sub">Each article addresses a specific, documented concern. Sources are shown at the end of each. Where something is a community-observed pattern, that is stated clearly.</p>
+    <div class="page-sub" data-i18n-html="issues_sub"></div>
 
     <div class="quote-bar">
       <div class="quote-bar__rule quote-bar__rule--top"></div>
@@ -3207,8 +3210,8 @@ const STRINGS = {
     home_card1_label:'What is Avakin Life?', home_card2_label:'Why this report?',
     home_card1_title:'A 3D social world on mobile', home_card2_title:'Recurring, unresolved concerns',
     home_covered:"What's covered here",
-    issues_label:'Community-reported problems', issues_title:'Known Issues',
-    issues_sub:'Each article addresses a specific, documented concern. Sources are shown at the end of each. Where something is a community-observed pattern, that is stated clearly.',
+    issues_label:'Community-Reported Problems', issues_title:'Known Issues',
+    issues_sub:'<p>These articles document specific, recurring concerns raised by the Avakin Life community &#8212; cross-referenced with player complaints, public reviews, official patch notes, and where available, Lockwood&#8217;s own statements. Each concern is addressed individually, with sources listed at the end. Where something reflects a community-observed pattern rather than a formally documented fact, that is stated clearly in the text.</p><p class=\'page-sub__note\'>This section will be updated as new information becomes available. If anything here is factually incorrect, please contact me at <a href=\'mailto:avknreport@gmail.com\'>avknreport@gmail.com</a> or via Instagram DMs <a href=\'https://www.instagram.com/itssagewren/\'>@itssagewren</a> &#8212; corrections are taken seriously and applied promptly.</p>',
     filter_all:'All', filter_economy:'Economy', filter_community:'Community', filter_content:'Content', filter_technical:'Technical',
     reviews_label:'Google Play Store', reviews_title:'Player Reviews',
     reviews_sub:'Representative reviews from the Avakin Life Google Play listing, reflecting common themes found across hundreds of entries. Both positive and critical reviews are included.',
@@ -3419,7 +3422,7 @@ const STRINGS = {
     home_card1_title:'Eine soziale 3D-Welt auf dem Handy', home_card2_title:'Wiederkehrende, ungelöste Probleme',
     home_covered:'Was hier behandelt wird',
     issues_label:'Von der Community gemeldete Probleme', issues_title:'Bekannte Probleme',
-    issues_sub:'Jeder Artikel befasst sich mit einem spezifischen, dokumentierten Anliegen. Quellen werden am Ende genannt.',
+    issues_sub:'<p>Diese Artikel dokumentieren spezifische, wiederkehrende Anliegen aus der Avakin-Life-Community &#8212; abgeglichen mit Spielerbeschwerden, &#246;ffentlichen Rezensionen, offiziellen Patch-Notes und, soweit verf&#252;gbar, Lockwoods eigenen Aussagen. Jedes Anliegen wird einzeln behandelt, mit Quellen am Ende. Wo etwas ein von der Community beobachtetes Muster darstellt und kein formal dokumentierter Fakt ist, wird dies im Text ausdr&#252;cklich angegeben.</p><p class=\'page-sub__note\'>Dieser Abschnitt wird aktualisiert, sobald neue Informationen vorliegen. Falls etwas hier sachlich unrichtig ist, bitte kontaktiere mich unter <a href=\'mailto:avknreport@gmail.com\'>avknreport@gmail.com</a> oder per Instagram-DM <a href=\'https://www.instagram.com/itssagewren/\'>@itssagewren</a> &#8212; Korrekturen werden ernst genommen und unverz&#252;glich umgesetzt.</p>',
     filter_all:'Alle', filter_economy:'Wirtschaft', filter_community:'Community', filter_content:'Inhalt', filter_technical:'Technik',
     reviews_label:'Google Play Store', reviews_title:'Spielerbewertungen',
     reviews_sub:'Repräsentative Bewertungen aus dem Avakin Life Google Play-Eintrag.',
@@ -3640,7 +3643,7 @@ const STRINGS = {
     home_card1_title:'Un monde social 3D sur mobile', home_card2_title:'Préoccupations récurrentes et non résolues',
     home_covered:'Ce qui est couvert ici',
     issues_label:'Problèmes signalés par la communauté', issues_title:'Problèmes connus',
-    issues_sub:'Chaque article traite une préoccupation spécifique et documentée. Les sources sont indiquées à la fin.',
+    issues_sub:'<p>Ces articles documentent des pr&#233;occupations sp&#233;cifiques et r&#233;currentes soulev&#233;es par la communaut&#233; Avakin Life &#8212; recoup&#233;es avec des plaintes de joueurs, des avis publics, des notes de correctifs officielles et, lorsque disponibles, les propres d&#233;clarations de Lockwood. Chaque pr&#233;occupation est trait&#233;e individuellement, avec les sources indiqu&#233;es &#224; la fin. Lorsqu&#8217;une pr&#233;occupation refl&#232;te un mod&#232;le observ&#233; par la communaut&#233; plut&#244;t qu&#8217;un fait formellement document&#233;, cela est clairement indiqu&#233; dans le texte.</p><p class=\'page-sub__note\'>Cette section sera mise &#224; jour au fur et &#224; mesure que de nouvelles informations seront disponibles. Si quelque chose ici est factuellement incorrect, veuillez me contacter &#224; <a href=\'mailto:avknreport@gmail.com\'>avknreport@gmail.com</a> ou via Instagram DMs <a href=\'https://www.instagram.com/itssagewren/\'>@itssagewren</a> &#8212; les corrections sont prises au s&#233;rieux et appliqu&#233;es rapidement.</p>',
     filter_all:'Tout', filter_economy:'Économie', filter_community:'Communauté', filter_content:'Contenu', filter_technical:'Technique',
     reviews_label:'Google Play Store', reviews_title:'Avis des joueurs',
     reviews_sub:"Avis représentatifs de la fiche Google Play d'Avakin Life, reflétant les thèmes communs.",
@@ -3860,7 +3863,7 @@ const STRINGS = {
     home_card1_title:'عالم اجتماعي ثلاثي الأبعاد على الهاتف', home_card2_title:'مشاكل متكررة وغير محلولة',
     home_covered:'ما يتناوله هذا الموقع',
     issues_label:'مشاكل أبلغ عنها المجتمع', issues_title:'المشاكل المعروفة',
-    issues_sub:'كل مقال يتناول مشكلة محددة وموثقة. المصادر مذكورة في النهاية.',
+    issues_sub:'<p>&#1578;&#1608;&#1579;&#1617;&#1602; &#1607;&#1584;&#1607; &#1575;&#1604;&#1605;&#1602;&#1575;&#1604;&#1575;&#1578; &#1605;&#1582;&#1575;&#1608;&#1601; &#1605;&#1581;&#1583;&#1617;&#1583;&#1577;&#1611; &#1608;&#1605;&#1578;&#1603;&#1585;&#1617;&#1585;&#1577;&#1611; &#1571;&#1579;&#1575;&#1585;&#1607;&#1575; &#1605;&#1580;&#1578;&#1605;&#1593; Avakin Life &#8212; &#1605;&#1583;&#1593;&#1608;&#1605;&#1577;&#1611; &#1576;&#1588;&#1603;&#1575;&#1608;&#1609; &#1575;&#1604;&#1604;&#1575;&#1593;&#1576;&#1610;&#1606; &#1608;&#1575;&#1604;&#1605;&#1585;&#1575;&#1580;&#1593;&#1575;&#1578; &#1575;&#1604;&#1593;&#1575;&#1605;&#1577; &#1608;&#1605;&#1604;&#1575;&#1581;&#1592;&#1575;&#1578; &#1575;&#1604;&#1578;&#1581;&#1583;&#1610;&#1579;&#1575;&#1578; &#1575;&#1604;&#1585;&#1587;&#1605;&#1610;&#1577;&#1548; &#1608;&#1581;&#1610;&#1579;&#1605;&#1575; &#1571;&#1605;&#1603;&#1606; &#1578;&#1589;&#1585;&#1610;&#1581;&#1575;&#1578; Lockwood &#1584;&#1575;&#1578;&#1607;&#1575;. &#1610;&#1615;&#1593;&#1575;&#1604;&#1614;&#1580; &#1603;&#1604; &#1605;&#1589;&#1583;&#1585; &#1602;&#1604;&#1602; &#1593;&#1604;&#1609; &#1581;&#1583;&#1577;&#1548; &#1605;&#1593; &#1584;&#1603;&#1585; &#1575;&#1604;&#1605;&#1589;&#1575;&#1583;&#1585; &#1601;&#1610; &#1575;&#1604;&#1606;&#1607;&#1575;&#1610;&#1577;. &#1608;&#1581;&#1610;&#1606; &#1610;&#1593;&#1603;&#1587; &#1575;&#1604;&#1571;&#1605;&#1585; &#1606;&#1605;&#1591;&#1611;&#1575; &#1605;&#1604;&#1575;&#1581;&#1592;&#1611;&#1575; &#1605;&#1606; &#1575;&#1604;&#1605;&#1580;&#1578;&#1605;&#1593; &#1604;&#1575; &#1581;&#1602;&#1610;&#1602;&#1577;&#1611; &#1605;&#1608;&#1579;&#1617;&#1602;&#1577;&#1611; &#1585;&#1587;&#1605;&#1610;&#1617;&#1611;&#1575;&#1548; &#1610;&#1615;&#1589;&#1617;&#1585;&#1617;&#1581; &#1576;&#1584;&#1604;&#1603; &#1601;&#1610; &#1575;&#1604;&#1606;&#1589;.</p><p class=\'page-sub__note\'>&#1587;&#1610;&#1615;&#1581;&#1614;&#1583;&#1617;&#1614;&#1579; &#1607;&#1584;&#1575; &#1575;&#1604;&#1602;&#1587;&#1605; &#1601;&#1608;&#1585; &#1578;&#1608;&#1601;&#1617;&#1585; &#1605;&#1593;&#1604;&#1608;&#1605;&#1575;&#1578; &#1580;&#1583;&#1610;&#1583;&#1577;. &#1573;&#1606; &#1603;&#1575;&#1606; &#1571;&#1610; &#1605;&#1581;&#1578;&#1608;&#1609; &#1607;&#1606;&#1575; &#1594;&#1610;&#1585; &#1583;&#1602;&#1610;&#1602; &#1605;&#1606; &#1575;&#1604;&#1606;&#1575;&#1581;&#1610;&#1577; &#1575;&#1604;&#1608;&#1575;&#1602;&#1593;&#1610;&#1577;&#1548; &#1610;&#1615;&#1585;&#1580;&#1609; &#1575;&#1604;&#1578;&#1608;&#1575;&#1589;&#1604; &#1605;&#1593;&#1610; &#1593;&#1604;&#1609; <a href=\'mailto:avknreport@gmail.com\'>avknreport@gmail.com</a> &#1571;&#1608; &#1593;&#1576;&#1585; &#1585;&#1587;&#1575;&#1574;&#1604; Instagram &#1575;&#1604;&#1605;&#1576;&#1575;&#1588;&#1585;&#1577; <a href=\'https://www.instagram.com/itssagewren/\'>@itssagewren</a> &#8212; &#1578;&#1572;&#1582;&#1584; &#1575;&#1604;&#1578;&#1589;&#1581;&#1610;&#1581;&#1575;&#1578; &#1576;&#1580;&#1583;&#1610;&#1577; &#1608;&#1578;&#1615;&#1591;&#1617;&#1576;&#1617;&#1614;&#1602; &#1601;&#1608;&#1585;&#1611;&#1575;.</p>',
     filter_all:'الكل', filter_economy:'الاقتصاد', filter_community:'المجتمع', filter_content:'المحتوى', filter_technical:'التقني',
     reviews_label:'متجر Google Play', reviews_title:'تقييمات اللاعبين',
     reviews_sub:'تقييمات تمثيلية من قائمة Avakin Life على Google Play.',
@@ -4082,7 +4085,7 @@ const STRINGS = {
     home_card1_title:"'n 3D-sosiale wêreld op mobiel", home_card2_title:'Herhalende, onopgeloste probleme',
     home_covered:'Wat hier behandel word',
     issues_label:'Deur gemeenskap gemelde probleme', issues_title:'Bekende probleme',
-    issues_sub:"Elke artikel behandel 'n spesifieke, gedokumenteerde probleem. Bronne word aan die einde getoon.",
+    issues_sub:'<p>Hierdie artikels dokumenteer spesifieke, herhalende kwessies wat deur die Avakin Life-gemeenskap geopper is &#8212; kruisverwys met spelersklagtes, openbare resensies, amptelike pleisnota&#8217;s en, waar beskikbaar, Lockwood se eie stellings. Elke kwessie word afsonderlik aangespreek, met bronne aan die einde. Waar iets &#8217;n gemeenskapwaargenome patroon eerder as &#8217;n formeel gedokumenteerde feit weerspie&#235;l, word dit duidelik in die teks gestel.</p><p class=\'page-sub__note\'>Hierdie afdeling sal opgedateer word soos nuwe inligting beskikbaar raak. As iets hier feitelik onkorrek is, kontak my asseblief by <a href=\'mailto:avknreport@gmail.com\'>avknreport@gmail.com</a> of via Instagram DMs <a href=\'https://www.instagram.com/itssagewren/\'>@itssagewren</a> &#8212; regstellings word ernstig opgeneem en vinnig toegepas.</p>',
     filter_all:'Alles', filter_economy:'Ekonomie', filter_community:'Gemeenskap', filter_content:'Inhoud', filter_technical:'Tegnies',
     reviews_label:'Google Play Store', reviews_title:'Spelerresensies',
     reviews_sub:'Verteenwoordigende resensies van die Avakin Life Google Play-inskrywing.',
@@ -4303,7 +4306,7 @@ const STRINGS = {
     home_card1_title:'手机上的3D社交世界', home_card2_title:'反复出现、未得解决的问题',
     home_covered:'本站涵盖的内容',
     issues_label:'社区反映的问题', issues_title:'已知问题',
-    issues_sub:'每篇文章针对一个具体、有据可查的问题，文末附有来源。',
+    issues_sub:'<p>&#36825;&#20123;&#25991;&#31456;&#35760;&#24405;&#20102;Avakin Life&#31038;&#21306;&#25552;&#20986;&#30340;&#20855;&#20307;&#12289;&#21453;&#22797;&#20986;&#29616;&#30340;&#38382;&#39064;&#65292;&#24182;&#19982;&#29609;&#23478;&#25237;&#35785;&#12289;&#20844;&#24320;&#35780;&#20215;&#12289;&#23448;&#26041;&#34917;&#19969;&#35828;&#26126;&#20197;&#21450;&#65288;&#22312;&#21487;&#33719;&#21462;&#30340;&#24773;&#20917;&#19979;&#65289;Lockwood&#30340;&#23448;&#26041;&#22768;&#26126;&#36827;&#34892;&#20102;&#20132;&#21449;&#26680;&#23454;&#12290;&#27ỗ&#20491;&#38382;&#39064;&#21333;&#29420;&#22788;&#29702;&#65292;&#25991;&#26411;&#38468;&#26377;&#26469;&#28304;&#12290;&#33509;&#26576;&#20869;&#23481;&#21453;&#26512;&#30340;&#26159;&#31038;&#21306;&#35266;&#23519;&#21040;&#30340;&#35268;&#24459;&#32780;&#38750;&#27491;&#24335;&#35760;&#24405;&#30340;&#20107;&#23454;&#65292;&#25991;&#20013;&#20250;&#26126;&#30830;&#35828;&#26126;&#12290;</p><p class=\'page-sub__note\'>&#26412;&#33410;&#23558;&#38543;&#26032;&#20449;&#24687;&#30340;&#20986;&#29616;&#25345;&#32493;&#26356;&#26032;&#12290;&#22914;&#26377;&#20219;&#20309;&#20869;&#23481;&#23384;&#22312;&#20107;&#23454;&#38169;&#35823;&#65292;&#27426;&#36814;&#36890;&#36807;<a href=\'mailto:avknreport@gmail.com\'>avknreport@gmail.com</a>&#25110;Instagram&#31169;&#20449;<a href=\'https://www.instagram.com/itssagewren/\'>@itssagewren</a>&#32852;&#31995;&#25105; &#8212; &#20462;&#27491;&#24847;&#35265;&#23558;&#34987;&#35748;&#30495;&#23545;&#24453;&#24182;&#21450;&#26102;&#22788;&#29702;&#12290;</p>',
     filter_all:'全部', filter_economy:'经济', filter_community:'社区', filter_content:'内容', filter_technical:'技术',
     reviews_label:'Google Play商店', reviews_title:'玩家评价',
     reviews_sub:'来自Avakin Life Google Play页面的代表性评价，反映数百条评论中的常见主题。',
