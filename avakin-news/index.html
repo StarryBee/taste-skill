@@ -844,12 +844,6 @@
 
     <div class="article-list">
 
-      <div class="quote-bar">
-        <div class="quote-bar__rule quote-bar__rule--top"></div>
-        <blockquote class="quote-bar__text">When the people shall have nothing more to eat, they will eat the rich.</blockquote>
-        <div class="quote-bar__rule quote-bar__rule--bot"></div>
-        <p class="quote-bar__attribution">&#8212; Rousseau</p>
-      </div>
       <!-- ECONOMY 1: Crown access -->
       <div class="article" id="article-economy1" data-article="economy1" data-category="economy">
         <div class="article__header">
@@ -964,6 +958,12 @@
         <div class="article__admin-bar" id="admin-bar-economy2">
           <button class="admin-btn" onclick="addEditorNote('economy2')">+ Add note</button>
         </div>
+      </div>
+      <div class="quote-bar">
+        <div class="quote-bar__rule quote-bar__rule--top"></div>
+        <blockquote class="quote-bar__text">When the people shall have nothing more to eat, they will eat the rich.</blockquote>
+        <div class="quote-bar__rule quote-bar__rule--bot"></div>
+        <p class="quote-bar__attribution">&#8212; Rousseau</p>
       </div>
       <!-- ECONOMY 3: The economic backlash -->
       <div class="article" id="article-economy3" data-article="economy3" data-category="economy">
@@ -2793,6 +2793,19 @@ function filterIssues(cat) {
   document.querySelectorAll('.article-list .article').forEach(a => {
     const match = cat === 'all' || a.dataset.category === cat;
     a.dataset.hidden = match ? 'false' : 'true';
+  });
+  // Show quote bars only when an adjacent article (before or after) is visible
+  document.querySelectorAll('.article-list .quote-bar').forEach(function(qb) {
+    var children = Array.from(qb.parentElement.children);
+    var idx = children.indexOf(qb);
+    var prevVis = false, nextVis = false;
+    for (var i = idx - 1; i >= 0; i--) {
+      if (children[i].classList.contains('article')) { prevVis = children[i].dataset.hidden !== 'true'; break; }
+    }
+    for (var i = idx + 1; i < children.length; i++) {
+      if (children[i].classList.contains('article')) { nextVis = children[i].dataset.hidden !== 'true'; break; }
+    }
+    qb.style.display = (prevVis || nextVis) ? '' : 'none';
   });
 }
 
