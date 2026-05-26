@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital@0;1&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Avakin Life — Community Report</title>
   <meta name="description" content="An independent community accountability site covering Avakin Life by Lockwood Publishing. Player issues, reviews, suggestions, and transparency tracking." />
@@ -695,6 +695,228 @@
     }
     /* ─────────────────────────────────────────────────────────── */
 
+
+  /* ══════════════════════════════════════════════════════════════════════
+     PREMIUM REDESIGN — typography, hierarchy, spacing. Palette unchanged.
+     ══════════════════════════════════════════════════════════════════════ */
+
+  /* ─── Font stack upgrades ─────────────────────────────────────────── */
+  :root {
+    --serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --prose: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  }
+
+  /* ─── EB Garamond on all reading surfaces ────────────────────────── */
+  .page-sub,
+  .article__body,
+  .article__deck,
+  .callout,
+  .intro-card__body,
+  .summary-item__desc,
+  .about-body,
+  .step__body,
+  .review-card__text,
+  .suggestion-card__desc,
+  .article__source,
+  .avr-quote__text,
+  .support-message__quote {
+    font-family: var(--prose);
+  }
+  .article__body  { font-size: 1.0rem;  line-height: 1.9;  }
+  .article__deck  { font-size: 0.98rem; line-height: 1.68; }
+  .page-sub       { font-size: 1.05rem; line-height: 1.78; }
+  .page-sub__note { font-family: var(--prose); font-size: 0.93rem; }
+
+  /* ─── Sub-headings inside article bodies ────────────────────────── */
+  .article__body h4 {
+    font-family: var(--serif);
+    font-size: 1.06rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin: 26px 0 10px;
+    color: var(--ink);
+  }
+  .article__body h4:first-child { margin-top: 8px; }
+
+  /* ─── Topbar — masthead with gold cap rule ───────────────────────── */
+  .topbar {
+    border-top: 3px solid var(--accent);
+  }
+  .topbar__brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.18rem;
+    letter-spacing: 0.01em;
+    font-style: italic;
+    font-weight: 700;
+  }
+  @media (min-width: 640px) {
+    .topbar__inner { padding: 0 28px; gap: 20px; }
+    .topbar__brand { font-size: 1.3rem; padding: 17px 0; }
+  }
+
+  /* ─── Navigation — editorial underline style on desktop ─────────── */
+  @media (min-width: 640px) {
+    .nav__btn {
+      border-radius: 0;
+      padding: 17px 12px;
+      font-size: 0.76rem;
+      letter-spacing: 0.025em;
+      border-bottom: 2px solid transparent;
+      transition: color 0.18s, border-bottom-color 0.18s, background 0.18s;
+    }
+    .nav__btn:hover {
+      background: transparent;
+      color: var(--ink);
+      border-bottom-color: var(--border);
+    }
+    .nav__btn.active {
+      background: transparent;
+      color: var(--ink);
+      font-weight: 700;
+      border-bottom-color: var(--accent);
+    }
+  }
+
+  /* ─── Layout breathing room ──────────────────────────────────────── */
+  .wrap { padding: 52px 26px 100px; }
+
+  /* ─── Deco images ────────────────────────────────────────────────── */
+  .deco       { height: 240px; margin-bottom: 48px; border-radius: 4px; }
+  .deco--short { height: 185px; }
+
+  /* ─── Page titles — large editorial display ──────────────────────── */
+  .page-title {
+    font-size: clamp(2.1rem, 5.5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    margin-bottom: 16px;
+  }
+  .label {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 1.22rem;
+    letter-spacing: -0.015em;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 22px;
+  }
+  .divider { margin: 36px 0; }
+
+  /* ─── Home intro cards ───────────────────────────────────────────── */
+  .home-intro { gap: 18px; margin-bottom: 36px; }
+  .intro-card { border-radius: 6px; padding: 26px 28px; }
+  .intro-card__title {
+    font-size: 1.12rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  /* ─── Summary list (home page) ───────────────────────────────────── */
+  .summary-item {
+    padding: 18px 22px;
+    border-radius: 6px;
+    border-left: 3px solid transparent;
+    transition: border-left-color .22s, box-shadow .22s;
+  }
+  .summary-item:hover {
+    box-shadow: 0 4px 22px rgba(0,0,0,.09);
+    border-left-color: var(--accent);
+  }
+  .summary-item__title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.0rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+
+  /* ─── Article cards ──────────────────────────────────────────────── */
+  .article { border-radius: 6px; }
+  .article--open { box-shadow: 0 6px 32px rgba(0,0,0,.10); }
+  .article__header { padding: 20px 26px 14px !important; }
+  .article__header .article__deck { padding-bottom: 0; }
+  .article__title {
+    font-size: 1.24rem;
+    line-height: 1.26;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .article__body   { padding: 0 26px 22px; }
+  .article__source { margin: 0 26px 22px; font-size: 0.81rem; line-height: 1.62; }
+  .article__meta   { margin-bottom: 12px; gap: 7px; }
+
+  /* ─── Callout ────────────────────────────────────────────────────── */
+  .callout {
+    border-left-width: 4px;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 20px;
+    font-size: 0.97rem;
+    line-height: 1.74;
+  }
+
+  /* ─── Filter bar ─────────────────────────────────────────────────── */
+  .filter-btn {
+    border-radius: 4px;
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    padding: 6px 16px;
+  }
+  .filter-btn.active {
+    box-shadow: 0 2px 8px rgba(28,25,23,0.18);
+  }
+
+  /* ─── Review cards ───────────────────────────────────────────────── */
+  .review-card    { border-radius: 6px; padding: 20px 22px; }
+  .rating-summary { border-radius: 6px; padding: 26px 28px; }
+  .rating-big     { font-size: 3.8rem; }
+
+  /* ─── Suggestion cards ───────────────────────────────────────────── */
+  .suggestion-card { border-radius: 6px; padding: 20px 22px; }
+
+  /* ─── Step & source items ────────────────────────────────────────── */
+  .step        { border-radius: 6px; padding: 20px 22px; }
+  .source-item { border-radius: 6px; padding: 18px 22px; }
+
+  /* ─── Modal ──────────────────────────────────────────────────────── */
+  .modal { border-radius: 10px; }
+
+  /* ─── Badge — slightly more refined ─────────────────────────────── */
+  .badge { letter-spacing: 0.09em; padding: 3px 10px; }
+
+  /* ─── Footer ─────────────────────────────────────────────────────── */
+  .footer {
+    border-top: 2px solid var(--border);
+    padding: 28px 20px 24px;
+    font-size: 0.79rem;
+  }
+
+  /* ─── Search box ─────────────────────────────────────────────────── */
+  .search-box { border-radius: 8px; }
+  .search-input { font-size: 1.0rem; }
+
+  /* ─── Mobile ─────────────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .wrap { padding: 36px 18px 72px; }
+    .deco { height: 165px; margin-bottom: 36px; }
+    .page-title { font-size: clamp(1.85rem, 6.5vw, 2.6rem); }
+    .article__header { padding-left: 18px !important; padding-right: 18px !important; }
+  }
+
+  /* ─── Dark mode tweaks for new rules ────────────────────────────── */
+  [data-theme="dark"] .article--open {
+    box-shadow: 0 6px 32px rgba(0,0,0,.35);
+  }
+  [data-theme="dark"] .summary-item:hover {
+    box-shadow: 0 4px 22px rgba(0,0,0,.28);
+  }
+  /* ─────────────────────────────────────────────────────────────────── */
   </style>
 </head>
 <body>
