@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Crowley Gazette — Where Dark Truths Unravel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=Outfit:wght@300;400;500;600&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ───────────────────────────────────────────────── */
+    :root {
+      --bg:         #0e0b13;          /* warmer off-black, never pure #000 */
+      --bg-1:       #150f20;          /* elevated surface */
+      --bg-2:       #1d1730;          /* highest surface */
+      --text:       #f2ede6;          /* warm off-white */
+      --text-2:     #8f8a97;          /* muted body */
+      --text-3:     #4a4555;          /* very muted labels */
+      --accent:     #7d5fa6;          /* muted violet — sat ~42%, single accent */
+      --accent-dim: rgba(125,95,166,0.15);
+      --warm:       #b8965a;          /* muted amber — secondary only */
+      --border:     rgba(255,255,255,0.065);
+      --border-2:   rgba(255,255,255,0.035);
+      --inner:      rgba(255,255,255,0.055); /* liquid-glass inner highlight */
+      --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-std:   cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ── UTILITIES ────────────────────────────────────────────── */
+    .mono {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+    }
+
+    .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+    .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+
+    .accent-text { color: var(--accent); }
+    .warm-text   { color: var(--warm); }
+
+    /* ── READING PROGRESS ─────────────────────────────────────── */
+    #read-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--warm));
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+    /* ── SCROLL REVEAL ────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .reveal-delay-1 { transition-delay: 0.12s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
+    .reveal-delay-4 { transition-delay: 0.46s; }
+
+    /* ── NAVIGATION ───────────────────────────────────────────── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14,11,19,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      /* 2px accent stripe at very top — editorial touch */
+      border-top: 2px solid var(--accent);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+      height: 60px;
+      gap: 40px;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* Thin separator between logo and links */
+    .nav-logo::after {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 14px;
+      background: var(--border);
+      margin-left: 40px;
+      vertical-align: middle;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      list-style: none;
+      flex: 1;
+    }
+
+    .nav-links li a {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11.5px;
+      font-weight: 300;         /* extreme contrast vs 700 logo */
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+      padding: 0 16px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+      margin-bottom: -1px;      /* overlap the nav border-bottom */
+    }
+    .nav-links li a:hover {
+      color: var(--text);
+      border-bottom-color: var(--accent);
+    }
+
+    .nav-issue {
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      color: var(--text-3);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── MARQUEE TICKER ───────────────────────────────────────── */
+    .ticker {
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      height: 30px;
+      background: var(--bg-1);
+    }
+
+    .ticker-tag {
+      background: var(--accent);
+      flex-shrink: 0;
+      padding: 0 16px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+      box-shadow: inset 0 1px 0 var(--inner);
+    }
+
+    .ticker-track {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-items {
+      display: flex;
+      gap: 72px;
+      animation: marquee 52s linear infinite;
+      white-space: nowrap;
+      will-change: transform;
+    }
+
+    .ticker-items span {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.07em;
+      color: var(--text-2);
+    }
+
+    .ticker-items .dot {
+      color: var(--accent);
+      opacity: 0.4;
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── LAYOUT WRAPPER ───────────────────────────────────────── */
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ── SECTION LABEL ROW ────────────────────────────────────── */
+    .section-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 44px 0 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    /* Accent pip before every section label */
+    .section-label-row .label::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-right: 10px;
+      vertical-align: middle;
+      position: relative;
+      top: -1px;
+    }
+
+    .section-label-row .see-all {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--text-3);
+      transition: color 0.2s;
+    }
+    .section-label-row .see-all:hover { color: var(--text-2); }
+
+    /* ── ════════════════════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════════════════════ */
+    .hero {
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: 55fr 45fr;   /* intentionally off-center */
+      align-items: stretch;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 72px 56px 72px 48px;
+      gap: 32px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow .dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      animation: pulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.35; transform: scale(0.65); }
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 5.8vw, 92px); /* pushed larger */
+      font-weight: 900;
+      line-height: 0.98;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-dek {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--text-2);
+      max-width: 44ch;
+    }
+
+    .hero-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-top: 4px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      padding: 13px 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.25s var(--ease-out), transform 0.12s;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+    }
+    .btn-primary:hover  { background: #6d4f94; }
+    .btn-primary:active { transform: scale(0.97); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      padding: 13px 22px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: border-color 0.25s, color 0.25s, transform 0.12s;
+      box-shadow: inset 0 1px 0 var(--inner);
+    }
+    .btn-ghost:hover  { border-color: rgba(255,255,255,0.2); color: var(--text); }
+    .btn-ghost:active { transform: scale(0.97); }
+
+    /* Hero stats — left-border accent, editorial */
+    .hero-meta {
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 0;
+    }
+
+    .hero-stat {
+      padding: 0 28px 0 0;
+      border-right: 1px solid var(--border);
+      margin-right: 28px;
+    }
+    .hero-stat:last-child { border-right: none; margin-right: 0; }
+
+    .hero-stat strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 34px;
+      font-weight: 900;
+      font-style: italic;          /* italic numerals — editorial */
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.82) saturate(0.88) contrast(1.04);
+      transition: transform 1.4s var(--ease-out), filter 0.7s;
+    }
+    .hero-right:hover img {
+      transform: scale(1.035);
+      filter: brightness(0.88) saturate(0.95);
+    }
+
+    .hero-img-meta {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .hero-img-caption {
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      color: rgba(242,237,230,0.38);
+      letter-spacing: 0.07em;
+      max-width: 38ch;
+      line-height: 1.55;
+    }
+
+    .hero-img-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 56px;
+      font-weight: 900;
+      font-style: italic;
+      color: rgba(255,255,255,0.09);  /* slightly more visible as design element */
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       CHRONICLES — ASYMMETRIC GRID
+    ═══════════════════════════════════════════════════════════ */
+    .chronicles-grid {
+      display: grid;
+      grid-template-columns: 2.4fr 1fr;   /* more asymmetric */
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 32px;
+    }
+
+    .chronicle-main { background: var(--bg); }
+
+    .chronicle-main .img-block {
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .chronicle-main .img-block img {
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.82) brightness(0.86) contrast(1.04);
+      transition: transform 0.9s var(--ease-out);
+    }
+    .chronicle-main:hover .img-block img { transform: scale(1.04); }
+
+    .chronicle-body { padding: 28px 32px 32px; }
+
+    .chronicle-sidebar {
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      counter-reset: sidebar-story;
+    }
+
+    .sidebar-story {
+      padding: 24px 24px;
+      border-bottom: 1px solid var(--border);
+      flex: 1;
+      position: relative;
+      transition: background 0.25s var(--ease-out);
+      counter-increment: sidebar-story;
+    }
+    .sidebar-story:last-child { border-bottom: none; }
+    .sidebar-story:hover { background: var(--bg-1); }
+
+    /* Auto-counter numbers */
+    .sidebar-story::before {
+      content: counter(sidebar-story, decimal-leading-zero);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: 0.08em;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       ARTICLE TYPOGRAPHY ATOMS
+    ═══════════════════════════════════════════════════════════ */
+    .hed-xl {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 3.4vw, 54px);  /* larger */
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+
+    .hed-lg {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 2.6vw, 40px);  /* larger */
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .hed-md {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 2vw, 28px);    /* larger */
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.015em;
+      color: var(--text);
+    }
+
+    .hed-sm {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .dek {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+
+    .body-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14.5px;
+      font-weight: 300;
+      line-height: 1.8;           /* more generous */
+      color: var(--text-2);
+    }
+    .body-text p + p { margin-top: 14px; }
+
+    .art-meta {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ── IMAGE LABEL (outside/below, taste-skill + Swiss rule) ── */
+    .img-label-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 10px 0 0;
+    }
+
+    .img-label-row .img-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11.5px;
+      font-weight: 300;
+      color: var(--text-3);
+    }
+
+    .img-label-row .img-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text-3);
+      opacity: 0.6;
+    }
+
+    /* ── PULL QUOTE ───────────────────────────────────────────── */
+    .pull-quote {
+      margin: 28px 0;
+      padding: 20px 24px;
+      border-left: 3px solid var(--accent);  /* thicker */
+      background: var(--accent-dim);
+      box-shadow: inset 0 1px 0 var(--inner);
+    }
+
+    .pull-quote p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    .pull-quote cite {
+      display: block;
+      margin-top: 12px;
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      color: var(--text-3);
+      font-style: normal;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       MANUSCRIPT SECTION — SPLIT SCREEN
+    ═══════════════════════════════════════════════════════════ */
+    .manuscript-split {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;  /* slightly more text-heavy */
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+
+    .manuscript-text {
+      background: var(--bg);
+      padding: 52px 48px;
+    }
+
+    .manuscript-image {
+      background: var(--bg-1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manuscript-image img {
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.65) brightness(0.72) contrast(1.06);
+      transition: transform 1s var(--ease-out);
+    }
+    .manuscript-image:hover img { transform: scale(1.03); }
+
+    /* Drop cap — larger, more impactful */
+    .dropcap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 5em;
+      font-weight: 900;
+      float: left;
+      line-height: 0.76;
+      margin-right: 10px;
+      margin-top: 6px;
+      color: var(--accent);
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       TYPOGRAPHIC CLARITY MOMENT
+    ═══════════════════════════════════════════════════════════ */
+    .clarity-section {
+      padding: 128px 48px;
+      border-bottom: 1px solid var(--border);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .clarity-section .clarity-word {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(80px, 11vw, 160px); /* maximised */
+      font-weight: 900;
+      font-style: italic;
+      line-height: 0.93;
+      letter-spacing: -0.035em;
+      color: var(--text);
+    }
+
+    .clarity-section .clarity-sub {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-2);
+      margin-top: 32px;
+      max-width: 54ch;
+      line-height: 1.75;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       ARCHIVE GRID — 2×2 ASYMMETRIC
+    ═══════════════════════════════════════════════════════════ */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: 1.7fr 1fr;  /* more asymmetric */
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-top: none;
+    }
+
+    .archive-cell {
+      background: var(--bg);
+      overflow: hidden;
+      transition: background 0.25s;
+    }
+    .archive-cell:hover { background: var(--bg-1); }
+
+    .archive-cell .img-block { overflow: hidden; }
+
+    .archive-cell .img-block img {
+      width: 100%;
+      height: 300px;           /* taller */
+      object-fit: cover;
+      filter: saturate(0.78) brightness(0.84) contrast(1.04);
+      transition: transform 0.9s var(--ease-out), filter 0.5s;
+    }
+    .archive-cell:hover .img-block img {
+      transform: scale(1.04);
+      filter: saturate(0.88) brightness(0.9);
+    }
+
+    .archive-cell.tall .img-block img { height: 100%; min-height: 460px; }
+
+    .archive-cell-body { padding: 20px 22px 24px; }
+
+    /* ── ════════════════════════════════════════════════════════
+       FEATURE — FULL BLEED WITH OVERLAY
+    ═══════════════════════════════════════════════════════════ */
+    .feature-full {
+      position: relative;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      min-height: 580px;
+    }
+
+    .feature-full img {
+      width: 100%;
+      height: 100%;
+      min-height: 580px;
+      object-fit: cover;
+      filter: brightness(0.38) saturate(0.65) contrast(1.1);
+      position: absolute;
+      inset: 0;
+      transition: transform 1.4s var(--ease-out);
+    }
+    .feature-full:hover img { transform: scale(1.03); }
+
+    .feature-overlay {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 88px 48px;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       DISPATCH STATEMENT SECTION
+    ═══════════════════════════════════════════════════════════ */
+    .dispatch-statement {
+      padding: 104px 0;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .dispatch-statement .big-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 6vw, 88px);
+      font-weight: 900;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      max-width: 17ch;
+      margin: 0 auto;
+    }
+
+    .dispatch-statement .sub {
+      margin-top: 28px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-2);
+      max-width: 50ch;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.75;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       DISPATCHES LIST — DIVIDER STYLE (NO CARDS)
+    ═══════════════════════════════════════════════════════════ */
+    .dispatch-list { border-top: 1px solid var(--border); }
+
+    .dispatch-row {
+      display: grid;
+      grid-template-columns: 260px 1fr 180px;
+      gap: 32px;
+      align-items: center;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      border-left: 2px solid transparent;          /* clean hover reveal */
+      padding-left: 16px;
+      transition:
+        background 0.25s var(--ease-out),
+        border-left-color 0.25s var(--ease-out);
+    }
+    .dispatch-row:hover {
+      background: var(--bg-1);
+      border-left-color: var(--accent);            /* border-left reveal on hover */
+    }
+
+    .dispatch-row .d-img {
+      overflow: hidden;
+      aspect-ratio: 16/9;
+    }
+
+    .dispatch-row .d-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.72) brightness(0.82);
+      transition: transform 0.65s var(--ease-out);
+    }
+    .dispatch-row:hover .d-img img { transform: scale(1.06); }
+
+    .dispatch-row .d-section {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       REVIEWS — SWISS DIVIDE-Y STYLE
+    ═══════════════════════════════════════════════════════════ */
+    .reviews-section {
+      padding: 96px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .reviews-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 4.5vw, 68px);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.025em;
+      margin-bottom: 0;
+    }
+
+    /* Swiss: divide-y instead of scattered layout */
+    .reviews-scatter {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 0 56px;
+      align-items: start;
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+
+    .review-item {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding-top: 32px;
+      border-top: 2px solid var(--border-2);
+      margin-top: -1px;
+    }
+
+    /* Remove scattered offsets — Swiss grid is structured */
+    .review-item:nth-child(2) { margin-top: 0; }
+    .review-item:nth-child(3) { margin-top: 0; }
+
+    /* Center review gets accent top border */
+    .review-item:nth-child(2) { border-top-color: var(--accent); }
+
+    .review-stars {
+      display: flex;
+      gap: 4px;
+    }
+
+    .review-stars span {
+      width: 11px; height: 11px;
+      background: var(--warm);
+      clip-path: polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+      opacity: 0.75;
+    }
+    .review-stars span.empty { opacity: 0.12; }
+
+    .review-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    .review-author {
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.12em;
+      color: var(--text-3);
+    }
+
+    /* ── ════════════════════════════════════════════════════════
+       BANNER CTA — JOIN
+    ═══════════════════════════════════════════════════════════ */
+    .join-banner {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+    }
+
+    .join-banner-bg { position: absolute; inset: 0; }
+
+    .join-banner-bg img {
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.18) saturate(0.45) contrast(1.1);
+    }
+
+    .join-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 104px 48px;
+      text-align: center;
+    }
+
+    .join-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 5.5vw, 76px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    .join-inner p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-2);
+      max-width: 48ch;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+    }
+
+    .join-form {
+      display: flex;
+      align-items: center;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .join-form input {
+      flex: 1;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.11);
+      border-right: none;
+      padding: 14px 18px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      box-shadow: inset 0 1px 0 var(--inner);
+      transition: border-color 0.25s;
+    }
+    .join-form input::placeholder { color: var(--text-3); }
+    .join-form input:focus { border-color: rgba(255,255,255,0.2); }
+
+    .join-form button {
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 14px 22px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.25s, transform 0.12s;
+      white-space: nowrap;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+    .join-form button:hover  { background: #6d4f94; }
+    .join-form button:active { transform: scale(0.97); }
+
+    /* ── ════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════ */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background: var(--bg-1);
+    }
+
+    .footer-top {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 60px 48px 52px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;   /* more space for logo/about */
+      gap: 52px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;             /* larger — editorial anchor */
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .footer-about {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-3);
+      line-height: 1.75;
+      max-width: 34ch;
+    }
+
+    .footer-col h5 {
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li a {
+      font-family: 'Outfit', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-2);
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--text); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 18px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-family: 'DM Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.08em;
+      color: var(--text-3);
+    }
+
+    /* ── NOTICES BAND ─────────────────────────────────────────── */
+    .notices-band {
+      border-top: none;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-1);
+      /* Accent stripe at top */
+      box-shadow: inset 0 2px 0 var(--accent);
+    }
+
+    .notices-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .notice-cell {
+      padding: 28px 28px 28px 0;
+      border-right: 1px solid var(--border);
+      padding-right: 28px;
+    }
+    .notice-cell:last-child { border-right: none; }
+    .notice-cell:first-child { padding-left: 0; }
+
+    .notice-cell .notice-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .notice-cell p {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12.5px;
+      font-weight: 300;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    /* ── RESPONSIVE ───────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero                { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right          { min-height: 52vw; }
+      .hero-left           { padding: 56px 48px; }
+      .chronicles-grid     { grid-template-columns: 1fr; }
+      .manuscript-split    { grid-template-columns: 1fr; }
+      .manuscript-image    { min-height: 340px; }
+      .manuscript-image img{ height: 340px; }
+      .archive-grid        { grid-template-columns: 1fr; }
+      .feature-overlay     { grid-template-columns: 1fr; gap: 32px; padding: 52px 48px; }
+      .dispatch-row        { grid-template-columns: 160px 1fr; }
+      .dispatch-row > *:last-child { display: none; }
+      .reviews-scatter     { grid-template-columns: 1fr 1fr; gap: 0 40px; }
+      .reviews-scatter > *:nth-child(3) { display: none; }
+      .footer-top          { grid-template-columns: 1fr 1fr; }
+      .notices-inner       { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .wrap { padding: 0 20px; }
+      .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .nav-logo::after { display: none; }
+      .hero-left { padding: 48px 20px; }
+      .chronicle-body, .manuscript-text, .archive-cell-body { padding: 22px 20px; }
+      .clarity-section { padding: 72px 20px; }
+      .feature-overlay { padding: 44px 20px; grid-template-columns: 1fr; gap: 28px; }
+      .dispatch-row { grid-template-columns: 1fr; padding-left: 16px; }
+      .dispatch-row .d-img { display: none; }
+      .reviews-scatter { grid-template-columns: 1fr; gap: 0; }
+      .reviews-scatter > *:nth-child(2),
+      .reviews-scatter > *:nth-child(3) { display: none; }
+      .join-inner { padding: 64px 20px; }
+      .join-form { flex-direction: column; }
+      .join-form input { border-right: 1px solid rgba(255,255,255,0.11); }
+      .join-form input, .join-form button { width: 100%; }
+      .footer-top { grid-template-columns: 1fr; padding: 40px 20px; }
+      .footer-bottom { padding: 16px 20px; flex-direction: column; gap: 8px; text-align: center; }
+      .notices-inner { grid-template-columns: 1fr; }
+      .notice-cell { border-right: none; border-bottom: 1px solid var(--border); padding-left: 0; padding-right: 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="read-progress"></div>
+
+<!-- ════════════════════════════════════════════════════════════
+     NAV
+═════════════════════════════════════════════════════════════ -->
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">The Crowley Gazette</a>
+    <ul class="nav-links">
+      <li><a href="#">Chronicles</a></li>
+      <li><a href="#">The Arcane</a></li>
+      <li><a href="#">Arts</a></li>
+      <li><a href="#">Dispatches</a></li>
+      <li><a href="#">Séances</a></li>
+      <li><a href="#">Archive</a></li>
+    </ul>
+    <span class="nav-issue">Vol. I · No. 13 · 18 May 2026</span>
+  </div>
+  <!-- ticker -->
+  <div class="ticker">
+    <div class="ticker-tag">Breaking</div>
+    <div class="ticker-track">
+      <div class="ticker-items" id="ticker-items">
+        <span>Crowley manuscript confirmed authentic by three independent scholars</span>
+        <span class="dot">·</span>
+        <span>Enchanted Garden: third lantern event this fortnight — no source found</span>
+        <span class="dot">·</span>
+        <span>Black Carriage crosses North Gate at midnight — driver's seat empty</span>
+        <span class="dot">·</span>
+        <span>Glass-House fountain flows again after 40 years of silence</span>
+        <span class="dot">·</span>
+        <span>Art Academy studio: seventh canvas completed by an unseen hand</span>
+        <span class="dot">·</span>
+        <span>Red Maple at the Waterfront has not shed a single leaf in forty days</span>
+        <span class="dot">·</span>
+        <span>Crowley manuscript confirmed authentic by three independent scholars</span>
+        <span class="dot">·</span>
+        <span>Enchanted Garden: third lantern event this fortnight — no source found</span>
+        <span class="dot">·</span>
+        <span>Black Carriage crosses North Gate at midnight — driver's seat empty</span>
+        <span class="dot">·</span>
+        <span>Glass-House fountain flows again after 40 years of silence</span>
+        <span class="dot">·</span>
+        <span>Art Academy studio: seventh canvas completed by an unseen hand</span>
+        <span class="dot">·</span>
+        <span>Red Maple at the Waterfront has not shed a single leaf in forty days</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+═════════════════════════════════════════════════════════════ -->
+<section class="hero">
+
+  <div class="hero-left reveal">
+    <div class="hero-eyebrow">
+      <div class="dot"></div>
+      <span class="label">Frontpage Feature · Séance Report</span>
+    </div>
+
+    <h1 class="hero-headline">
+      The séance at<br/>
+      <em>Lakeside</em><br/>
+      Manor.
+    </h1>
+
+    <p class="hero-dek">
+      Seven gathered on the dock at the dying of the moon. The water went still as glass. Something moved beneath it — and it knew their names.
+    </p>
+
+    <div class="hero-links">
+      <a href="#" class="btn-primary">Read the report</a>
+      <a href="#" class="btn-ghost">Browse the archive</a>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <strong>7</strong>
+        <span class="label">Séance participants</span>
+      </div>
+      <div class="hero-stat">
+        <strong>XIII</strong>
+        <span class="label">Unexplained events</span>
+      </div>
+      <div class="hero-stat">
+        <strong>40</strong>
+        <span class="label">Years since the fountain last flowed</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img src="assets/images/lakeside-cottage.jpg" alt="The Lakeside Manor at dusk, seen from the dock" />
+    <div class="hero-img-meta">
+      <span class="hero-img-caption">Lakeside Manor — photographed from the old dock at the hour of the mist</span>
+      <span class="hero-img-num">01</span>
+    </div>
+  </div>
+
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     TODAY'S CHRONICLES
+═════════════════════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="section-label-row reveal">
+    <span class="label">Today's Chronicles</span>
+    <a href="#" class="see-all mono">View all dispatches →</a>
+  </div>
+</div>
+
+<div style="max-width:1400px;margin:0 auto;padding:0 48px;">
+  <div class="chronicles-grid reveal">
+
+    <!-- MAIN: Enchanted Garden -->
+    <div class="chronicle-main">
+      <div class="img-block">
+        <img src="assets/images/enchanted-garden.jpg" alt="The Enchanted Cliffside Garden at dusk" />
+      </div>
+      <div class="img-label-row" style="padding:12px 36px 0;">
+        <span class="img-title">The Cliffside Garden, Mosshollow Bluff — dusk</span>
+        <span class="img-num">02</span>
+      </div>
+      <div class="chronicle-body">
+        <div class="label" style="color:var(--accent);margin-bottom:10px;">Garden District · Dispatch</div>
+        <h2 class="hed-lg" style="margin-bottom:12px;">The Enchanted Cliffside Garden: Thirteen Lanterns With No Flame.</h2>
+        <p class="dek" style="margin-bottom:18px;">Witnesses describe amber light igniting without source at dusk. The mushrooms, they insist, were pulsing.</p>
+        <div class="body-text">
+          <p>Residents of Mosshollow Bluff awoke to find the cliffside garden ablaze with amber light — yet no torch, no tallow, no gas lamp had been lit by any human hand. The wildflowers, improbably in bloom three weeks past their season, had turned their faces toward the light as though it were the sun.</p>
+          <p>Correspondent E. Ashveil, who reached the bluff before dawn on the third morning of the event, filed a single photograph before her camera ceased to function. That photograph is reproduced above. She noted in her dispatch: "The jar at the base of the post appeared to contain preserved light. Not a candle flame. Light itself."</p>
+        </div>
+        <div class="art-meta">
+          <span class="label">By E. Ashveil · Garden District Bureau</span>
+          <span class="label" style="color:var(--accent);">Section B · Page 3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR: 3 stories, divider style -->
+    <div class="chronicle-sidebar">
+      <div class="sidebar-story reveal reveal-delay-1">
+        <div class="label" style="color:var(--accent);margin-bottom:8px;">Night Bureau</div>
+        <h3 class="hed-sm" style="margin-bottom:8px;">The Black Carriage Crosses the North Gate. Driver Unseen.</h3>
+        <p class="body-text" style="font-size:13px;">Three customs officers. Zero sightings of a driver. An engine that made no sound crossing the cobblestones at the stroke of midnight. The vehicle continued south. No one followed.</p>
+        <div class="art-meta"><span class="label">Night Bureau · Section E</span></div>
+      </div>
+
+      <div class="sidebar-story reveal reveal-delay-2">
+        <div class="label" style="color:var(--accent);margin-bottom:8px;">City Report</div>
+        <h3 class="hed-sm" style="margin-bottom:8px;">The Glass-House Fountain Flows Again After Forty Years.</h3>
+        <p class="body-text" style="font-size:13px;">Bone-dry at eleven in the evening. By five in the morning — two feet of clear water, white water lilies, and ironwork warm to the touch. No maintenance order filed. The Council of Waters advises: do not drink from the basin.</p>
+        <div class="art-meta"><span class="label">City Correspondent · Section C</span></div>
+      </div>
+
+      <div class="sidebar-story reveal reveal-delay-3">
+        <div class="label" style="color:var(--accent);margin-bottom:8px;">Arts &amp; Mysteries</div>
+        <h3 class="hed-sm" style="margin-bottom:8px;">Academy Bust Completes Itself. Student Did Not Finish It.</h3>
+        <p class="body-text" style="font-size:13px;">A first-year student at Crowley Academy returned to find her half-finished portrait bust complete — rendered in a hand she cannot recognise. The academy has checked the security footage. There is none.</p>
+        <div class="art-meta"><span class="label">I. Morrow · Arts Bureau · Section D</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     MANUSCRIPT SPLIT — CROWLEY BOOK FEATURE
+═════════════════════════════════════════════════════════════ -->
+<div style="max-width:1400px;margin:0 auto;padding:0 48px;">
+  <div class="manuscript-split reveal">
+
+    <div class="manuscript-text">
+      <div class="label" style="color:var(--accent);margin-bottom:14px;">Opinion &amp; Analysis · Archive Division</div>
+      <h2 class="hed-xl" style="margin-bottom:18px;">Crowley and the Death of the Black Raven: What the Manuscript Really Says.</h2>
+      <p class="dek" style="margin-bottom:24px;">Our senior archivist has spent three weeks with the text. Her conclusions are not reassuring.</p>
+      <div class="body-text dropcap">
+        <p>The manuscript arrived wrapped in black silk, sealed with purple wax bearing an insignia our most senior archivist could not immediately place. It weighed more than a book of its apparent size should. It smelled of iron.</p>
+        <p style="margin-top:16px;">"Crowley — Cái Chết Của Quạ Đen" — which translates as "The Death of the Black Raven" — is attributed to an author who signs themselves only as Ryu Vang. No such person appears in any provincial registry. The handwriting in the marginal annotations, however, is consistent across three separate exemplars held in our archive — meaning the same hand has been correcting this text for at least sixty years.</p>
+        <p style="margin-top:16px;">What makes the text remarkable is not its prose style. It is the specificity. Dates are given. Locations described in enough detail to be mapped against the current province. A chapter entitled "The Night of the Thirteen Lanterns" describes an event our garden correspondent independently reported this fortnight — six years before her dispatch was filed.</p>
+      </div>
+
+      <div class="pull-quote">
+        <p>"The manuscript does not merely describe events. It anticipates them. Three of the passages we verified had not yet occurred at the time of this printing."</p>
+        <cite>— Senior Archivist D. Crowne, Gazette Archive Division</cite>
+      </div>
+
+      <div class="art-meta">
+        <span class="label">By D. Crowne · Archive Division</span>
+        <span class="label" style="color:var(--accent);">Continued: Section A, Page 2</span>
+      </div>
+    </div>
+
+    <div class="manuscript-image reveal reveal-delay-2">
+      <img src="assets/images/crowley-cover.jpg" alt="The Crowley manuscript — recovered edition" />
+      <div style="padding:14px 20px 20px;background:var(--bg-1);">
+        <div class="img-label-row" style="padding:0;">
+          <span class="img-title">"Crowley — Cái Chết Của Quạ Đen" — recovered edition, Gazette archive</span>
+          <span class="img-num">03</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLARITY MOMENT
+═════════════════════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="clarity-section reveal">
+    <div class="clarity-word">The dispatches.</div>
+    <p class="clarity-sub">A pattern, not coincidence. Something is paying attention to this province in a way it has not been paid attention to before. We are not pretending. We are reporting.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     ARCHIVE GRID
+═════════════════════════════════════════════════════════════ -->
+<div style="max-width:1400px;margin:0 auto;padding:0 48px;">
+  <div class="section-label-row reveal">
+    <span class="label">The Archives</span>
+    <a href="#" class="see-all mono">View full archive →</a>
+  </div>
+
+  <div class="archive-grid reveal">
+
+    <!-- Tall left: Autumn Tree -->
+    <div class="archive-cell tall" style="grid-row: span 2;">
+      <div class="img-block" style="height:100%;">
+        <img src="assets/images/autumn-tree.jpg" alt="The Red Maple Oracle at the rocky waterfront" style="height:100%;min-height:560px;" />
+      </div>
+      <div class="archive-cell-body">
+        <div class="label" style="color:var(--accent);margin-bottom:6px;">Nature &amp; Omens</div>
+        <h3 class="hed-md" style="margin-bottom:8px;">The Autumn Oracle: Why the Red Maple Has Not Shed a Leaf in Forty Days.</h3>
+        <p class="body-text" style="font-size:13px;">The street lamp burns without oil. The tree does not sleep. It watches the road south.</p>
+        <div class="img-label-row">
+          <span class="img-title">The Red Maple, Waterfront Outcrop — forty-first day of retention</span>
+          <span class="img-num">04</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top right: Fountain -->
+    <div class="archive-cell">
+      <div class="img-block">
+        <img src="assets/images/fountain.jpg" alt="The Glass-House Fountain flowing again" />
+      </div>
+      <div class="archive-cell-body">
+        <div class="label" style="color:var(--accent);margin-bottom:6px;">City Report</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Fountain of the Forgotten.</h3>
+        <p class="body-text" style="font-size:12.5px;">Bone-dry at eleven. Water lilies by five.</p>
+        <div class="img-label-row">
+          <span class="img-title">Glass-House Conservatory Fountain — morning after first flow</span>
+          <span class="img-num">05</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom right: Art Studio -->
+    <div class="archive-cell">
+      <div class="img-block">
+        <img src="assets/images/art-studio.jpg" alt="The Haunted Studio, Crowley Academy of Fine Arts" />
+      </div>
+      <div class="archive-cell-body">
+        <div class="label" style="color:var(--accent);margin-bottom:6px;">Arts &amp; Mysteries</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Haunted Studio.</h3>
+        <p class="body-text" style="font-size:12.5px;">Seven canvases. Seven visitors. Zero footage.</p>
+        <div class="img-label-row">
+          <span class="img-title">Second-floor studio, Crowley Academy of Fine Arts</span>
+          <span class="img-num">06</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     FEATURE FULL-BLEED: AUTUMN ORACLE
+═════════════════════════════════════════════════════════════ -->
+<div class="feature-full reveal" style="margin-top:1px;">
+  <img src="assets/images/autumn-tree.jpg" alt="The Red Maple at dusk" />
+  <div class="feature-overlay">
+    <div>
+      <div class="label" style="color:rgba(196,168,106,0.7);margin-bottom:14px;">Field Report · Nature &amp; Omens</div>
+      <h2 class="hed-xl" style="margin-bottom:20px;">The Autumn Oracle speaks its last season.</h2>
+      <p class="dek" style="max-width:48ch;margin-bottom:24px;">Botanical records confirm two prior episodes of retention — both times, the tree shed everything at once, on a single windless night, into the water below. The water turned red for a week.</p>
+      <div class="body-text" style="max-width:50ch;">
+        <p>Provincial botanist Dr. Seara Holst examined the tree on the twelfth day. Her preliminary report noted "no observable signs of disease, drought stress, or unusual hormonal activity" — and then, on page seven, a single handwritten addition: <em style="color:var(--text);">"The tree appears aware of being observed."</em></p>
+        <p style="margin-top:14px;">The village elders, when asked to comment, declined. Separately, they began building on higher ground.</p>
+      </div>
+      <div class="art-meta" style="max-width:500px;margin-top:28px;">
+        <span class="label">By T. Halvane · Waterfront District</span>
+        <span class="label" style="color:var(--warm);">Section D · Page 4</span>
+      </div>
+    </div>
+
+    <div class="pull-quote" style="align-self:center;">
+      <p>"It does not shed. It does not sleep. It watches the road south."</p>
+      <cite>— Dr. Seara Holst, Provincial Botanical Registry</cite>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     DISPATCH STATEMENT
+═════════════════════════════════════════════════════════════ -->
+<div class="dispatch-statement reveal">
+  <div class="wrap">
+    <p class="big-text">Never ignore what you cannot explain.</p>
+    <p class="sub">The Crowley Gazette publishes every dispatch, every account, every anomaly — without redaction, without apology, without pretending we did not notice.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     DISPATCHES LIST
+═════════════════════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="section-label-row reveal">
+    <span class="label">Further Dispatches</span>
+    <a href="#" class="see-all mono">All sections →</a>
+  </div>
+
+  <div class="dispatch-list">
+    <div class="dispatch-row reveal">
+      <div class="d-img">
+        <img src="assets/images/enchanted-garden.jpg" alt="Enchanted Garden" />
+      </div>
+      <div>
+        <div class="d-section">Garden District · Second Edition</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Night the Garden Lit Itself: A Second Look at Mosshollow Bluff.</h3>
+        <p class="body-text" style="font-size:13px;">A follow-up confirms three separate episodes of spontaneous illumination. A jar of what appears to be preserved sunlight was found at the base of the post. Origin unknown.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="label" style="margin-bottom:4px;">Section B · Page 3</div>
+        <div class="label" style="color:var(--accent);">E. Ashveil</div>
+      </div>
+    </div>
+
+    <div class="dispatch-row reveal reveal-delay-1">
+      <div class="d-img">
+        <img src="assets/images/fountain.jpg" alt="The Fountain" />
+      </div>
+      <div>
+        <div class="d-section">City Report · Developing</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">Council of Waters Issues Second Advisory: "Do Not Make Wishes at the Basin."</h3>
+        <p class="body-text" style="font-size:13px;">The first advisory was practical. This one is harder to categorise. The Council's third communiqué, received this morning, contained only a date — six weeks from now — and the word: "prepared."</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="label" style="margin-bottom:4px;">Section C · Page 1</div>
+        <div class="label" style="color:var(--accent);">M. Halvane</div>
+      </div>
+    </div>
+
+    <div class="dispatch-row reveal reveal-delay-2">
+      <div class="d-img">
+        <img src="assets/images/art-studio.jpg" alt="Art Studio" />
+      </div>
+      <div>
+        <div class="d-section">Arts &amp; Mysteries · Follow-up</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Academy's Unseen Artist: Seven Canvases, Seven Identities Still Unknown.</h3>
+        <p class="body-text" style="font-size:13px;">The Provincial Art Authentication Board has received all seven works. Their preliminary statement notes "execution consistent with a single practitioner of exceptional ability." They decline to speculate further in public.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="label" style="margin-bottom:4px;">Section D · Page 3</div>
+        <div class="label" style="color:var(--accent);">I. Morrow</div>
+      </div>
+    </div>
+
+    <div class="dispatch-row reveal reveal-delay-3">
+      <div class="d-img">
+        <img src="assets/images/black-wagon.jpg" alt="The Black Carriage" />
+      </div>
+      <div>
+        <div class="d-section">Night Bureau · Breaking</div>
+        <h3 class="hed-sm" style="margin-bottom:6px;">The Black Carriage: A Second Sighting — This Time, Heading North.</h3>
+        <p class="body-text" style="font-size:13px;">If the first sighting crossed south at midnight, what crossed north at four? A sixth officer — off duty, cycling home — reports the same vehicle, engine silent, moving in the opposite direction. No cargo visible through the windows. The windows appeared to be sealed shut from the inside.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="label" style="margin-bottom:4px;">Section E · Page 1</div>
+        <div class="label" style="color:var(--accent);">Night Bureau</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     BLACK WAGON FULL-BLEED
+═════════════════════════════════════════════════════════════ -->
+<div class="feature-full reveal" style="margin-top:40px;border-top:1px solid var(--border);">
+  <img src="assets/images/black-wagon.jpg" alt="The Black Carriage at the North Gate" />
+  <div class="feature-overlay">
+    <div>
+      <div class="label" style="color:rgba(196,168,106,0.7);margin-bottom:14px;">Night Dispatch · Breaking Report</div>
+      <h2 class="hed-xl" style="margin-bottom:20px;">The Black Carriage has returned.<br/>No one saw it arrive.</h2>
+      <p class="dek" style="max-width:52ch;margin-bottom:24px;">Three customs officers. Zero sightings of a driver. An engine that made no sound crossing cobblestones at the stroke of midnight. The vehicle passed through the checkpoint, acknowledged the inspection lantern, and continued south.</p>
+      <div class="art-meta" style="max-width:480px;">
+        <span class="label">Officers V. Phar, K. Rosen, W. Daleth · Night Bureau</span>
+        <span class="label" style="color:var(--warm);">Section E · Page 1</span>
+      </div>
+    </div>
+    <div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     NOTICES BAND
+═════════════════════════════════════════════════════════════ -->
+<div class="notices-band reveal">
+  <div class="notices-inner">
+    <div class="notice-cell">
+      <div class="notice-tag">Archive Access</div>
+      <p>The Crowley Manuscript archive is open to qualified researchers by appointment. Apply in writing to Archive Division, Section F.</p>
+    </div>
+    <div class="notice-cell">
+      <div class="notice-tag">Fountain Advisory</div>
+      <p>The Council of Waters advises the public not to drink from, bathe in, or make wishes at the Glass-House fountain until further notice.</p>
+    </div>
+    <div class="notice-cell">
+      <div class="notice-tag">Academy Notice</div>
+      <p>All second-floor studio sessions at the Crowley Academy are suspended pending the results of the Authentication Board review.</p>
+    </div>
+    <div class="notice-cell">
+      <div class="notice-tag">Dock Advisory</div>
+      <p>Access to the Lakeside Manor dock is restricted between dusk and dawn by order of the Bureau of Unusual Phenomena.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     REVIEWS — CRITICAL NOTICES
+═════════════════════════════════════════════════════════════ -->
+<div class="wrap">
+  <div class="reviews-section reveal">
+    <h2 class="reviews-heading">Critical Notices.</h2>
+    <div class="reviews-scatter">
+
+      <div class="review-item reveal reveal-delay-1">
+        <div class="review-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="review-text">"An extraordinary piece of unsettling literature. One is never quite certain whether one is reading fiction or prophecy. Ryu Vang writes with the authority of someone who has already seen what they describe."</p>
+        <span class="review-author">— The Hollow Provinces Literary Review</span>
+      </div>
+
+      <div class="review-item reveal reveal-delay-2">
+        <div class="review-stars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="review-text">"I placed the book on my desk before sleeping. By morning it had opened itself to page 147. The page was about this. Do not ask me to explain further. I am giving it five stars because I am afraid not to."</p>
+        <span class="review-author">— Senior Archivist D. Crowne, Gazette Archive</span>
+      </div>
+
+      <div class="review-item reveal reveal-delay-3">
+        <div class="review-stars">
+          <span></span><span></span><span></span><span class="empty"></span><span class="empty"></span>
+        </div>
+        <p class="review-text">"I am a man of science. I have read the manuscript twice. I am no longer certain it is the same book. I am giving it three stars because I refuse to give it five. I suspect it knows this."</p>
+        <span class="review-author">— Prof. E. Halvane, Provincial Academy of Sciences</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     JOIN BANNER
+═════════════════════════════════════════════════════════════ -->
+<div class="join-banner reveal">
+  <div class="join-banner-bg">
+    <img src="assets/images/fountain.jpg" alt="" aria-hidden="true" />
+  </div>
+  <div class="join-inner">
+    <h2>Join the Gazette Archive.</h2>
+    <p>Receive every dispatch, every account, every anomaly — before the provincial authorities decide you shouldn't.</p>
+    <form class="join-form" onsubmit="return false;">
+      <input type="email" placeholder="your.address@province.net" autocomplete="email" />
+      <button type="submit">Subscribe</button>
+    </form>
+    <p style="margin-top:16px;font-size:11px;color:var(--text-3);">One letter per fortnight. No pretending. No redaction.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     FOOTER
+═════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">The Crowley Gazette.</div>
+      <p class="footer-about">An independent chronicle of the Hollow Provinces. Published every fortnight at the dark of the moon. All reports verified by at least one correspondent of sound mind at time of filing.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Sections</h5>
+      <ul>
+        <li><a href="#">A — Chronicles</a></li>
+        <li><a href="#">B — Garden District</a></li>
+        <li><a href="#">C — City Report</a></li>
+        <li><a href="#">D — Arts &amp; Mysteries</a></li>
+        <li><a href="#">E — Night Dispatches</a></li>
+        <li><a href="#">F — Séances &amp; Ritual</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Bureaus</h5>
+      <ul>
+        <li><a href="#">Lakeside Bureau</a></li>
+        <li><a href="#">Garden District</a></li>
+        <li><a href="#">Glass-House Quarter</a></li>
+        <li><a href="#">Waterfront &amp; Bluff</a></li>
+        <li><a href="#">Night Bureau</a></li>
+        <li><a href="#">Archive Division</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Publication</h5>
+      <ul>
+        <li><a href="#">About the Gazette</a></li>
+        <li><a href="#">Subscribe</a></li>
+        <li><a href="#">Back Issues</a></li>
+        <li><a href="#">Submission Guidelines</a></li>
+        <li><a href="#">Contact the Archive</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 The Crowley Gazette. All rights reserved under the Charter of the Black Raven.</p>
+    <p>Vol. I · No. 13 · Raven's Gate, The Hollow Provinces · OMNIA VERITAS</p>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════
+     SCRIPTS
+═════════════════════════════════════════════════════════════ -->
+<script>
+  // Reading progress
+  window.addEventListener('scroll', () => {
+    const el  = document.documentElement;
+    const pct = el.scrollTop / (el.scrollHeight - el.clientHeight);
+    document.getElementById('read-progress').style.width = (pct * 100) + '%';
+  }, { passive: true });
+
+  // Scroll reveal — Intersection Observer, no layout thrash
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Make hero reveal immediately
+  document.querySelectorAll('.hero .reveal').forEach(el => {
+    el.classList.add('visible');
+  });
+</script>
+
+</body>
+</html>
